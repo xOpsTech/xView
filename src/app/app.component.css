@@ -1,0 +1,88 @@
+a, a:hover {
+    color: #047a9c;
+    text-decoration: none;
+}
+
+html {
+    height: 100%;
+}
+
+/* APP IS THE ELEMENT OUR REACT APPLICATION RENDERED INTO */
+#app {
+    height: 100%;
+}
+
+.root-container {
+    height: 100%;
+}
+
+.nm {
+    margin: 0 !important;
+}
+
+.np {
+    padding: 0 !important;
+}
+
+hr {
+    border: 1px solid #e8e8e8;
+    margin-top: 15px 0;
+}
+
+.popover-content {
+    padding: 0 !important;
+}
+
+.app-container {
+    bottom: 0;
+    height: auto;
+    min-height: calc(~100% - 50px);
+    position: relative;
+    width: 100%;
+}
+
+.page-container {
+    background-color: #fff;
+    flex-grow: 1;
+    padding: 25px;
+    height: calc(100vh - 50px);
+}
+
+/* OVERRIDING REACT-BOOTSTRAP COLLAPSIBALE PANNEL PANNEL BODY */
+.panel-body {
+    padding: 0 !important;
+}
+
+//This is only for screen reader supported descriptions
+.screen-readers-only {
+    height: 1px;
+    left: -999px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 768px) {
+    .app-container {
+        min-height: calc(~"100% - 40px");
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .page-container {
+        float: left;
+        width: 100%;
+    }
+
+    .app-container {
+        right: 0;
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    .app-container {
+        display: flex;
+    }
+}

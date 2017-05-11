@@ -1,0 +1,32 @@
+.widget {
+    width: 290px;
+    height: 160px;
+    background: #f0f2ff;
+    padding: 20px;
+    margin: 5px;
+    float: left;
+}
+
+.widget > div:first-child {
+  width: 140px;
+}
+
+.widget > div {
+  float: left;
+}
+.circle {
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+  background: #b50c0c;
+	/* width and height can be anything, as long as they're equal */
+}
+
+.small-circle {
+  display: inline-block;
+	border-radius: 50%;
+	width: 25px;
+	height: 30px;
+  background: #b50c0c;
+	/* width and height can be anything, as long as they're equal */
+}
