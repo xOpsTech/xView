@@ -1,0 +1,17 @@
+<app-alerts-map></app-alerts-map>
+
+<button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
+<p-dataTable #alertsTable [value]="alerts" [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">
+    <p-header>
+      Alerts
+    </p-header>
+    <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search"></p-column>
+    <p-column field="_source.domain" header="Domain" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
+    <p-column field="_source.severity" header="Severity" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
+    <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
+    <p-column field="_source.trigger" header="Trigger" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'400px'}"></p-column>
+    <p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
+    <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
+    <!--<p-column field="color" header="Color"></p-column>-->
+</p-dataTable>
+
