@@ -1,7 +1,8 @@
 <app-alerts-map></app-alerts-map>
 
 <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
-<p-dataTable #alertsTable [value]="alerts" [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">
+<div >
+<p-dataTable #alertsTable [value]="alerts" (onRowSelect)="onRowSelect($event)" selectionMode="single"  [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">
     <p-header>
       Alerts
     </p-header>
@@ -14,4 +15,39 @@
     <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
     <!--<p-column field="color" header="Color"></p-column>-->
 </p-dataTable>
+
+  <div >
+    <p-dialog  [(visible)]="display" showEffect="fade" draggable="false" resizable="false" modal="modal" width="800" responsive="true"  >
+      <p-header class="bccolor">
+        <div class="ui-grid-row">
+        <div class="ui-grid-col-10">{{status}}</div></div>
+        <div class="ui-grid-col-10">{{title}}</div>
+
+      </p-header>
+    <div class="scroll">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad" >
+        <div class="ui-grid-row" *ngFor="let col of cols2">
+          <div class="ui-grid-col-10">
+            <div class="ui-grid-col-4">
+              {{col.head}}
+            </div>
+            <div class="ui-grid-col-8">
+              {{col.val}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+          <button type="button" pButton  class="ui-button-primary" style="border-radius:0;" (click)="display=false" label="No"></button>
+          <button type="button" pButton  class="ui-button-primary" style="border-radius:0;" (click)="display=false" label="Yes"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
+
+  </div>
+
+</div>
+
 

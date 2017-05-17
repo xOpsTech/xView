@@ -5,7 +5,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
-import { ButtonModule, PanelModule, InputTextModule, CheckboxModule,
+import { ButtonModule, PanelModule, InputTextModule, CheckboxModule,DialogModule,
   GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
 
 import { ChartsModule } from 'ng2-charts';
@@ -22,6 +22,9 @@ import { TtfbLoadtimeComponent } from './dashboard/ttfb-loadtime/ttfb-loadtime.c
 import { AlertsComponent } from './alerts/alerts.component';
 import { AlertsMapComponent } from './alerts/alerts-map/alerts-map.component';
 import { HomeComponent } from './home/home.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    DialogModule,
     RouterModule.forRoot([
       {
         path: 'home',
