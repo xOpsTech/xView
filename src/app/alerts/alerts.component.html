@@ -1,5 +1,3 @@
-<app-alerts-map></app-alerts-map>
-
 <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
 <div >
 <p-dataTable #alertsTable [value]="alerts" (onRowSelect)="onRowSelect($event)" selectionMode="single"  [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">
@@ -49,5 +47,3 @@
   </div>
 
 </div>
-
-
