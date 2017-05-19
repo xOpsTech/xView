@@ -22,6 +22,7 @@ import { TtfbLoadtimeComponent } from './dashboard/ttfb-loadtime/ttfb-loadtime.c
 import { AlertsComponent } from './alerts/alerts.component';
 import { AlertsMapComponent } from './alerts/alerts-map/alerts-map.component';
 import { HomeComponent } from './home/home.component';
+import { MapComponent } from './map/map.component';
 
 
 
@@ -39,7 +40,8 @@ import { HomeComponent } from './home/home.component';
     TtfbLoadtimeComponent,
     AlertsComponent,
     AlertsMapComponent,
-    HomeComponent
+    HomeComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,10 @@ import { HomeComponent } from './home/home.component';
       {
         path: 'dashboard',
         component: DashboardComponent
+      },
+      {
+        path: 'map',
+        component: MapComponent
       }
     ]),
     JsonpModule,
