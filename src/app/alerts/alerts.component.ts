@@ -21,6 +21,7 @@ export class AlertsComponent implements OnInit {
   severity: any;
   cols2: any;
   status: any;
+  private colorval: string;
   constructor(private alertsService: AlertService) { }
 
 
@@ -42,6 +43,7 @@ export class AlertsComponent implements OnInit {
     this.title  = event.data._source.title;
 
     this.cols2 = [
+      {head: 'ID', val: event.data._source.id},
       {head: 'Domain', val: event.data._source.domain},
       {head: 'Producer', val: event.data._source.producer},
       {head: 'Trigger', val: event.data._source.trigger},
@@ -56,12 +58,20 @@ export class AlertsComponent implements OnInit {
       {head: 'State Trigger Id', val: event.data._source.stateTriggerId}
     ];
 
-    this.cols3 = [
-      {color: '#FF4500', severity: '1'},
-      {color: '#008000', severity: '2'},
-      {color: '#FF0000', severity: '3'},
-      {color: '#FFFF00', severity: '4'},
-    ];
+    if ( event.data._source.severity =='1' ){
+      this.colorval = "red"
+    }
+    else if ( event.data._source.severity =='2' ){
+      this.colorval = "orange"
+    }
+    else if (event.data._source.severity=='3' ){
+      this.colorval = "orange"
+    }
+    else if (event.data._source.severity=='4' ){
+      this.colorval = "yellow"
+    }
+
+
   }
 
 }

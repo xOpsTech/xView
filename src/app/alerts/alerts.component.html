@@ -4,7 +4,8 @@
     <p-header>
       Alerts
     </p-header>
-    <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search"></p-column>
+  <p-column field="_source.id" header="ID" [filter]="true" filterPlaceholder="Search"></p-column>
+    <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search" editable="true" ></p-column>
     <p-column field="_source.domain" header="Domain" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
     <p-column field="_source.severity" header="Severity" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
     <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
@@ -15,14 +16,54 @@
 </p-dataTable>
 
   <div >
-    <p-dialog  [(visible)]="display" showEffect="fade" draggable="false" resizable="false" modal="modal" width="800" responsive="true"  >
-      <p-header class="bccolor">
+    <p-dialog  [(visible)]="display" closable="true" draggable="false" resizable="false" modal="modal" width="900" responsive="true"  >
+     <p-header  closable="true" [style.background] = "colorval" >
         <div class="ui-grid-row">
-        <div class="ui-grid-col-10">{{status}}</div></div>
-        <div class="ui-grid-col-10">{{title}}</div>
+          <div class="ui-grid-col-1"><i class="fa fa-square" [style.color] ="colorval" style="font-size:50px"></i></div>
+          <div class="ui-grid-col-11">
+           <div class="ui-grid-row">
+             <div class="ui-grid-col-10">{{status}}</div>
+            <div class="ui-grid-col-10">{{title}}</div>
+          </div>
+          </div>
+        </div>
+  </p-header>
+    <!--<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">-->
+      <!--<div class="ui-dialog-titlebar ui-widget-header  ui-corner-top">-->
+      <div style="padding: 1em; border-bottom: 1px solid #e5e5e5;">
+      <div class="ui-grid-row"  >
+        <div class="ui-grid-col-8" >
+          Status :
+        </div>
+        <div class="ui-grid-col-4" >
+          Assigned To :
+        </div>
+      </div>
+        <div class="ui-grid-row" >
+        <div class="ui-grid-col-8" >
+          <div class="ui-grid-col-2" >
+          <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Assess"></button>
+          </div>
+          <div class="ui-grid-col-2">
+            <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Incident"></button>
+          </div>
+          <div class="ui-grid-col-2">
+            <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Invalid"></button>
+          </div>
+          <div class="ui-grid-col-2">
+            <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Ignore"></button>
+          </div>
+          <div class="ui-grid-col-2" >
+            <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Close"></button>
+          </div>
 
-      </p-header>
-    <div class="scroll">
+      </div>
+          <div class="ui-grid-col-4" >
+            <input type="text" pInputText />
+            <button pButton type="button" icon="fa-search" iconPos="left"></button>
+            </div>
+      </div>
+     </div>
       <div class="ui-grid ui-grid-responsive ui-grid-pad" >
         <div class="ui-grid-row" *ngFor="let col of cols2">
           <div class="ui-grid-col-10">
@@ -35,11 +76,10 @@
           </div>
         </div>
       </div>
-    </div>
+
       <p-footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-          <button type="button" pButton  class="ui-button-primary" style="border-radius:0;" (click)="display=false" label="No"></button>
-          <button type="button" pButton  class="ui-button-primary" style="border-radius:0;" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Email"></button>
         </div>
       </p-footer>
     </p-dialog>
