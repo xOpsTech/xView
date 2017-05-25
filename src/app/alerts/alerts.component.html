@@ -1,3 +1,94 @@
+<link href="./assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="./assets/css/simple-line-icons.css" rel="stylesheet">
+
+<!-- Main styles for this application -->
+<link href="./assets/css/style.css" rel="stylesheet">
+
+<div class="row">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-inverse card-primary">
+      <div class="card-block pb-0">
+        <div class="btn-group float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <h4 class="mb-0">9.823</h4>
+        <p>Sevirity 2</p>
+      </div>
+      <div class="chart-wrapper px-3" style="height:70px;">
+        <canvas id="card-chart1" class="chart chart-line" height="70"></canvas>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-inverse card-success">
+      <div class="card-block pb-0">
+        <div class="btn-group float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <h4 class="mb-0">9.823</h4>
+        <p>Sevirity 2</p>
+      </div>
+      <div class="chart-wrapper px-3" style="height:70px;">
+        <canvas id="card-chart1" class="chart chart-line" height="70"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-inverse card-warning">
+      <div class="card-block pb-0">
+        <div class="btn-group float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <h4 class="mb-0">9.823</h4>
+        <p>Sevirity 3</p>
+      </div>
+      <div class="chart-wrapper">
+        <div class="chart-wrapper" style="height:70px;">
+          <canvas id="card-chart3" class="chart chart-line" height="70"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-inverse card-danger">
+      <div class="card-block pb-0">
+        <div class="btn-group float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <h4 class="mb-0">9.823</h4>
+        <p>Sevirity 4</p>
+      </div>
+      <div class="chart-wrapper px-3" style="height:70px;">
+        <canvas id="card-chart4" class="chart chart-bar" height="70"></canvas>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+</div>
 <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
 <div >
 <p-dataTable #alertsTable [value]="alerts" (onRowSelect)="onRowSelect($event)" selectionMode="single"  [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">

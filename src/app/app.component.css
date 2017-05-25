@@ -45,10 +45,10 @@ hr {
 }
 
 .page-container {
-    background-color: #fff;
+    background-color: #060d23;
     flex-grow: 1;
     padding: 25px;
-    height: 100vh;
+    height: 200vh;
 }
 
 /* OVERRIDING REACT-BOOTSTRAP COLLAPSIBALE PANNEL PANNEL BODY */
@@ -56,7 +56,6 @@ hr {
     padding: 0 !important;
 }
 
-//This is only for screen reader supported descriptions
 .screen-readers-only {
     height: 1px;
     left: -999px;
@@ -107,9 +106,4 @@ body {
     margin: auto;
 }
 
-.card {
-    background-color: #FFFFFF;
-    border-radius: 4px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-}
+

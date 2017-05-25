@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-
-import { ButtonModule, PanelModule, InputTextModule, CheckboxModule,DialogModule,
+import { AmChartsModule } from '@amcharts/amcharts3-angular';
+import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
   GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
 
 import { ChartsModule } from 'ng2-charts';
@@ -49,6 +49,7 @@ import { MapComponent } from './map/map.component';
     ReactiveFormsModule,
     HttpModule,
     DialogModule,
+    AmChartsModule,
     RouterModule.forRoot([
       {
         path: 'home',
@@ -65,7 +66,8 @@ import { MapComponent } from './map/map.component';
       {
         path: 'map',
         component: MapComponent
-      }
+      },
+
     ]),
     JsonpModule,
     BrowserAnimationsModule,
