@@ -9,6 +9,7 @@ import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModul
   GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
 
 import { ChartsModule } from 'ng2-charts';
+import { AsideToggleDirective } from '../shared/aside.directive';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -23,9 +24,9 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { AlertsMapComponent } from './alerts/alerts-map/alerts-map.component';
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
-
-
-
+import { IncidentsComponent } from './incidents/incidents.component';
+import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
+import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,11 @@ import { MapComponent } from './map/map.component';
     AlertsComponent,
     AlertsMapComponent,
     HomeComponent,
-    MapComponent
+    MapComponent,
+    IncidentsComponent,
+    SIDEBAR_TOGGLE_DIRECTIVES,
+    AsideToggleDirective,
+    NAV_DROPDOWN_DIRECTIVES
   ],
   imports: [
     BrowserModule,
@@ -66,6 +71,10 @@ import { MapComponent } from './map/map.component';
       {
         path: 'map',
         component: MapComponent
+      },
+      {
+        path: 'incidents',
+        component: IncidentsComponent
       },
 
     ]),

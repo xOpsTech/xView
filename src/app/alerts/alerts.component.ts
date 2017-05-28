@@ -9,6 +9,7 @@ import { AlertService } from './alert.service';
   providers: [AlertService]
 })
 export class AlertsComponent implements OnInit {
+  val: any = "nav-link";
   cols3: { color: string; severity: string; }[];
   title: any;
   storedTimestamp: any;
@@ -33,6 +34,7 @@ export class AlertsComponent implements OnInit {
 
     this.alertsService.getALertsMapped().then(alerts => {
       this.alerts = alerts;
+      
     });
     // this.getAlertData();
   }

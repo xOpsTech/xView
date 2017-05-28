@@ -1,30 +1,50 @@
-<link href="./assets/css/font-awesome.min.css" rel="stylesheet">
-<link href="./assets/css/simple-line-icons.css" rel="stylesheet">
-
-<!-- Main styles for this application -->
-<link href="./assets/css/style.css" rel="stylesheet">
+<link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="../../assets/css/simple-line-icons.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
 <div class="sidebar">
   <nav class="sidebar-nav">
-    <ul class="nav">
+    <ul class="nav" id="nav">
       <li class="nav-item">
         <a class="nav-link" href="index.html"><i class="fa fa-briefcase"></i> Business insight <span class="badge badge-info"></span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="index.html"><i class="fa fa-cogs "></i> Tech insight <span class="badge badge-info"></span></a>
+      <li class="nav-item nav-dropdown" routerLinkActive="open">
+        <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-cogs "></i> Tech Insights</a>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/components/buttons']"><i class="fa fa-cloud"></i> Cloud</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/components/social-buttons']"><i class="fa fa-server"></i> Server</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/components/cards']"><i class="fa fa-sitemap "></i> Network</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/components/forms']"><i class="fa fa-database"></i> Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/components/modals']"><i class="fa fa-archive"></i> Storage</a>
+          </li>
+
+        </ul>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="index.html"><i class="fa fa-bar-chart"></i> Live graphs <span class="badge badge-info"></span></a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard"><i class="fa fa-tachometer "></i>Custom dashboard<span class="badge badge-info"></span></a>
+        <a class="nav-link " href="/dashboard"><i class="fa fa-tachometer "></i>Custom dashboard<span class="badge badge-info"></span></a>
       </li>
       <li class="nav-item">
       <a class="nav-link" href="/alert"><i class="fa fa-bell "></i> Alert management<span class="badge badge-info"></span></a>
     </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard"><i class="fa fa-bolt "></i>Incident dashboard<span class="badge badge-info"></span></a>
+        <a class="nav-link" href="/incidents"><i class="fa fa-bolt "></i>Incident dashboard<span class="badge badge-info"></span></a>
       </li>
 
     </ul>
   </nav>
+
 </div>
+
+

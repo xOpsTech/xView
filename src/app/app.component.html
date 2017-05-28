@@ -1,10 +1,11 @@
-<body class="row-fluid">
   <app-header></app-header>
-  <div class="app-container">
-      <app-leftnav></app-leftnav>
-      <div class="page-container">
-          <router-outlet></router-outlet>
-      </div>
+  <div class="app-body">
+     <app-leftnav></app-leftnav>
+    <main class="main">
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
+    </div>
+
+    </main>
   </div>
 
-</body>
