@@ -1,11 +1,17 @@
 <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
 <link href="../../assets/css/simple-line-icons.css" rel="stylesheet">
-<link href="../../assets/css/style.css" rel="stylesheet">
+
 <div class="sidebar">
   <nav class="sidebar-nav">
     <ul class="nav" id="nav">
-      <li class="nav-item">
-        <a class="nav-link" href="index.html"><i class="fa fa-briefcase"></i> Business insight <span class="badge badge-info"></span></a>
+      <li class="nav-item nav-dropdown" routerLinkActive="open">
+        <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-cogs "></i> Business Insights</a>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"  href="/incident"><i class="fa fa-cloud"></i> Incident</a>
+          </li>
+
+        </ul>
       </li>
       <li class="nav-item nav-dropdown" routerLinkActive="open">
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-cogs "></i> Tech Insights</a>
@@ -38,10 +44,7 @@
       <li class="nav-item">
       <a class="nav-link" href="/alert"><i class="fa fa-bell "></i> Alert management<span class="badge badge-info"></span></a>
     </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/incidents"><i class="fa fa-bolt "></i>Incident dashboard<span class="badge badge-info"></span></a>
-      </li>
-
+    
     </ul>
   </nav>
 

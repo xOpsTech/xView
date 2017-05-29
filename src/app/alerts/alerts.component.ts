@@ -24,7 +24,21 @@ export class AlertsComponent implements OnInit {
   status: any;
   private colorval: string;
   constructor(private alertsService: AlertService) { }
+  text: string;
 
+  disabled: boolean = true;
+  vale : string = "Edit";
+  toggleDisabled() {
+    this.disabled = !this.disabled;
+   if(this.disabled == true)
+   {
+     this.vale ="Edit";
+   }
+   else {
+     this.vale ="Save";
+   }
+
+  }
 
   showDialog() {
     this.display = true;
@@ -34,7 +48,7 @@ export class AlertsComponent implements OnInit {
 
     this.alertsService.getALertsMapped().then(alerts => {
       this.alerts = alerts;
-      
+
     });
     // this.getAlertData();
   }

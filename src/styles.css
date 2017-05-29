@@ -11,10 +11,7 @@ html {
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; }
-#chartdiv {
-  width: 100%;
-  height: 40%;
-}
+
 body {
   margin: 0; }
 

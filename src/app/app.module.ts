@@ -24,9 +24,11 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { AlertsMapComponent } from './alerts/alerts-map/alerts-map.component';
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
-import { IncidentsComponent } from './incidents/incidents.component';
+import { IncidentComponent } from './business-insights/incident/incident.component';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
+import { BusinessInsightsComponent } from './business-insights/business-insights.component';
+
 
 @NgModule({
   declarations: [
@@ -43,10 +45,12 @@ import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
     AlertsMapComponent,
     HomeComponent,
     MapComponent,
-    IncidentsComponent,
+
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,
-    NAV_DROPDOWN_DIRECTIVES
+    NAV_DROPDOWN_DIRECTIVES,
+    BusinessInsightsComponent,
+    IncidentComponent
   ],
   imports: [
     BrowserModule,
@@ -73,8 +77,8 @@ import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
         component: MapComponent
       },
       {
-        path: 'incidents',
-        component: IncidentsComponent
+        path: 'incident',
+        component: IncidentComponent
       },
 
     ]),

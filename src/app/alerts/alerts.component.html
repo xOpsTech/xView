@@ -2,7 +2,7 @@
 <link href="../../assets/css/simple-line-icons.css" rel="stylesheet">
 
 <!-- Main styles for this application -->
-<link href="../../assets/css/style.css" rel="stylesheet">
+
 <div class="animated fadeIn">
 <div class="row">
   <div class="col-sm-6 col-lg-3">
@@ -156,20 +156,25 @@
       </div>
      </div>
       <div class="ui-grid ui-grid-responsive ui-grid-pad" >
+        <div id="" style="overflow-y: scroll; height:400px;">
         <div class="ui-grid-row" *ngFor="let col of cols2">
+
           <div class="ui-grid-col-10">
+
             <div class="ui-grid-col-4">
               {{col.head}}
             </div>
             <div class="ui-grid-col-8">
-              {{col.val}}
+              <input style="opacity: .85;" type="text" pInputText [disabled]="disabled"  value="{{col.val}}" pInputText/>
             </div>
+          </div>
           </div>
         </div>
       </div>
 
       <p-footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+          <button type="button" (click)="toggleDisabled()" pButton label={{vale}}></button>
           <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Email"></button>
         </div>
       </p-footer>
