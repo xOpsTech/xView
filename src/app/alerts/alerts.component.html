@@ -1,10 +1,102 @@
+<link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="../../assets/css/simple-line-icons.css" rel="stylesheet">
+
+<!-- Main styles for this application -->
+
+<div class="animated fadeIn">
+<div class="row">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-inverse card-primary">
+      <div class="card-block pb-0">
+        <div class="btn-group float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <h4 class="mb-0">0</h4>
+        <p>Severity 1</p>
+      </div>
+      <div class="chart-wrapper px-3" style="height:70px;">
+        <canvas id="card-chart1" class="chart chart-line" height="70"></canvas>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-inverse card-success">
+      <div class="card-block pb-0">
+        <div class="btn-group float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <h4 class="mb-0">0</h4>
+        <p>Severity 2</p>
+      </div>
+      <div class="chart-wrapper px-3" style="height:70px;">
+        <canvas id="card-chart1" class="chart chart-line" height="70"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-inverse card-warning">
+      <div class="card-block pb-0">
+        <div class="btn-group float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <h4 class="mb-0">11</h4>
+        <p>Severity 3</p>
+      </div>
+      <div class="chart-wrapper">
+        <div class="chart-wrapper" style="height:70px;">
+          <canvas id="card-chart3" class="chart chart-line" height="70"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-inverse card-danger">
+      <div class="card-block pb-0">
+        <div class="btn-group float-right">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <h4 class="mb-0">14</h4>
+        <p>Severity 4</p>
+      </div>
+      <div class="chart-wrapper px-3" style="height:70px;">
+        <canvas id="card-chart4" class="chart chart-bar" height="70"></canvas>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+</div>
 <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
 <div >
 <p-dataTable #alertsTable [value]="alerts" (onRowSelect)="onRowSelect($event)" selectionMode="single"  [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">
     <p-header>
       Alerts
     </p-header>
-    <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search"></p-column>
+  <p-column field="_source.id" header="ID" [filter]="true" filterPlaceholder="Search"></p-column>
+    <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search" editable="true" ></p-column>
     <p-column field="_source.domain" header="Domain" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
     <p-column field="_source.severity" header="Severity" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
     <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
@@ -15,31 +107,75 @@
 </p-dataTable>
 
   <div >
-    <p-dialog  [(visible)]="display" showEffect="fade" draggable="false" resizable="false" modal="modal" width="800" responsive="true"  >
-      <p-header class="bccolor">
+    <p-dialog  [(visible)]="display" closable="true" draggable="false" resizable="false" modal="modal" width="900" responsive="true"  >
+     <p-header  closable="true" [style.background] = "colorval" >
         <div class="ui-grid-row">
-        <div class="ui-grid-col-10">{{status}}</div></div>
-        <div class="ui-grid-col-10">{{title}}</div>
+          <div class="ui-grid-col-1"><i class="fa fa-square" [style.color] ="colorval" style="font-size:50px"></i></div>
+          <div class="ui-grid-col-11">
+           <div class="ui-grid-row">
+             <div class="ui-grid-col-10">{{status}}</div>
+            <div class="ui-grid-col-10">{{title}}</div>
+          </div>
+          </div>
+        </div>
+  </p-header>
+    <!--<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">-->
+      <!--<div class="ui-dialog-titlebar ui-widget-header  ui-corner-top">-->
+      <div style="padding: 1em; border-bottom: 1px solid #e5e5e5;">
+      <div class="ui-grid-row"  >
+        <div class="ui-grid-col-8" >
+          Status :
+        </div>
+        <div class="ui-grid-col-4" >
+          Assigned To :
+        </div>
+      </div>
+        <div class="ui-grid-row" >
+        <div class="ui-grid-col-8" >
+          <div class="ui-grid-col-2" >
+          <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Assess"></button>
+          </div>
+          <div class="ui-grid-col-2">
+            <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Incident"></button>
+          </div>
+          <div class="ui-grid-col-2">
+            <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Invalid"></button>
+          </div>
+          <div class="ui-grid-col-2">
+            <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Ignore"></button>
+          </div>
+          <div class="ui-grid-col-2" >
+            <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Close"></button>
+          </div>
 
-      </p-header>
-    <div class="scroll">
+      </div>
+          <div class="ui-grid-col-4" >
+            <input type="text" pInputText />
+            <button pButton type="button" icon="fa-search" iconPos="left"></button>
+            </div>
+      </div>
+     </div>
       <div class="ui-grid ui-grid-responsive ui-grid-pad" >
+        <div id="" style="overflow-y: scroll; height:400px;">
         <div class="ui-grid-row" *ngFor="let col of cols2">
+
           <div class="ui-grid-col-10">
+
             <div class="ui-grid-col-4">
               {{col.head}}
             </div>
             <div class="ui-grid-col-8">
-              {{col.val}}
+              <input style="opacity: .85;" type="text" pInputText [disabled]="disabled"  value="{{col.val}}" pInputText/>
             </div>
+          </div>
           </div>
         </div>
       </div>
-    </div>
+
       <p-footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-          <button type="button" pButton  class="ui-button-primary" style="border-radius:0;" (click)="display=false" label="No"></button>
-          <button type="button" pButton  class="ui-button-primary" style="border-radius:0;" (click)="display=false" label="Yes"></button>
+          <button type="button" (click)="toggleDisabled()" pButton label={{vale}}></button>
+          <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Email"></button>
         </div>
       </p-footer>
     </p-dialog>
@@ -47,3 +183,5 @@
   </div>
 
 </div>
+</div>
+

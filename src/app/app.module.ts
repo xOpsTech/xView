@@ -4,11 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-
-import { ButtonModule, PanelModule, InputTextModule, CheckboxModule,DialogModule,
+import { AmChartsModule } from '@amcharts/amcharts3-angular';
+import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
   GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
 
 import { ChartsModule } from 'ng2-charts';
+import { AsideToggleDirective } from '../shared/aside.directive';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -23,8 +24,10 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { AlertsMapComponent } from './alerts/alerts-map/alerts-map.component';
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
-
-
+import { IncidentComponent } from './business-insights/incident/incident.component';
+import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
+import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
+import { BusinessInsightsComponent } from './business-insights/business-insights.component';
 
 
 @NgModule({
@@ -41,7 +44,13 @@ import { MapComponent } from './map/map.component';
     AlertsComponent,
     AlertsMapComponent,
     HomeComponent,
-    MapComponent
+    MapComponent,
+
+    SIDEBAR_TOGGLE_DIRECTIVES,
+    AsideToggleDirective,
+    NAV_DROPDOWN_DIRECTIVES,
+    BusinessInsightsComponent,
+    IncidentComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +58,7 @@ import { MapComponent } from './map/map.component';
     ReactiveFormsModule,
     HttpModule,
     DialogModule,
+    AmChartsModule,
     RouterModule.forRoot([
       {
         path: 'home',
@@ -65,7 +75,12 @@ import { MapComponent } from './map/map.component';
       {
         path: 'map',
         component: MapComponent
-      }
+      },
+      {
+        path: 'incident',
+        component: IncidentComponent
+      },
+
     ]),
     JsonpModule,
     BrowserAnimationsModule,

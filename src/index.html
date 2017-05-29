@@ -7,61 +7,24 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/primeng@2.0.0/resources/primeng.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/primeng@2.0.0/resources/themes/bootstrap/theme.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+
 </head>
-<body>
-<app-root>Loading...</app-root>
-</body>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 
-
+<script src="https://unpkg.com/primeng@2.0.0/primeng.js"></script>
 <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
 <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-<script>
-  var targetSVG  = 'M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z';
-  var map = AmCharts.makeChart( "chartdiv", {
-    "type": "map",
-    "theme": "light",
-    "projection": "winkel3",
 
-    "imagesSettings": {
-      "rollOverColor": "#eff1f1",
-      "rollOverScale": 1,
-      "selectedScale": 1,
-      "selectedColor": "#089282",
-      "color": "#13564e"
-    },
+<app-root>
+  <div style=" color:white;top:0;left:0;right:0;bottom:0;margin:auto;" > <i class="fa fa-cog fa-spin fa-3x fa-fw" ></i></div>
 
-    "dataProvider": {
-      "map": "worldLow",
-      "zoomLevel": 1,
-      "zoomLongitude": 7,
-      "zoomLatitude": 52,
-      "images": [ {
-        "latitude": 50.448,
-        "longitude":3.819,
-        "svgPath": targetSVG,
-        "width": 32,
-        "height": 32,
-        "label": "europe-west1"
-      }, {
-        "latitude": 45.595,
-        "longitude": -121.179,
-        "svgPath":targetSVG,
-        "width": 32,
-        "height": 32,
-        "label": "us-west1"
-      }
-      ]
-    },
+</app-root>
+</body>
 
-    "areasSettings": {
-      "outlineThickness": 0.6,
-      "autoZoom": true
-    },
 
-    "export": {
-      "enabled": true
-    }
-  } );
-</script>
 </html>
