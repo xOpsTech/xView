@@ -6,6 +6,12 @@
  * @license MIT
  */
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+.navbar-fixed-bottom, .navbar-fixed-top, body.navbar-fixed header.navbar {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;

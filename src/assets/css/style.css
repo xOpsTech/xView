@@ -7332,7 +7332,7 @@ base-chart.chart {
     padding-left: 7.5px; }
 
 .main .container-fluid {
-  padding: 0 30px; }
+  padding: 6% }
 
 .input-group-addon,
 .input-group-btn {
@@ -7536,7 +7536,7 @@ base-chart.chart {
   border: 0; }
 
 .app-header.navbar {
-  position: relative;
+  position: fixed;
   flex-direction: row;
   height: 55px;
   margin: 0;

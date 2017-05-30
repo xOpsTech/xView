@@ -7,10 +7,9 @@ import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
   GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
-
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
-
+import { GoogleSignInComponent} from 'angular-google-signin';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LeftnavComponent } from './leftnav/leftnav.component';
@@ -28,6 +27,7 @@ import { IncidentComponent } from './business-insights/incident/incident.compone
 import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 import { BusinessInsightsComponent } from './business-insights/business-insights.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -45,12 +45,14 @@ import { BusinessInsightsComponent } from './business-insights/business-insights
     AlertsMapComponent,
     HomeComponent,
     MapComponent,
-
+    GoogleSignInComponent,
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,
     NAV_DROPDOWN_DIRECTIVES,
     BusinessInsightsComponent,
-    IncidentComponent
+    IncidentComponent,
+
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,12 @@ import { BusinessInsightsComponent } from './business-insights/business-insights
         path: 'incident',
         component: IncidentComponent
       },
+
+      {
+        path: 'settings',
+        component: SettingsComponent
+
+      }
 
     ]),
     JsonpModule,

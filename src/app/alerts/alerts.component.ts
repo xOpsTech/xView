@@ -9,12 +9,14 @@ import { AlertService } from './alert.service';
   providers: [AlertService]
 })
 export class AlertsComponent implements OnInit {
+
+  postval: { _id: string};
   val: any = "nav-link";
   cols3: { color: string; severity: string; }[];
   title: any;
   storedTimestamp: any;
   raisedLocalTimestamp: any;
-
+  id :any;
   alerts: Alert[] = [];
   display: boolean = false;
 
@@ -23,7 +25,10 @@ export class AlertsComponent implements OnInit {
   cols2: any;
   status: any;
   private colorval: string;
-  constructor(private alertsService: AlertService) { }
+  constructor(private alertsService: AlertService) {
+
+
+  }
   text: string;
 
   disabled: boolean = true;
@@ -44,13 +49,15 @@ export class AlertsComponent implements OnInit {
     this.display = true;
   }
 
+
+
   ngOnInit() {
 
     this.alertsService.getALertsMapped().then(alerts => {
       this.alerts = alerts;
+});
 
-    });
-    // this.getAlertData();
+
   }
 
   onRowSelect(event) {
@@ -88,6 +95,16 @@ export class AlertsComponent implements OnInit {
     }
 
 
+  }
+
+  onclickAsses()
+  {
+
+       this.alertsService.createService('http://35.184.66.182:4000/test/alerts', this.postval)
+      .subscribe(
+        result => console.log(result)
+
+      );
   }
 
 }
