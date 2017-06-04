@@ -76,3 +76,17 @@ app-root {
 
 .sidebar-fixed .main, .sidebar-fixed .app-footer {
   margin-left: 200px; }
+
+.sidebar-fixed .sidebar .sidebar-nav {
+  height: calc(100vh - 55px); }
+
+.sidebar-fixed.sidebar-hidden .main, .sidebar-fixed.sidebar-hidden .app-footer {
+  margin-left: 0; }
+
+.app-header,
+.app-footer,
+.sidebar,
+.main,
+.aside-menu {
+  transition: margin-left 0.25s, margin-right 0.25s, width 0.25s, flex 0.25s; }
+

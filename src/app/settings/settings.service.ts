@@ -14,7 +14,7 @@ export class SettingsService {
   }
 
   UsersettingsMapped() {
-    return this.http.get('http://localhost:3000/users')
+    return this.http.get('http://localhost:3000/api/user')
       .toPromise()
       .then(res => {
           var responseJson = res.json();
