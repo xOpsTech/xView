@@ -102,7 +102,9 @@ import { UserService } from './user.service';
     SharedModule,
     GMapModule
   ],
- providers: [UserService],
+
+  providers: [UserService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

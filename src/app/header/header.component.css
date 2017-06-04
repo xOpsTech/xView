@@ -6,12 +6,21 @@
  * @license MIT
  */
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+
 .navbar-fixed-bottom, .navbar-fixed-top, body.navbar-fixed header.navbar {
   position: fixed;
   right: 0;
   left: 0;
   z-index: 1030;
 }
+
+.img-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #263238;
+}
+
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
