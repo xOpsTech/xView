@@ -28,7 +28,7 @@ import { IncidentComponent } from './business-insights/incident/incident.compone
 import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 import { BusinessInsightsComponent } from './business-insights/business-insights.component';
-
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
@@ -94,7 +94,7 @@ import { BusinessInsightsComponent } from './business-insights/business-insights
     SharedModule,
     GMapModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

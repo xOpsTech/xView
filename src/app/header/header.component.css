@@ -6,6 +6,13 @@
  * @license MIT
  */
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+.img-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #263238;
+}
+
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
