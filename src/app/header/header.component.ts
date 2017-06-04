@@ -7,13 +7,20 @@ import { UserService } from './../user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  user = {};
+  user = {
+    name: "",
+    picture: ""
+  };
   constructor(private userService:UserService) {
 
   }
 
   ngOnInit() {
-      this.user = this.userService.getUser();
+      console.log(this.user);
+      this.userService.getUserData().subscribe(res => {
+        this.user = res;
+      });
+      console.log(this.user);
   }
 
 }

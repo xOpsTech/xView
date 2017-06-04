@@ -1,21 +1,33 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs';
 
 @Injectable()
 export class UserService {
-  user = {};
+  private getUserUrl = "/api/user";
+  user = null;
 
-  constructor() {
-    this.user = {
-      "id": "104276062754647800930",
-      "token": "ya29.GltUBGyaLFX20jY0aG6zJHlgb7IM--i2RxLEkyFiuzRDFRtMogWRW4K7UoTkprjCN0y-l8GUDOLzOG3EbIgvpR3YDnbfXBXQrEPuHREgx96soKBZk0hzwhlJE4Hl",
-      "name": "Shashith Darshana",
-      "picture": "https://lh3.googleusercontent.com/-kZ1z9OMkfpk/AAAAAAAAAAI/AAAAAAAAA-I/Wi6X5WTqd9s/photo.jpg?sz=50",
-      "email": "shashithd@gmail.com",
-      "_id": "5925ee83d83c7f7502bfa908"
-    }
+  constructor(private http:Http) {
+    console.log(this.getUserUrl);
+    //this.user = this.getUserData();
+  }
+
+  getUserData() {
+      return this.http.get(this.getUserUrl)
+                  .map((res:Response) => res.json())
   }
 
   getUser() {
-    return this.user;
+    console.log(this.user);
+    if (this.user !== null) {
+      return this.user;
+    } else {
+      this.getUserData().subscribe(res => {
+        this.user = res;
+        console.log(this.user);
+        return this.user;
+      });
+    }
   }
 }
