@@ -9,55 +9,27 @@ import { AlertService } from './alert.service';
   providers: [AlertService]
 })
 export class AlertsComponent implements OnInit {
-
-  postval: { _id: string};
-  val: any = "nav-link";
-  cols3: { color: string; severity: string; }[];
+  alert_put_values: { _id: string};
   title: any;
-  storedTimestamp: any;
-  raisedLocalTimestamp: any;
-  id :any;
   alerts: Alert[] = [];
   display: boolean = false;
-
-  domain: any[];
-  severity: any;
   cols2: any;
   status: any;
   private colorval: string;
   constructor(private alertsService: AlertService) {
-
-
   }
-  text: string;
 
   disabled: boolean = true;
-  vale : string = "Edit";
-  toggleDisabled() {
-    this.disabled = !this.disabled;
-   if(this.disabled == true)
-   {
-     this.vale ="Edit";
-   }
-   else {
-     this.vale ="Save";
-   }
-
-  }
 
   showDialog() {
     this.display = true;
   }
-
-
 
   ngOnInit() {
 
     this.alertsService.getALertsMapped().then(alerts => {
       this.alerts = alerts;
 });
-
-
   }
 
   onRowSelect(event) {
@@ -93,17 +65,13 @@ export class AlertsComponent implements OnInit {
     else if (event.data._source.severity=='4' ){
       this.colorval = "yellow"
     }
-
-
   }
 
-  onclickAsses()
-  {
+  onclickAsses(){
 
-       this.alertsService.createService('http://35.184.66.182:4000/test/alerts', this.postval)
-      .subscribe(
-        result => console.log(result)
-
+   this.alertsService.putService( 'http://35.184.66.182:4000/test/alerts', this.alert_put_values)
+    .subscribe(
+      result => console.log(result)
       );
   }
 

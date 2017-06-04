@@ -1,37 +1,370 @@
 <link href="../../assets/css/style.css" rel="stylesheet">
+<link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="../../assets/css/simple-line-icons.css" rel="stylesheet">
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+  <div class="box box-primary">
+    <div class="box-body box-profile">
+      <img class="profile-user-img img-responsive img-circle" *ngFor="let img of usersets" src="{{img.picture}}" alt="User profile picture">
 
+      <h3 class="profile-username text-center" *ngFor="let user of usersets">{{user.name}}</h3>
+
+      <p class="text-muted text-center"  *ngFor="let user of usersets">{{user.email}}</p>
+
+      <ul class="list-group list-group-unbordered">
+
+      </ul>
+
+      <a href="#" class="btn btn-primary btn-block" *ngFor="let user of usersets"><b>{{user.role}}</b></a>
+    </div>
+    <!-- /.box-body -->
+  </div>
+  </div>
+    <div class="card">
+
+      <div class="card-header">
+        Change Your Password
+      </div>
+      <div class="card-block">
+        <div class="container">
+        <form #changepwdForm="ngForm"  *ngIf="active"  (ngSubmit)="onSubmitChangepwdForm(changepwdForm)">
+
+
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+              <input type="password" id="password" class="form-control" placeholder="Current Password"
+                     required minlength="4" maxlength="24"
+                     name="password" [(ngModel)]="somevalue"
+                     #password="ngModel" >
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+              <input type="password" id="newpassword" name="newpassword" class="form-control"  #newpassword="ngModel"  [(ngModel)]="somevalue2" placeholder="New Password">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+              <input type="password" id="cnfnewpassword" name="cnfnewpassword" class="form-control" placeholder="Confirm Password" #cnfnewpassword="ngModel"  [(ngModel)]="somevalue3" >
+            </div>
+          </div>
+
+          <div *ngIf="password.errors && (password.dirty || password.touched)"
+               class="alert alert-danger">
+            <div [hidden]="!password.errors.required">
+              Password is required
+            </div>
+            <div [hidden]="!password.errors.minlength">
+              Password must be at least 4 characters long.
+            </div>
+            <div [hidden]="!password.errors.maxlength">
+              Password cannot be more than 24 characters long.
+            </div>
+          </div>
+          <div *ngIf="newpassword.errors && (newpassword.dirty || newpassword.touched)"
+               class="alert alert-danger">
+            <div >
+              Password is required
+            </div>
+            <div [hidden]="!newpassword.errors.minlength">
+              Password must be at least 4 characters long.
+            </div>
+            <div [hidden]="!newpassword.errors.maxlength">
+              Password cannot be more than 24 characters long.
+            </div>
+          </div>
+
+          <div *ngIf="(newpassword.value != cnfnewpassword.value) && (cnfnewpassword.touched)"  class="alert alert-danger">
+            <div >
+              Password doesnt match
+            </div>
+
+          </div>
+          <div class="form-group form-actions">
+            <button type="submit" class="btn btn-default"
+                    [disabled]="(!changepwdForm.form.valid) || (newpassword.value != cnfnewpassword.value)">Submit</button>
+          </div>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+<div class="col-md-8">
 <div class="card">
   <div class="card-header">
-    <strong>User</strong>
-    <small>Settings Form</small>
+  Settings
   </div>
   <div class="card-block">
-    <div class="form-group">
-      <label for="company">Username</label>
-      <input type="text" class="form-control" id="company" placeholder="Enter your company name">
-    </div>
-    <div class="form-group">
-      <label for="vat">Firstname</label>
-      <input type="text" class="form-control" id="vat" placeholder="PL1234567890">
-    </div>
-    <div class="form-group">
-      <label for="street">Lastname</label>
-      <input type="text" class="form-control" id="street" placeholder="Enter street name">
-    </div>
-    <div class="row">
-      <div class="form-group col-sm-8">
-        <label for="city">City</label>
-        <input type="text" class="form-control" id="city" placeholder="Enter your city">
+    <div class="container">
+      <div [hidden]="submitted">
+
+        <form #settingForm="ngForm"  *ngIf="active"  (ngSubmit)="onSubmit(settingForm)">
+          <div class="form-group">
+            <label for="name">Username</label>
+
+            <input type="text" id="name" class="form-control"
+                   required minlength="4" maxlength="24"
+                   name="name"  [(ngModel)]="setting.name"
+                   #name="ngModel" >
+
+            <div *ngIf="name.errors && (name.dirty || name.touched)"
+                 class="alert alert-danger">
+              <div [hidden]="!name.errors.required">
+                Name is required
+              </div>
+              <div [hidden]="!name.errors.minlength">
+                Name must be at least 4 characters long.
+              </div>
+              <div [hidden]="!name.errors.maxlength">
+                Name cannot be more than 24 characters long.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fullname">Full name</label>
+
+            <input type="text" id="fullname" class="form-control"
+                   required minlength="4" maxlength="24"
+                   name="fullname" [(ngModel)]="setting.fullname"
+                   #fullname="ngModel" >
+
+            <div *ngIf="fullname.errors && (fullname.dirty || fullname.touched)"
+                 class="alert alert-danger">
+              <div [hidden]="!fullname.errors.required">
+                Full Name is required
+              </div>
+              <div [hidden]="!fullname.errors.minlength">
+                Full Name must be at least 4 characters long.
+              </div>
+              <div [hidden]="!fullname.errors.maxlength">
+                Name cannot be more than 24 characters long.
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="timezone">Timezone</label>
+
+            <select id="timezone"  name="timezone"  class="form-control input-lg" size="1">
+            <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</option>
+            <option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0" value="-11">(GMT-11:00) Midway Island, Samoa</option>
+            <option timeZoneId="3" gmtAdjustment="GMT-10:00" useDaylightTime="0" value="-10">(GMT-10:00) Hawaii</option>
+            <option timeZoneId="4" gmtAdjustment="GMT-09:00" useDaylightTime="1" value="-9">(GMT-09:00) Alaska</option>
+            <option timeZoneId="5" gmtAdjustment="GMT-08:00" useDaylightTime="1" value="-8">(GMT-08:00) Pacific Time (US & Canada)</option>
+            <option timeZoneId="6" gmtAdjustment="GMT-08:00" useDaylightTime="1" value="-8">(GMT-08:00) Tijuana, Baja California</option>
+            <option timeZoneId="7" gmtAdjustment="GMT-07:00" useDaylightTime="0" value="-7">(GMT-07:00) Arizona</option>
+            <option timeZoneId="8" gmtAdjustment="GMT-07:00" useDaylightTime="1" value="-7">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
+            <option timeZoneId="9" gmtAdjustment="GMT-07:00" useDaylightTime="1" value="-7">(GMT-07:00) Mountain Time (US & Canada)</option>
+            <option timeZoneId="10" gmtAdjustment="GMT-06:00" useDaylightTime="0" value="-6">(GMT-06:00) Central America</option>
+            <option timeZoneId="11" gmtAdjustment="GMT-06:00" useDaylightTime="1" value="-6">(GMT-06:00) Central Time (US & Canada)</option>
+            <option timeZoneId="12" gmtAdjustment="GMT-06:00" useDaylightTime="1" value="-6">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
+            <option timeZoneId="13" gmtAdjustment="GMT-06:00" useDaylightTime="0" value="-6">(GMT-06:00) Saskatchewan</option>
+            <option timeZoneId="14" gmtAdjustment="GMT-05:00" useDaylightTime="0" value="-5">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
+            <option timeZoneId="15" gmtAdjustment="GMT-05:00" useDaylightTime="1" value="-5">(GMT-05:00) Eastern Time (US & Canada)</option>
+            <option timeZoneId="16" gmtAdjustment="GMT-05:00" useDaylightTime="1" value="-5">(GMT-05:00) Indiana (East)</option>
+            <option timeZoneId="17" gmtAdjustment="GMT-04:00" useDaylightTime="1" value="-4">(GMT-04:00) Atlantic Time (Canada)</option>
+            <option timeZoneId="18" gmtAdjustment="GMT-04:00" useDaylightTime="0" value="-4">(GMT-04:00) Caracas, La Paz</option>
+            <option timeZoneId="19" gmtAdjustment="GMT-04:00" useDaylightTime="0" value="-4">(GMT-04:00) Manaus</option>
+            <option timeZoneId="20" gmtAdjustment="GMT-04:00" useDaylightTime="1" value="-4">(GMT-04:00) Santiago</option>
+            <option timeZoneId="21" gmtAdjustment="GMT-03:30" useDaylightTime="1" value="-3.5">(GMT-03:30) Newfoundland</option>
+            <option timeZoneId="22" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3">(GMT-03:00) Brasilia</option>
+            <option timeZoneId="23" gmtAdjustment="GMT-03:00" useDaylightTime="0" value="-3">(GMT-03:00) Buenos Aires, Georgetown</option>
+            <option timeZoneId="24" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3">(GMT-03:00) Greenland</option>
+            <option timeZoneId="25" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3">(GMT-03:00) Montevideo</option>
+            <option timeZoneId="26" gmtAdjustment="GMT-02:00" useDaylightTime="1" value="-2">(GMT-02:00) Mid-Atlantic</option>
+            <option timeZoneId="27" gmtAdjustment="GMT-01:00" useDaylightTime="0" value="-1">(GMT-01:00) Cape Verde Is.</option>
+            <option timeZoneId="28" gmtAdjustment="GMT-01:00" useDaylightTime="1" value="-1">(GMT-01:00) Azores</option>
+            <option timeZoneId="29" gmtAdjustment="GMT+00:00" useDaylightTime="0" value="0">(GMT+00:00) Casablanca, Monrovia, Reykjavik</option>
+            <option timeZoneId="30" gmtAdjustment="GMT+00:00" useDaylightTime="1" value="0">(GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</option>
+            <option timeZoneId="31" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+            <option timeZoneId="32" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
+            <option timeZoneId="33" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</option>
+            <option timeZoneId="34" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb</option>
+            <option timeZoneId="35" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) West Central Africa</option>
+            <option timeZoneId="36" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Amman</option>
+            <option timeZoneId="37" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Athens, Bucharest, Istanbul</option>
+            <option timeZoneId="38" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Beirut</option>
+            <option timeZoneId="39" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Cairo</option>
+            <option timeZoneId="40" gmtAdjustment="GMT+02:00" useDaylightTime="0" value="2">(GMT+02:00) Harare, Pretoria</option>
+            <option timeZoneId="41" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</option>
+            <option timeZoneId="42" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Jerusalem</option>
+            <option timeZoneId="43" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Minsk</option>
+            <option timeZoneId="44" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Windhoek</option>
+            <option timeZoneId="45" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3">(GMT+03:00) Kuwait, Riyadh, Baghdad</option>
+            <option timeZoneId="46" gmtAdjustment="GMT+03:00" useDaylightTime="1" value="3">(GMT+03:00) Moscow, St. Petersburg, Volgograd</option>
+            <option timeZoneId="47" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3">(GMT+03:00) Nairobi</option>
+            <option timeZoneId="48" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3">(GMT+03:00) Tbilisi</option>
+            <option timeZoneId="49" gmtAdjustment="GMT+03:30" useDaylightTime="1" value="3.5">(GMT+03:30) Tehran</option>
+            <option timeZoneId="50" gmtAdjustment="GMT+04:00" useDaylightTime="0" value="4">(GMT+04:00) Abu Dhabi, Muscat</option>
+            <option timeZoneId="51" gmtAdjustment="GMT+04:00" useDaylightTime="1" value="4">(GMT+04:00) Baku</option>
+            <option timeZoneId="52" gmtAdjustment="GMT+04:00" useDaylightTime="1" value="4">(GMT+04:00) Yerevan</option>
+            <option timeZoneId="53" gmtAdjustment="GMT+04:30" useDaylightTime="0" value="4.5">(GMT+04:30) Kabul</option>
+            <option timeZoneId="54" gmtAdjustment="GMT+05:00" useDaylightTime="1" value="5">(GMT+05:00) Yekaterinburg</option>
+            <option timeZoneId="55" gmtAdjustment="GMT+05:00" useDaylightTime="0" value="5">(GMT+05:00) Islamabad, Karachi, Tashkent</option>
+            <option timeZoneId="56" gmtAdjustment="GMT+05:30" useDaylightTime="0" value="5.5">(GMT+05:30) Sri Jayawardenapura</option>
+            <option timeZoneId="57" gmtAdjustment="GMT+05:30" useDaylightTime="0" value="5.5">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+            <option timeZoneId="58" gmtAdjustment="GMT+05:45" useDaylightTime="0" value="5.75">(GMT+05:45) Kathmandu</option>
+            <option timeZoneId="59" gmtAdjustment="GMT+06:00" useDaylightTime="1" value="6">(GMT+06:00) Almaty, Novosibirsk</option>
+            <option timeZoneId="60" gmtAdjustment="GMT+06:00" useDaylightTime="0" value="6">(GMT+06:00) Astana, Dhaka</option>
+            <option timeZoneId="61" gmtAdjustment="GMT+06:30" useDaylightTime="0" value="6.5">(GMT+06:30) Yangon (Rangoon)</option>
+            <option timeZoneId="62" gmtAdjustment="GMT+07:00" useDaylightTime="0" value="7">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+            <option timeZoneId="63" gmtAdjustment="GMT+07:00" useDaylightTime="1" value="7">(GMT+07:00) Krasnoyarsk</option>
+            <option timeZoneId="64" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</option>
+            <option timeZoneId="65" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Kuala Lumpur, Singapore</option>
+            <option timeZoneId="66" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Irkutsk, Ulaan Bataar</option>
+            <option timeZoneId="67" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Perth</option>
+            <option timeZoneId="68" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Taipei</option>
+            <option timeZoneId="69" gmtAdjustment="GMT+09:00" useDaylightTime="0" value="9">(GMT+09:00) Osaka, Sapporo, Tokyo</option>
+            <option timeZoneId="70" gmtAdjustment="GMT+09:00" useDaylightTime="0" value="9">(GMT+09:00) Seoul</option>
+            <option timeZoneId="71" gmtAdjustment="GMT+09:00" useDaylightTime="1" value="9">(GMT+09:00) Yakutsk</option>
+            <option timeZoneId="72" gmtAdjustment="GMT+09:30" useDaylightTime="0" value="9.5">(GMT+09:30) Adelaide</option>
+            <option timeZoneId="73" gmtAdjustment="GMT+09:30" useDaylightTime="0" value="9.5">(GMT+09:30) Darwin</option>
+            <option timeZoneId="74" gmtAdjustment="GMT+10:00" useDaylightTime="0" value="10">(GMT+10:00) Brisbane</option>
+            <option timeZoneId="75" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10">(GMT+10:00) Canberra, Melbourne, Sydney</option>
+            <option timeZoneId="76" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10">(GMT+10:00) Hobart</option>
+            <option timeZoneId="77" gmtAdjustment="GMT+10:00" useDaylightTime="0" value="10">(GMT+10:00) Guam, Port Moresby</option>
+            <option timeZoneId="78" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10">(GMT+10:00) Vladivostok</option>
+            <option timeZoneId="79" gmtAdjustment="GMT+11:00" useDaylightTime="1" value="11">(GMT+11:00) Magadan, Solomon Is., New Caledonia</option>
+            <option timeZoneId="80" gmtAdjustment="GMT+12:00" useDaylightTime="1" value="12">(GMT+12:00) Auckland, Wellington</option>
+            <option timeZoneId="81" gmtAdjustment="GMT+12:00" useDaylightTime="0" value="12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
+            <option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku'alofa</option>
+            </select>
+
+          </div>
+
+          <button type="submit" class="btn btn-default"
+                  [disabled]="!settingForm.form.valid">Submit</button>
+          <button type="button" class="btn btn-default"
+                  (click)="addsetting()">Edit</button>
+        </form>
       </div>
-      <div class="form-group col-sm-4">
-        <label for="postal-code">Postal Code</label>
-        <input type="text" class="form-control" id="postal-code" placeholder="Postal Code">
-      </div>
+
+
     </div>
-    <!--/row-->
-    <div class="form-group">
-      <label for="country">Country</label>
-      <input type="text" class="form-control" id="country" placeholder="Country name">
+
+</div>
+
+<div class="col-sm-6">
+
+</div>
+
+  <div class="card">
+    <div class="card-header">
+     <b>Change Theme</b>
+    </div>
+    <div class="card-block p-a-0">
+      <table class="table table-hover table-striped table-align-middle m-b-0">
+        <thead>
+        <tr><th>Theme</th>
+          <th>Enable/Disable</th>
+
+        </tr></thead>
+        <tbody>
+        <tr>
+          <td>
+            Theme 1
+          </td>
+          <td>
+            <label class="switch switch-lg switch-3d switch-primary">
+              <input type="checkbox" class="switch-input" checked="">
+              <span class="switch-label"></span>
+              <span class="switch-handle"></span>
+            </label>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            Theme 2
+          </td>
+          <td>
+            <label class="switch switch-lg switch-3d switch-primary">
+              <input type="checkbox" class="switch-input" checked="">
+              <span class="switch-label"></span>
+              <span class="switch-handle"></span>
+            </label>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            Theme 3
+          </td>
+          <td>
+            <label class="switch switch-lg switch-3d switch-primary">
+              <input type="checkbox" class="switch-input" checked="">
+              <span class="switch-label"></span>
+              <span class="switch-handle"></span>
+            </label>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            Theme 4
+          </td>
+          <td>
+            <label class="switch switch-lg switch-3d switch-primary">
+              <input type="checkbox" class="switch-input" checked="">
+              <span class="switch-label"></span>
+              <span class="switch-handle"></span>
+            </label>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="card card-default">
+      <div class="card-header">
+        Choice 1
+        <div class="card-actions">
+          <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
+          <a class="btn-close" href="#"><i class="icon-close"></i></a>
+        </div>
+      </div>
+      <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="card card-default">
+      <div class="card-header">
+        Choice 2
+        <div class="card-actions">
+          <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
+          <a class="btn-close" href="#"><i class="icon-close"></i></a>
+        </div>
+      </div>
+      <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="card card-default">
+      <div class="card-header">
+        Choice 3
+        <div class="card-actions">
+          <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
+          <a class="btn-close" href="#"><i class="icon-close"></i></a>
+        </div>
+      </div>
+      <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
 </div>

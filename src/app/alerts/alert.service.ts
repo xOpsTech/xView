@@ -39,13 +39,13 @@ export class AlertService {
       .then(data => { return data});
   }
 
-  createService(url: string, param: any): Observable<any> {
-    let body = JSON.stringify(param);
-    return this.http
-      .patch(url, body, this.options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
+  putService(url: string, param: any): Observable<any> {
+  let body = JSON.stringify(param);
+  return this.http
+    .patch(url, body, this.options)
+    .map(this.extractData)
+    .catch(this.handleError);
+}
 
   private extractData(res: Response) {
     let body = res.json();

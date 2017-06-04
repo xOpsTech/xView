@@ -9,7 +9,7 @@ import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModul
   GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
-import { GoogleSignInComponent} from 'angular-google-signin';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LeftnavComponent } from './leftnav/leftnav.component';
@@ -45,7 +45,7 @@ import { SettingsComponent } from './settings/settings.component';
     AlertsMapComponent,
     HomeComponent,
     MapComponent,
-    GoogleSignInComponent,
+
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,
     NAV_DROPDOWN_DIRECTIVES,
