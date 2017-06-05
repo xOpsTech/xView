@@ -1,22 +1,19 @@
-<link href="../../assets/css/style.css" rel="stylesheet">
-<link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
-<link href="../../assets/css/simple-line-icons.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-4">
     <div class="card">
   <div class="box box-primary">
     <div class="box-body box-profile">
-      <img class="profile-user-img img-responsive img-circle" *ngFor="let img of usersets" src="{{img.picture}}" alt="User profile picture">
+      <img class="profile-user-img img-responsive img-circle"  src="{{usersets.picture}}" alt="User profile picture">
 
-      <h3 class="profile-username text-center" *ngFor="let user of usersets">{{user.name}}</h3>
+      <h3 class="profile-username text-center" >{{usersets.name}}</h3>
 
-      <p class="text-muted text-center"  *ngFor="let user of usersets">{{user.email}}</p>
+      <p class="text-muted text-center"  >{{usersets.email}}</p>
 
       <ul class="list-group list-group-unbordered">
 
       </ul>
 
-      <a href="#" class="btn btn-primary btn-block" *ngFor="let user of usersets"><b>{{user.role}}</b></a>
+      <a href="#" class="btn btn-primary btn-block" ><b></b></a>
     </div>
     <!-- /.box-body -->
   </div>
@@ -36,7 +33,7 @@
               <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
               <input type="password" id="password" class="form-control" placeholder="Current Password"
                      required minlength="4" maxlength="24"
-                     name="password" [(ngModel)]="somevalue"
+                     name="password" [(ngModel)]="somevalue1"
                      #password="ngModel" >
             </div>
           </div>
@@ -108,7 +105,7 @@
 
             <input type="text" id="name" class="form-control"
                    required minlength="4" maxlength="24"
-                   name="name"  [(ngModel)]="setting.name"
+                   name="name"  [(ngModel)]="username"
                    #name="ngModel" >
 
             <div *ngIf="name.errors && (name.dirty || name.touched)"
@@ -130,7 +127,7 @@
 
             <input type="text" id="fullname" class="form-control"
                    required minlength="4" maxlength="24"
-                   name="fullname" [(ngModel)]="setting.fullname"
+                   name="fullname" [(ngModel)]="fullnameval"
                    #fullname="ngModel" >
 
             <div *ngIf="fullname.errors && (fullname.dirty || fullname.touched)"
