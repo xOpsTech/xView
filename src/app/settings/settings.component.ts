@@ -1,47 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { SettingsService } from '../settings/settings.service';
-import {Settings} from "app/settings/Settings";
+import { UserService } from './../user.service';
+
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
-  providers: [SettingsService]
+
 })
 export class SettingsComponent implements OnInit {
-  usersets: any = [];
+ 
+usersets = {
+    name: "",
+    picture: "",
+    email:""
+  };
 
-  constructor(private SettingsService: SettingsService) {
+fullnameval ="";
+username = "";
+
+  constructor(private userService:UserService) {
   }
 
   ngOnInit() {
-        this.SettingsService.UsersettingsMapped().then(usersets => {
-      this.usersets = usersets;
-      console.log(usersets);
-    });
+    this.userService.getUserData().subscribe(res => {
+    this.usersets = res;
+    this.fullnameval =this.usersets.name;
+    this.username = this.usersets.email.substring(0, this.usersets.email.indexOf( "@" ));
+      });
   }
- ;
-  powers = ['Really Smart', 'Super Flexible', 'Weather Changer'];
 
-  setting = new Settings('kemindasamaraweera', 'Keminda Samaraweera');
-
-  submitted = false;
+   submitted = false;
 
   onSubmit(settingForm) {
-
-
   }
-  // Reset the form with a new setting AND restore 'pristine' class state
-  // by toggling 'active' flag which causes the form
-  // to be removed/re-added in a tick via NgIf
-  // TODO: Workaround until NgForm has a reset method (#6822)
+
   active = true;
 
   addsetting() {
-    this.setting = new Settings('', '');
-
     this.active = false;
     setTimeout(() => this.active = true, 0);
   }
+
+
 }
 
