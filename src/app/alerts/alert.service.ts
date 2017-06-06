@@ -42,7 +42,7 @@ export class AlertService {
   putService(url: string, param: any): Observable<any> {
   let body = JSON.stringify(param);
   return this.http
-    .patch(url, body, this.options)
+    .put(url, body, this.options)
     .map(this.extractData)
     .catch(this.handleError);
 }
