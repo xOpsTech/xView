@@ -1,8 +1,58 @@
-.link-wrap{
-  padding:10px 5%;
+#SnowDashboard{
+    padding: 0 5%;
+    color:#fff;
 }
-.box-wrap{
-  padding:0 5%;
+hr{
+  background: #ddd;
+}
+
+.cp-inc{
+  padding:2px 5px 4px;
+  margin-bottom: 10px;
+}
+
+.pcounts .count{
+  float: left;
+  text-align: center;
+  width: 25%;
+}
+
+.pcounts .count .p1{
+  background: #a94442;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.pcounts .count .p2{
+  background: #d9534f;
+}
+.pcounts .count .p3{
+  background: #f0ad4e;
+}
+.pcounts .count .p4{
+  background: #5cb85c;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.ocounts .count{
+  float: left;
+  text-align: center;
+  width: 75%;
+}
+
+.ocounts .count .other{
+  background: #f5f5f5;
+  border-radius:5px;
+}
+
+.duration-switch{
+  text-align: right;
+  padding-top: 5px;
+  font-size: 90%;
+}
+
+.link-wrap{
+  padding:10px 0;
 }
 .small-box {
   border-radius: 2px;
@@ -54,7 +104,7 @@
   color: #f9f9f9;
 }
 .small-box:hover .icon {
-  font-size: 95px;
+  font-size: 110px;
 }
 @media (max-width: 320px) {
   .small-box {

@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
+  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule } from 'primeng/primeng';
 
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
@@ -28,6 +28,8 @@ import { IncidentComponent } from './business-insights/incident/incident.compone
 import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 import { BusinessInsightsComponent } from './business-insights/business-insights.component';
+
+import { SnowAggsService } from './services/snow-aggs.service';
 
 
 @NgModule({
@@ -92,9 +94,10 @@ import { BusinessInsightsComponent } from './business-insights/business-insights
     ChartsModule,
     DataTableModule,
     SharedModule,
-    GMapModule
+    GMapModule,
+    SelectButtonModule
   ],
-  providers: [],
+  providers: [SnowAggsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
