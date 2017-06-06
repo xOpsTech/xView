@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
+  GrowlModule, DataTableModule, SharedModule, GMapModule,AccordionModule } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
 
@@ -100,7 +100,8 @@ import { UserService } from './user.service';
     ChartsModule,
     DataTableModule,
     SharedModule,
-    GMapModule
+    GMapModule,
+    AccordionModule
   ],
 
   providers: [UserService],

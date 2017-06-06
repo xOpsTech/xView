@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../user.service';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
@@ -9,7 +9,7 @@ import { UserService } from './../user.service';
 
 })
 export class SettingsComponent implements OnInit {
- 
+putUserSetting = {}; 
 usersets = {
     name: "",
     picture: "",
@@ -26,13 +26,21 @@ username = "";
     this.userService.getUserData().subscribe(res => {
     this.usersets = res;
     this.fullnameval =this.usersets.name;
-    this.username = this.usersets.email.substring(0, this.usersets.email.indexOf( "@" ));
+    this.username = this.usersets.email;
       });
-  }
 
+  }
+   clicked = false;
    submitted = false;
 
-  onSubmit(settingForm) {
+  onSubmit(settingForm: NgForm) {
+   this.clicked = true;
+   this.putUserSetting = {"email" :settingForm.value.name, "name" : settingForm.value.fullname} 
+   this.userService.updateSettings( this.putUserSetting).subscribe(res => {},
+             err => {console.log(err); });
+   this.submitted = false;
+   window.location.reload()
+
   }
 
   active = true;

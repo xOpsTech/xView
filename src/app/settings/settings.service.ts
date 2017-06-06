@@ -18,6 +18,8 @@ export class SettingsService {
       return this.http.get(this.getUserUrl)
                   .map((res:Response) => res.json())
   }
+
+   
  
 }
 

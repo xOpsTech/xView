@@ -1,23 +1,23 @@
 <div class="row">
   <div class="col-md-4">
     <div class="card">
-  <div class="box box-primary">
-    <div class="box-body box-profile">
-      <img class="profile-user-img img-responsive img-circle"  src="{{usersets.picture}}" alt="User profile picture">
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <img class="profile-user-img img-responsive img-circle" src="{{usersets.picture}}" alt="User profile picture">
 
-      <h3 class="profile-username text-center" >{{usersets.name}}</h3>
+          <h3 class="profile-username text-center">{{usersets.name}}</h3>
 
-      <p class="text-muted text-center"  >{{usersets.email}}</p>
+          <p class="text-muted text-center">{{usersets.email}}</p>
 
-      <ul class="list-group list-group-unbordered">
+          <ul class="list-group list-group-unbordered">
 
-      </ul>
+          </ul>
 
-      <a href="#" class="btn btn-primary btn-block" ><b></b></a>
+          <a href="#" class="btn btn-primary btn-block"><b></b></a>
+        </div>
+        <!-- /.box-body -->
+      </div>
     </div>
-    <!-- /.box-body -->
-  </div>
-  </div>
     <div class="card">
 
       <div class="card-header">
@@ -25,130 +25,122 @@
       </div>
       <div class="card-block">
         <div class="container">
-        <form #changepwdForm="ngForm"  *ngIf="active"  (ngSubmit)="onSubmitChangepwdForm(changepwdForm)">
+          <form #changepwdForm="ngForm" *ngIf="active" (ngSubmit)="onSubmitChangepwdForm(changepwdForm)">
 
 
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-              <input type="password" id="password" class="form-control" placeholder="Current Password"
-                     required minlength="4" maxlength="24"
-                     name="password" [(ngModel)]="somevalue1"
-                     #password="ngModel" >
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+                <input type="password" id="password" class="form-control" placeholder="Current Password" required minlength="4" maxlength="24"
+                  name="password" [(ngModel)]="somevalue1" #password="ngModel">
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-              <input type="password" id="newpassword" name="newpassword" class="form-control"  #newpassword="ngModel"  [(ngModel)]="somevalue2" placeholder="New Password">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+                <input type="password" id="newpassword" name="newpassword" class="form-control" #newpassword="ngModel" [(ngModel)]="somevalue2"
+                  placeholder="New Password">
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-              <input type="password" id="cnfnewpassword" name="cnfnewpassword" class="form-control" placeholder="Confirm Password" #cnfnewpassword="ngModel"  [(ngModel)]="somevalue3" >
-            </div>
-          </div>
-
-          <div *ngIf="password.errors && (password.dirty || password.touched)"
-               class="alert alert-danger">
-            <div [hidden]="!password.errors.required">
-              Password is required
-            </div>
-            <div [hidden]="!password.errors.minlength">
-              Password must be at least 4 characters long.
-            </div>
-            <div [hidden]="!password.errors.maxlength">
-              Password cannot be more than 24 characters long.
-            </div>
-          </div>
-          <div *ngIf="newpassword.errors && (newpassword.dirty || newpassword.touched)"
-               class="alert alert-danger">
-            <div >
-              Password is required
-            </div>
-            <div [hidden]="!newpassword.errors.minlength">
-              Password must be at least 4 characters long.
-            </div>
-            <div [hidden]="!newpassword.errors.maxlength">
-              Password cannot be more than 24 characters long.
-            </div>
-          </div>
-
-          <div *ngIf="(newpassword.value != cnfnewpassword.value) && (cnfnewpassword.touched)"  class="alert alert-danger">
-            <div >
-              Password doesnt match
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+                <input type="password" id="cnfnewpassword" name="cnfnewpassword" class="form-control" placeholder="Confirm Password" #cnfnewpassword="ngModel"
+                  [(ngModel)]="somevalue3">
+              </div>
             </div>
 
-          </div>
-          <div class="form-group form-actions">
-            <button type="submit" class="btn btn-default"
-                    [disabled]="(!changepwdForm.form.valid) || (newpassword.value != cnfnewpassword.value)">Submit</button>
-          </div>
-        </form>
-      </div>
+            <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+              <div [hidden]="!password.errors.required">
+                Password is required
+              </div>
+              <div [hidden]="!password.errors.minlength">
+                Password must be at least 4 characters long.
+              </div>
+              <div [hidden]="!password.errors.maxlength">
+                Password cannot be more than 24 characters long.
+              </div>
+            </div>
+            <div *ngIf="newpassword.errors && (newpassword.dirty || newpassword.touched)" class="alert alert-danger">
+              <div>
+                Password is required
+              </div>
+              <div [hidden]="!newpassword.errors.minlength">
+                Password must be at least 4 characters long.
+              </div>
+              <div [hidden]="!newpassword.errors.maxlength">
+                Password cannot be more than 24 characters long.
+              </div>
+            </div>
+
+            <div *ngIf="(newpassword.value != cnfnewpassword.value) && (cnfnewpassword.touched)" class="alert alert-danger">
+              <div>
+                Password doesnt match
+              </div>
+
+            </div>
+            <div class="form-group form-actions">
+              <button type="submit" class="btn btn-default" [disabled]="(!changepwdForm.form.valid) || (newpassword.value != cnfnewpassword.value)">Submit</button>
+
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-<div class="col-md-8">
-<div class="card">
-  <div class="card-header">
-  Settings
-  </div>
-  <div class="card-block">
-    <div class="container">
-      <div [hidden]="submitted">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        Settings
+      </div>
+      <div class="card-block">
+        <div class="container">
+          <div>
 
-        <form #settingForm="ngForm"  *ngIf="active"  (ngSubmit)="onSubmit(settingForm)">
-          <div class="form-group">
-            <label for="name">Username</label>
+            <form #settingForm="ngForm" *ngIf="active" (ngSubmit)="onSubmit(settingForm)">
+              <div class="form-group">
+                <label for="name">Username</label>
 
-            <input type="text" id="name" class="form-control"
-                   required minlength="4" maxlength="24"
-                   name="name"  [(ngModel)]="username"
-                   #name="ngModel" >
+                <input type="text" id="name" class="form-control" required minlength="4" maxlength="100" name="name" [(ngModel)]="username"
+                  #name="ngModel">
 
-            <div *ngIf="name.errors && (name.dirty || name.touched)"
-                 class="alert alert-danger">
-              <div [hidden]="!name.errors.required">
-                Name is required
+                <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                  <div [hidden]="!name.errors.required">
+                    Username is required
+                  </div>
+                  <div [hidden]="!name.errors.minlength">
+                    Username must be at least 4 characters long.
+                  </div>
+                  <div [hidden]="!name.errors.maxlength">
+                    Username cannot be more than 100 characters long.
+                  </div>
+                </div>
               </div>
-              <div [hidden]="!name.errors.minlength">
-                Name must be at least 4 characters long.
+
+              <div class="form-group">
+                <label for="fullname">Full name</label>
+
+                <input type="text" id="fullname" class="form-control" required minlength="4" maxlength="24" name="fullname" [(ngModel)]="fullnameval"
+                  #fullname="ngModel">
+
+                <div *ngIf="fullname.errors && (fullname.dirty || fullname.touched)" class="alert alert-danger">
+                  <div [hidden]="!fullname.errors.required">
+                    Full Name is required
+                  </div>
+                  <div [hidden]="!fullname.errors.minlength">
+                    Full Name must be at least 4 characters long.
+                  </div>
+                  <div [hidden]="!fullname.errors.maxlength">
+                    Name cannot be more than 24 characters long.
+                  </div>
+                </div>
               </div>
-              <div [hidden]="!name.errors.maxlength">
-                Name cannot be more than 24 characters long.
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="fullname">Full name</label>
-
-            <input type="text" id="fullname" class="form-control"
-                   required minlength="4" maxlength="24"
-                   name="fullname" [(ngModel)]="fullnameval"
-                   #fullname="ngModel" >
-
-            <div *ngIf="fullname.errors && (fullname.dirty || fullname.touched)"
-                 class="alert alert-danger">
-              <div [hidden]="!fullname.errors.required">
-                Full Name is required
-              </div>
-              <div [hidden]="!fullname.errors.minlength">
-                Full Name must be at least 4 characters long.
-              </div>
-              <div [hidden]="!fullname.errors.maxlength">
-                Name cannot be more than 24 characters long.
-              </div>
-            </div>
-          </div>
 
 
-          <div class="form-group">
-            <label for="timezone">Timezone</label>
+              <div class="form-group">
+                <label for="timezone">Timezone</label>
 
-            <select id="timezone"  name="timezone"  class="form-control input-lg" size="1">
+                <select id="timezone" name="timezone" class="form-control input-lg" size="1">
             <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</option>
             <option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0" value="-11">(GMT-11:00) Midway Island, Samoa</option>
             <option timeZoneId="3" gmtAdjustment="GMT-10:00" useDaylightTime="0" value="-10">(GMT-10:00) Hawaii</option>
@@ -233,135 +225,94 @@
             <option timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku'alofa</option>
             </select>
 
+              </div>
+              <div class="form-group">
+                <label for="themes">Theme</label>
+                <select id="themes" name="themes" class="form-control input-lg" size="1">
+                  <option>Theme 1</option>
+                  <option>Theme 2</option>
+                  <option>Theme 3</option>
+                  <option>Theme 4</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-default" [disabled]="!settingForm.form.valid">Submit</button>
+              <button type="button" class="btn btn-default" (click)="addsetting()">Edit</button>
+              <div class="form-group">
+                <div *ngIf="clicked">
+                  <div *ngIf="settingForm.form.valid &&  submitted" class="alert alert-success">
+                    <div>
+                      Form is Successfully Submitted
+                    </div>
+                  </div>
+                  <div *ngIf="settingForm.form.valid &&  !submitted" class="alert alert-danger">
+                    <div>
+                      Form Not Submitted
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
 
-          <button type="submit" class="btn btn-default"
-                  [disabled]="!settingForm.form.valid">Submit</button>
-          <button type="button" class="btn btn-default"
-                  (click)="addsetting()">Edit</button>
-        </form>
+
+        </div>
+
       </div>
 
+      <div class="col-sm-6">
 
-    </div>
+      </div>
 
-</div>
-
-<div class="col-sm-6">
-
-</div>
-
-  <div class="card">
-    <div class="card-header">
-     <b>Change Theme</b>
-    </div>
-    <div class="card-block p-a-0">
-      <table class="table table-hover table-striped table-align-middle m-b-0">
-        <thead>
-        <tr><th>Theme</th>
-          <th>Enable/Disable</th>
-
-        </tr></thead>
-        <tbody>
-        <tr>
-          <td>
-            Theme 1
-          </td>
-          <td>
-            <label class="switch switch-lg switch-3d switch-primary">
-              <input type="checkbox" class="switch-input" checked="">
-              <span class="switch-label"></span>
-              <span class="switch-handle"></span>
-            </label>
-          </td>
-
-        </tr>
-        <tr>
-          <td>
-            Theme 2
-          </td>
-          <td>
-            <label class="switch switch-lg switch-3d switch-primary">
-              <input type="checkbox" class="switch-input" checked="">
-              <span class="switch-label"></span>
-              <span class="switch-handle"></span>
-            </label>
-          </td>
-
-        </tr>
-        <tr>
-          <td>
-            Theme 3
-          </td>
-          <td>
-            <label class="switch switch-lg switch-3d switch-primary">
-              <input type="checkbox" class="switch-input" checked="">
-              <span class="switch-label"></span>
-              <span class="switch-handle"></span>
-            </label>
-          </td>
-
-        </tr>
-        <tr>
-          <td>
-            Theme 4
-          </td>
-          <td>
-            <label class="switch switch-lg switch-3d switch-primary">
-              <input type="checkbox" class="switch-input" checked="">
-              <span class="switch-label"></span>
-              <span class="switch-handle"></span>
-            </label>
-          </td>
-
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="card card-default">
-      <div class="card-header">
-        Choice 1
-        <div class="card-actions">
-          <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
-          <a class="btn-close" href="#"><i class="icon-close"></i></a>
+    
+      <div class="col-sm-6 col-md-4">
+        <div class="card card-default">
+          <div class="card-header">
+            Choice 1
+            <div class="card-actions">
+              <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
+              <a class="btn-close" href="#"><i class="icon-close"></i></a>
+            </div>
+          </div>
+          <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+            aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+            nisl ut aliquip ex ea commodo consequat.
+          </div>
         </div>
       </div>
-      <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="card card-default">
-      <div class="card-header">
-        Choice 2
-        <div class="card-actions">
-          <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
-          <a class="btn-close" href="#"><i class="icon-close"></i></a>
+      <div class="col-sm-6 col-md-4">
+        <div class="card card-default">
+          <div class="card-header">
+            Choice 2
+            <div class="card-actions">
+              <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
+              <a class="btn-close" href="#"><i class="icon-close"></i></a>
+            </div>
+          </div>
+          <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+            aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+            nisl ut aliquip ex ea commodo consequat.
+          </div>
         </div>
       </div>
-      <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="card card-default">
-      <div class="card-header">
-        Choice 3
-        <div class="card-actions">
-          <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
-          <a class="btn-close" href="#"><i class="icon-close"></i></a>
+      <div class="col-sm-6 col-md-4">
+        <div class="card card-default">
+          <div class="card-header">
+            Choice 3
+            <div class="card-actions">
+              <a class="btn-minimize collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="icon-arrow-up"></i></a>
+              <a class="btn-close" href="#"><i class="icon-close"></i></a>
+            </div>
+          </div>
+          <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+            aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+            nisl ut aliquip ex ea commodo consequat.
+          </div>
         </div>
       </div>
-      <div class="card-block collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-      </div>
     </div>
-  </div>
-</div>
 
-</div>
+  </div>
 </div>
