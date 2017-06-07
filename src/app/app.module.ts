@@ -29,6 +29,7 @@ import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 import { BusinessInsightsComponent } from './business-insights/business-insights.component';
 import { UserService } from './user.service';
+import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { UserService } from './user.service';
     AsideToggleDirective,
     NAV_DROPDOWN_DIRECTIVES,
     BusinessInsightsComponent,
-    IncidentComponent
+    IncidentComponent,
+    RssfeedComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,10 @@ import { UserService } from './user.service';
       {
         path: 'incident',
         component: IncidentComponent
+      },
+      {
+        path: 'rssfeed',
+        component: RssfeedComponent
       },
 
     ]),
