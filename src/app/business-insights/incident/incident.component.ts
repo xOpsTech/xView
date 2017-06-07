@@ -13,13 +13,13 @@ export class IncidentComponent implements OnInit {
   private snowErr = false;
 
   duration: SelectItem[];
-  selectedDur = 500000;
+  selectedDur = 5000000;
 
   constructor(private _snowSvc: SnowAggsService) {
       this.duration = [
         {label:'Daily', value:250},
         {label:'Weekly', value:500},
-        {label:'Monthly', value:500000}
+        {label:'Monthly', value:5000000}
       ];
   }
 

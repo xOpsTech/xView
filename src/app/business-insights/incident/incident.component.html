@@ -1,8 +1,8 @@
-<link href="./assets/css/font-awesome.min.css" rel="stylesheet">
-<link href="./assets/css/simple-line-icons.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/simple-line-icons.css" rel="stylesheet">
 
 <!-- Main styles for this application -->
-<link href="./assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
 
 <div class="SnowDashboard" id="SnowDashboard">
 
@@ -20,9 +20,7 @@
       <hr/>
       <div class="cp-inc">
         Critical Priority Incidents :
-        <span class="badge badge-pill badge-danger">INC0533451</span>
-        <span class="badge badge-pill badge-danger">INC0537071</span>
-        <span class="badge badge-pill badge-danger">INC0533452</span>
+        <span class="badge badge-pill badge-danger" *ngFor="let inc of snowData.data[2].p1_incidents">{{inc}}</span>
       </div>
     </div>
   </div>
@@ -91,8 +89,8 @@
     <div class="col-md-4 col-xs-6">
       <div class="small-box" style="background:#c58627">
         <div class="inner">
-          <h3>0</h3>
-          <p>Count of Tickets</p>
+          <h3>{{snowData.data[2].total}}</h3>
+          <p>Count of P1 Tickets</p>
         </div>
         <div class="icon">
           <i class="fa fa-user-times"></i>
