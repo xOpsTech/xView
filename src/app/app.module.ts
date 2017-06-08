@@ -9,7 +9,6 @@ import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModul
   GrowlModule, DataTableModule, SharedModule, GMapModule,AccordionModule } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LeftnavComponent } from './leftnav/leftnav.component';
@@ -29,6 +28,8 @@ import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 import { BusinessInsightsComponent } from './business-insights/business-insights.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UserService } from './user.service';
+import { Select2Module } from 'ng2-select2';
+
 
 @NgModule({
   declarations: [
@@ -51,8 +52,8 @@ import { UserService } from './user.service';
     NAV_DROPDOWN_DIRECTIVES,
     BusinessInsightsComponent,
     IncidentComponent,
-
-    SettingsComponent
+    SettingsComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -61,6 +62,9 @@ import { UserService } from './user.service';
     HttpModule,
     DialogModule,
     AmChartsModule,
+    Select2Module,
+ 
+    
     RouterModule.forRoot([
       {
         path: 'home',
@@ -101,7 +105,8 @@ import { UserService } from './user.service';
     DataTableModule,
     SharedModule,
     GMapModule,
-    AccordionModule
+    AccordionModule,
+    
   ],
 
   providers: [UserService],
