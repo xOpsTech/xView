@@ -1,3 +1,30 @@
-<app-load-time></app-load-time>
-<app-ttfb-loadtime></app-ttfb-loadtime>
-<app-dom-elements></app-dom-elements>
+<h2 class="heading">Scholastic Dashboard</h2>
+
+<button pButton type="button" 
+    label="Personalize" icon="fa-wrench" iconPos="left" 
+    (click)="showDialog()" class="personalize-button">
+</button>
+
+<p-growl class="dsh-success-message" [(value)]="msgs" life="1500"></p-growl>
+
+<p-dialog [(visible)]="display" [width]="300">
+    <p-header>
+        Personalize
+    </p-header>
+
+    <span *ngFor="let widget of widgets" >
+        <p-checkbox name="personalizations" 
+            label="{{widget.label}}" value="{{widget.name}}" [(ngModel)]="selectedItems">
+        </p-checkbox> <br>
+    </span>
+
+    <p-footer>
+        <div>
+            <button pButton type="button" label="Save" (click)="personalize()"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<app-load-time *ngIf="personalization.loadtime"></app-load-time>
+<app-ttfb-loadtime *ngIf="personalization.ttfb"></app-ttfb-loadtime>
+<app-dom-elements *ngIf="personalization.dom_elements"></app-dom-elements>
