@@ -21,3 +21,20 @@ body {
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
     padding: 20px;
 }
+
+.personalize-button {
+    margin: 10px;
+    width: 120px;
+}
+
+.dsh-success-message {
+    top: 50px;
+    z-index: 2000;
+}
+
+.heading {
+    margin-top: 0px;
+    margin-bottom: 0px; 
+    color: #FEC44F;
+    font-size: 32px;
+}
