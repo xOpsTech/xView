@@ -1,80 +1,143 @@
-<div class="row">
-  <div class="col-sm-6 col-md-2">
-    <div class="card card-inverse card-info">
-      <div class="card-block">
-        <div class="h1 text-muted text-right mb-4">
-          <i class="icon-pie-chart"></i>
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/simple-line-icons.css" rel="stylesheet">
+
+<!-- Main styles for this application -->
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<div class="SnowDashboard" id="SnowDashboard">
+
+  <div class="row link-wrap">
+    <div class="col-md-7">
+      <h1 class="h2">Service Now Dashboard</h1>
+    </div>
+    <div class="col-md-5 duration-switch">
+      <p-selectButton [options]="duration" [(ngModel)]="selectedDur" (onChange)="getSnowAggs()"></p-selectButton>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <hr/>
+      <div class="cp-inc">
+        Critical Priority Incidents :
+        <span class="badge badge-pill badge-danger" *ngFor="let inc of snowData.data[2].p1_incidents">{{inc}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row box-wrap">
+    <div class="col-md-4 col-xs-6">
+      <div class="small-box" style="background:#00c0ef">
+        <div class="inner">
+          <h3>{{snowData.data[0].aggs_by_active.total}}</h3>
+          <p>Total Tickets</p>
         </div>
-        <div class="h4 mb-0">349</div>
-        <small class="text-muted text-uppercase font-weight-bold">Total Tickets</small>
-        <div class="progress progress-white progress-xs mt-3">
+        <div class="icon">
+          <i class="fa fa-list-ol"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xs-6">
+      <div class="small-box" style="background:#00a65a">
+        <div class="inner">
+          <h3>{{snowData.data[0].aggs_by_active.open}}</h3>
+          <p>Open Tickets</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-hourglass-start"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xs-6">
+      <div class="small-box" style="background:#2980b9">
+        <div class="inner">
+          <h3>{{snowData.data[0].aggs_by_active.closed}}</h3>
+          <p>Closed Tickets</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-hourglass-end"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xs-6">
+      <div class="small-box" style="background:#ffa726">
+        <div class="inner">
+          <h3>0</h3>
+          <p>About to miss SLA</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-hourglass-half"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xs-6">
+      <div class="small-box" style="background:#ef5350">
+        <div class="inner">
+          <h3>0</h3>
+          <p>Missed SLA</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-hourglass-o"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xs-6">
+      <div class="small-box" style="background:#c58627">
+        <div class="inner">
+          <h3>{{snowData.data[2].total}}</h3>
+          <p>Count of P1 Tickets</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-user-times"></i>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-6 col-md-2">
-    <div class="card card-inverse card-success">
-      <div class="card-block">
-        <div class="h1 text-muted text-right mb-4">
-          <i class="fa-hourglass-start"></i>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="pcounts">
+
+        <div class="count">
+          P1 <div class="p1">{{snowData.data[1].aggs_by_priority.P1}}%</div>
         </div>
-        <div class="h4 mb-0">88</div>
-        <small class="text-muted text-uppercase font-weight-bold">Open Tickets</small>
-        <div class="progress progress-white progress-xs mt-3">
+
+        <div class="count">
+          P2 <div class="p2">{{snowData.data[1].aggs_by_priority.P2}}%</div>
+        </div>
+
+        <div class="count">
+          P3 <div class="p3">{{snowData.data[1].aggs_by_priority.P3}}%</div>
+        </div>
+
+        <div class="count">
+          P4 <div class="p4">{{snowData.data[1].aggs_by_priority.P4}}%</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-md-2 offset-md-2">
+      <div class="ocounts">
+        <div class="count">
+          Response <div class="other">&nbsp;</div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-6 col-md-2">
-    <div class="card card-inverse card-warning">
-      <div class="card-block">
-        <div class="h1 text-muted text-right mb-4">
-          <i class="icon-pie-chart"></i>
-        </div>
-        <div class="h4 mb-0">261</div>
-        <small class="text-muted text-uppercase font-weight-bold">Closed Tickets</small>
-        <div class="progress progress-white progress-xs mt-3">
+
+    <div class="col-md-2">
+      <div class="ocounts">
+        <div class="count">
+          Resolution <div class="other">&nbsp;</div>
         </div>
       </div>
     </div>
+
   </div>
-  <div class="col-sm-6 col-md-2">
-    <div class="card card-inverse card-primary">
-      <div class="card-block">
-        <div class="h1 text-muted text-right mb-4">
-          <i class="icon-pie-chart"></i>
-        </div>
-        <div class="h4 mb-0">0</div>
-        <small class="text-muted text-uppercase font-weight-bold">About to miss SLA</small>
-        <div class="progress progress-white progress-xs mt-3">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-2">
-    <div class="card card-inverse card-danger">
-      <div class="card-block">
-        <div class="h1 text-muted text-right mb-4">
-          <i class="icon-pie-chart"></i>
-        </div>
-        <div class="h4 mb-0">0</div>
-        <small class="text-muted text-uppercase font-weight-bold">Missed SLA</small>
-        <div class="progress progress-white progress-xs mt-3">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-2">
-    <div class="card card-inverse card-secondary">
-      <div class="card-block">
-        <div class="h1 text-muted text-right mb-4">
-          <i class="icon-pie-chart"></i>
-        </div>
-        <div class="h4 mb-0">10</div>
-        <small class="text-muted text-uppercase font-weight-bold">Count of Tickets</small>
-        <div class="progress progress-white progress-xs mt-3">
-        </div>
-      </div>
-    </div>
-  </div>
+
 </div>
