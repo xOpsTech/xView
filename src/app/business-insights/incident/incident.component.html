@@ -11,7 +11,7 @@
       <h1 class="h2">Service Now Dashboard</h1>
     </div>
     <div class="col-md-5 duration-switch">
-      <p-selectButton [options]="duration" [(ngModel)]="selectedDur" (onChange)="getSnowAggs()"></p-selectButton>
+      <p-selectButton [options]="duration" [(ngModel)]="selectedDur" (onChange)="changeDuration()"></p-selectButton>
     </div>
   </div>
 
@@ -29,7 +29,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="small-box" style="background:#00c0ef">
         <div class="inner">
-          <h3>{{snowData.data[0].aggs_by_active.total}}</h3>
+          <h3 [innerHTML]="snowData.data[0].aggs_by_active.total || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Total Tickets</p>
         </div>
         <div class="icon">
@@ -41,7 +41,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="small-box" style="background:#00a65a">
         <div class="inner">
-          <h3>{{snowData.data[0].aggs_by_active.open}}</h3>
+          <h3 [innerHTML]="snowData.data[0].aggs_by_active.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Open Tickets</p>
         </div>
         <div class="icon">
@@ -53,7 +53,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="small-box" style="background:#2980b9">
         <div class="inner">
-          <h3>{{snowData.data[0].aggs_by_active.closed}}</h3>
+          <h3 [innerHTML]="snowData.data[0].aggs_by_active.closed || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Closed Tickets</p>
         </div>
         <div class="icon">
@@ -89,7 +89,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="small-box" style="background:#c58627">
         <div class="inner">
-          <h3>{{snowData.data[2].total}}</h3>
+          <h3 [innerHTML]="snowData.data[2].total || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Count of P1 Tickets</p>
         </div>
         <div class="icon">
@@ -104,19 +104,19 @@
       <div class="pcounts">
 
         <div class="count">
-          P1 <div class="p1">{{snowData.data[1].aggs_by_priority.P1}}%</div>
+          P1 <div class="p1" [innerHTML]="snowData.data[1].aggs_by_priority.P1  || 0 + '%'">0</div>
         </div>
 
         <div class="count">
-          P2 <div class="p2">{{snowData.data[1].aggs_by_priority.P2}}%</div>
+          P2 <div class="p2" [innerHTML]="snowData.data[1].aggs_by_priority.P2  || 0 + '%'">0</div>
         </div>
 
         <div class="count">
-          P3 <div class="p3">{{snowData.data[1].aggs_by_priority.P3}}%</div>
+          P3 <div class="p3" [innerHTML]="snowData.data[1].aggs_by_priority.P3  || 0 + '%'">0</div>
         </div>
 
         <div class="count">
-          P4 <div class="p4">{{snowData.data[1].aggs_by_priority.P4}}%</div>
+          P4 <div class="p4" [innerHTML]="snowData.data[1].aggs_by_priority.P4  || 0 + '%'">0</div>
         </div>
 
       </div>

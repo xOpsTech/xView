@@ -55,6 +55,7 @@ hr{
 .ocounts .count .other{
   background: #f5f5f5;
   border-radius:5px;
+  border:1px solid #888;
 }
 
 .duration-switch{
