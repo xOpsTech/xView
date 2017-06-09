@@ -42,6 +42,34 @@ export class PersonalizationService {
       .map((res:Response) => res.json())
   }
 
+   savePersonalization2(email,fullname,theme,timezone, selected, all_widgets:{}) {
+    var putUserSetting = {
+        "name" : fullname,
+        "personalization": {
+            "timezone": timezone,
+            "theme": theme,
+          "dashboard": {
+          }
+      } 
+    }
+
+    for (var i in all_widgets) {
+      var name = all_widgets[i].name;
+      if (selected.indexOf(name) == -1) {
+        putUserSetting.personalization.dashboard[name] = false;
+      } else {
+        putUserSetting.personalization.dashboard[name] = true;
+      }
+    }
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    var endpoint = this.url + '/api/user/' + email;
+    return this.http.put(endpoint, putUserSetting, options)
+      .map((res:Response) => res.json())
+  }
+
   getWidgets() {
     return this.http.get(this.url + '/api/widget')
       .map((res:Response) => res.json())

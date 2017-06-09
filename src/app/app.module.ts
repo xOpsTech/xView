@@ -32,6 +32,7 @@ import { UserService } from './user.service';
 import { Select2Module } from 'ng2-select2';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { Select2Module } from 'ng2-select2';
     BusinessInsightsComponent,
     IncidentComponent,
     SettingsComponent,
+
     
   ],
   imports: [
@@ -93,6 +95,7 @@ import { Select2Module } from 'ng2-select2';
         component: SettingsComponent
 
       }
+     
 
     ]),
     JsonpModule,
