@@ -6,11 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule } from 'primeng/primeng';
-
+  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, AccordionModule } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LeftnavComponent } from './leftnav/leftnav.component';
@@ -28,8 +26,11 @@ import { IncidentComponent } from './business-insights/incident/incident.compone
 import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 import { BusinessInsightsComponent } from './business-insights/business-insights.component';
+import { SnowAggsService } from './services/snow-aggs.service';
+import { SettingsComponent } from './settings/settings.component';
 import { UserService } from './user.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
+import { Select2Module } from 'ng2-select2';
 
 @NgModule({
   declarations: [
@@ -52,8 +53,9 @@ import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
     NAV_DROPDOWN_DIRECTIVES,
     BusinessInsightsComponent,
     IncidentComponent,
-    RssfeedComponent
-  ],
+    RssfeedComponent,
+    SettingsComponent
+],
   imports: [
     BrowserModule,
     FormsModule,
@@ -61,6 +63,9 @@ import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
     HttpModule,
     DialogModule,
     AmChartsModule,
+    Select2Module,
+
+
     RouterModule.forRoot([
       {
         path: 'home',
@@ -87,6 +92,12 @@ import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
         component: RssfeedComponent
       },
 
+      {
+        path: 'settings',
+        component: SettingsComponent
+
+      }
+
     ]),
     JsonpModule,
     BrowserAnimationsModule,
@@ -98,9 +109,11 @@ import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
     ChartsModule,
     DataTableModule,
     SharedModule,
-    GMapModule
+    GMapModule,
+    SelectButtonModule,
+    AccordionModule
   ],
-  providers: [UserService],
+  providers: [SnowAggsService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5457,3 +5457,6 @@ a.bg-inverse:focus, a.bg-inverse:hover {
   .text-sm-center {
     text-align: center !important; } }
 
+.card-header.card-header-inverse, .card-inverse {
+  color: #fff;
+}

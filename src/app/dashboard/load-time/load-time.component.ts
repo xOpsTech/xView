@@ -41,9 +41,9 @@ export class LoadTimeComponent implements OnInit {
     maintainAspectRatio: false,
     title: {
       display: true,
-      text: 'Yahoo News',
+      text: 'Load Time & Speed Index',
       fontColor: '#FEC44F',
-      fontSize: 32
+      fontSize: 24
     },
     legend: {
       display: true,
