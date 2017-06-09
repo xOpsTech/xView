@@ -29,8 +29,8 @@ import { BusinessInsightsComponent } from './business-insights/business-insights
 import { SnowAggsService } from './services/snow-aggs.service';
 import { SettingsComponent } from './settings/settings.component';
 import { UserService } from './user.service';
+import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
-
 
 @NgModule({
   declarations: [
@@ -53,9 +53,9 @@ import { Select2Module } from 'ng2-select2';
     NAV_DROPDOWN_DIRECTIVES,
     BusinessInsightsComponent,
     IncidentComponent,
-    SettingsComponent,
-    
-  ],
+    RssfeedComponent,
+    SettingsComponent
+],
   imports: [
     BrowserModule,
     FormsModule,
@@ -64,8 +64,8 @@ import { Select2Module } from 'ng2-select2';
     DialogModule,
     AmChartsModule,
     Select2Module,
- 
-    
+
+
     RouterModule.forRoot([
       {
         path: 'home',
@@ -86,6 +86,10 @@ import { Select2Module } from 'ng2-select2';
       {
         path: 'incident',
         component: IncidentComponent
+      },
+      {
+        path: 'rssfeed',
+        component: RssfeedComponent
       },
 
       {
