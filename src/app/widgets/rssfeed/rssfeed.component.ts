@@ -87,27 +87,33 @@ export class RssfeedComponent implements OnInit {
       for (var i = 0; i < (this.numberOfPages); i++) {
           this.numberOfPagesArray.push({index : i + 1});
       }
+      this.selectPage(1);
   }
 
   selectPage(page) {
-
-      if (page === -1) {
+      if (page === 'previous') {
           this.currentSelectedPageNumber = this.currentSelectedPageNumber - 1;
-      } else if (page === +1) {
+          page = this.currentSelectedPageNumber;
+      } else if (page === 'next') {
           this.currentSelectedPageNumber = this.currentSelectedPageNumber + 1;
+          page = this.currentSelectedPageNumber;
       } else {
           this.currentSelectedPageNumber = page;
       }
 
       if (this.currentSelectedPageNumber === 1) {
           this.prevButtonDisabled = true;
+      } else {
+          this.prevButtonDisabled = false;
       }
 
       if (this.currentSelectedPageNumber === this.numberOfPages) {
           this.nextButtonDisabled = true;
+      } else {
+          this.nextButtonDisabled = false;
       }
-
       this.services = this.servicesSet.slice(((page - 1) * (this.recordsPerPage)), ((page) * (this.recordsPerPage)));
+
   }
 
   ngOnInit() {
