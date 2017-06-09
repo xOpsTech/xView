@@ -34,17 +34,17 @@
                                   </tbody>
                               </table>
                               <ul class="pagination">
-                                  <li class="page-item">
+                                  <li class="{{ prevButtonDisabled ? 'page-item disabled' : 'page-item' }}">
                                       <button [disabled]="prevButtonDisabled"
-                                          class="page-link" (click)="selectPage(-1)">Prev</button>
+                                          class="page-link" (click)="selectPage('previous')">Prev</button>
                                   </li>
                                   <li class="{{ (page.index === currentSelectedPageNumber) ? 'page-item active' : 'page-item'}}"
                                       *ngFor="let page of numberOfPagesArray">
                                       <button class="page-link" (click)="selectPage(page.index)">{{ page.index }}</button>
                                   </li>
-                                  <li class="page-item">
+                                  <li class="{{ nextButtonDisabled ? 'page-item disabled' : 'page-item' }}">
                                       <button [disabled]="nextButtonDisabled"
-                                          class="page-link" (click)="selectPage(+1)">Next</button>
+                                          class="page-link" (click)="selectPage('next')">Next</button>
                                   </li>
 
 

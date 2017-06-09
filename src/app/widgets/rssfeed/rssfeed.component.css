@@ -31,6 +31,10 @@ table > tbody > tr > td:nth-child(1) {
     padding-left: 15px;
 }
 
+table > tbody > tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
 table > tbody > tr > td:nth-child(2) {
     text-align: center;
     border: 1px solid #cfd8dc
