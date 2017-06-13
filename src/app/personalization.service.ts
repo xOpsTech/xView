@@ -8,7 +8,7 @@ import 'rxjs';
 export class PersonalizationService {
   // private url = 'http://localhost:3000';
   // private url = 'http://35.184.66.182:4200/api/user/';
-  // private url = 'http://localhost:4200';
+   //private url = 'http://localhost:4200';
   private url = 'http://35.184.66.182:4200';
 
   constructor(private http : Http) { }

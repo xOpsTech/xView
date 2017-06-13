@@ -235,10 +235,9 @@
                   <option value="Theme 4">Theme 4</option>
                 </select>
               </div>
-
               <div class="form-group">
                 <label>Widgets</label>
-                <select2 class="form-control input-lg"  [(ngModel)]="widgetval" name="widgetss" [width]="500" [data]="widgets" [options]="options"  [value]="selectedItems" (valueChanged)="changed($event)" ngDefaultControl ></select2>
+                <select2 class="form-control input-lg"  [(ngModel)]="widgetval" name="widgetss" [width]="500" [data]="widgets" [options]="options"  [value]="value" (valueChanged)="changed($event)" ngDefaultControl ></select2>
               </div>
                 
               <button type="submit" class="btn btn-primary" [disabled]="!settingForm.form.valid">Submit</button>

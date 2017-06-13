@@ -22,7 +22,6 @@ usersets = {
           "loadtime": "",
           "ttfb": "",
           "dom_elements": "",
-         
         }
  }
 }
@@ -32,7 +31,7 @@ timezone = "";
 fullnameval ="";
 username = "";
 widgetval: any [];
-widgetss:any [];
+
  public widget: string[];
 
 public exampleData: Array<Select2OptionData>;
@@ -41,8 +40,9 @@ public value: string[];
 public current: string;
 public personalization = {};
 public selectedItems: string[] = [];
+public widget_array =  [];
 public widgets =  [];
-public widget_true =  [];
+
 
   constructor(private userService:UserService,private personalizationService:PersonalizationService) {
   }
@@ -60,38 +60,10 @@ public widget_true =  [];
     this.username = this.usersets.email;
     this.theme = this.usersets.personalization.theme;
     this.timezone = this.usersets.personalization.timezone;
-  
-      });
-
-      // this.personalizationService.getWidgets().subscribe(res => {
-        
-              this.widgetss = [
-        {
-        "_id": "59392259b66f024194ea8c3d",
-        "name": "loadtime",
-        "label": "Load Time"
-        },
-        {
-        "_id": "59392261b66f024194ea8c3e",
-        "name": "ttfb",
-        "label": "TTFB and Load Time"
-        },
-        {
-        "_id": "59392267b66f024194ea8c3f",
-        "name": "dom_elements",
-        "label": "DOM Elements"
-        }
-        ];
-
-      for(var d of this.widgetss)
-      {
-          this.widgets.push({'id':d.name,'text':d.label})
-      }
-        this.loadPersonalizations();
-      this.value = ['loadtime', 'ttfb'];
-      // });
-
-    this.options = {
+        });
+       this.loadWidgetsList();
+      this.value = ['loadtime', 'ttfb','dom_elements'];
+       this.options = {
       multiple: true
     }
 
@@ -99,7 +71,20 @@ public widget_true =  [];
 
    clicked = false;
    submitted = false;
-   
+  
+   loadWidgetsList() {
+    this.personalizationService.getWidgets()
+      .subscribe(res => {
+      
+       for(var d of res.message)
+        {  
+            this.widget_array.push({'id':d.name,'text':d.label})
+        }
+        this.widgets= this.widget_array;
+ 
+      });
+  }
+
   loadPersonalizations() {
     this.personalizationService.getPersonalization(this.username)
       .subscribe(res => {
@@ -120,10 +105,26 @@ public widget_true =  [];
 
   onSubmit(settingForm: NgForm) {
    this.clicked = true;
-   console.log(settingForm.value);
-   this.personalizationService.savePersonalization2(settingForm.value.name,
-   settingForm.value.fullname,settingForm.value.themes,settingForm.value.timezone,settingForm.value.widgets,this.widgets);
+ console.log(settingForm.value);
+    this.putUserSetting = {
+        "email" :settingForm.value.name,
+          "name" : settingForm.value.fullname,
+          "personalization": {
+            "timezone": settingForm.value.timezone,
+              "theme": settingForm.value.themes,
+            "dashboard": {
+              "loadtime": true,
+              "ttfb": true,
+              "dom_elements": false,
+            }
+        } 
+      
+      }
+   this.userService.updateSettings( this.putUserSetting).subscribe(res => {},
+             err => {console.log(err); });
+   this.submitted = true;
 
+  
   }
   active = true;
 
