@@ -104,19 +104,19 @@
       <div class="pcounts">
 
         <div class="count">
-          P1 <div class="p1" [innerHTML]="snowData.data[1].aggs_by_priority.P1  || 0 + '%'">0</div>
+          P1 <div class="p1" [innerHTML]="(snowData.data[1].aggs_by_priority.P1+'%') || ('0%')">0</div>
         </div>
 
         <div class="count">
-          P2 <div class="p2" [innerHTML]="snowData.data[1].aggs_by_priority.P2  || 0 + '%'">0</div>
+          P2 <div class="p2" [innerHTML]="snowData.data[1].aggs_by_priority.P2+'%'  || '0%'">0</div>
         </div>
 
         <div class="count">
-          P3 <div class="p3" [innerHTML]="snowData.data[1].aggs_by_priority.P3  || 0 + '%'">0</div>
+          P3 <div class="p3" [innerHTML]="snowData.data[1].aggs_by_priority.P3+'%'  || '0%'">0</div>
         </div>
 
         <div class="count">
-          P4 <div class="p4" [innerHTML]="snowData.data[1].aggs_by_priority.P4  || 0 + '%'">0</div>
+          P4 <div class="p4" [innerHTML]="snowData.data[1].aggs_by_priority.P4+'%' || '0%'">0</div>
         </div>
 
       </div>

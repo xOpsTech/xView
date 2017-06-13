@@ -24,7 +24,7 @@ export class IncidentComponent implements OnInit {
 
       setInterval(() => {
         this.getSnowAggs();
-      }, 20000);
+      }, 10000);
   }
 
   ngOnInit() {
