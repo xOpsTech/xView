@@ -6,11 +6,11 @@ import { Select2OptionData } from 'ng2-select2';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css'],
+  styleUrls: ['./settings.component.scss'],
 
 })
 export class SettingsComponent implements OnInit {
-putUserSetting = {}; 
+putUserSetting = {};
 usersets = {
     "email" :"",
       "name" : "",
@@ -86,8 +86,8 @@ public current: string;
           "timezone": settingForm.value.timezone,
           "theme": settingForm.value.themes
         }
-    } 
-   
+    }
+
 	}
    this.userService.updateSettings( this.putUserSetting).subscribe(res => {},
              err => {console.log(err); });
@@ -102,4 +102,3 @@ public current: string;
 
 
 }
-

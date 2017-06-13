@@ -4,7 +4,7 @@ import { AmChartsService } from '@amcharts/amcharts3-angular';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
   chart: any;

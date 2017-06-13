@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-alerts-map',
   templateUrl: './alerts-map.component.html',
-  styleUrls: ['./alerts-map.component.css']
+  styleUrls: ['./alerts-map.component.scss']
 })
 export class AlertsMapComponent implements OnInit {
 

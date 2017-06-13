@@ -4,7 +4,7 @@ import { DashboardService } from '../dashboard.service';
 @Component({
   selector: 'app-load-time',
   templateUrl: './load-time.component.html',
-  styleUrls: ['./load-time.component.css'],
+  styleUrls: ['./load-time.component.scss'],
   providers: [DashboardService]
 })
 export class LoadTimeComponent implements OnInit {
