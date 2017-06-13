@@ -1,0 +1,75 @@
+<link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="../../assets/css/simple-line-icons.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
+
+<div class="container-fluid">
+          <div class="animated fadeIn">
+              <div class="row table-container">
+                  <div class="col-lg-12">
+                      <div class="card">
+                          <div class="card-header rss-feed-header">
+                            Service Status Dashboard
+                          </div>
+                          <div class="card-block">
+                              <table class="table">
+                                  <thead>
+                                      <tr>
+                                          <th>Service</th>
+                                          <th>Status</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let service of services;">
+                                          <td>{{ service.name }}</td>
+                                          <td *ngIf="service.status === 'blocked'" class="service-status blocked">
+                                              <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                          </td>
+                                          <td *ngIf="service.status === 'ok'" class="service-status ok">
+                                              <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                          </td>
+                                          <td *ngIf="service.status === 'unknown'" class="service-status unknown">
+                                              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                              <ul class="pagination">
+                                  <li class="{{ prevButtonDisabled ? 'page-item disabled' : 'page-item' }}">
+                                      <button [disabled]="prevButtonDisabled"
+                                          class="page-link" (click)="selectPage('previous')">Prev</button>
+                                  </li>
+                                  <li class="{{ (page.index === currentSelectedPageNumber) ? 'page-item active' : 'page-item'}}"
+                                      *ngFor="let page of numberOfPagesArray">
+                                      <button class="page-link" (click)="selectPage(page.index)">{{ page.index }}</button>
+                                  </li>
+                                  <li class="{{ nextButtonDisabled ? 'page-item disabled' : 'page-item' }}">
+                                      <button [disabled]="nextButtonDisabled"
+                                          class="page-link" (click)="selectPage('next')">Next</button>
+                                  </li>
+
+
+                                  <li class="page-item option-list">
+                                      <select class="form-control" id="items-per-page"
+                                          (change)="setRecordsPerPage($event.target.value)">
+                                          <option value="10">10</option>
+                                          <option value="20">20</option>
+                                          <option value="30">30</option>
+                                          <option value="40">40</option>
+                                          <option value="50">50</option>
+                                          <option value="all">All</option>
+                                      </select>
+                                  </li>
+                                  <li class="page-item option-list-label">
+                                      <label for="items-per-page">
+                                        Items Per Page
+                                      </label>
+                                  </li>
+                              </ul>
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
