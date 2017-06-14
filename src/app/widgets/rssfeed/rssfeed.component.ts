@@ -131,6 +131,8 @@ export class RssfeedComponent implements OnInit {
         this.numberOfPagesArray = []
         this.nextButtonDisabled = (this.totalCount === this.currentSelectedPageNumber) ? true : false;
       });
+
+      this.showPagination = false; //hiding pagination panel
   }
 
 }
