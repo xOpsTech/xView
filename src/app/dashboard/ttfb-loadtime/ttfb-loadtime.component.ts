@@ -4,7 +4,7 @@ import { DashboardService } from '../dashboard.service';
 @Component({
   selector: 'app-ttfb-loadtime',
   templateUrl: './ttfb-loadtime.component.html',
-  styleUrls: ['./ttfb-loadtime.component.css'],
+  styleUrls: ['./ttfb-loadtime.component.scss'],
   providers: [DashboardService]
 })
 export class TtfbLoadtimeComponent implements OnInit {
@@ -65,7 +65,7 @@ export class TtfbLoadtimeComponent implements OnInit {
   public barChartLabels:number[] = [];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
- 
+
   public barChartData:any[] = [
     {data: this.ttfb, label: 'TTFB'},
     {data: this.loadTimes, label: 'LoadTime'}

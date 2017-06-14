@@ -5,7 +5,7 @@ import {SelectItem} from 'primeng/primeng';
 @Component({
   selector: 'app-incident',
   templateUrl: './incident.component.html',
-  styleUrls: ['./incident.component.css']
+  styleUrls: ['./incident.component.scss']
 })
 export class IncidentComponent implements OnInit {
 

@@ -7,11 +7,11 @@ import { Select2OptionData } from 'ng2-select2';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css'],
+  styleUrls: ['./settings.component.scss'],
   providers: [PersonalizationService, UserService]
 })
 export class SettingsComponent implements OnInit {
-putUserSetting = {}; 
+putUserSetting = {};
 usersets = {
     "email" :"",
       "name" : "",
@@ -105,7 +105,7 @@ public widgets =  [];
 
   onSubmit(settingForm: NgForm) {
    this.clicked = true;
- console.log(settingForm.value);
+     console.log(settingForm.value);
     this.putUserSetting = {
         "email" :settingForm.value.name,
           "name" : settingForm.value.fullname,
@@ -131,4 +131,3 @@ public widgets =  [];
 
 
 }
-
