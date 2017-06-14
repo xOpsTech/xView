@@ -4,7 +4,7 @@ import { RssfeedService } from '../../rssfeed.service';
 @Component({
   selector: 'app-rssfeed',
   templateUrl: './rssfeed.component.html',
-  styleUrls: ['./rssfeed.component.css']
+  styleUrls: ['./rssfeed.component.scss']
 })
 export class RssfeedComponent implements OnInit {
   servicesSet = [

@@ -4,7 +4,7 @@ import { DashboardService } from '../dashboard.service';
 @Component({
   selector: 'app-dom-elements',
   templateUrl: './dom-elements.component.html',
-  styleUrls: ['./dom-elements.component.css'],
+  styleUrls: ['./dom-elements.component.scss'],
   providers: [DashboardService]
 })
 export class DomElementsComponent implements OnInit {

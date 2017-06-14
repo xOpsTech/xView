@@ -5,7 +5,7 @@ import {SelectItem} from 'primeng/primeng';
 @Component({
   selector: 'app-incident',
   templateUrl: './incident.component.html',
-  styleUrls: ['./incident.component.css']
+  styleUrls: ['./incident.component.scss']
 })
 export class IncidentComponent implements OnInit {
 
@@ -21,6 +21,10 @@ export class IncidentComponent implements OnInit {
         {label:'Weekly', value:500},
         {label:'Monthly', value:5000000}
       ];
+
+      setInterval(() => {
+        this.getSnowAggs();
+      }, 10000);
   }
 
   ngOnInit() {
@@ -32,6 +36,17 @@ export class IncidentComponent implements OnInit {
       data => { this.snowData = data},
       err => { this.snowErr = true }
     );
+  }
+
+  changeDuration(){
+    this.snowData = {
+    "data": [
+        {"aggs_by_active": { "closed": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "open": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>"}},
+        {"aggs_by_priority": {}},
+        {"p1_incidents": [],"total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>"}
+    ]};
+
+    this.getSnowAggs();
   }
 
 }

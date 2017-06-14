@@ -1,0 +1,56 @@
+
+img {
+  border-style: none; }
+
+button,
+input {
+  overflow: visible; }
+
+button,
+select {
+  text-transform: none; }
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button; }
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0; }
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+
+
+.d-xl-down-none {
+  display: none !important; }
+
+.label-pill {
+  border-radius: 1rem !important; }
+
+.open > .dropdown-menu {
+  display: block; }
+
+.open > a {
+  outline: 0; }
+
+.navbar .dropdown-toggle .img-avatar {
+  height: 35px;
+  margin: 0 10px; }
+
+
+.img-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #263238;
+}
