@@ -16,20 +16,21 @@
                                   </thead>
                                   <tbody>
                                       <tr *ngFor="let service of services;">
-                                          <td>{{ service.name }}</td>
-                                          <td *ngIf="service.status === 'blocked'" class="service-status blocked">
+                                          <td>{{ service.service }}</td>
+                                          <td *ngIf="service.status === 'critical'" class="service-status blocked">
                                               <i class="fa fa-minus-circle" aria-hidden="true"></i>
                                           </td>
-                                          <td *ngIf="service.status === 'ok'" class="service-status ok">
+                                          <td *ngIf="service.status === 'good'" class="service-status ok">
                                               <i class="fa fa-check-circle" aria-hidden="true"></i>
                                           </td>
-                                          <td *ngIf="service.status === 'unknown'" class="service-status unknown">
+                                          <td *ngIf="service.status === 'warning'" class="service-status unknown">
                                               <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                                           </td>
                                       </tr>
                                   </tbody>
                               </table>
-                              <ul class="pagination">
+
+                              <ul class="pagination" *ngIf="showPagination">
                                   <li class="{{ prevButtonDisabled ? 'page-item disabled' : 'page-item' }}">
                                       <button [disabled]="prevButtonDisabled"
                                           class="page-link" (click)="selectPage('previous')">Prev</button>

@@ -29,6 +29,7 @@ import { BusinessInsightsComponent } from './business-insights/business-insights
 import { SnowAggsService } from './services/snow-aggs.service';
 import { SettingsComponent } from './settings/settings.component';
 import { UserService } from './user.service';
+import { RssfeedService } from './rssfeed.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
 
@@ -115,7 +116,7 @@ import { Select2Module } from 'ng2-select2';
     SelectButtonModule,
     AccordionModule
   ],
-  providers: [SnowAggsService, UserService],
+  providers: [SnowAggsService, UserService, RssfeedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
