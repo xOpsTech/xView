@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RssfeedService } from '../../rssfeed.service';
 
 @Component({
   selector: 'app-rssfeed',
@@ -7,50 +8,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RssfeedComponent implements OnInit {
   servicesSet = [
-    {
-        name: "test1",
-        status: "ok"
-    },
-    {
-        name: "test2",
-        status: "blocked"
-    },
-    {
-        name: "test3",
-        status: "unknown"
-    },
-    {
-        name: "test4",
-        status: "ok"
-    },
-    {
-        name: "test5",
-        status: "ok"
-    },
-    {
-        name: "test6",
-        status: "ok"
-    },
-    {
-        name: "test6",
-        status: "blocked"
-    },
-    {
-        name: "test4",
-        status: "ok"
-    },
-    {
-        name: "test5",
-        status: "ok"
-    },
-    {
-        name: "test6",
-        status: "ok"
-    },
-    {
-        name: "test6",
-        status: "blocked"
-    }
+  {
+      name: "test1",
+      status: "ok"
+  },
+  {
+      name: "test2",
+      status: "blocked"
+  },
+  {
+      name: "test3",
+      status: "unknown"
+  },
+  {
+      name: "test4",
+      status: "ok"
+  },
+  {
+      name: "test5",
+      status: "ok"
+  },
+  {
+      name: "test6",
+      status: "ok"
+  },
+  {
+      name: "test6",
+      status: "blocked"
+  },
+  {
+      name: "test4",
+      status: "ok"
+  },
+  {
+      name: "test5",
+      status: "ok"
+  },
+  {
+      name: "test6",
+      status: "ok"
+  },
+  {
+      name: "test6",
+      status: "blocked"
+  }
   ]
 
   //initialising values
@@ -60,11 +61,12 @@ export class RssfeedComponent implements OnInit {
   recordsPerPage = 10;
   totalCount = this.servicesSet.length;
   numberOfPages = Math.ceil(this.totalCount / Number(this.recordsPerPage));
+  showPagination = (this.numberOfPages > 1 ? true : false);
   numberOfPagesArray = []
   nextButtonDisabled = (this.totalCount === this.currentSelectedPageNumber) ? true : false;
 
 
-  constructor() {
+  constructor(private rssfeedService:RssfeedService) {
       for (var i = 0; i < (this.numberOfPages); i++) {
           this.numberOfPagesArray.push({index : i + 1});
       }
@@ -117,6 +119,18 @@ export class RssfeedComponent implements OnInit {
   }
 
   ngOnInit() {
+
+      this.rssfeedService.getRssFeed().subscribe(res => {
+        this.servicesSet = res.data.services;
+        console.log(this.servicesSet);
+        this.services = this.servicesSet.slice(0, 11);
+        this.currentSelectedPageNumber = 1;
+        this.totalCount = this.servicesSet.length;
+        this.numberOfPages = Math.ceil(this.totalCount / Number(this.recordsPerPage));
+        this.showPagination = (this.numberOfPages > 1 ? true : false);
+        this.numberOfPagesArray = []
+        this.nextButtonDisabled = (this.totalCount === this.currentSelectedPageNumber) ? true : false;
+      });
   }
 
 }

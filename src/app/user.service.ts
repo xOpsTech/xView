@@ -19,13 +19,13 @@ export class UserService {
   }
 
  updateSettings(body: Object) {
-      
+
         let headers      = new Headers({ 'Content-Type': 'application/json' });
-        let options       = new RequestOptions({ headers: headers }); 
+        let options       = new RequestOptions({ headers: headers });
         return this.http.put(`${this.getUserUrl}/${body['email']}`, body, options)
-                         .map((res:Response) => res.json()) 
-                         .catch((error:any) => Observable.throw(error.json().error)); 
-    }  
+                         .map((res:Response) => res.json())
+                         .catch((error:any) => Observable.throw(error.json().error));
+    }
 
   getUser() {
     console.log(this.user);
