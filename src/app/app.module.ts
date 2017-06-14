@@ -56,6 +56,7 @@ import { Select2Module } from 'ng2-select2';
     RssfeedComponent,
     SettingsComponent
 ],
+
   imports: [
     BrowserModule,
     FormsModule,
@@ -97,6 +98,7 @@ import { Select2Module } from 'ng2-select2';
         component: SettingsComponent
 
       }
+     
 
     ]),
     JsonpModule,
