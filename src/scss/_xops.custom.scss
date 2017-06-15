@@ -100,3 +100,105 @@ body {
 .app-header, .app-footer, .sidebar, .main, .aside-menu {
   transition: margin-left 0.25s, margin-right 0.25s, width 0.25s, flex 0.25s;
 }
+
+//--- ServiceNow Alert Widget
+.SNalert-widget {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+  box-shadow: 0;
+  overflow: hidden;
+  > .inner {
+    padding: 20px;
+    text-align: right;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-size: 55px;
+    margin: 0;
+    white-space: nowrap;
+    padding: 0;
+  }
+  p {
+    font-size: 15px;
+    > small {
+      display: block;
+      color: #f9f9f9;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+  }
+  h3, p {
+    z-index: 5;
+  }
+  .icon {
+    -webkit-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    z-index: 0;
+    font-size: 120px;
+    color: rgba(255, 255, 255, 0.2);
+  }
+  &:hover {
+    text-decoration: none;
+    color: #f9f9f9;
+    .icon {
+      font-size: 110px;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .SNalert-widget {
+    text-align: center;
+    .icon {
+      display: none;
+    }
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+//----- Donut Chart CSS
+.donut-chart {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  float: right;
+
+  .slice {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .chart-center {
+    position: absolute;
+    border-radius: 50%;
+
+    span {
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+.alert-status{
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  float: right;
+
+  .chart-center {
+    position: absolute;
+    border-radius: 50%;
+  }
+}

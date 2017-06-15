@@ -1,0 +1,91 @@
+@mixin donut-chart($name, $color) {
+  $perc : 100;
+  $size : 20px;
+  $width : 3px;
+  $base : #e1e1e1;
+  $center : #fff;
+  $textColor: $color;
+  $textSize: 40px;
+
+  $color2: $color;
+  $base2: $base;
+	$deg: ($perc/100*360)+deg;
+	$deg1: 90deg;
+	$deg2: $deg;
+
+	// If percentage is less than 50%
+	@if $perc < 50 {
+		$base: $color;
+    $color: $base2;
+    $color2: $base2;
+    $deg1: ($perc/100*360+90)+deg;
+		$deg2: 0deg;
+	}
+
+  .donut-chart {
+    &#{$name} {
+      width: $size;
+      height: $size;
+      background: $base;
+
+      .slice {
+        &.one {
+          //clip: rect(0 $size $size/2 0);
+          -webkit-transform: rotate($deg1);
+          transform: rotate($deg1);
+          background: $color;
+        }
+
+        &.two {
+          clip: rect(0 $size/2 $size 0);
+          -webkit-transform: rotate($deg2);
+          transform: rotate($deg2);
+          background: $color2;
+        }
+      }
+
+      .chart-center {
+        top: $width;
+        left: $width;
+        width: $size - ($width * 2);
+        height: $size - ($width * 2);
+        background: $center;
+        // To display % value inside the circle
+        // span {
+        //   font-size: $textSize;
+        //   line-height: $size - ($width * 2);
+        //   color: $textColor;
+        //
+        //   &:after {
+        //   content: '#{$perc}%';
+        //   }
+        // }
+      }
+    }
+  }
+}
+
+@mixin alert-status($name, $color) {
+
+  $perc : 100;
+  $size : 20px;
+  $width : 3px;
+  $center : #fff;
+
+  .alert-status{
+    width: $size;
+    height: $size;
+
+    &#{$name}{
+      background: $color;
+    }
+
+    .chart-center {
+      top: $width;
+      left: $width;
+      width: $size - ($width * 2);
+      height: $size - ($width * 2);
+      background: $center;
+    }
+  }
+}
