@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-md-12 widget">
+    <div class="widget-wrapper">
+    <div class="widget-content" id="program-widget" slimScroll [options]="scrollopts">
+      <ul>
+        <li *ngFor="let alert of programAlerts">
+          {{alert.name}}
+          <div class="alert-status" [ngClass]="alert.status">
+            <div class="chart-center"></div>
+          </div>
+        </li>
+    </ul>
+    <div class="clearfix">
+
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="row row-eq-height">
+  <div class="col-md-5 widget">
+    <div class="widget-wrapper">
+      <div class="widget-content" id="rss-widget" slimScroll [options]="scrollopts">
+        <ul>
+          <li *ngFor="let alert of rssAlerts">
+            {{alert.name}}
+            <div class="alert-status" [ngClass]="alert.status">
+              <div class="chart-center"></div>
+            </div>
+          </li>
+      </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7 widget">
+    <div class="widget-wrapper">
+      <div class="widget-content" id="snow-widget">
+
+
+      <div class="row box-wrap">
+        <div class="col-md-4 col-xs-6">
+          <div class="SNalert-widget" style="background:#00c0ef">
+            <div class="inner">
+              <h3 [innerHTML]="snowData.data[0].aggs_by_active.total || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <p>Open P1 Tickets</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-list-ol"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-xs-6">
+          <div class="SNalert-widget" style="background:#00a65a">
+            <div class="inner">
+              <h3 [innerHTML]="snowData.data[0].aggs_by_active.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <p>Open Tickets</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-hourglass-start"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-xs-6">
+          <div class="SNalert-widget" style="background:#2980b9">
+            <div class="inner">
+              <h3 [innerHTML]="snowData.data[0].aggs_by_active.closed || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <p>Closed Tickets</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-hourglass-end"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xs-6">
+          <div class="SNalert-widget" style="background:#ffa726">
+            <div class="inner">
+              <h3>0</h3>
+              <p>About to miss SLA</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-hourglass-half"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xs-6">
+          <div class="SNalert-widget" style="background:#ef5350">
+            <div class="inner">
+              <h3>0</h3>
+              <p>Missed SLA</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-hourglass-o"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div align="right">
+        <p-selectButton [options]="duration" [(ngModel)]="selectedDur" (onChange)="changeDuration()"></p-selectButton>
+      </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

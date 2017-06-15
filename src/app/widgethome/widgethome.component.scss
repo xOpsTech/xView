@@ -1,0 +1,83 @@
+.widget{
+  padding: 10px;
+  position: relative;
+
+  .widget-wrapper{
+    background: #fff;
+    padding: 10px;
+    width: 100%;
+
+    .widget-content{
+      height: 250px;
+    }
+  }
+}
+
+#program-widget{
+  ul {
+    -moz-column-count: 3;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 20px;
+    column-count: 3;
+    column-gap: 20px;
+    margin: 0;
+
+    @media only screen and (max-width : 768px) {
+      -moz-column-count: 2;
+      -webkit-column-count: 2;
+      column-count: 2;
+    }
+
+    @media only screen and (max-width : 480px) {
+      -moz-column-count: 1;
+      -webkit-column-count: 1;
+      column-count: 1;
+    }
+
+    li{
+      list-style: none;
+      //width: 80%;
+      padding: 10px 20% 10px 0;
+    }
+  }
+}
+
+#rss-widget{
+  ul {
+    margin: 0;
+    column-gap: 20px;
+
+    li{
+      list-style: none;
+      //width: 80%;
+      padding: 10px 20% 10px 0;
+    }
+  }
+}
+
+#snow-widget{
+  &.widget-content{
+    height: auto;
+  }
+}
+
+@import '../../scss/xops.mixins';
+@include alert-status('.red', #f84502);
+@include alert-status('.green', #94ce19);
+@include alert-status('.amber', #fac710);
+
+//------- Boxes
+.box-wrap{
+  div[class^="col-md-"]{
+    padding: 5px;
+  }
+}
+
+.SNalert-widget{
+  margin-bottom: 0;
+
+  > .inner {
+    padding: 10px;
+  }
+}

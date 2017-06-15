@@ -21,6 +21,7 @@ import { TtfbLoadtimeComponent } from './dashboard/ttfb-loadtime/ttfb-loadtime.c
 import { AlertsComponent } from './alerts/alerts.component';
 import { AlertsMapComponent } from './alerts/alerts-map/alerts-map.component';
 import { HomeComponent } from './home/home.component';
+import { WidgetHomeComponent } from './widgethome/widgethome.component';
 import { MapComponent } from './map/map.component';
 import { IncidentComponent } from './business-insights/incident/incident.component';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
@@ -32,6 +33,7 @@ import { UserService } from './user.service';
 import { RssfeedService } from './rssfeed.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
+import { SlimScrollModule } from 'ng2-slimscroll';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { Select2Module } from 'ng2-select2';
     AlertsComponent,
     AlertsMapComponent,
     HomeComponent,
+    WidgetHomeComponent,
     MapComponent,
 
     SIDEBAR_TOGGLE_DIRECTIVES,
@@ -66,6 +69,7 @@ import { Select2Module } from 'ng2-select2';
     DialogModule,
     AmChartsModule,
     Select2Module,
+    SlimScrollModule,
 
 
     RouterModule.forRoot([
@@ -93,13 +97,15 @@ import { Select2Module } from 'ng2-select2';
         path: 'rssfeed',
         component: RssfeedComponent
       },
-
       {
         path: 'settings',
         component: SettingsComponent
-
+      },
+      {
+        path: '',
+        component: WidgetHomeComponent
       }
-     
+
 
     ]),
     JsonpModule,
