@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ISlimScrollOptions } from 'ng2-slimscroll';
 import { SelectItem } from 'primeng/primeng'
 import { SnowAggsService } from '../services/snow-aggs.service';
+import { RssfeedService } from '../rssfeed.service';
+
 
 @Component({
   selector: 'app-widgethome',
   templateUrl: './widgethome.component.html',
-  styleUrls: ['./widgethome.component.scss']
+  styleUrls: ['./widgethome.component.scss'],
+  providers :[RssfeedService]
 })
 export class WidgetHomeComponent implements OnInit {
 
@@ -14,8 +17,8 @@ export class WidgetHomeComponent implements OnInit {
   private snowErr = false;
   duration: SelectItem[];
   selectedDur = 5000000;
-
-  constructor(private _snowSvc: SnowAggsService) {
+  rssAlerts1 = [];
+  constructor(private _snowSvc: SnowAggsService,private rssfeed: RssfeedService) {
     this.duration = [
       {label:'Daily', value:250},
       {label:'Weekly', value:500},
@@ -40,6 +43,21 @@ export class WidgetHomeComponent implements OnInit {
     }
 
     this.getSnowAggs();
+
+ this.rssfeed.getRssFeed().subscribe(rssAlerts2 => {
+    
+
+        for(var dv of rssAlerts2.data.services)
+        {  
+          if(dv.status=="good")
+            this.rssAlerts1.push({'service':dv.service,'colr':'green'})
+          if(dv.status=="critical")
+            this.rssAlerts1.push({'service':dv.service,'colr':'red'})
+             if(dv.status=="warning")
+            this.rssAlerts1.push({'service':dv.service,'colr':'amber'})
+        }
+      console.log( this.rssAlerts1)
+});
   }
 
   programAlerts = [
@@ -63,15 +81,15 @@ export class WidgetHomeComponent implements OnInit {
     {name:'Program 18',status:'green'}
   ];
 
-  rssAlerts = [
-    {name:'Third Party Provider 1',status:'green'},
-    {name:'Third Party Provider 2',status:'red'},
-    {name:'Third Party Provider 3',status:'red'},
-    {name:'Third Party Provider 4',status:'green'},
-    {name:'Third Party Provider 5',status:'amber'},
-    {name:'Third Party Provider 6',status:'green'},
-    {name:'Third Party Provider 7',status:'green'}
-  ];
+  // rssAlerts = [
+  //   {name:'Third Party Provider 1',status:'green'},
+  //   {name:'Third Party Provider 2',status:'red'},
+  //   {name:'Third Party Provider 3',status:'red'},
+  //   {name:'Third Party Provider 4',status:'green'},
+  //   {name:'Third Party Provider 5',status:'amber'},
+  //   {name:'Third Party Provider 6',status:'green'},
+  //   {name:'Third Party Provider 7',status:'green'}
+  // ];
 
   // SNowDashboard
   getSnowAggs() {

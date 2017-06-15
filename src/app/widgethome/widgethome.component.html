@@ -23,9 +23,9 @@
     <div class="widget-wrapper">
       <div class="widget-content" id="rss-widget" slimScroll [options]="scrollopts">
         <ul>
-          <li *ngFor="let alert of rssAlerts">
-            {{alert.name}}
-            <div class="alert-status" [ngClass]="alert.status">
+          <li *ngFor="let alert of rssAlerts1">
+            {{alert.service}}
+            <div class="alert-status" [ngClass]="alert.colr">
               <div class="chart-center"></div>
             </div>
           </li>
