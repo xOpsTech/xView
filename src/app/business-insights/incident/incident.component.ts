@@ -11,6 +11,7 @@ export class IncidentComponent implements OnInit {
 
   public snowData;
   private snowErr = false;
+  loadingWheel = "<i class='fa fa-spinner fa-pulse fa-fw'></i>";
 
   duration: SelectItem[];
   selectedDur = 5000000;
@@ -39,12 +40,7 @@ export class IncidentComponent implements OnInit {
   }
 
   changeDuration(){
-    this.snowData = {
-    "data": [
-        {"aggs_by_active": { "closed": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "open": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>"}},
-        {"aggs_by_priority": {}},
-        {"p1_incidents": [],"total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>"}
-    ]};
+    this.snowData = null;
 
     this.getSnowAggs();
   }
