@@ -1,0 +1,26 @@
+.widget{
+  padding: 10px;
+  position: relative;
+
+  .widget-wrapper{
+    background: #fff;
+    padding: 10px;
+    width: 100%;
+
+    .SNalert-widget{
+      height: 145px;
+    }
+
+    .widget-content{
+      height: 250px;
+    }
+  }
+}
+
+.row.box-wrap{
+  margin: 0;
+
+  div{
+    padding: 5px;
+  }
+}
