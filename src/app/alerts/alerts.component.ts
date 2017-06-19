@@ -16,6 +16,8 @@ export class AlertsComponent implements OnInit {
   cols2: any;
   status: any;
   private colorval: string;
+  //public widget_data;
+
   constructor(private alertsService: AlertService) {
   }
 
@@ -29,7 +31,7 @@ export class AlertsComponent implements OnInit {
 
     this.alertsService.getALertsMapped().then(alerts => {
       this.alerts = alerts;
-});
+    });
   }
 
   onRowSelect(event) {
@@ -93,5 +95,16 @@ export class AlertsComponent implements OnInit {
     console.log(e);
   } */
 //---- Alerts Chart End
+
+//----- Widget Data
+public widget_data = {
+	"severity_stats": {
+		"warning" : 10,
+    "critical" : 12,
+    "info" : 5
+	},
+	"error": false
+};
+//---- Widget Data End
 
 }
