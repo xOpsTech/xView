@@ -12,7 +12,7 @@ export class AlertService {
   options: RequestOptions;
 
   // private alerts_url = "http://localhost:3000/alerts";
-  private alerts_url = "http://35.184.66.182:4000/test/alerts";
+  private alerts_url = "http://localhost:4200/api/alerts";
 
   constructor(private http: Http) {
     this.headers = new Headers({ 'Content-Type': 'application/json',

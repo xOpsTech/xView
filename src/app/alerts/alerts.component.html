@@ -1,5 +1,56 @@
-<div class="animated fadeIn">
-<div class="row">
+<div class="row row-eq-height">
+<div class="col-md-6 widget">
+  <div class="widget-wrapper">
+    <canvas baseChart height="100" [datasets]="alertChartData" [labels]="alertChartLabels" [options]="lalertChartOptions" legend="true" chartType="line"></canvas>
+  </div>
+</div>
+
+<div class="col-md-6 widget">
+  <div class="widget-wrapper">
+
+    <div class="row box-wrap">
+      <div class="col-md-4 col-xs-6">
+        <div class="SNalert-widget" style="background:#ef5350">
+          <div class="inner">
+            <h3 [innerHTML]="widget_data?.severity_stats.critical || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+            <p>Critical</p>
+          </div>
+          <div class="icon">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-xs-6">
+        <div class="SNalert-widget" style="background:#ffa726">
+          <div class="inner">
+            <h3 [innerHTML]="snowData?.data[0].aggs_by_active.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+            <p>Warning</p>
+          </div>
+          <div class="icon">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-xs-6">
+        <div class="SNalert-widget" style="background:#00c0ef">
+          <div class="inner">
+            <h3 [innerHTML]="snowData?.data[0].aggs_by_active.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+            <p>Info</p>
+          </div>
+          <div class="icon">
+            <i class="fa fa-info-circle"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</div>
+<!-- <div class="row">
   <div class="col-sm-6 col-lg-3">
     <div class="card card-inverse card-primary">
       <div class="card-block pb-0">
@@ -19,7 +70,7 @@
       </div>
     </div>
   </div>
-  <!--/.col-->
+
 
   <div class="col-sm-6 col-lg-3">
     <div class="card card-inverse card-success">
@@ -61,7 +112,6 @@
       </div>
     </div>
   </div>
-  <!--/.col-->
 
   <div class="col-sm-6 col-lg-3">
     <div class="card card-inverse card-danger">
@@ -82,25 +132,31 @@
       </div>
     </div>
   </div>
-  <!--/.col-->
+
 </div>
-<br>
-<button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
-<div >
-<p-dataTable #alertsTable [value]="alerts" (onRowSelect)="onRowSelect($event)" selectionMode="single"  [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">
-    <p-header>
-      Alerts
-    </p-header>
-  <p-column field="_source.id" header="ID" [filter]="true" filterPlaceholder="Search"></p-column>
-    <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search" editable="true" ></p-column>
-    <p-column field="_source.domain" header="Domain" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'8%'}"></p-column>
-    <p-column field="_source.severity" header="Severity" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'8%'}"></p-column>
-    <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
-    <p-column field="_source.trigger" header="Trigger" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
-    <p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
-    <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
-    <!--<p-column field="color" header="Color"></p-column>-->
-</p-dataTable>
+<br> -->
+
+<div class="row row-eq-height">
+<div class="col-md-12 widget">
+  <div class="widget-wrapper">
+    <p-dataTable #alertsTable [value]="alerts" (onRowSelect)="onRowSelect($event)" selectionMode="single"  [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">
+        <p-header>
+          Alerts
+        </p-header>
+      <p-column field="_source.id" header="ID" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search" editable="true" ></p-column>
+        <p-column field="_source.domain" header="Domain" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'8%'}"></p-column>
+        <p-column field="_source.severity" header="Severity" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'8%'}"></p-column>
+        <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
+        <p-column field="_source.trigger" header="Trigger" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
+        <p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <!--<p-column field="color" header="Color"></p-column>-->
+    </p-dataTable>
+    <div class="float-right">
+      <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
+    </div>
+    &nbsp;
 
   <div >
     <p-dialog  [(visible)]="display" closable="true" draggable="false" resizable="false" modal="modal" width="900" responsive="true"  >
@@ -178,4 +234,6 @@
   </div>
 
 </div>
-</div>
+
+
+</div></div>

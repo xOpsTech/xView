@@ -5,7 +5,7 @@ import 'rxjs';
 
 @Injectable()
 export class DashboardService {
-  private test_results_url = 'http://35.184.66.182:4000/test/results';
+  private test_results_url = 'http://35.184.66.182:4200/api/results';
   // private test_results_url = 'http://localhost:3000/test_results';
 
   constructor(private http: Http) { }

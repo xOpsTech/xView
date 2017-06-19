@@ -16,6 +16,8 @@ export class AlertsComponent implements OnInit {
   cols2: any;
   status: any;
   private colorval: string;
+  //public widget_data;
+
   constructor(private alertsService: AlertService) {
   }
 
@@ -29,7 +31,7 @@ export class AlertsComponent implements OnInit {
 
     this.alertsService.getALertsMapped().then(alerts => {
       this.alerts = alerts;
-});
+    });
   }
 
   onRowSelect(event) {
@@ -74,5 +76,35 @@ export class AlertsComponent implements OnInit {
       result => console.log(result)
       );
   }
+
+  //------ Alerts Chart
+  public alertChartData:Array<any> = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A', fill: false},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B', fill: false}
+  ];
+  public alertChartLabels:Array<any> = ['Jun 12', 'Jun 13', 'Jun 14', 'Jun 15', 'Jun 16', 'Jun 17', 'Jun 18'];
+  public alertChartOptions:any = {
+    type : "line",
+    responsive: true
+  };
+  /*public chartClicked(e:any):void {
+    console.log(e);
+  }
+
+  public chartHovered(e:any):void {
+    console.log(e);
+  } */
+//---- Alerts Chart End
+
+//----- Widget Data
+public widget_data = {
+	"severity_stats": {
+		"warning" : 10,
+    "critical" : 12,
+    "info" : 5
+	},
+	"error": false
+};
+//---- Widget Data End
 
 }
