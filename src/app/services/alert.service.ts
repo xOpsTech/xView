@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Alert } from './Alert';
 import 'rxjs';
 
 
@@ -59,4 +58,9 @@ export class AlertService {
     return Observable.throw(errMsg);
   }
 
+}
+
+export interface Alert {
+    domain;
+    _source;
 }

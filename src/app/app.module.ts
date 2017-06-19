@@ -30,7 +30,7 @@ import { BusinessInsightsComponent } from './business-insights/business-insights
 import { SnowAggsService } from './services/snow-aggs.service';
 import { SettingsComponent } from './settings/settings.component';
 import { UserService } from './user.service';
-import { RssfeedService } from './rssfeed.service';
+import { RssfeedService } from './services/rssfeed.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';

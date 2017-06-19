@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RssfeedService } from '../../rssfeed.service';
+import { RssfeedService } from '../../services/rssfeed.service';
 
 @Component({
   selector: 'app-rssfeed',
