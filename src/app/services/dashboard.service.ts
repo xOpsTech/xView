@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
+import { config } from '../config/config';
 
 @Injectable()
 export class DashboardService {
-  private test_results_url = 'http://35.184.66.182:4200/api/results';
-  // private test_results_url = 'http://localhost:3000/test_results';
+  private test_results_url = config.XOPSAPI+'/results';
 
   constructor(private http: Http) { }
 

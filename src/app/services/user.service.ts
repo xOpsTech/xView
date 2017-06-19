@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
+import { config } from '../config/config';
 
 @Injectable()
 export class UserService {
-  private getUserUrl = "/api/user";
+  private getUserUrl = config.XOPSAPI+"/user";
   user = null;
 
   constructor(private http:Http) {

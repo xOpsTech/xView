@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonalizationService } from 'app/personalization.service';
-import { UserService } from 'app/user.service';
+import { PersonalizationService } from '../services/personalization.service';
+import { UserService } from '../services/user.service';
 import { Message } from 'primeng/primeng';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AmChartsService } from '@amcharts/amcharts3-angular';
-import { AlertService } from '../alerts/alert.service';
+import { AlertService } from '../services/alert.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -18,7 +18,7 @@ export class MapComponent implements OnInit {
   ngOnInit() {
 
  this.alertsService.getALertsMapped().then(alerts => {
- 
+
       console.log( this.alerts)
 });
 

@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Alert } from './Alert';
 import 'rxjs';
-
-
+import { config } from '../config/config';
 
 @Injectable()
 export class AlertService {
   headers: Headers;
   options: RequestOptions;
 
-  // private alerts_url = "http://localhost:3000/alerts";
-  private alerts_url = "http://localhost:4200/api/alerts";
+  private alerts_url = config.XOPSAPI+'/alerts';
 
   constructor(private http: Http) {
     this.headers = new Headers({ 'Content-Type': 'application/json',
       'Accept': 'q=0.8;application/json;q=0.9' });
     this.options = new RequestOptions({ headers: this.headers });
-
+console.log(this.alerts_url);
   }
 
   getAlerts() {
@@ -59,4 +56,9 @@ export class AlertService {
     return Observable.throw(errMsg);
   }
 
+}
+
+export interface Alert {
+    domain;
+    _source;
 }

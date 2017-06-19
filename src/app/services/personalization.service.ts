@@ -3,18 +3,15 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
+import { config } from '../config/config';
 
 @Injectable()
 export class PersonalizationService {
-  // private url = 'http://localhost:3000';
-  // private url = 'http://35.184.66.182:4200/api/user/';
-   //private url = 'http://localhost:4200';
-  private url = 'http://35.184.66.182:4200';
 
   constructor(private http : Http) { }
 
   getPersonalization(user:string) {
-    return this.http.get(this.url + '/api/user/' + user)
+    return this.http.get(config.XOPSAPI + '/user/' + user)
       .map((res:Response) => res.json())
   }
 
@@ -37,7 +34,7 @@ export class PersonalizationService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    var endpoint = this.url + '/api/user/' + user;
+    var endpoint = config.XOPSAPI + '/user/' + user;
     return this.http.put(endpoint, payload, options)
       .map((res:Response) => res.json())
   }
@@ -50,7 +47,7 @@ export class PersonalizationService {
             "theme": theme,
           "dashboard": {
           }
-      } 
+      }
     }
 
     for (var i in all_widgets) {
@@ -65,13 +62,13 @@ export class PersonalizationService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    var endpoint = this.url + '/api/user/' + email;
+    var endpoint = config.XOPSAPI + '/user/' + email;
     return this.http.put(endpoint, putUserSetting, options)
       .map((res:Response) => res.json())
   }
 
   getWidgets() {
-    return this.http.get(this.url + '/api/widget')
+    return this.http.get(config.XOPSAPI + '/widget')
       .map((res:Response) => res.json())
   }
 }
