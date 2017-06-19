@@ -5,7 +5,7 @@ import 'rxjs';
 
 @Injectable()
 export class RssfeedService {
-  private getRssFeedUrl = "/api/scholastic/services-health";
+  private getRssFeedUrl = "http://localhost:4200/api/scholastic/services-health";
 
   constructor(private http:Http) {
   }
