@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, } from './../user.service';
-import {PersonalizationService } from './../personalization.service';
+import { UserService, } from '../services/user.service';
+import {PersonalizationService } from '../services/personalization.service';
 import { NgForm } from '@angular/forms';
 import { Select2OptionData } from 'ng2-select2';
 
@@ -55,7 +55,7 @@ public widgets =  [];
   ngOnInit() {
     this.userService.getUserData().subscribe(res => {
     this.usersets = res;
-   
+
     this.fullnameval =this.usersets.name;
     this.username = this.usersets.email;
     this.theme = this.usersets.personalization.theme;
@@ -71,17 +71,17 @@ public widgets =  [];
 
    clicked = false;
    submitted = false;
-  
+
    loadWidgetsList() {
     this.personalizationService.getWidgets()
       .subscribe(res => {
-      
+
        for(var d of res.message)
-        {  
+        {
             this.widget_array.push({'id':d.name,'text':d.label})
         }
         this.widgets= this.widget_array;
- 
+
       });
   }
 
@@ -117,14 +117,14 @@ public widgets =  [];
               "ttfb": true,
               "dom_elements": false,
             }
-        } 
-      
+        }
+
       }
    this.userService.updateSettings( this.putUserSetting).subscribe(res => {},
              err => {console.log(err); });
    this.submitted = true;
 
-  
+
   }
   active = true;
 

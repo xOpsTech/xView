@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ISlimScrollOptions } from 'ng2-slimscroll';
 import { SelectItem } from 'primeng/primeng'
 import { SnowAggsService } from '../services/snow-aggs.service';
-import { RssfeedService } from '../rssfeed.service';
+import { RssfeedService } from '../services/rssfeed.service';
 
 
 @Component({
@@ -45,10 +45,10 @@ export class WidgetHomeComponent implements OnInit {
     this.getSnowAggs();
 
  this.rssfeed.getRssFeed().subscribe(rssAlerts2 => {
-    
+
 
         for(var dv of rssAlerts2.data.services)
-        {  
+        {
           if(dv.status=="good")
             this.rssAlerts1.push({'service':dv.service,'colr':'green'})
           if(dv.status=="critical")

@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
+import { config } from '../config/config';
 
 @Injectable()
 export class RssfeedService {
-  private getRssFeedUrl = "http://localhost:4200/api/scholastic/services-health";
+  private getRssFeedUrl = config.XOPSAPI+"/scholastic/services-health";
 
   constructor(private http:Http) {
   }
