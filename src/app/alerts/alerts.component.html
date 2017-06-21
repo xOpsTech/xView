@@ -139,7 +139,7 @@
 
 <div class="row row-eq-height">
 <div class="col-md-12 widget">
-  <div class="widget-wrapper">
+  <div class="widget-wrapper primeng-popup">
     <p-dataTable #alertsTable [value]="alerts" (onRowSelect)="onRowSelect($event)" selectionMode="single"  [loading]="loading" [rows]="5" [paginator]="true" exportFilename="alerts">
         <p-header>
           Alerts
@@ -161,29 +161,39 @@
 
   <div >
     <p-dialog  [(visible)]="display" closable="true" draggable="false" resizable="false" modal="modal" width="900" responsive="true"  >
-     <p-header  closable="true" [style.background] = "colorval" >
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-1"><i class="fa fa-square" [style.color] ="colorval" style="font-size:50px"></i></div>
+     <p-header  closable="true" >
+       <i class="fa fa-square" [style.color] ="colorval" style="font-size:22px"></i>
+       {{title}}
+       <span class="badge xops-badge">{{status}}</span>
+        <!-- <div class="ui-grid-row">
+          <div class="ui-grid-col-1"></div>
           <div class="ui-grid-col-11">
            <div class="ui-grid-row">
-             <div class="ui-grid-col-10">{{status}}</div>
-            <div class="ui-grid-col-10">{{title}}</div>
+
+            <div class="ui-grid-col-10"> </div>
           </div>
           </div>
-        </div>
+        </div> -->
   </p-header>
     <!--<div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">-->
       <!--<div class="ui-dialog-titlebar ui-widget-header  ui-corner-top">-->
       <div style="padding: 1em; border-bottom: 1px solid #e5e5e5;">
       <div class="ui-grid-row"  >
         <div class="ui-grid-col-8" >
-          Status :
+          Status : <select pDropdown class="" name="">
+            <option value="">Assess</option>
+            <option value="">Incident</option>
+            <option value="">Invalid</option>
+            <option value="">Ignore</option>
+            <option value="">Closed</option>
+          </select>
         </div>
         <div class="ui-grid-col-4" >
-          Assigned To :
+          Assigned To : <input type="text" pInputText />
+          <button pButton type="button" icon="fa-search" iconPos="left"></button>
         </div>
       </div>
-        <div class="ui-grid-row" >
+        <!-- <div class="ui-grid-row" >
         <div class="ui-grid-col-8" >
           <div class="ui-grid-col-2" >
           <button type="button" pButton  style="border-radius:0;" (click)="onclickAsses()"   class="ui-button-primary"(click)="display=false" label="Assess"></button>
@@ -201,26 +211,21 @@
             <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Close"></button>
           </div>
 
-      </div>
+        </div>
           <div class="ui-grid-col-4" >
             <input type="text" pInputText />
             <button pButton type="button" icon="fa-search" iconPos="left"></button>
             </div>
-      </div>
+      </div> -->
      </div>
       <div class="ui-grid ui-grid-responsive ui-grid-pad" >
         <div id="" style="overflow-y: scroll; height:300px;">
-        <div class="ui-grid-row" *ngFor="let col of cols2">
-          <div class="ui-grid-col-10">
-
-            <div class="ui-grid-col-4">
-              {{col.head}}
-            </div>
-            <div class="ui-grid-col-8">
-              {{col.val}}
-            </div>
+        <ng-container *ngFor="let col of cols2">
+        <div class="ui-grid-row alert-row" *ngIf="col.val != '' && col.val">
+          <div class="ui-grid-col-3">{{col.head}}</div>
+          <div class="ui-grid-col-7">{{col.val}}</div>
           </div>
-          </div>
+        </ng-container>
         </div>
       </div>
 

@@ -73,6 +73,24 @@ body {
   }
 }
 
+// PrimeNG Popup Styles
+.primeng-popup{
+  .ui-dialog-titlebar{
+    font-weight: bold;
+  }
+  .alert-row{
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+  }
+}
+
+.xops-badge{
+  background: #900;
+  border-radius: 10px;
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
 .app-footer {
   flex: 0 0 50px;
 }
