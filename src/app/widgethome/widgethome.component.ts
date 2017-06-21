@@ -3,13 +3,13 @@ import { ISlimScrollOptions } from 'ng2-slimscroll';
 import { SelectItem } from 'primeng/primeng'
 import { SnowAggsService } from '../services/snow-aggs.service';
 import { RssfeedService } from '../services/rssfeed.service';
-
+import { ProgrammeService } from '../services/programme.service';
 
 @Component({
   selector: 'app-widgethome',
   templateUrl: './widgethome.component.html',
   styleUrls: ['./widgethome.component.scss'],
-  providers :[RssfeedService]
+  providers :[RssfeedService,ProgrammeService]
 })
 export class WidgetHomeComponent implements OnInit {
 
@@ -18,7 +18,8 @@ export class WidgetHomeComponent implements OnInit {
   duration: SelectItem[];
   selectedDur = 5000000;
   rssAlerts1 = [];
-  constructor(private _snowSvc: SnowAggsService,private rssfeed: RssfeedService) {
+  programAlerts1 = [];
+  constructor(private _snowSvc: SnowAggsService,private rssfeed: RssfeedService,private programalerts: ProgrammeService) {
     this.duration = [
       {label:'Daily', value:250},
       {label:'Weekly', value:500},
@@ -56,42 +57,20 @@ export class WidgetHomeComponent implements OnInit {
              if(dv.status=="warning")
             this.rssAlerts1.push({'service':dv.service,'colr':'amber'})
         }
-      console.log( this.rssAlerts1)
+      
+});
+
+ this.programalerts.getProgrammes().subscribe(programAlerts => {
+ 
+     for(var dv2 of programAlerts.data)
+      {
+         this.programAlerts1.push({'name':dv2.program,'status':dv2.status})
+      }
+  
 });
   }
 
-  programAlerts = [
-    {name:'Program 1',status:'green'},
-    {name:'Program 2',status:'red'},
-    {name:'Program 3',status:'red'},
-    {name:'Program 4',status:'green'},
-    {name:'Program 5',status:'amber'},
-    {name:'Program 6',status:'green'},
-    {name:'Program 7',status:'green'},
-    {name:'Program 8',status:'green'},
-    {name:'Program 9',status:'green'},
-    {name:'Program 10',status:'green'},
-    {name:'Program 11',status:'green'},
-    {name:'Program 12',status:'green'},
-    {name:'Program 13',status:'green'},
-    {name:'Program 14',status:'green'},
-    {name:'Program 15',status:'amber'},
-    {name:'Program 16',status:'amber'},
-    {name:'Program 17',status:'red'},
-    {name:'Program 18',status:'green'}
-  ];
 
-  // rssAlerts = [
-  //   {name:'Third Party Provider 1',status:'green'},
-  //   {name:'Third Party Provider 2',status:'red'},
-  //   {name:'Third Party Provider 3',status:'red'},
-  //   {name:'Third Party Provider 4',status:'green'},
-  //   {name:'Third Party Provider 5',status:'amber'},
-  //   {name:'Third Party Provider 6',status:'green'},
-  //   {name:'Third Party Provider 7',status:'green'}
-  // ];
-
-  // SNowDashboard
   getSnowAggs() {
     this._snowSvc.getSnowAggs(this.selectedDur).subscribe(
       data => { this.snowData = data},

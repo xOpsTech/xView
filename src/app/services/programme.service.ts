@@ -5,16 +5,17 @@ import 'rxjs';
 import { config } from '../config/config';
 
 @Injectable()
-export class RssfeedService {
-  private getRssFeedUrl = config.XOPSAPI+"/scholastic/services-health";
+export class ProgrammeService {
+  private getProgrammeUrl = config.XOPSAPI+"/programs";
 
   constructor(private http:Http) {
   }
 
-  getRssFeed() {
-      return this.http.get(this.getRssFeedUrl)
+  getProgrammes() {
+      return this.http.get(this.getProgrammeUrl)
                   .map((res:Response) => res.json())
   }
- 
+
+   
 
 }
