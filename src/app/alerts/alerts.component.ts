@@ -41,7 +41,7 @@ export class AlertsComponent implements OnInit {
     this.title  = event.data._source.title;
     this.eventid  =  event.data._source.eventId;
     this.cols2 = [
-      {head: 'ID', val: event.data._source.id},
+      {head: 'Event ID', val: event.data._source.eventId},
       {head: 'Domain', val: event.data._source.domain},
       {head: 'Producer', val: event.data._source.producer},
       {head: 'Trigger', val: event.data._source.trigger},
@@ -79,8 +79,10 @@ export class AlertsComponent implements OnInit {
   ];
 
  onclickAsses(value,eventid){
-    if(value =="Ignore" || value=="Closed")
+    if(value =="Ignore" || value=="Closed" || value=="Invalid" )
     {
+      console.log(value);
+      console.log(eventid);
     this.alertsService.putService( {"eventId": eventid,
     "status": value})
       .subscribe(
