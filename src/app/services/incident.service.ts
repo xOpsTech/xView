@@ -5,7 +5,7 @@ import 'rxjs';
 import { config } from '../config/config';
 
 @Injectable()
-export class IncidentCreation {
+export class IncidentService {
   headers: Headers;
   options: RequestOptions;
 

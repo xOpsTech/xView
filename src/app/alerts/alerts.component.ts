@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Alert } from './Alert';
 import { AlertService } from '../services/alert.service';
-import { IncidentCreation } from '../services/incidentcreation.service';
+import { IncidentService } from '../services/incident.service';
 
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.scss'],
-  providers: [AlertService,IncidentCreation]
+  providers: [ AlertService, IncidentService ]
 })
 export class AlertsComponent implements OnInit {
   alert_put_values: { _id: string};
@@ -20,7 +20,7 @@ export class AlertsComponent implements OnInit {
   private colorval: string;
   //public widget_data;
 
-  constructor(private alertsService: AlertService,private incidentCreation: IncidentCreation) {
+  constructor(private alertsService: AlertService,private incidentCreation: IncidentService) {
   }
 
   disabled: boolean = true;
@@ -104,22 +104,17 @@ export class AlertsComponent implements OnInit {
   }
 
   //------ Alerts Chart
-  public alertChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A', fill: false},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B', fill: false}
-  ];
-  public alertChartLabels:Array<any> = ['Jun 12', 'Jun 13', 'Jun 14', 'Jun 15', 'Jun 16', 'Jun 17', 'Jun 18'];
+  public alertChartData = {
+    alertData : [
+      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A', fill: false},
+      {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B', fill: false}
+    ],
+    alertLabels : ['Jun 12', 'Jun 13', 'Jun 14', 'Jun 15', 'Jun 16', 'Jun 17', 'Jun 18']  
+    };
   public alertChartOptions:any = {
     type : "line",
     responsive: true
   };
-  /*public chartClicked(e:any):void {
-    console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    console.log(e);
-  } */
 //---- Alerts Chart End
 
 //----- Widget Data
