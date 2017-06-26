@@ -28,6 +28,7 @@ import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
 import { BusinessInsightsComponent } from './business-insights/business-insights.component';
 import { SnowAggsService } from './services/snow-aggs.service';
+import { IncidentService } from './services/incident.service';
 import { SettingsComponent } from './settings/settings.component';
 import { UserService } from './services/user.service';
 import { RssfeedService } from './services/rssfeed.service';
@@ -122,7 +123,7 @@ import { SlimScrollModule } from 'ng2-slimscroll';
     SelectButtonModule,
     AccordionModule
   ],
-  providers: [SnowAggsService, UserService, RssfeedService],
+  providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
