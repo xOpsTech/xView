@@ -36,10 +36,11 @@ console.log(this.alerts_url);
       .then(data => { return data});
   }
 
-  putService(url: string, param: any): Observable<any> {
+   putService(param: any): Observable<any> {
   let body = JSON.stringify(param);
+  console.log(body);
   return this.http
-    .put(url, body, this.options)
+    .put(this.alerts_url, body, this.options)
     .map(this.extractData)
     .catch(this.handleError);
 }

@@ -14,6 +14,7 @@ export class AlertsComponent implements OnInit {
   alerts: Alert[] = [];
   display: boolean = false;
   cols2: any;
+  eventid: any;
   status: any;
   private colorval: string;
   //public widget_data;
@@ -38,7 +39,7 @@ export class AlertsComponent implements OnInit {
     this.showDialog();
     this.status  = event.data._source.status.toUpperCase();
     this.title  = event.data._source.title;
-
+    this.eventid  =  event.data._source.eventId;
     this.cols2 = [
       {head: 'ID', val: event.data._source.id},
       {head: 'Domain', val: event.data._source.domain},
@@ -68,13 +69,24 @@ export class AlertsComponent implements OnInit {
       this.colorval = "yellow"
     }
   }
+    alertselections:any[] = [
+    {val:'Assess',name:'Assess'},
+    {val:'Incident',name:'Incident'},
+    {val:'Invalid',name:'Invalid'},
+    {val:'Ignore',name:'Ignore'},
+    {val:'Closed',name:'Closed'},
+    
+  ];
 
-  onclickAsses(){
-
-   this.alertsService.putService( 'http://35.184.66.182:4000/test/alerts', this.alert_put_values)
-    .subscribe(
-      result => console.log(result)
-      );
+ onclickAsses(value,eventid){
+    if(value =="Ignore" || value=="Closed")
+    {
+    this.alertsService.putService( {"eventId": eventid,
+    "status": value})
+      .subscribe(
+        result => console.log(result)
+        );
+    }
   }
 
   //------ Alerts Chart
