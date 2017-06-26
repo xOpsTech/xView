@@ -51,91 +51,6 @@
   </div>
 </div>
 </div>
-<!-- <div class="row">
-  <div class="col-sm-6 col-lg-3">
-    <div class="card card-inverse card-primary">
-      <div class="card-block pb-0">
-        <div class="btn-group float-right">
-          <i class="fa fa-check" aria-hidden="true"></i>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <h4 class="mb-0">0</h4>
-        <p>Severity 1</p>
-      </div>
-      <div class="chart-wrapper px-3" style="height:70px;">
-        <canvas id="card-chart1" class="chart chart-line" height="70"></canvas>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="col-sm-6 col-lg-3">
-    <div class="card card-inverse card-success">
-      <div class="card-block pb-0">
-        <div class="btn-group float-right">
-          <i class="fa fa-check" aria-hidden="true"></i>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <h4 class="mb-0">0</h4>
-        <p>Severity 2</p>
-      </div>
-      <div class="chart-wrapper px-3" style="height:70px;">
-        <canvas id="card-chart1" class="chart chart-line" height="70"></canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-lg-3">
-    <div class="card card-inverse card-warning">
-      <div class="card-block pb-0">
-        <div class="btn-group float-right">
-          <i class="fa fa-check" aria-hidden="true"></i>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <h4 class="mb-0">11</h4>
-        <p>Severity 3</p>
-      </div>
-      <div class="chart-wrapper">
-        <div class="chart-wrapper" style="height:70px;">
-          <canvas id="card-chart3" class="chart chart-line" height="70"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6 col-lg-3">
-    <div class="card card-inverse card-danger">
-      <div class="card-block pb-0">
-        <div class="btn-group float-right">
-          <i class="fa fa-check" aria-hidden="true"></i>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <h4 class="mb-0">14</h4>
-        <p>Severity 4</p>
-      </div>
-      <div class="chart-wrapper px-3" style="height:70px;">
-        <canvas id="card-chart4" class="chart chart-bar" height="70"></canvas>
-      </div>
-    </div>
-  </div>
-
-</div>
-<br> -->
 
 <div class="row row-eq-height">
 <div class="col-md-12 widget">
@@ -144,10 +59,19 @@
         <p-header>
           Alerts
         </p-header>
+          <p-column field="_source.color" header="Sevierity" [filter]="true" filterPlaceholder="Search">
+             <ng-template let-file ="rowData" pTemplate="body">
+             <div class="alert-status"  [ngClass]="file._source.severity == '1' ? 'green' : 'amber'">
+  
+              <div class="chart-center">
+              </div>
+          </div>
+        </ng-template>
+        
+      </p-column>
       <p-column field="_source.id" header="ID" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search" editable="true" ></p-column>
         <p-column field="_source.domain" header="Domain" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'8%'}"></p-column>
-        <p-column field="_source.severity" header="Severity" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'8%'}"></p-column>
         <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
         <p-column field="_source.trigger" header="Trigger" styleClass="truncate" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
         <p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
@@ -180,12 +104,8 @@
       <div style="padding: 1em; border-bottom: 1px solid #e5e5e5;">
       <div class="ui-grid-row"  >
         <div class="ui-grid-col-8" >
-          Status : <select pDropdown class="" name="">
-            <option value="">Assess</option>
-            <option value="">Incident</option>
-            <option value="">Invalid</option>
-            <option value="">Ignore</option>
-            <option value="">Closed</option>
+          Status :    <select #selectedval>
+            <option *ngFor="let alertselection of alertselections" [value]="alertselection.val">{{alertselection.name}}</option>
           </select>
         </div>
         <div class="ui-grid-col-4" >
@@ -232,7 +152,7 @@
       <p-footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
           <button type="button"  pButton label=Save></button>
-          <button type="button" pButton  style="border-radius:0;" class="ui-button-primary"(click)="display=false" label="Email"></button>
+           <button type="button" pButton  style="border-radius:0;" class="ui-button-primary" (click)="onclickAsses(selectedval.value,eventid)"  label="Email"></button>
         </div>
       </p-footer>
     </p-dialog>
