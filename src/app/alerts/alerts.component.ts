@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Alert } from './Alert';
 import { AlertService } from '../services/alert.service';
+import { IncidentCreation } from '../services/incidentcreation.service';
 
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.scss'],
-  providers: [AlertService]
+  providers: [AlertService,IncidentCreation]
 })
 export class AlertsComponent implements OnInit {
   alert_put_values: { _id: string};
@@ -19,7 +20,7 @@ export class AlertsComponent implements OnInit {
   private colorval: string;
   //public widget_data;
 
-  constructor(private alertsService: AlertService) {
+  constructor(private alertsService: AlertService,private incidentCreation: IncidentCreation) {
   }
 
   disabled: boolean = true;
@@ -85,6 +86,17 @@ export class AlertsComponent implements OnInit {
       console.log(eventid);
     this.alertsService.putService( {"eventId": eventid,
     "status": value})
+      .subscribe(
+        result => console.log(result)
+        );
+        
+    }
+
+    if(value =="Incident")
+    {
+      console.log(value);
+      console.log(eventid);
+    this.incidentCreation.postIncident( {"eventId": eventid})
       .subscribe(
         result => console.log(result)
         );
