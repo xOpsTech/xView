@@ -10,7 +10,7 @@ export class AlertService {
   options: RequestOptions;
 
   private alerts_url = config.XOPSAPI+'/alerts';
-
+  private alerts_stats_url = config.XOPSAPI+'/alerts/stats';
   constructor(private http: Http) {
     this.headers = new Headers({ 'Content-Type': 'application/json',
       'Accept': 'q=0.8;application/json;q=0.9' });
@@ -37,13 +37,18 @@ console.log(this.alerts_url);
   }
 
    putService(param: any): Observable<any> {
-  let body = JSON.stringify(param);
-  console.log(body);
-  return this.http
-    .put(this.alerts_url, body, this.options)
-    .map(this.extractData)
-    .catch(this.handleError);
+    let body = JSON.stringify(param);
+    console.log(body);
+    return this.http
+      .put(this.alerts_url, body, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
 }
+
+   widgetStatus() {
+    return this.http.get(this.alerts_stats_url)
+      .map((res:Response) => res.json());
+  }
 
   private extractData(res: Response) {
     let body = res.json();
