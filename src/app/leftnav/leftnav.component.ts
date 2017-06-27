@@ -8,7 +8,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class LeftnavComponent implements OnInit {
   public disabled: boolean = false;
   public status: {isopen: boolean} = {isopen: false};
-  public nav_gap = 115;
+  public nav_gap = 135;
 
   public toggled(open: boolean): void {
     console.log('Dropdown is now: ', open);
@@ -23,10 +23,10 @@ export class LeftnavComponent implements OnInit {
    @HostListener('window:scroll', ['$event'])
   public onWindowScroll(): void {
     if(window.pageYOffset<50) {
-      this.nav_gap = 115 - window.pageYOffset;
+      this.nav_gap = 135 - window.pageYOffset;
     }
     else {
-      this.nav_gap = 55;
+      this.nav_gap = 35;
     }
   }
 

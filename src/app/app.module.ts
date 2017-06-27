@@ -37,6 +37,7 @@ import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';
 
 import { TruncatePipe } from './common/pipe.truncate';
+import { BusinessComponent } from './business/business.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { TruncatePipe } from './common/pipe.truncate';
     IncidentComponent,
     RssfeedComponent,
     SettingsComponent,
-    TruncatePipe
+    TruncatePipe,
+    BusinessComponent
 ],
 
   imports: [
@@ -108,6 +110,10 @@ import { TruncatePipe } from './common/pipe.truncate';
       {
         path: 'custom/cc',
         component: WidgetHomeComponent
+      },
+      {
+        path: 'business',
+        component: BusinessComponent
       },
       {
         path: '', redirectTo: 'custom/cc', pathMatch: 'full'
