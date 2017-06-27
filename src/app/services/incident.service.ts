@@ -9,13 +9,13 @@ export class IncidentService {
   headers: Headers;
   options: RequestOptions;
 
-  private incdent_url = config.XOPSAPI+'/incidents/_create';
+  private incident_url = config.XOPSAPI+'/incidents/_create';
 
   constructor(private http: Http) {
     this.headers = new Headers({ 'Content-Type': 'application/json',
       'Accept': 'q=0.8;application/json;q=0.9' });
     this.options = new RequestOptions({ headers: this.headers });
-console.log(this.incdent_url);
+console.log(this.incident_url);
   }
 
 
@@ -23,7 +23,7 @@ console.log(this.incdent_url);
   let body = JSON.stringify(param);
   console.log(body);
   return this.http
-    .post(this.incdent_url, body, this.options)
+    .post(this.incident_url, body, this.options)
     .map(this.extractData)
     .catch(this.handleError);
 }

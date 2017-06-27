@@ -28,7 +28,7 @@
         <div class="col-md-4 col-xs-6">
           <div class="SNalert-widget" style="background:#ffa726">
             <div class="inner">
-              <h3 [innerHTML]="snowData?.data[0].aggs_by_active.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <h3 [innerHTML]="widget_data?.severity_stats.warning || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
               <p>Warning</p>
             </div>
             <div class="icon">
@@ -40,7 +40,7 @@
         <div class="col-md-4 col-xs-6">
           <div class="SNalert-widget" style="background:#00c0ef">
             <div class="inner">
-              <h3 [innerHTML]="snowData?.data[0].aggs_by_active.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <h3 [innerHTML]="widget_data?.severity_stats.info || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
               <p>Info</p>
             </div>
             <div class="icon">
@@ -74,7 +74,7 @@
         <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search" editable="true"></p-column>
         <p-column field="_source.domain" header="Domain" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'8%'}"></p-column>
         <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
-        <p-column field="_source.trigger" header="Trigger" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
+        <p-column field="_source.trigger" header="Trigger" styleClass="truncate" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
         <p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
       </p-dataTable>
