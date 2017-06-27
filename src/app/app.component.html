@@ -1,9 +1,23 @@
-  <app-header></app-header>
+<app-header></app-header>
+<div>
   <div>
-    <app-leftnav></app-leftnav>
-    <main class="main">
+    <div class="custom-brand-header">
+      <div class="head-alerts pullright">
+        <ul>
+          <li><span class="count">0</span>
+            <div class="label">Business<br/>Alerts</div>
+          </li>
+          <li><span class="count">2</span>
+            <div class="label">Technical<br/>Alerts</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <app-leftnav></app-leftnav>
+  <main class="main">
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div>
-    </main>
-  </div>
+  </main>
+</div>

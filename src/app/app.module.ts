@@ -86,7 +86,7 @@ import { TruncatePipe } from './common/pipe.truncate';
         component: AlertsComponent
       },
       {
-        path: 'dashboard',
+        path: 'custom/dashboard',
         component: DashboardComponent
       },
       {

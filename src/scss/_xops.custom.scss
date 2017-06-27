@@ -39,6 +39,9 @@ body {
   height:50px;
   background:url('/assets/partner/scholastic-banner.png') #df7f6e no-repeat;
   overflow: hidden;
+  margin-top: 55px;
+  position: absolute;
+  z-index: 1000;
 
   .head-alerts{
     ul{
