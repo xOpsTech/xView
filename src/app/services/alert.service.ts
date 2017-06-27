@@ -1,19 +1,8 @@
-import {
-  Injectable
-} from '@angular/core';
-import {
-  Http,
-  Response,
-  RequestOptions,
-  Headers
-} from '@angular/http';
-import {
-  Observable
-} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs';
-import {
-  config
-} from '../config/config';
+import { config } from '../config/config';
 
 @Injectable()
 export class AlertService {

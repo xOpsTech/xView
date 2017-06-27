@@ -2,10 +2,7 @@
 <div class="row row-eq-height">
   <div class="col-md-6 widget">
     <div class="widget-wrapper">
-      <!--<canvas baseChart height="100" [datasets]="alert_trend?.alert_trend.alertData" [labels]="alert_trend?.alert_trend.alertLabels" [options]="lalertChartOptions" legend="true"
-        chartType="line"></canvas>-->
-        <p-chart type="line" [data]="alert_trend?.alert_trend"></p-chart>
-
+        <p-chart type="line" [data]="alert_trend?.alert_trend" height="100"></p-chart>
     </div>
   </div>
 
@@ -58,10 +55,7 @@
     <div class="widget-wrapper primeng-popup">
       <p-dataTable #alertsTable [value]="alerts"  (onRowSelect)="onRowSelect($event)" selectionMode="single" [loading]="loading"
         [rows]="5" [paginator]="true" exportFilename="alerts">
-        <p-header>
-          Alerts
-        </p-header>
-        <p-column field="_source.color" header="Sevierity" [filter]="true" filterPlaceholder="Search">
+        <p-column field="_source.color" header="Sevierity" sortable="true">
           <ng-template let-file="rowData" pTemplate="body">
             <div class="alert-status" [ngClass]="file._source.severity == '1' ? 'green' :file._source.severity == '4' ? 'red': 'amber'">
               <div class="chart-center">
@@ -70,13 +64,36 @@
           </ng-template>
 
         </p-column>
-        <p-column field="_source.eventId" header="Event Id" [filter]="true" filterPlaceholder="Search"></p-column>
-        <p-column field="_source.raisedTimestamp" header="Raised Timestamp" [filter]="true" filterPlaceholder="Search" editable="true"></p-column>
-        <p-column field="_source.domain" header="Domain" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'8%'}"></p-column>
+        <p-column header="Priority">
+          <ng-template let-file="rowData" pTemplate="body">
+            P1
+          </ng-template>
+        </p-column>
+        <p-column field="_source.raisedTimestamp" header="Time" sortable="true">
+          <ng-template let-time="rowData" pTemplate="body">
+            {{time._source.raisedTimestamp | date:'hh:mma'}}<br/><small>{{time._source.raisedTimestamp | date:'MMM dd, yyyy'}}</small>
+          </ng-template>
+        </p-column>
+        <p-column field="_source.domain" header="Domain" sortable="true"></p-column>
         <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
-        <p-column field="_source.trigger" header="Trigger" styleClass="truncate" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
-        <p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="_source.trigger" header="Alert" styleClass="truncate" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}">
+          <ng-template let-file="rowData" pTemplate="body">
+             {{file._source.trigger | truncate: 20}}
+          </ng-template>
+        </p-column>
+        <p-column header="Alert Status">
+          <ng-template let-file="rowData" pTemplate="body">
+            New
+          </ng-template>
+        </p-column>
+        <p-column header="Ticket Status">
+          <ng-template let-file="rowData" pTemplate="body">
+            New
+          </ng-template>
+        </p-column>
+        <!--<p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="_source.eventId" header="Event Id" [filter]="true" filterPlaceholder="Search"></p-column>-->
       </p-dataTable>
       <div class="float-right">
         <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>

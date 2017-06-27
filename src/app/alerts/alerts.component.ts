@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Alert } from './Alert';
 import { AlertService } from '../services/alert.service';
 import { IncidentService } from '../services/incident.service';
+import { TruncatePipe } from '../common/pipe.truncate';
 
 @Component({
   selector: 'app-alerts',
@@ -23,13 +24,19 @@ export class AlertsComponent implements OnInit {
   public alert_trend;
   public widget_data;
 
-  constructor(private alertsService: AlertService,private incidentCreation: IncidentService) {
+  constructor(private alertsService: AlertService,private incidentService: IncidentService) {
 
     this.alertsService.getAlertTrends('12')
     .subscribe((data: any) => {
       this.alert_trend = data;
       console.log(this.alert_trend);
     });
+
+    this.alertsService.widgetStatus().subscribe(widget_data1 => {
+      this.widget_data = widget_data1;
+      console.log(this.widget_data)
+    });
+
   }
 
   disabled: boolean = true;

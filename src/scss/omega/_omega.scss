@@ -29,9 +29,9 @@ $stateActiveBgColor: #d6d6d6;
 $stateActiveTextColor: #212121;
 
 //Highlight State
-$stateHighlightBorderColor: #000;
-$stateHighlightBgColor: #333;
-$stateHighlightTextColor: #FFFFFF;
+$stateHighlightBorderColor: #888;
+$stateHighlightBgColor: #888;
+$stateHighlightTextColor: #fff;
 
 //Focus State
 $stateFocusBorderColor: #c0c0c0;
@@ -166,17 +166,17 @@ $invalidInputBorderColor: #f44336;
 .ui-widget-header .ui-button,
 .ui-widget-content .ui-button,
 .ui-button {
-	border: 1px solid #2399e5;
-	color: #FFFFFF;
-	background: #2399e5;
+	border: 1px solid #444;
+	color: #fff;
+	background: #444;
     -webkit-transition: background-color .2s;
     -moz-transition: background-color .2s;
     transition: background-color .2s;
 
     &:enabled:hover,
     &:focus {
-        border: 1px solid #1f89ce;
-    	background: #1f89ce;
+        border: 1px solid #222;
+    	background: #222;
     	outline: 0 none;
         color: #ffffff;
     }
@@ -239,7 +239,9 @@ $invalidInputBorderColor: #f44336;
 .ui-datatable {
     th {
         &.ui-state-default {
-            background: #ebedf0;
+            background: #666;
+            color: #fff;
+            font-weight: bold;
             border-color: $headerBorderColor;
         }
 
@@ -257,6 +259,7 @@ $invalidInputBorderColor: #f44336;
     tbody {
         > tr.ui-widget-content {
             border-color: $headerBorderColor;
+            border: none;
 
             &.ui-datatable-odd {
                 background-color: #fafafb;
@@ -265,6 +268,11 @@ $invalidInputBorderColor: #f44336;
             &.ui-state-highlight {
                 background-color: $stateHighlightBgColor;
                 color: $stateHighlightTextColor;
+            }
+
+            td{
+                border:none;
+                border-bottom: 1px solid $headerBorderColor
             }
         }
     }

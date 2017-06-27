@@ -36,6 +36,8 @@ import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';
 
+import { TruncatePipe } from './common/pipe.truncate';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +61,8 @@ import { SlimScrollModule } from 'ng2-slimscroll';
     BusinessInsightsComponent,
     IncidentComponent,
     RssfeedComponent,
-    SettingsComponent
+    SettingsComponent,
+    TruncatePipe
 ],
 
   imports: [
