@@ -43,7 +43,7 @@
         <div class="col-md-4 col-xs-6">
           <div class="SNalert-widget" style="background:#00c0ef">
             <div class="inner">
-              <h3 [innerHTML]="snowData.data[0].aggs_by_active.total || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <h3 [innerHTML]="snowData?.data[0].aggs_by_active.total || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
               <p>Open P1 Tickets</p>
             </div>
             <div class="icon">
@@ -55,7 +55,7 @@
         <div class="col-md-4 col-xs-6">
           <div class="SNalert-widget" style="background:#00a65a">
             <div class="inner">
-              <h3 [innerHTML]="snowData.data[0].aggs_by_active.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <h3 [innerHTML]="snowData?.data[0].aggs_by_active.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
               <p>Open Tickets</p>
             </div>
             <div class="icon">
@@ -67,7 +67,7 @@
         <div class="col-md-4 col-xs-6">
           <div class="SNalert-widget" style="background:#2980b9">
             <div class="inner">
-              <h3 [innerHTML]="snowData.data[0].aggs_by_active.closed || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <h3 [innerHTML]="snowData?.data[0].aggs_by_active.closed || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
               <p>Closed Tickets</p>
             </div>
             <div class="icon">

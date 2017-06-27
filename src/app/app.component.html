@@ -1,9 +1,26 @@
-  <app-header></app-header>
-  <div>
-    <app-leftnav></app-leftnav>
-    <main class="main">
+<app-header></app-header>
+<div>
+  <div class="custom-brand-header">
+    <div class="cust-logo">
+      <img src="/assets/img/logo/scholastic.png" alt="Scholastic">
+    </div>
+    <div class="head-alerts pullright">
+      <ul>
+        <li>
+          <div class="count">0</div>
+          <div class="label">Business<br/>Alerts</div>
+        </li>
+        <li>
+          <div class="count">2</div>
+          <div class="label">Technical<br/>Alerts</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <app-leftnav></app-leftnav>
+  <main class="main">
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div>
-    </main>
-  </div>
+  </main>
+</div>

@@ -54,7 +54,7 @@
   <div class="col-md-12 widget">
     <div class="widget-wrapper primeng-popup">
       <p-dataTable #alertsTable [value]="alerts"  (onRowSelect)="onRowSelect($event)" selectionMode="single" [loading]="loading"
-        [rows]="5" [paginator]="true" exportFilename="alerts">
+        [rows]="10" [paginator]="true" exportFilename="alerts">
         <p-column field="_source.color" header="Sevierity" sortable="true">
           <ng-template let-file="rowData" pTemplate="body">
             <div class="alert-status" [ngClass]="file._source.severity == '1' ? 'green' :file._source.severity == '4' ? 'red': 'amber'">

@@ -36,9 +36,18 @@ body {
 
 .custom-brand-header{
   width:100%;
-  height:50px;
+  height:100px;
   background:url('/assets/partner/scholastic-banner.png') #df7f6e no-repeat;
+  background-size: cover;
   overflow: hidden;
+  margin-top: 35px;
+  position: absolute;
+  z-index: 1000;
+  
+  .cust-logo{
+    padding: 22px 0 0 2%;
+    display: inline-block;
+  }
 
   .head-alerts{
     ul{
@@ -49,21 +58,22 @@ body {
         list-style: none;
         float: left;
         margin-right: 10px;
-        background: #f90000;
+        background: rgba(249, 0, 0, 0.6);
         color: #fff;
         padding: 0 10px;
+        text-align: center;
+        padding-top: 10px;
+        min-width: 90px;
 
         .count{
-          font-size: 35px;
-          display: inline-block;
-          float: left;
-          padding-right: 10px;
-          font-weight: bold;
+          font-size: 50px;
+          display: block;
+          line-height: 40px;
         }
 
         .label{
           padding: 10px 0;
-          display: inline-block;
+          display: block;
           text-transform: uppercase;
           font-weight: bold;
           font-size: 11px;
@@ -141,19 +151,19 @@ body {
     font-weight: 600;
 
     .nav .nav-item .nav-link i{
-      color: #eee;
+      color: #888;
     }
   }
   .main {
     margin-left: 200px;
-    margin-top: 50px;
+    margin-top: 90px;
   }
   .app-footer {
     margin-left: 200px;
   }
   .sidebar .sidebar-nav {
     height: calc(100vh - 10px);
-    padding-top: 115px;
+    padding-top: 135px;
   }
   &.sidebar-hidden {
     .main, .app-footer {

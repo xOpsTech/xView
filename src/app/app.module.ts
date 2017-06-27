@@ -37,6 +37,7 @@ import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';
 
 import { TruncatePipe } from './common/pipe.truncate';
+import { BusinessComponent } from './business/business.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { TruncatePipe } from './common/pipe.truncate';
     IncidentComponent,
     RssfeedComponent,
     SettingsComponent,
-    TruncatePipe
+    TruncatePipe,
+    BusinessComponent
 ],
 
   imports: [
@@ -86,7 +88,7 @@ import { TruncatePipe } from './common/pipe.truncate';
         component: AlertsComponent
       },
       {
-        path: 'dashboard',
+        path: 'custom/dashboard',
         component: DashboardComponent
       },
       {
@@ -94,11 +96,11 @@ import { TruncatePipe } from './common/pipe.truncate';
         component: MapComponent
       },
       {
-        path: 'incident',
+        path: 'tech/incident',
         component: IncidentComponent
       },
       {
-        path: 'rssfeed',
+        path: 'tech/third-party',
         component: RssfeedComponent
       },
       {
@@ -106,8 +108,15 @@ import { TruncatePipe } from './common/pipe.truncate';
         component: SettingsComponent
       },
       {
-        path: '',
+        path: 'custom/cc',
         component: WidgetHomeComponent
+      },
+      {
+        path: 'business',
+        component: BusinessComponent
+      },
+      {
+        path: '', redirectTo: 'custom/cc', pathMatch: 'full'
       }
 
 
@@ -129,6 +138,9 @@ import { TruncatePipe } from './common/pipe.truncate';
     ChartModule
   ],
   providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppModule { }

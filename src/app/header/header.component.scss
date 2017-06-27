@@ -29,7 +29,16 @@ button:-moz-focusring,
 [type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText; }
 
+i.user-settings{
+  font-size:26px;
+}
 
+ul.navbar-nav.main-menu-toggle{
+  width: 200px;
+}
+.navbar-brand{
+  margin-left: 5%;
+}
 
 .d-xl-down-none {
   display: none !important; }
@@ -49,8 +58,9 @@ button:-moz-focusring,
 
 
 .img-circle {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #263238;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #263238;
+  overflow: hidden;
 }
