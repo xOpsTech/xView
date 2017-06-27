@@ -100,7 +100,8 @@
       .nav-link {
         display: block;
         padding: $sidebar-nav-link-padding-y $sidebar-nav-link-padding-x;
-        color: $sidebar-nav-link-color;
+        color: #444;
+        border-bottom: 1px solid #ddd;
         text-decoration: none;
         background: $sidebar-nav-link-bg;
         @include borders($sidebar-nav-link-borders);
@@ -109,8 +110,8 @@
         }
 
         &:hover {
-          color: $sidebar-nav-link-hover-color !important;
-          background: $sidebar-nav-link-hover-bg !important;
+          color: #000;
+          background: #ddd;
           @include borders($sidebar-nav-link-hover-borders);
 
           i {
@@ -119,8 +120,8 @@
         }
 
         &.active {
-          color: $sidebar-nav-link-active-color;
-          background: $sidebar-nav-link-active-bg;
+          color: #000;
+          background: #f7f7f7;
           @include borders($sidebar-nav-link-active-borders);
 
           i {
@@ -169,7 +170,7 @@
 
       &.nav-dropdown {
         &.open {
-          background: $sidebar-nav-dropdown-bg;
+          //background: $sidebar-nav-dropdown-bg;
           @include borders($sidebar-nav-dropdown-borders);
           @if $enable-sidebar-nav-rounded {
             border-radius: $border-radius;
@@ -177,11 +178,21 @@
           > ul, > ol {
             // display: inline;
             max-height: 1000px;
+
+          }
+
+          .nav-dropdown-items{
+            .nav-item{
+              a{
+                padding-left: 30px;
+              }
+            }
           }
 
           .nav-link {
-            color: $sidebar-nav-dropdown-color;
-            border-left: 0 !important;
+            //color: $sidebar-nav-dropdown-color;
+            //border-left: 0 !important;
+            //border-left: 4px solid #444;
           }
 
           > .nav-link.nav-dropdown-toggle::before {

@@ -1,7 +1,32 @@
 <div class="sidebar">
   <nav class="sidebar-nav">
     <ul class="nav" id="nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/alertx']"><i class="material-icons">business</i> Business</a>
+      </li>
       <li class="nav-item nav-dropdown" routerLinkActive="open">
+        <a class="nav-link nav-dropdown-toggle" href="#"><i class="material-icons">memory</i> Tech</a>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"  [routerLink]="['/tech/incident']">Incident</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"  [routerLink]="['/tech/third-party']">Third Party Apps</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item nav-dropdown" routerLinkActive="open">
+        <a class="nav-link nav-dropdown-toggle" href="#"><i class="material-icons">dashboard</i> Custom</a>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"  [routerLink]="['/custom/cc']">Command Center</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/alert']"><i class="material-icons">warning</i> Business</a>
+      </li>
+      <!--<li class="nav-item nav-dropdown" routerLinkActive="open">
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-cogs "></i> Business Insights</a>
         <ul class="nav-dropdown-items">
           <li class="nav-item">
@@ -39,8 +64,8 @@
         <a class="nav-link " href="/dashboard"><i class="fa fa-tachometer "></i>Custom dashboard<span class="badge badge-info"></span></a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="/alert"><i class="fa fa-bell "></i> Alert management<span class="badge badge-info"></span></a>
-    </li>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/alert']"><i class="fa fa-bell "></i> Alert management<span class="badge badge-info"></span></a>
+      </li>-->
 
     </ul>
   </nav>

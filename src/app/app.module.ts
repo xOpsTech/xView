@@ -94,11 +94,11 @@ import { TruncatePipe } from './common/pipe.truncate';
         component: MapComponent
       },
       {
-        path: 'incident',
+        path: 'tech/incident',
         component: IncidentComponent
       },
       {
-        path: 'rssfeed',
+        path: 'tech/third-party',
         component: RssfeedComponent
       },
       {
@@ -106,8 +106,11 @@ import { TruncatePipe } from './common/pipe.truncate';
         component: SettingsComponent
       },
       {
-        path: '',
+        path: 'custom/cc',
         component: WidgetHomeComponent
+      },
+      {
+        path: '', redirectTo: 'custom/cc', pathMatch: 'full'
       }
 
 
@@ -129,6 +132,9 @@ import { TruncatePipe } from './common/pipe.truncate';
     ChartModule
   ],
   providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppModule { }
