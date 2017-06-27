@@ -2,8 +2,10 @@
 <div class="row row-eq-height">
   <div class="col-md-6 widget">
     <div class="widget-wrapper">
-      <canvas baseChart height="100" [datasets]="alertChartData" [labels]="alertChartLabels" [options]="lalertChartOptions" legend="true"
-        chartType="line"></canvas>
+      <!--<canvas baseChart height="100" [datasets]="alert_trend?.alert_trend.alertData" [labels]="alert_trend?.alert_trend.alertLabels" [options]="lalertChartOptions" legend="true"
+        chartType="line"></canvas>-->
+        <p-chart type="line" [data]="alert_trend?.alert_trend"></p-chart>
+
     </div>
   </div>
 

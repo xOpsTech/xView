@@ -20,11 +20,16 @@ export class AlertsComponent implements OnInit {
   eventid: any;
   status: any;
   private colorval: string;
+  public alert_trend;
   public widget_data;
 
+  constructor(private alertsService: AlertService,private incidentCreation: IncidentService) {
 
-  constructor(private alertsService: AlertService, private incidentService: IncidentService) {
-
+    this.alertsService.getAlertTrends('12')
+    .subscribe((data: any) => {
+      this.alert_trend = data;
+      console.log(this.alert_trend);
+    });
   }
 
   disabled: boolean = true;
@@ -36,11 +41,6 @@ export class AlertsComponent implements OnInit {
   ngOnInit() {
     this.alertsService.getALertsMapped().then(alerts => {
       this.alerts = alerts;
-    });
-
-    this.alertsService.widgetStatus().subscribe(widget_data1 => {
-      this.widget_data = widget_data1;
-      console.log(this.widget_data)
     });
   }
 
@@ -110,18 +110,5 @@ export class AlertsComponent implements OnInit {
 
     }
   }
-
-  //------ Alerts Chart
-  public alertChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A', fill: false},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B', fill: false}
-  ];
-  public alertChartLabels:Array<any> = ['Jun 12', 'Jun 13', 'Jun 14', 'Jun 15', 'Jun 16', 'Jun 17', 'Jun 18'];
-  public alertChartOptions:any = {
-    type : "line",
-    responsive: true
-  };
-//---- Alerts Chart End
-
 
 }
