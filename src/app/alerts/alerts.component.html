@@ -53,7 +53,7 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper primeng-popup">
-      <p-dataTable #alertsTable [value]="alerts" *ngIf="visible" (onRowSelect)="onRowSelect($event)" selectionMode="single" 
+      <p-dataTable #atbl [value]="alerts" *ngIf="visible" (onRowSelect)="onRowSelect($event)" selectionMode="single" 
         [rows]="10" [paginator]="true" exportFilename="alerts">
         <p-column field="_source.severity" header="Sevierity" sortable="true">
           <ng-template let-file="rowData" pTemplate="body">
@@ -88,9 +88,15 @@
         <!--<p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="_source.eventId" header="Event Id" [filter]="true" filterPlaceholder="Search"></p-column>-->
+
+        <p-column>
+          <template pTemplate type="footer">
+              Footer
+          </template>
+        </p-column>
       </p-dataTable>
       <div class="float-right">
-        <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
+        <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="atbl.exportCSV()"></button>
       </div>
       &nbsp;
 
