@@ -20,7 +20,7 @@ export class AlertsComponent implements OnInit {
   cols2: any;
   eventid: any;
   status: any;
-  private colorval: string;
+  public colorval: string;
   public alert_trend;
   public widget_data;
   visible: boolean = true;
