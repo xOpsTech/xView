@@ -38,6 +38,8 @@ import { SlimScrollModule } from 'ng2-slimscroll';
 
 import { TruncatePipe } from './common/pipe.truncate';
 import { BusinessComponent } from './business/business.component';
+import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
+
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { BusinessComponent } from './business/business.component';
     RssfeedComponent,
     SettingsComponent,
     TruncatePipe,
-    BusinessComponent
+    BusinessComponent,
+    BreadcrumbsComponent
 ],
 
   imports: [

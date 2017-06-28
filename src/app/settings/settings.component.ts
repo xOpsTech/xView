@@ -15,6 +15,7 @@ putUserSetting = {};
 usersets = {
     "email" :"",
       "name" : "",
+      "picture" : "",
            "personalization": {
           "timezone":"",
           "theme":"",
@@ -38,7 +39,7 @@ public exampleData: Array<Select2OptionData>;
 public options: Select2Options;
 public value: string[];
 public current: string;
-public personalization = {};
+public personalization = <any>{};
 public selectedItems: string[] = [];
 public widget_array =  [];
 public widgets =  [];

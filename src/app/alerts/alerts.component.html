@@ -53,7 +53,7 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper primeng-popup">
-      <p-dataTable #alertsTable [value]="alerts"  (onRowSelect)="onRowSelect($event)" selectionMode="single" [loading]="loading"
+      <p-dataTable #alertsTable [value]="alerts"  (onRowSelect)="onRowSelect($event)" selectionMode="single" 
         [rows]="10" [paginator]="true" exportFilename="alerts">
         <p-column field="_source.color" header="Sevierity" sortable="true">
           <ng-template let-file="rowData" pTemplate="body">
