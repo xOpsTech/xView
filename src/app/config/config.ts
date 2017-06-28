@@ -1,10 +1,10 @@
-let dev = 'http://localhost';
-let stg = 'http://localhost';
-let prod = 'http://localhost';
+let dev = 'http://localhost:4200';
+let stg = 'http://localhost:4200';
+let prod = 'http://scholastic.xops.it';
 
-let host = stg;
+let host = prod;
 
 export const config = {
     XOPSHOST  : host,
-    XOPSAPI   : `${host}:4200/api`
+    XOPSAPI   : `${host}/api`
 };
