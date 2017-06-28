@@ -38,6 +38,8 @@ import { SlimScrollModule } from 'ng2-slimscroll';
 
 import { TruncatePipe } from './common/pipe.truncate';
 import { BusinessComponent } from './business/business.component';
+import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
+import { CircleProgressComponent } from '../shared/circle-progress.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { BusinessComponent } from './business/business.component';
     RssfeedComponent,
     SettingsComponent,
     TruncatePipe,
-    BusinessComponent
+    BusinessComponent,
+    BreadcrumbsComponent,
+    CircleProgressComponent
 ],
 
   imports: [
@@ -116,7 +120,7 @@ import { BusinessComponent } from './business/business.component';
         component: BusinessComponent
       },
       {
-        path: '', redirectTo: 'custom/cc', pathMatch: 'full'
+        path: '', redirectTo: 'business', pathMatch: 'full'
       }
 
 

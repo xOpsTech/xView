@@ -20,21 +20,23 @@ export class AlertsComponent implements OnInit {
   cols2: any;
   eventid: any;
   status: any;
-  private colorval: string;
+  public colorval: string;
   public alert_trend;
   public widget_data;
+  //public alertsTable;
   visible: boolean = true;
   constructor(private alertsService: AlertService, private incidentService: IncidentService) {
 
     this.alertsService.getAlertTrends('12')
-      .subscribe((data: any) => {
-        this.alert_trend = data;
-        console.log(this.alert_trend);
-      });
+
+    .subscribe((data: any) => {
+      this.alert_trend = data;
+      //console.log(this.alert_trend);
+    });
 
     this.alertsService.widgetStatus().subscribe(widget_data1 => {
       this.widget_data = widget_data1;
-      console.log(this.widget_data)
+      //console.log(this.widget_data)
     });
 
   }

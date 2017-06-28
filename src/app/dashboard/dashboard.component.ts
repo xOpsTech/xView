@@ -11,7 +11,7 @@ import { Message } from 'primeng/primeng';
 })
 export class DashboardComponent implements OnInit {
   display: boolean = false;
-  personalization = {};
+  personalization = <any>{};
   selectedItems: string[] = [];
   msgs: Message[] = [];
   widgets: any[];
