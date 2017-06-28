@@ -24,13 +24,13 @@ export class AlertsComponent implements OnInit {
   public alert_trend;
   public widget_data;
   visible: boolean = true;
-  constructor(private alertsService: AlertService,private incidentService: IncidentService) {
+  constructor(private alertsService: AlertService, private incidentService: IncidentService) {
 
     this.alertsService.getAlertTrends('12')
-    .subscribe((data: any) => {
-      this.alert_trend = data;
-      console.log(this.alert_trend);
-    });
+      .subscribe((data: any) => {
+        this.alert_trend = data;
+        console.log(this.alert_trend);
+      });
 
     this.alertsService.widgetStatus().subscribe(widget_data1 => {
       this.widget_data = widget_data1;
@@ -48,6 +48,15 @@ export class AlertsComponent implements OnInit {
   ngOnInit() {
 
     this.alertsService.getALertsMapped().then(alerts => {
+      alerts.sort(function (a, b) {
+        if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
+          return 1;
+        }
+        if (a._source.raisedTimestamp > b._source.raisedTimestamp) {
+          return -1;
+        }
+        return 0;
+      });
       this.alerts = alerts;
     });
   }
@@ -96,7 +105,9 @@ export class AlertsComponent implements OnInit {
   ];
 
   onclickAsses(value, eventid) {
-    if (value == "Ignore" || value == "Closed" || value == "Invalid" || value == "Incident") {
+    value = value.toLowerCase();
+    console.log(value);
+    if (value == "ignore" || value == "closed" || value == "invalid" || value == "incident") {
       this.alertsService.putService({
         "eventId": eventid,
         "status": value
@@ -104,27 +115,45 @@ export class AlertsComponent implements OnInit {
         .subscribe(
         result => console.log(result)
         );
-         this.alertsService.getALertsMapped().then(alerts => {
-      this.alerts = alerts;
-    });
-   this.visible = false;
-   setTimeout(() => this.visible = true, 0);
-   this.display=false
+      this.alertsService.getALertsMapped().then(alerts => {
+        alerts.sort(function (a, b) {
+          if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
+            return 1;
+          }
+          if (a._source.raisedTimestamp > b._source.raisedTimestamp) {
+            return -1;
+          }
+          return 0;
+        });
+        this.alerts = alerts;
+      });
+
+      this.visible = false;
+      setTimeout(() => this.visible = true, 0);
+      this.display = false
     }
 
-    if (value == "Incident") {
-
+    if (value == "incident") {
       this.incidentService.postIncident({ "eventId": eventid })
         .subscribe(
         result => console.log(result)
         );
       this.alertsService.getALertsMapped().then(alerts => {
-      this.alerts = alerts;
-    });
+        alerts.sort(function (a, b) {
+          if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
+            return 1;
+          }
+          if (a._source.raisedTimestamp > b._source.raisedTimestamp) {
+            return -1;
+          }
+          return 0;
+        });
+        this.alerts = alerts;
+      });
 
-    this.visible = false;
-    setTimeout(() => this.visible = true, 0);
-    this.display=false
+      this.visible = false;
+      setTimeout(() => this.visible = true, 0);
+      this.display = false
     }
     else {
 
