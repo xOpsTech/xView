@@ -23,7 +23,7 @@ export class AlertsComponent implements OnInit {
   public colorval: string;
   public alert_trend;
   public widget_data;
-
+  visible: boolean = true;
   constructor(private alertsService: AlertService,private incidentService: IncidentService) {
 
     this.alertsService.getAlertTrends('12')
@@ -46,6 +46,7 @@ export class AlertsComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.alertsService.getALertsMapped().then(alerts => {
       this.alerts = alerts;
     });
@@ -95,7 +96,7 @@ export class AlertsComponent implements OnInit {
   ];
 
   onclickAsses(value, eventid) {
-    if (value == "Ignore" || value == "Closed" || value == "Invalid") {
+    if (value == "Ignore" || value == "Closed" || value == "Invalid" || value == "Incident") {
       this.alertsService.putService({
         "eventId": eventid,
         "status": value
@@ -103,7 +104,12 @@ export class AlertsComponent implements OnInit {
         .subscribe(
         result => console.log(result)
         );
-
+         this.alertsService.getALertsMapped().then(alerts => {
+      this.alerts = alerts;
+    });
+   this.visible = false;
+   setTimeout(() => this.visible = true, 0);
+   this.display=false
     }
 
     if (value == "Incident") {
@@ -112,6 +118,13 @@ export class AlertsComponent implements OnInit {
         .subscribe(
         result => console.log(result)
         );
+      this.alertsService.getALertsMapped().then(alerts => {
+      this.alerts = alerts;
+    });
+
+    this.visible = false;
+    setTimeout(() => this.visible = true, 0);
+    this.display=false
     }
     else {
 

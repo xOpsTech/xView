@@ -53,9 +53,9 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper primeng-popup">
-      <p-dataTable #alertsTable [value]="alerts"  (onRowSelect)="onRowSelect($event)" selectionMode="single" 
+      <p-dataTable #alertsTable [value]="alerts" *ngIf="visible" (onRowSelect)="onRowSelect($event)" selectionMode="single" 
         [rows]="10" [paginator]="true" exportFilename="alerts">
-        <p-column field="_source.color" header="Sevierity" sortable="true">
+        <p-column field="_source.severity" header="Sevierity" sortable="true">
           <ng-template let-file="rowData" pTemplate="body">
             <div class="alert-status" [ngClass]="file._source.severity == '1' ? 'green' :file._source.severity == '4' ? 'red': 'amber'">
               <div class="chart-center">
@@ -81,16 +81,10 @@
              {{file._source.trigger | truncate: 20}}
           </ng-template>
         </p-column>
-        <p-column header="Alert Status">
-          <ng-template let-file="rowData" pTemplate="body">
-            New
-          </ng-template>
-        </p-column>
-        <p-column header="Ticket Status">
-          <ng-template let-file="rowData" pTemplate="body">
-            New
-          </ng-template>
-        </p-column>
+         <p-column field="_source.status" header="Alert Status" sortable="true"></p-column>
+        <p-column field="_source.status" header="Ticket Status" sortable="true"></p-column>
+       
+      
         <!--<p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="_source.eventId" header="Event Id" [filter]="true" filterPlaceholder="Search"></p-column>-->
