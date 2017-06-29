@@ -53,52 +53,44 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper primeng-popup">
-      <p-dataTable #atbl [value]="alerts" *ngIf="visible" (onRowSelect)="onRowSelect($event)" selectionMode="single" 
-        [rows]="10" [paginator]="true" exportFilename="alerts">
-        <p-column field="_source.severity" header="Sevierity" sortable="true">
-          <ng-template let-file="rowData" pTemplate="body">
-            <div class="alert-status" [ngClass]="file._source.severity == '1' ? 'green' :file._source.severity == '4' ? 'red': 'amber'">
-              <div class="chart-center">
+      <!--<p-dataTable #alertsTable [value]="alerts" *ngIf="visible" (onRowSelect)="onRowSelect($event)" selectionMode="single" -->
+      <ng-container *ngIf="visible">
+        <p-dataTable #alertsTable [value]="alerts"  (onRowSelect)="onRowSelect($event)" selectionMode="single" 
+          [rows]="10" [paginator]="true" exportFilename="alerts">
+          <p-column field="_source.severity" header="Sevierity" sortable="true">
+            <ng-template let-file="rowData" pTemplate="body">
+              <div class="alert-status" [ngClass]="file._source.severity == '1' ? 'green' :file._source.severity == '4' ? 'red': 'amber'">
+                <div class="chart-center">
+                </div>
               </div>
-            </div>
-          </ng-template>
+            </ng-template>
 
-        </p-column>
-        <p-column header="Priority">
-          <ng-template let-file="rowData" pTemplate="body">
-            P1
-          </ng-template>
-        </p-column>
-        <p-column field="_source.raisedTimestamp" header="Time" sortable="true">
-          <ng-template let-time="rowData" pTemplate="body">
-            {{time._source.raisedTimestamp | date:'hh:mma'}}<br/><small>{{time._source.raisedTimestamp | date:'MMM dd, yyyy'}}</small>
-          </ng-template>
-        </p-column>
-        <p-column field="_source.domain" header="Domain" sortable="true"></p-column>
-        <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
-        <p-column field="_source.trigger" header="Alert" styleClass="truncate" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}">
-          <ng-template let-file="rowData" pTemplate="body">
-             {{file._source.trigger | truncate: 20}}
-          </ng-template>
-        </p-column>
-         <p-column field="_source.status" header="Alert Status" sortable="true"></p-column>
-        <p-column field="_source.status" header="Ticket Status" sortable="true"></p-column>
-       
-      
-        <!--<p-column field="_source.stateTriggerId" header="stateTriggerId" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
-        <p-column field="_source.monitoredCIName" header="monitoredCIName" sortable="true" [filter]="true" filterPlaceholder="Search"></p-column>
-        <p-column field="_source.eventId" header="Event Id" [filter]="true" filterPlaceholder="Search"></p-column>-->
-
-        <p-column>
-          <template pTemplate type="footer">
-              Footer
-          </template>
-        </p-column>
-      </p-dataTable>
-      <div class="float-right">
-        <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="atbl.exportCSV()"></button>
-      </div>
-      &nbsp;
+          </p-column>
+          <p-column header="Priority">
+            <ng-template let-file="rowData" pTemplate="body">
+              P1
+            </ng-template>
+          </p-column>
+          <p-column field="_source.raisedTimestamp" header="Time" sortable="true">
+            <ng-template let-time="rowData" pTemplate="body">
+              {{time._source.raisedTimestamp | date:'hh:mma'}}<br/><small>{{time._source.raisedTimestamp | date:'MMM dd, yyyy'}}</small>
+            </ng-template>
+          </p-column>
+          <p-column field="_source.domain" header="Domain" sortable="true"></p-column>
+          <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
+          <p-column field="_source.trigger" header="Alert" styleClass="truncate" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}">
+            <ng-template let-file="rowData" pTemplate="body">
+              {{file._source.trigger | truncate: 20}}
+            </ng-template>
+          </p-column>
+          <p-column field="_source.status" header="Alert Status" sortable="true"></p-column>
+          <p-column field="_source.status" header="Ticket Status" sortable="true"></p-column>
+        </p-dataTable>
+        <div class="float-right">
+          <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
+        </div>
+        &nbsp;
+      </ng-container>
 
       <div>
         <p-dialog [(visible)]="display" closable="true" draggable="false" resizable="false" modal="modal" width="900" responsive="true">
