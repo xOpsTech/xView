@@ -81,7 +81,7 @@ export class AlertsComponent implements OnInit {
       { head: 'Timestamp Updated', val: event.data._source.timestampUpdated },
       { head: 'Closed Timestamp', val: event.data._source.closedTimestamp },
       { head: 'Location Code', val: event.data._source.locationCode },
-      { head: 'State Trigger Id', val: event.data._source.stateTriggerId }
+      { head: 'Incident Number', val: event.data._source.incidentNumber }
     ];
 
     if (event.data._source.severity == '1') {

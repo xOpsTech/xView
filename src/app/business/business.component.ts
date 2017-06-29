@@ -13,7 +13,6 @@ export class BusinessComponent implements OnInit {
   public alert_trend;
 
   constructor(private alertsService: AlertService) {
-
     this.alertsService.getAlertTrends('12')
     .subscribe((data: any) => {
       this.alert_trend = data;
