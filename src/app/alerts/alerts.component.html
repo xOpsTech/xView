@@ -85,6 +85,7 @@
           </p-column>
           <p-column field="_source.status" header="Alert Status" sortable="true"></p-column>
           <p-column field="_source.status" header="Ticket Status" sortable="true"></p-column>
+          <p-column field="_source.incidentNumber" header="Incident" sortable="true"></p-column>
         </p-dataTable>
         <div class="float-right">
           <button type="button" pButton icon="fa-file-o" iconPos="left" label="CSV" (click)="alertsTable.exportCSV()"></button>
