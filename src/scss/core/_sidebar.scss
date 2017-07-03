@@ -121,7 +121,7 @@
 
         &.active {
           color: #000;
-          background: #f7f7f7;
+          background: #e6e6e6;
           @include borders($sidebar-nav-link-active-borders);
 
           i {
