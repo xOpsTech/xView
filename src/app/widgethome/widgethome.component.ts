@@ -9,26 +9,25 @@ import { ProgrammeService } from '../services/programme.service';
   selector: 'app-widgethome',
   templateUrl: './widgethome.component.html',
   styleUrls: ['./widgethome.component.scss'],
-  providers :[RssfeedService,ProgrammeService]
+  providers: [RssfeedService, ProgrammeService]
 })
 export class WidgetHomeComponent implements OnInit {
 
   public snowData;
   private snowErr = false;
   duration: SelectItem[];
-  selectedDur = 5000000;
+  selectedDur = 44640;
   rssAlerts1 = [];
   programAlerts1 = [];
-  constructor(private _snowSvc: SnowAggsService,private rssfeed: RssfeedService,private programalerts: ProgrammeService) {
+  constructor(private _snowSvc: SnowAggsService, private rssfeed: RssfeedService, private programalerts: ProgrammeService) {
     this.duration = [
-      {label:'Daily', value:250},
-      {label:'Weekly', value:500},
-      {label:'Monthly', value:5000000}
+      { label: 'Daily', value: 1440 },
+      { label: 'Weekly', value: 10080 },
+      { label: 'Monthly', value: 44640 }
     ];
-
     setInterval(() => {
       this.getSnowAggs();
-    }, 10000);
+    }, 60000);
   }
 
   scrollopts: ISlimScrollOptions;
@@ -45,46 +44,47 @@ export class WidgetHomeComponent implements OnInit {
 
     this.getSnowAggs();
 
- this.rssfeed.getRssFeed().subscribe(rssAlerts2 => {
+    this.rssfeed.getRssFeed().subscribe(rssAlerts2 => {
 
 
-        for(var dv of rssAlerts2.data.services)
-        {
-          if(dv.status=="good")
-            this.rssAlerts1.push({'service':dv.service,'colr':'green'})
-          if(dv.status=="critical")
-            this.rssAlerts1.push({'service':dv.service,'colr':'red'})
-             if(dv.status=="warning")
-            this.rssAlerts1.push({'service':dv.service,'colr':'amber'})
-        }
-      
-});
-
- this.programalerts.getProgrammes().subscribe(programAlerts => {
- 
-     for(var dv2 of programAlerts.data)
-      {
-         this.programAlerts1.push({'name':dv2.program,'status':dv2.status})
+      for (var dv of rssAlerts2.data.services) {
+        if (dv.status == "good")
+          this.rssAlerts1.push({ 'service': dv.service, 'colr': 'green' })
+        if (dv.status == "critical")
+          this.rssAlerts1.push({ 'service': dv.service, 'colr': 'red' })
+        if (dv.status == "warning")
+          this.rssAlerts1.push({ 'service': dv.service, 'colr': 'amber' })
       }
-  
-});
+
+    });
+
+    this.programalerts.getProgrammes().subscribe(programAlerts => {
+
+      for (var dv2 of programAlerts.data) {
+        this.programAlerts1.push({ 'name': dv2.program, 'status': dv2.status })
+      }
+
+    });
   }
 
 
   getSnowAggs() {
     this._snowSvc.getSnowAggs(this.selectedDur).subscribe(
-      data => { this.snowData = data},
+      data => { this.snowData = data },
       err => { this.snowErr = true }
     );
   }
 
-  changeDuration(){
+  changeDuration() {
     this.snowData = {
-    "data": [
-        {"aggs_by_active": { "closed": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "open": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>"}},
-        {"aggs_by_priority": {}},
-        {"p1_incidents": [],"total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>"}
-    ]};
+      "data": [
+        { "aggs_by_active": { "closed": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "open": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" } },
+        { "aggs_by_priority": {} },
+        { "p1_incidents": [], "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" },
+        { "sla_stats": { "missedSlaCount":"<i class='fa fa-spinner fa-pulse fa-fw'></i>", "aboutToMissSlaCount": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" }}
+
+      ]
+    };
 
     this.getSnowAggs();
   }

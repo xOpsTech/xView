@@ -2,7 +2,7 @@
 <div class="row row-eq-height" mh="card">
   <div class="col-md-6 widget">
     <div class="widget-wrapper">
-        <p-chart type="line" [data]="alert_trend?.alert_trend" height="100"></p-chart>
+      <p-chart type="line" [data]="alert_trend?.alert_trend" height="100"></p-chart>
     </div>
   </div>
 
@@ -54,8 +54,8 @@
   <div class="col-md-12 widget">
     <div class="widget-wrapper primeng-popup">
       <ng-container *ngIf="visible">
-        <p-dataTable #alertsTable [value]="alerts"  (onRowSelect)="onRowSelect($event)" selectionMode="single" 
-          [rows]="10" [paginator]="true" exportFilename="alerts">
+        <p-dataTable #alertsTable [value]="alerts" (onRowSelect)="onRowSelect($event)" selectionMode="single" [rows]="10" [paginator]="true"
+          exportFilename="alerts">
           <p-column field="_source.severity" header="Sevierity" sortable="true">
             <ng-template let-file="rowData" pTemplate="body">
               <div class="alert-status" [ngClass]="file._source.severity == '1' ? 'green' :file._source.severity == '4' ? 'red': 'amber'">
@@ -77,7 +77,8 @@
           </p-column>
           <p-column field="_source.domain" header="Domain" sortable="true"></p-column>
           <p-column field="_source.producer" header="Producer" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}"></p-column>
-          <p-column field="_source.trigger" header="Alert" styleClass="truncate" sortable="true" [filter]="true" filterPlaceholder="Search" [style]="{'width':'200px'}">
+          <p-column field="_source.trigger" header="Alert" styleClass="truncate" sortable="true" [filter]="true" filterPlaceholder="Search"
+            [style]="{'width':'200px'}">
             <ng-template let-file="rowData" pTemplate="body">
               {{file._source.trigger | truncate: 20}}
             </ng-template>
@@ -101,14 +102,18 @@
           <div style="padding: 1em; border-bottom: 1px solid #e5e5e5;">
             <div class="ui-grid-row">
               <div class="ui-grid-col-7">
-                Status : <select #selectedval>
-            <option *ngFor="let alertselection of alertselections" [value]="alertselection.val">{{alertselection.name}}</option>
-          </select>
+                Status :
+                <span *ngIf="isincident;else content">Incident</span>
+                <ng-template #content>
+                  <select #selectedval> 
+                    <option *ngFor="let alertselection of alertselections" [value]="alertselection.val">{{alertselection.name}}</option>
+                  </select>
+                </ng-template>
               </div>
 
               <div class="ui-grid-col-4">
                 Assigned To : <select #selectedval>
-            <option *ngFor="let assigne of assignees" [value]="assigne.val">{{assigne.name}}</option>
+            <option *ngFor="let assigne of assignees" [value]="assigne.val" >{{assigne.name}}</option>
               </select>
 
                 <button pButton type="button" icon="fa-search" iconPos="left"></button>

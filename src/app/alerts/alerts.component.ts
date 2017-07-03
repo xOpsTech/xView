@@ -20,33 +20,33 @@ export class AlertsComponent implements OnInit {
   display: boolean = false;
   cols2: any;
   eventid: any;
-   alertselections: any[];
+  alertselections: any[];
   status: any;
+  public isincident :boolean;
   public colorval: string;
   public alert_trend;
   public widget_data;
   public assignees;
-  assgneselections=[];
+  assgneselections = [];
   //public alertsTable;
   visible: boolean = true;
   constructor(private alertsService: AlertService, private incidentService: IncidentService) {
-   this.incidentService.getAssignees().subscribe(assignees => {
-      
-       for(var d of assignees.data)
-        {
-            this.assgneselections.push({val:d.id,name:d.name});
-        }
+    this.incidentService.getAssignees().subscribe(assignees => {
+
+      for (var d of assignees.data) {
+        this.assgneselections.push({ val: d.id, name: d.name });
+      }
       this.assignees = this.assgneselections;
       console.log(this.assignees)
     });
 
-  
+
     this.alertsService.getAlertTrends('12')
 
-    .subscribe((data: any) => {
-      this.alert_trend = data;
-      //console.log(this.alert_trend);
-    });
+      .subscribe((data: any) => {
+        this.alert_trend = data;
+        //console.log(this.alert_trend);
+      });
 
     this.alertsService.widgetStatus().subscribe(widget_data1 => {
       this.widget_data = widget_data1;
@@ -78,6 +78,7 @@ export class AlertsComponent implements OnInit {
   }
 
   onRowSelect(event) {
+    
     this.showDialog();
     this.status = event.data._source.status.toUpperCase();
     this.title = event.data._source.title;
@@ -108,27 +109,24 @@ export class AlertsComponent implements OnInit {
     else if (event.data._source.severity == '4') {
       this.colorval = "yellow"
     }
-    if(event.data._source.status == "incident")
-    {
-        this.alertselections = [ { val: '', name: '' } ];
+
+    if (event.data._source.status == "incident") {
+      this.isincident = true;
     }
-    if(event.data._source.status == "new")
-    {
-        this.alertselections = [ 
-        { val: 'Assess', name: 'Assess' },
-        { val: 'Incident', name: 'Incident' },
-        { val: 'Invalid', name: 'Invalid' },
-        { val: 'Ignore', name: 'Ignore' },
-        { val: 'Closed', name: 'Closed' },
-      ];
+    else
+    { this.isincident = false;
+
     }
-    if(event.data._source.status == "invalid" || event.data._source.status == "ignore" || event.data._source.status == "closed" )
-    {
-        this.alertselections = [ { val: '', name: '' } ];
- 
-    }
+
+    this.alertselections = [
+      { val: 'Assess', name: 'Assess' },
+      { val: 'Incident', name: 'Incident' },
+      { val: 'Invalid', name: 'Invalid' },
+      { val: 'Ignore', name: 'Ignore' },
+      { val: 'Closed', name: 'Closed' },
+    ];
+
   }
- 
 
   onclickAsses(value, eventid) {
     value = value.toLowerCase();
