@@ -10,6 +10,7 @@ export class IncidentService {
   options: RequestOptions;
 
   private incident_url = config.XOPSAPI+'/incidents/_create';
+  private incident_assignees = config.XOPSAPI+'/user/_list';
 
   constructor(private http: Http) {
     this.headers = new Headers({ 'Content-Type': 'application/json',
@@ -28,6 +29,11 @@ console.log(this.incident_url);
     .catch(this.handleError);
 }
 
+  getAssignees() {
+    return this.http.get(this.incident_assignees)
+      .map((res: Response) => res.json());
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body || {};
@@ -39,6 +45,8 @@ console.log(this.incident_url);
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
+
+
 
 }
 
