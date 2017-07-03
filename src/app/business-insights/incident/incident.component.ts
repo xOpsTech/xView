@@ -14,18 +14,18 @@ export class IncidentComponent implements OnInit {
   loadingWheel = "<i class='fa fa-spinner fa-pulse fa-fw'></i>";
 
   duration: SelectItem[];
-  selectedDur = 5000000;
+  selectedDur = 1440;
 
   constructor(private _snowSvc: SnowAggsService) {
       this.duration = [
-        {label:'Daily', value:250},
-        {label:'Weekly', value:500},
-        {label:'Monthly', value:5000000}
+        {label:'Daily', value:1440},
+        {label:'Weekly', value:10080},
+        {label:'Monthly', value:44640}
       ];
 
       setInterval(() => {
         this.getSnowAggs();
-      }, 10000);
+      }, 60000);
   }
 
   ngOnInit() {
