@@ -23,7 +23,7 @@ export class MapComponent implements OnInit {
 
       for (var dv of alerts) {
 
-        if (dv._source.severity == "3") { this.color = '#54C40B' }
+        if (dv._source.severity == "3") { this.color = '#fc6' }
         if (dv._source.severity == "4") { this.color = '#FF0000' }
         else { this.color = '#fffff' }
         this.mapcoordinates.push({
@@ -42,17 +42,19 @@ export class MapComponent implements OnInit {
         "type": "map",
         "theme": "black",
         "projection": "miller",
+        "backgroundColor" : "#000",
+        "backgroundAlpha" : 1,
 
         "imagesSettings": {
-          "rollOverColor": "#089282",
+          "rollOverColor": "#fff",
           "rollOverScale": 3,
           "selectedScale": 3,
-          "selectedColor": "#089282",
+          "selectedColor": "#fff",
           "color": "#13564e"
         },
 
         "areasSettings": {
-          "unlistedAreasColor": "#000000"
+          "unlistedAreasColor": "#888"
         },
 
         "dataProvider": {

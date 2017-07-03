@@ -22,7 +22,7 @@ export class LeftnavComponent implements OnInit {
 
    @HostListener('window:scroll', ['$event'])
   public onWindowScroll(): void {
-    if(window.pageYOffset<50) {
+    if(window.pageYOffset<100) {
       this.nav_gap = 135 - window.pageYOffset;
     }
     else {
