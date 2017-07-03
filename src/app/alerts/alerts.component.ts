@@ -4,6 +4,7 @@ import { AlertService } from '../services/alert.service';
 import { IncidentService } from '../services/incident.service';
 import { TruncatePipe } from '../common/pipe.truncate';
 
+
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
@@ -19,14 +20,27 @@ export class AlertsComponent implements OnInit {
   display: boolean = false;
   cols2: any;
   eventid: any;
+   alertselections: any[];
   status: any;
   public colorval: string;
   public alert_trend;
   public widget_data;
+  public assignees;
+  assgneselections=[];
   //public alertsTable;
   visible: boolean = true;
   constructor(private alertsService: AlertService, private incidentService: IncidentService) {
+   this.incidentService.getAssignees().subscribe(assignees => {
+      
+       for(var d of assignees.data)
+        {
+            this.assgneselections.push({val:d.id,name:d.name});
+        }
+      this.assignees = this.assgneselections;
+      console.log(this.assignees)
+    });
 
+  
     this.alertsService.getAlertTrends('12')
 
     .subscribe((data: any) => {
@@ -77,8 +91,6 @@ export class AlertsComponent implements OnInit {
       { head: 'State Trigger Id', val: event.data._source.stateTriggerId },
       { head: 'Monitored CI Name', val: event.data._source.monitoredCIName },
       { head: 'Raised Local Timestamp', val: event.data._source.raisedLocalTimestamp },
-      { head: 'Stored Timestamp', val: event.data._source.storedTimestamp },
-      { head: 'Timestamp Updated', val: event.data._source.timestampUpdated },
       { head: 'Closed Timestamp', val: event.data._source.closedTimestamp },
       { head: 'Location Code', val: event.data._source.locationCode },
       { head: 'Incident Number', val: event.data._source.incidentNumber }
@@ -96,15 +108,27 @@ export class AlertsComponent implements OnInit {
     else if (event.data._source.severity == '4') {
       this.colorval = "yellow"
     }
+    if(event.data._source.status == "incident")
+    {
+        this.alertselections = [ { val: '', name: '' } ];
+    }
+    if(event.data._source.status == "new")
+    {
+        this.alertselections = [ 
+        { val: 'Assess', name: 'Assess' },
+        { val: 'Incident', name: 'Incident' },
+        { val: 'Invalid', name: 'Invalid' },
+        { val: 'Ignore', name: 'Ignore' },
+        { val: 'Closed', name: 'Closed' },
+      ];
+    }
+    if(event.data._source.status == "invalid" || event.data._source.status == "ignore" || event.data._source.status == "closed" )
+    {
+        this.alertselections = [ { val: '', name: '' } ];
+ 
+    }
   }
-  alertselections: any[] = [
-    { val: 'Assess', name: 'Assess' },
-    { val: 'Incident', name: 'Incident' },
-    { val: 'Invalid', name: 'Invalid' },
-    { val: 'Ignore', name: 'Ignore' },
-    { val: 'Closed', name: 'Closed' },
-
-  ];
+ 
 
   onclickAsses(value, eventid) {
     value = value.toLowerCase();

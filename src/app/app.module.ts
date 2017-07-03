@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, AccordionModule, SliderModule, ChartModule } from 'primeng/primeng';
+  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule,DropdownModule, AccordionModule, SliderModule, ChartModule } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
 import { AppComponent } from './app.component';
@@ -141,7 +141,8 @@ import { MatchHeightDirective } from '../shared/match-height.directive';
     SelectButtonModule,
     AccordionModule,
     SliderModule,
-    ChartModule
+    ChartModule,
+    DropdownModule
   ],
   providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
   bootstrap: [AppComponent],

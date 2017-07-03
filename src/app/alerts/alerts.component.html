@@ -105,8 +105,12 @@
             <option *ngFor="let alertselection of alertselections" [value]="alertselection.val">{{alertselection.name}}</option>
           </select>
               </div>
-              <div class="ui-grid-col-5">
-                Assigned To : <input type="text" pInputText />
+
+              <div class="ui-grid-col-4">
+                Assigned To : <select #selectedval>
+            <option *ngFor="let assigne of assignees" [value]="assigne.val">{{assigne.name}}</option>
+              </select>
+
                 <button pButton type="button" icon="fa-search" iconPos="left"></button>
               </div>
             </div>
@@ -130,11 +134,7 @@
             </div>
           </p-footer>
         </p-dialog>
-
       </div>
-
     </div>
-
-
   </div>
 </div>
