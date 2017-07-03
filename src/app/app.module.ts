@@ -40,6 +40,7 @@ import { TruncatePipe } from './common/pipe.truncate';
 import { BusinessComponent } from './business/business.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
 import { CircleProgressComponent } from '../shared/circle-progress.component';
+import { MatchHeightDirective } from '../shared/match-height.directive';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { CircleProgressComponent } from '../shared/circle-progress.component';
     TruncatePipe,
     BusinessComponent,
     BreadcrumbsComponent,
-    CircleProgressComponent
+    CircleProgressComponent,
+    MatchHeightDirective
 ],
 
   imports: [
@@ -124,7 +126,7 @@ import { CircleProgressComponent } from '../shared/circle-progress.component';
       }
 
 
-    ]),
+    ], { useHash: true }),
     JsonpModule,
     BrowserAnimationsModule,
     ButtonModule,

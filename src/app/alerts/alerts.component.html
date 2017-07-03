@@ -1,5 +1,5 @@
 <h1 class="h2">Alerts</h1>
-<div class="row row-eq-height">
+<div class="row row-eq-height" mh="card">
   <div class="col-md-6 widget">
     <div class="widget-wrapper">
         <p-chart type="line" [data]="alert_trend?.alert_trend" height="100"></p-chart>
@@ -53,7 +53,6 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper primeng-popup">
-      <!--<p-dataTable #alertsTable [value]="alerts" *ngIf="visible" (onRowSelect)="onRowSelect($event)" selectionMode="single" -->
       <ng-container *ngIf="visible">
         <p-dataTable #alertsTable [value]="alerts"  (onRowSelect)="onRowSelect($event)" selectionMode="single" 
           [rows]="10" [paginator]="true" exportFilename="alerts">
@@ -101,12 +100,12 @@
           </p-header>
           <div style="padding: 1em; border-bottom: 1px solid #e5e5e5;">
             <div class="ui-grid-row">
-              <div class="ui-grid-col-8">
+              <div class="ui-grid-col-7">
                 Status : <select #selectedval>
             <option *ngFor="let alertselection of alertselections" [value]="alertselection.val">{{alertselection.name}}</option>
           </select>
               </div>
-              <div class="ui-grid-col-4">
+              <div class="ui-grid-col-5">
                 Assigned To : <input type="text" pInputText />
                 <button pButton type="button" icon="fa-search" iconPos="left"></button>
               </div>

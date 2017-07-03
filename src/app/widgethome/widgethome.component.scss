@@ -1,18 +1,3 @@
-.widget{
-  padding: 10px;
-  position: relative;
-
-  .widget-wrapper{
-    background: #fff;
-    padding: 10px;
-    width: 100%;
-
-    .widget-content{
-      height: 250px;
-    }
-  }
-}
-
 #program-widget{
   ul {
     -moz-column-count: 3;
