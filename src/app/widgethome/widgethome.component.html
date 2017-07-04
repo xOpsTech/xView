@@ -79,7 +79,7 @@
           <div class="col-md-6 col-xs-6">
             <div class="SNalert-widget" style="background:#ffa726">
               <div class="inner">
-                <h3 [innerHTML]="snowData?.data[3].sla_stats?.aboutToMissSlaCount || loadingWheel"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+                <h3 [innerHTML]="snowData?.data[3].sla_stats?.aboutToMissSlaCount || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
                 <p>About to miss SLA</p>
               </div>
               <div class="icon">
@@ -91,7 +91,7 @@
           <div class="col-md-6 col-xs-6">
             <div class="SNalert-widget" style="background:#ef5350">
               <div class="inner">
-                  <h3 [innerHTML]="snowData?.data[3].sla_stats?.missedSlaCount || loadingWheel"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+                  <h3 [innerHTML]="snowData?.data[3].sla_stats?.missedSlaCount || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
                 <p>Missed SLA</p>
               </div>
               <div class="icon">

@@ -23,7 +23,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="SNalert-widget" style="background:#00c0ef">
         <div class="inner">
-          <h3 [innerHTML]="snowData?.data[0].aggs_by_active?.total || loadingWheel"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+          <h3 [innerHTML]="snowData?.data[0].aggs_by_active?.total || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Total Tickets</p>
         </div>
         <div class="icon">
@@ -35,7 +35,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="SNalert-widget" style="background:#00a65a">
         <div class="inner">
-          <h3 [innerHTML]="snowData?.data[0].aggs_by_active?.open || loadingWheel"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+          <h3 [innerHTML]="snowData?.data[0].aggs_by_active?.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Open Tickets</p>
         </div>
         <div class="icon">
@@ -47,7 +47,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="SNalert-widget" style="background:#2980b9">
         <div class="inner">
-          <h3 [innerHTML]="snowData?.data[3].aggs_by_active?.closed || loadingWheel"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+          <h3 [innerHTML]="snowData?.data[0].aggs_by_active?.closed || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Closed Tickets</p>
         </div>
         <div class="icon">
@@ -59,7 +59,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="SNalert-widget" style="background:#ffa726">
         <div class="inner">
-           <h3 [innerHTML]="snowData?.data[3].sla_stats?.aboutToMissSlaCount || loadingWheel"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+           <h3 [innerHTML]="snowData?.data[3].sla_stats?.aboutToMissSlaCount || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>About to miss SLA</p>
         </div>
         <div class="icon">
@@ -71,7 +71,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="SNalert-widget" style="background:#ef5350">
         <div class="inner">
-           <h3 [innerHTML]="snowData?.data[0].sla_stats?.missedSlaCount || loadingWheel"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+           <h3 [innerHTML]="snowData?.data[3].sla_stats?.missedSlaCount || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Missed SLA</p>
         </div>
         <div class="icon">
@@ -83,7 +83,7 @@
     <div class="col-md-4 col-xs-6">
       <div class="SNalert-widget" style="background:#c58627">
         <div class="inner">
-          <h3 [innerHTML]="snowData?.data[2].total || loadingWheel"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+          <h3 [innerHTML]="snowData?.data[2].total || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
           <p>Count of P1 Tickets</p>
         </div>
         <div class="icon">

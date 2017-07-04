@@ -40,7 +40,15 @@ export class IncidentComponent implements OnInit {
   }
 
   changeDuration(){
-    this.snowData = null;
+    this.snowData = {
+      "data": [
+        { "aggs_by_active": { "closed": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "open": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" } },
+        { "aggs_by_priority": {} },
+        { "p1_incidents": [], "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" },
+        { "sla_stats": { "missedSlaCount":"<i class='fa fa-spinner fa-pulse fa-fw'></i>", "aboutToMissSlaCount": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" }}
+
+      ]
+    };
 
     this.getSnowAggs();
   }
