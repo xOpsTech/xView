@@ -98,33 +98,31 @@ export class AlertsComponent implements OnInit {
     ];
 
     if (event.data._source.severity == '1') {
-      this.colorval = "red"
-    }
-    else if (event.data._source.severity == '2') {
-      this.colorval = "orange"
+      this.colorval = "green"
     }
     else if (event.data._source.severity == '3') {
-      this.colorval = "orange"
+      this.colorval = "amber"
     }
     else if (event.data._source.severity == '4') {
-      this.colorval = "yellow"
+      this.colorval = "red"
     }
 
-    if (event.data._source.status == "incident") {
-      this.isincident = true;
+    if (event.data._source.status == "incident" ||event.data._source.status == "Incident" ) {
+     this.alertselections = [
+      { val: 'Incident', name: 'Incident' } ];
     }
     else
-    { this.isincident = false;
-
-    }
-
-    this.alertselections = [
+    { this.alertselections = [
       { val: 'Assess', name: 'Assess' },
       { val: 'Incident', name: 'Incident' },
       { val: 'Invalid', name: 'Invalid' },
       { val: 'Ignore', name: 'Ignore' },
       { val: 'Closed', name: 'Closed' },
     ];
+
+    }
+
+    
 
   }
 
