@@ -22,7 +22,7 @@ export class AlertsComponent implements OnInit {
   eventid: any;
   alertselections: any[];
   status: any;
-  public isincident :boolean;
+  public isincident: boolean;
   public colorval: string;
   public alert_trend;
   public widget_data;
@@ -63,6 +63,10 @@ export class AlertsComponent implements OnInit {
 
   ngOnInit() {
 
+    this.loadSortedAlerts();
+  }
+
+  loadSortedAlerts() {
     this.alertsService.getALertsMapped().then(alerts => {
       alerts.sort(function (a, b) {
         if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
@@ -78,7 +82,6 @@ export class AlertsComponent implements OnInit {
   }
 
   onRowSelect(event) {
-    
     this.showDialog();
     this.status = event.data._source.status.toUpperCase();
     this.title = event.data._source.title;
@@ -107,23 +110,20 @@ export class AlertsComponent implements OnInit {
       this.colorval = "red"
     }
 
-    if (event.data._source.status == "incident" ||event.data._source.status == "Incident" ) {
-     this.alertselections = [
-      { val: 'Incident', name: 'Incident' } ];
+    if (event.data._source.status == "incident" || event.data._source.status == "Incident") {
+      this.alertselections = [
+        { val: 'Incident', name: 'Incident' }];
     }
-    else
-    { this.alertselections = [
-      { val: 'Assess', name: 'Assess' },
-      { val: 'Incident', name: 'Incident' },
-      { val: 'Invalid', name: 'Invalid' },
-      { val: 'Ignore', name: 'Ignore' },
-      { val: 'Closed', name: 'Closed' },
-    ];
+    else {
+      this.alertselections = [
+        { val: 'Assess', name: 'Assess' },
+        { val: 'Incident', name: 'Incident' },
+        { val: 'Invalid', name: 'Invalid' },
+        { val: 'Ignore', name: 'Ignore' },
+        { val: 'Closed', name: 'Closed' },
+      ];
 
     }
-
-    
-
   }
 
   onclickAsses(value, eventid) {
@@ -137,21 +137,8 @@ export class AlertsComponent implements OnInit {
         .subscribe(
         result => console.log(result)
         );
-      this.alertsService.getALertsMapped().then(alerts => {
-        alerts.sort(function (a, b) {
-          if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
-            return 1;
-          }
-          if (a._source.raisedTimestamp > b._source.raisedTimestamp) {
-            return -1;
-          }
-          return 0;
-        });
-        this.alerts = alerts;
-      });
 
-      this.visible = false;
-      setTimeout(() => this.visible = true, 0);
+      setTimeout(() => this.loadSortedAlerts(), 1000);
       this.display = false
     }
 
@@ -160,21 +147,9 @@ export class AlertsComponent implements OnInit {
         .subscribe(
         result => console.log(result)
         );
-      this.alertsService.getALertsMapped().then(alerts => {
-        alerts.sort(function (a, b) {
-          if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
-            return 1;
-          }
-          if (a._source.raisedTimestamp > b._source.raisedTimestamp) {
-            return -1;
-          }
-          return 0;
-        });
-        this.alerts = alerts;
-      });
 
-      this.visible = false;
-      setTimeout(() => this.visible = true, 0);
+ 
+      setTimeout(() => this.loadSortedAlerts(), 1000);
       this.display = false
     }
     else {
