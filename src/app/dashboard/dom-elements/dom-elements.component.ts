@@ -33,33 +33,20 @@ export class DomElementsComponent implements OnInit {
     title: {
       display: true,
       text: 'DOM Elements',
-      fontColor: '#FEC44F',
       fontSize: 24
-    },
-    legend: {
-      display: true,
-      labels: {
-        fontColor: '#FEC44F'
-      }
     },
     scales: {
       xAxes: [{
         gridLines: {
           display: false,
-        },
-        ticks: {
-          fontColor: "#F8F8DD", // this here
-        },
+        }
       }],
       yAxes: [{
         display: true,
         gridLines: {
           display: false,
-        },
-        ticks: {
-          fontColor: "#F8F8DD"
         }
-      }],
+      }]
     }
   };
 
