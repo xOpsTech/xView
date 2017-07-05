@@ -35,7 +35,7 @@ export class MapComponent implements OnInit {
           "color": this.color
         });
       }
-      console.log(this.mapcoordinates);
+      //console.log(this.mapcoordinates);
 
       this.chart = this.AmCharts.makeChart("chartdiv", {
         "type": "map",

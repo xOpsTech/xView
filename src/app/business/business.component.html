@@ -1,6 +1,6 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
-     <div class="widget-wrapper map">
+    <div class="widget-wrapper map">
       <app-map></app-map>
     </div>
   </div>
@@ -9,55 +9,18 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper">
-       <div class="row">
-         <div class="col-md-4" align="center">
-           <circle-progress #c1
-              [percent]="100"
-              [boxSize]="200"
-              [radius]="80"
-              [lowColor]="'red'"
-              [middleColor]="'orange'"
-              [interColor]="'#f1c40f'"
-              [highColor]="'#16a085'"
-              [border]="20"
-              [time]="0"
-              (click)="c1.animate()">
-            </circle-progress><br/>
-            <strong>Service 1</strong>
-         </div>
-
-         <div class="col-md-4" align="center">
-           <circle-progress #c2
-              [percent]="45"
-              [boxSize]="200"
-              [radius]="80"
-              [lowColor]="'red'"
-              [middleColor]="'orange'"
-              [interColor]="'#f1c40f'"
-              [highColor]="'#16a085'"
-              [border]="20"
-              [time]="0"
-              (click)="c2.animate()">
-            </circle-progress><br/>
-            <strong>Service 2</strong>
-         </div>
-
-         <div class="col-md-4" align="center">
-           <circle-progress #c3
-              [percent]="98"
-              [boxSize]="200"
-              [radius]="80"
-              [lowColor]="'red'"
-              [middleColor]="'orange'"
-              [interColor]="'#f1c40f'"
-              [highColor]="'#16a085'"
-              [border]="20"
-              [time]="0"
-              (click)="c3.animate()">
-            </circle-progress><br/>
-            <strong>Service 3</strong>
-         </div>
-       </div>
+      <div class="row">
+        <div class="col-md-4" align="center" *ngFor="let sWgt of svcWidgets">
+          <div class="service-mix-widget">
+            <div class="small-graph">
+              <p-chart type="line" [data]="sWgt.data" height="200" [options]="sgopt"></p-chart>
+              <div><strong>{{sWgt.latency}}</strong></div>
+            </div>
+            <circle-progress [percent]="sWgt.svcload"></circle-progress><br/>
+            <strong>{{sWgt.title}}</strong>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -65,7 +28,7 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper">
-        <p-chart type="line" [data]="alert_trend?.alert_trend" height="100"></p-chart>
+      <p-chart type="line" [data]="alert_trend?.alert_trend" height="100"></p-chart>
     </div>
   </div>
 </div>

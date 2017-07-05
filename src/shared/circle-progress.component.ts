@@ -8,42 +8,31 @@ import {Component, OnInit, Input} from '@angular/core';
     [attr.cx] = "cx"
     [attr.cy] = "cy"
     [attr.r] = "radius"
-    [attr.fill]="backgroundColor"
-    [attr.stroke]="color"/>
-
+    [attr.fill]="backgroundColor"/>
   <path
     [attr.d] = "circleM+ circleL+ circleA+ '0 ' + arcSweep + circleEnd + 'Z'"
-    [attr.stroke]="color"
     [attr.fill]="color"/>
   <circle
     [attr.cx] = "cx"
     [attr.cy] = "cy"
     [attr.r] = "innerRadius"
-    [attr.fill]="innerFill"
-    [attr.stroke]="color" />
-  <text
-    [attr.x]="fontX"
-    [attr.y]="fontY"
-    [attr.text-anchor]="textAnchor"
-    [attr.fill]="fontColor"
-    [attr.font-size]="fontSize"
-    [attr.font-family]="fontFamily">{{circleText}}</text>
+    [attr.fill]="innerFill" />
 </svg>`,
 })
 export class CircleProgressComponent implements OnInit {
 
   @Input() percent:number = 0;
   @Input() boxSize:number = 200;
-  @Input() radius:number = 0.9*this.boxSize ;
+  @Input() radius:number = 80;
   @Input() time:number = 0;
-  @Input() border:number = 20;
+  @Input() border:number = 15;
   @Input() color:string = 'green';
-  @Input() backgroundColor:string = 'white';
+  @Input() backgroundColor:string = '#ddd';
 
-  @Input() lowColor:string = this.color;
-  @Input() middleColor:string = this.color;
-  @Input() interColor:string = this.color;
-  @Input() highColor:string = this.color;
+  @Input() lowColor:string = "red";
+  @Input() middleColor:string = "#fc6f00";
+  @Input() interColor:string = "#fc6f00";
+  @Input() highColor:string = "#7cd900";
 
   @Input() fontColor:string = 'black';
   @Input() fontSize: number = 12;
