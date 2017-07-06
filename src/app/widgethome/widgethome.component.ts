@@ -19,6 +19,33 @@ export class WidgetHomeComponent implements OnInit {
   selectedDur = 44640;
   rssAlerts1 = [];
   programAlerts1 = [];
+
+  public barChartOptions: any = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    scales:
+    {
+      xAxes: [{
+        display: false
+      }],
+      yAxes: [{
+        display: false
+      }]
+    }
+  };
+
+  public barChartLabels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012',
+    '2013', '2014', '2015', '2016'];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = false;
+
+  public barChartData: any[] = [
+    { 
+      data: [65, 59, 80, 81, 56, 55, 70, 65, 59, 80, 81, 56], 
+      label: 'Series A' 
+    }
+  ];
+
   constructor(private _snowSvc: SnowAggsService, private rssfeed: RssfeedService, private programalerts: ProgrammeService) {
     this.duration = [
       { label: 'Daily', value: 1440 },
@@ -81,7 +108,7 @@ export class WidgetHomeComponent implements OnInit {
         { "aggs_by_active": { "closed": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "open": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" } },
         { "aggs_by_priority": {} },
         { "p1_incidents": [], "total": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" },
-        { "sla_stats": { "missedSlaCount":"<i class='fa fa-spinner fa-pulse fa-fw'></i>", "aboutToMissSlaCount": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" }}
+        { "sla_stats": { "missedSlaCount": "<i class='fa fa-spinner fa-pulse fa-fw'></i>", "aboutToMissSlaCount": "<i class='fa fa-spinner fa-pulse fa-fw'></i>" } }
 
       ]
     };

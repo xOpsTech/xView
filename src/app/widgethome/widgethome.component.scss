@@ -64,5 +64,13 @@
 
   > .inner {
     padding: 10px;
+    position: relative;
+    z-index: 2;
   }
+}
+
+.widget-chart {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }
