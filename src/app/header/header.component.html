@@ -11,7 +11,7 @@
 
   <ul class="nav navbar-nav ml-auto ">
     <li class="nav-item">
-      <a tab="" class="nav-link" data-toggle="tab" href="/settings" role="tab"><i class="fa fa-cog user-settings"></i></a>
+      <a tab="" class="nav-link" data-toggle="tab" [routerLink]="['/settings']" role="tab"><i class="fa fa-cog user-settings"></i></a>
     </li>
     <li class="nav-item hidden-md-down">
       <img class="img-circle" bind-src="user.picture" /> <span>{{ user.name }}</span>

@@ -42,62 +42,26 @@ export class LoadTimeComponent implements OnInit {
     title: {
       display: true,
       text: 'Load Time & Speed Index',
-      fontColor: '#FEC44F',
       fontSize: 24
     },
     legend: {
-      display: true,
-      labels: {
-        fontColor: '#FEC44F'
-      }
+      display: true
     },
     scales: {
       xAxes: [{
         gridLines: {
           display: false,
-        },
-        ticks: {
-          fontColor: "#F8F8DD", // this here
-        },
+        }
       }],
       yAxes: [{
         display: true,
         gridLines: {
           display: false,
-        },
-        ticks: {
-          fontColor: "#F8F8DD"
         }
       }],
     }
   };
 
-  public lineChartColors: Array<any> = [
-    {
-      backgroundColor: 'rgba(76,51,34,0.5)',
-      borderColor: 'rgba(217,95,14,1)',
-      pointBackgroundColor: 'rgba(217,95,14,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    {
-      backgroundColor: 'rgba(138,103,60,0.5)',
-      borderColor: 'rgba(248,209,136,1)',
-      pointBackgroundColor: 'rgba(248,209,136,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    {
-      backgroundColor: 'rgba(110,76,40,0.5)',
-      borderColor: 'rgba(247,176,45,1)',
-      pointBackgroundColor: 'rgba(247,176,45,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
 
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
