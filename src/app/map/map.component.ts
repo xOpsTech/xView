@@ -22,10 +22,9 @@ export class MapComponent implements OnInit {
     this.alertsService.getAlerts().subscribe(alerts => {
 
       for (var dv of alerts) {
-
-        if (dv._source.severity == "3") { this.color = '#fc6' }
+        if (dv._source.severity == "1") { this.color = '#54C40B' }
+        if (dv._source.severity == "3") { this.color = '#d3d30a' }
         if (dv._source.severity == "4") { this.color = '#FF0000' }
-        else { this.color = '#fffff' }
         this.mapcoordinates.push({
           "latitude": dv._source.locationCoordinates[0],
           "longitude": dv._source.locationCoordinates[1],
@@ -36,7 +35,7 @@ export class MapComponent implements OnInit {
           "color": this.color
         });
       }
-      console.log(this.mapcoordinates);
+      //console.log(this.mapcoordinates);
 
       this.chart = this.AmCharts.makeChart("chartdiv", {
         "type": "map",
@@ -46,11 +45,7 @@ export class MapComponent implements OnInit {
         "backgroundAlpha" : 1,
 
         "imagesSettings": {
-          "rollOverColor": "#fff",
-          "rollOverScale": 3,
-          "selectedScale": 3,
           "selectedColor": "#fff",
-          "color": "#13564e"
         },
 
         "areasSettings": {

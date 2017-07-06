@@ -103,16 +103,16 @@
             <div class="ui-grid-row">
               <div class="ui-grid-col-7">
                 Status :
-                <span *ngIf="isincident;else content">Incident</span>
-                <ng-template #content>
+                <!--<span *ngIf="isincident;else content"> <select #selectedval>   <option  [value]="incident">Incident</option> </select></span>-->
+                <!--<ng-template #content>-->
                   <select #selectedval> 
                     <option *ngFor="let alertselection of alertselections" [value]="alertselection.val">{{alertselection.name}}</option>
                   </select>
-                </ng-template>
+                <!--</ng-template>-->
               </div>
 
               <div class="ui-grid-col-4">
-                Assigned To : <select #selectedval>
+                Assigned To : <select>
             <option *ngFor="let assigne of assignees" [value]="assigne.val" >{{assigne.name}}</option>
               </select>
 

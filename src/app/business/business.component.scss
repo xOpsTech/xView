@@ -6,3 +6,15 @@
         }
     }
 }
+
+.service-mix-widget{
+    position: relative;
+    width: 200px;
+
+    .small-graph{
+        width: 100px;
+        position: absolute;
+        left: 48px;
+        top: 60px;
+    }
+}

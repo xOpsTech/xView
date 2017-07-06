@@ -33,31 +33,21 @@ export class TtfbLoadtimeComponent implements OnInit {
     title: {
       display: true,
       text: 'TTFB & LoadTime',
-      fontColor: '#FEC44F',
       fontSize: 24
     },
     legend: {
-      display: true,
-      labels: {
-        fontColor: '#FEC44F'
-      }
+      display: true
     },
     scales: {
       xAxes: [{
         gridLines: {
           display: false,
-        },
-        ticks: {
-          fontColor: "#F8F8DD", // this here
-        },
+        }
       }],
       yAxes: [{
         display: true,
         gridLines: {
           display: false,
-        },
-        ticks: {
-          fontColor: "#F8F8DD"
         }
       }],
     }
@@ -71,16 +61,6 @@ export class TtfbLoadtimeComponent implements OnInit {
     {data: this.loadTimes, label: 'LoadTime'}
   ];
 
-  public barChartColors: Array<any> = [
-    {
-      backgroundColor: 'rgba(182,144,218, 0.4)',
-      borderColor: 'rgba(54,50,58, 0.8)',
-    },
-    {
-      backgroundColor: 'rgba(231,59,59,0.4)',
-      borderColor: 'rgba(248,209,136,1)',
-    }
-  ];
 
 
   ngOnInit() {
