@@ -48,7 +48,7 @@
               </div>
               <div>
                 <div style="display: block" class="widget-chart">
-                  <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                  <canvas baseChart [datasets]="snowStats.open_p1_tickets" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
                     [chartType]="barChartType"></canvas>
                 </div>
               </div>
@@ -62,7 +62,7 @@
                 <p>Open Tickets</p>
               </div>
               <div style="display: block" class="widget-chart">
-                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                <canvas baseChart [datasets]="snowStats.open_tickets" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
                   [chartType]="barChartType"></canvas>
               </div>
             </div>
@@ -75,7 +75,7 @@
                 <p>Closed Tickets</p>
               </div>
               <div style="display: block" class="widget-chart">
-                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                <canvas baseChart [datasets]="snowStats.closed_tickets" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
                   [chartType]="barChartType"></canvas>
               </div>
             </div>
@@ -88,7 +88,7 @@
                 <p>About to miss SLA</p>
               </div>
               <div style="display: block" class="widget-chart">
-                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                <canvas baseChart [datasets]="snowStats.about_to_miss_sla" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
                   [chartType]="barChartType"></canvas>
               </div>
             </div>
@@ -101,7 +101,7 @@
                 <p>Missed SLA</p>
               </div>
               <div style="display: block" class="widget-chart">
-                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                <canvas baseChart [datasets]="snowStats.missed_sla" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
                   [chartType]="barChartType"></canvas>
               </div>
             </div>
