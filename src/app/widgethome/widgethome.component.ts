@@ -70,17 +70,8 @@ export class WidgetHomeComponent implements OnInit {
     }
   };
 
-  public barChartLabels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012',
-    '2013', '2014', '2015', '2016'];
   public barChartType: string = 'bar';
   public barChartLegend: boolean = false;
-
-  public barChartData: any[] = [
-    { 
-      data: [65, 59, 80, 81, 56, 55, 70, 65, 59, 80, 81, 56], 
-      label: 'Series A' 
-    }
-  ];
 
   constructor(private _snowSvc: SnowAggsService, private rssfeed: RssfeedService, private programalerts: ProgrammeService) {
     this.duration = [
