@@ -12,7 +12,7 @@ export class SnowAggsService {
   }
 
   getSnowStats(duration: number) {
-    return this.http.get(config.XOPSAPI + '/snstats?duration='+duration).map((res:Response) => res.json());
+    return this.http.get(config.XOPSAPI + '/incidents/stats?duration='+duration).map((res:Response) => res.json());
     // return this.http.get('http://localhost:3000/daily').map((res:Response) => res.json());
   }
 }

@@ -135,11 +135,11 @@ export class WidgetHomeComponent implements OnInit {
   getSnowStats() {
     this._snowSvc.getSnowStats(this.selectedDur)
       .subscribe(res => {
-        this.open_p1.push(...res.open_p1);
-        this.open_tickets.push(...res.open);
-        this.closed_tickets.push(...res.closed);
-        this.about_to_miss_sla.push(...res.about_to_miss_sla);
-        this.missed_sla.push(...res.missed_sla);
+        this.open_p1.push(...res.data.open_p1);
+        this.open_tickets.push(...res.data.open);
+        this.closed_tickets.push(...res.data.closed);
+        this.about_to_miss_sla.push(...res.data.about_to_miss_sla);
+        this.missed_sla.push(...res.data.missed_sla);
         this.updateChartLabels();
       });
   }
