@@ -46,8 +46,11 @@
                 <h3 [innerHTML]="snowData?.data[0].aggs_by_active?.total || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
                 <p>Open P1 Tickets</p>
               </div>
-              <div class="icon">
-                <i class="fa fa-list-ol"></i>
+              <div>
+                <div style="display: block" class="widget-chart">
+                  <canvas baseChart [datasets]="snowStats.open_p1_tickets" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
+                    [chartType]="barChartType"></canvas>
+                </div>
               </div>
             </div>
           </div>
@@ -58,8 +61,9 @@
                 <h3 [innerHTML]="snowData?.data[0].aggs_by_active?.open || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
                 <p>Open Tickets</p>
               </div>
-              <div class="icon">
-                <i class="fa fa-hourglass-start"></i>
+              <div style="display: block" class="widget-chart">
+                <canvas baseChart [datasets]="snowStats.open_tickets" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
+                  [chartType]="barChartType"></canvas>
               </div>
             </div>
           </div>
@@ -70,8 +74,9 @@
                 <h3 [innerHTML]="snowData?.data[0].aggs_by_active?.closed || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
                 <p>Closed Tickets</p>
               </div>
-              <div class="icon">
-                <i class="fa fa-hourglass-end"></i>
+              <div style="display: block" class="widget-chart">
+                <canvas baseChart [datasets]="snowStats.closed_tickets" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
+                  [chartType]="barChartType"></canvas>
               </div>
             </div>
           </div>
@@ -82,8 +87,9 @@
                 <h3 [innerHTML]="snowData?.data[3].sla_stats?.aboutToMissSlaCount || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
                 <p>About to miss SLA</p>
               </div>
-              <div class="icon">
-                <i class="fa fa-hourglass-half"></i>
+              <div style="display: block" class="widget-chart">
+                <canvas baseChart [datasets]="snowStats.about_to_miss_sla" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
+                  [chartType]="barChartType"></canvas>
               </div>
             </div>
           </div>
@@ -91,11 +97,12 @@
           <div class="col-md-6 col-xs-6">
             <div class="SNalert-widget" style="background:#ef5350">
               <div class="inner">
-                  <h3 [innerHTML]="snowData?.data[3].sla_stats?.missedSlaCount || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+                <h3 [innerHTML]="snowData?.data[3].sla_stats?.missedSlaCount || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
                 <p>Missed SLA</p>
               </div>
-              <div class="icon">
-                <i class="fa fa-hourglass-o"></i>
+              <div style="display: block" class="widget-chart">
+                <canvas baseChart [datasets]="snowStats.missed_sla" [labels]="sn_stats_labels" [options]="barChartOptions" [legend]="barChartLegend"
+                  [chartType]="barChartType"></canvas>
               </div>
             </div>
           </div>
@@ -104,10 +111,6 @@
         <div align="right">
           <p-selectButton [options]="duration" [(ngModel)]="selectedDur" (onChange)="changeDuration()"></p-selectButton>
         </div>
-
-
-
-
       </div>
     </div>
   </div>
