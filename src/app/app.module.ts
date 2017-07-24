@@ -5,8 +5,11 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
-import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule,DropdownModule, AccordionModule, SliderModule, ChartModule } from 'primeng/primeng';
+import { AutoCompleteModule } from 'primeng/primeng';
+import {
+  ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
+  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule
+} from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
 import { AppComponent } from './app.component';
@@ -41,6 +44,8 @@ import { BusinessComponent } from './business/business.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
 import { CircleProgressComponent } from '../shared/circle-progress.component';
 import { MatchHeightDirective } from '../shared/match-height.directive';
+import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
+
 
 @NgModule({
   declarations: [
@@ -70,8 +75,10 @@ import { MatchHeightDirective } from '../shared/match-height.directive';
     BusinessComponent,
     BreadcrumbsComponent,
     CircleProgressComponent,
-    MatchHeightDirective
-],
+    MatchHeightDirective,
+    AlertIndividualComponent,
+
+  ],
 
   imports: [
     BrowserModule,
@@ -82,8 +89,7 @@ import { MatchHeightDirective } from '../shared/match-height.directive';
     AmChartsModule,
     Select2Module,
     SlimScrollModule,
-
-
+    AutoCompleteModule,
     RouterModule.forRoot([
       {
         path: 'home',
@@ -92,6 +98,10 @@ import { MatchHeightDirective } from '../shared/match-height.directive';
       {
         path: 'alert',
         component: AlertsComponent
+      },
+      {
+       path: 'alertindividual',
+        component: AlertIndividualComponent
       },
       {
         path: 'custom/dashboard',
