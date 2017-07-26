@@ -38,13 +38,14 @@ import { RssfeedService } from './services/rssfeed.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';
-
+import {StepsModule} from 'primeng/primeng';
 import { TruncatePipe } from './common/pipe.truncate';
 import { BusinessComponent } from './business/business.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
 import { CircleProgressComponent } from '../shared/circle-progress.component';
 import { MatchHeightDirective } from '../shared/match-height.directive';
 import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { AlertIndividualComponent } from './alerts/alert-individual/alert-indivi
     CircleProgressComponent,
     MatchHeightDirective,
     AlertIndividualComponent,
+    SignupComponent,
 
   ],
 
@@ -90,6 +92,8 @@ import { AlertIndividualComponent } from './alerts/alert-individual/alert-indivi
     Select2Module,
     SlimScrollModule,
     AutoCompleteModule,
+    StepsModule,
+
     RouterModule.forRoot([
       {
         path: 'home',
@@ -130,6 +134,10 @@ import { AlertIndividualComponent } from './alerts/alert-individual/alert-indivi
       {
         path: 'business',
         component: BusinessComponent
+      },
+      {
+        path: 'signup',
+        component: SignupComponent
       },
       {
         path: '', redirectTo: 'business', pathMatch: 'full'
