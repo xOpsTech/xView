@@ -41,6 +41,8 @@ import { BusinessComponent } from './business/business.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
 import { CircleProgressComponent } from '../shared/circle-progress.component';
 import { MatchHeightDirective } from '../shared/match-height.directive';
+import { LoginComponent } from './login/login.component';
+import { XviewTemplateComponent } from './xview-template/xview-template.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { MatchHeightDirective } from '../shared/match-height.directive';
     BusinessComponent,
     BreadcrumbsComponent,
     CircleProgressComponent,
-    MatchHeightDirective
+    MatchHeightDirective,
+    LoginComponent,
+    XviewTemplateComponent
 ],
 
   imports: [
@@ -85,47 +89,61 @@ import { MatchHeightDirective } from '../shared/match-height.directive';
 
 
     RouterModule.forRoot([
+      // {
+      //   path: 'login',
+      //   component: LoginComponent,
+      //   children: [
+      //     {
+      //       path: 'nested',
+      //       component: WidgetHomeComponent
+      //     }
+      //   ]
+      // },
       {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'alert',
-        component: AlertsComponent
-      },
-      {
-        path: 'custom/dashboard',
-        component: DashboardComponent
-      },
-      {
-        path: 'map',
-        component: MapComponent
-      },
-      {
-        path: 'tech/incident',
-        component: IncidentComponent
-      },
-      {
-        path: 'tech/third-party',
-        component: RssfeedComponent
-      },
-      {
-        path: 'settings',
-        component: SettingsComponent
-      },
-      {
-        path: 'custom/cc',
-        component: WidgetHomeComponent
-      },
-      {
-        path: 'business',
-        component: BusinessComponent
-      },
-      {
-        path: '', redirectTo: 'business', pathMatch: 'full'
+        path: '',
+        component: XviewTemplateComponent,
+        children: [
+          {
+            path: 'home',
+            component: HomeComponent
+          },
+          {
+            path: 'alert',
+            component: AlertsComponent
+          },
+          {
+            path: 'custom/dashboard',
+            component: DashboardComponent
+          },
+          {
+            path: 'map',
+            component: MapComponent
+          },
+          {
+            path: 'tech/incident',
+            component: IncidentComponent
+          },
+          {
+            path: 'tech/third-party',
+            component: RssfeedComponent
+          },
+          {
+            path: 'settings',
+            component: SettingsComponent
+          },
+          {
+            path: 'custom/cc',
+            component: WidgetHomeComponent
+          },
+          {
+            path: 'business',
+            component: BusinessComponent
+          },
+          {
+            path: '', redirectTo: 'business', pathMatch: 'full'
+          }
+        ]
       }
-
-
     ], { useHash: true }),
     JsonpModule,
     BrowserAnimationsModule,
