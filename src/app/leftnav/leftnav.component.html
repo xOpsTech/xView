@@ -26,8 +26,16 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/alert']"><i class="material-icons">warning</i> Alerts</a>
+       <li class="nav-item nav-dropdown" routerLinkActive="open">
+        <a class="nav-link nav-dropdown-toggle" href="#"><i class="material-icons">dashboard</i> Alerts</a>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"  [routerLink]="['/alerts']">Alerts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"  [routerLink]="['/alertindividual']">My Alerts</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </nav>

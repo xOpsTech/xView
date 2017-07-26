@@ -28,19 +28,20 @@ export class MapComponent implements OnInit {
         this.mapcoordinates.push({
           "latitude": dv._source.locationCoordinates[0],
           "longitude": dv._source.locationCoordinates[1],
+           "title": dv._source.locationCode,
           "svgPath": this.targetSVGgreen,
           "width": 32,
           "height": 32,
-          "label": dv._source.locationCode,
           "color": this.color
         });
       }
-      //console.log(this.mapcoordinates);
+      console.log(this.mapcoordinates);
 
       this.chart = this.AmCharts.makeChart("chartdiv", {
         "type": "map",
         "theme": "black",
         "projection": "miller",
+        
         "backgroundColor" : "#000",
         "backgroundAlpha" : 1,
 

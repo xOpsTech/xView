@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Alert } from './Alert';
-import { AlertService } from '../services/alert.service';
-import { IncidentService } from '../services/incident.service';
-import { TruncatePipe } from '../common/pipe.truncate';
+import { Alert } from '../Alert';
+import { AlertService } from '../../services/alert.service';
+import { IncidentService } from '../../services/incident.service';
+import { UserService } from '../../services/user.service';
 
+import { TruncatePipe } from '../../common/pipe.truncate';
 
 @Component({
-  selector: 'app-alerts',
-  templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss'],
+  selector: 'app-alert-individual',
+  templateUrl: './alert-individual.component.html',
+  styleUrls: ['./alert-individual.component.scss'],
   providers: [AlertService, IncidentService]
-
 })
-
-export class AlertsComponent implements OnInit {
+export class AlertIndividualComponent implements OnInit {
   alert_put_values: { _id: string };
   title: any;
   alerts: Alert[] = [];
@@ -26,12 +25,22 @@ export class AlertsComponent implements OnInit {
   public colorval: string;
   public alert_trend;
   public widget_data;
+  public severity1;
+  public severity2;
+  public severity3;
+  public severity4;
   public assignees;
   assgneselections = [];
   assgneselectionsids = [];
   //public alertsTable;
   visible: boolean = true;
-  constructor(private alertsService: AlertService, private incidentService: IncidentService) {
+
+  user = {
+    name: "",
+    picture: "",
+    id: ""
+  };
+  constructor(private alertsService: AlertService, private incidentService: IncidentService, private userService: UserService) {
     this.incidentService.getAssignees().subscribe(assignees => {
 
       for (var d of assignees.data) {
@@ -55,7 +64,7 @@ export class AlertsComponent implements OnInit {
 
     this.alertsService.widgetStatus().subscribe(widget_data1 => {
       this.widget_data = widget_data1;
-      //console.log(this.widget_data)
+      console.log(this.widget_data)
     });
 
   }
@@ -67,8 +76,57 @@ export class AlertsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getUserData().subscribe(res => {
+      this.user = res;
+      this.getAssigntoCountPerPerson(this.user.id);
+      this.loadSortedAlerts();
+    });
 
-    this.loadSortedAlerts();
+  
+  }
+
+  getAssigntoCountPerPerson(userid) {
+    this.incidentService.getAssigntoCountPerPerson({
+      "by": {
+        "field": "assignedToId", "value": userid
+      },
+      "what": {
+        "field": "severity", "value": "1"
+      }
+    }).subscribe(
+      result => {
+        this.severity1 = result;
+        console.log(this.severity1);
+      });
+
+   this.incidentService.getAssigntoCountPerPerson({
+      "by": {
+        "field": "assignedToId", "value": userid
+      },
+      "what": {
+        "field": "severity", "value": "3"
+      }
+    }).subscribe(
+      result => {
+        this.severity3 = result;
+        console.log(this.severity3);
+      });
+
+    this.incidentService.getAssigntoCountPerPerson({
+      "by": {
+        "field": "assignedToId","value": userid
+        
+      },
+      "what": {
+        "field": "severity","value": "4"
+      }
+    })
+      .subscribe(
+      result => {
+        this.severity4 = result;
+        console.log(this.severity4);
+      });
+
   }
 
   brands: string[];
@@ -89,7 +147,7 @@ export class AlertsComponent implements OnInit {
   filterBrands(event) {
     this.filteredBrands = [];
     for (let i = 0; i < this.brands.length; i++) {
-      let brand = this.brands[i]+ "|"+this.brandids[i];
+      let brand = this.brands[i] + "|" + this.brandids[i];
       if (brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
         this.filteredBrands.push(brand);
       }
@@ -97,7 +155,7 @@ export class AlertsComponent implements OnInit {
   }
 
   loadSortedAlerts() {
-    this.alertsService.getALertsMapped().then(alerts => {
+    this.alertsService.getAllalertsByPearson().then(alerts => {
       alerts.sort(function (a, b) {
         if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
           return 1;
@@ -159,11 +217,10 @@ export class AlertsComponent implements OnInit {
 
   onclickAsses(value, eventid, assigneename) {
     let value1 = value.toLowerCase();
-    console.log(value);
     console.log(assigneename);
-    var splitted = assigneename.split("|", 2); 
+    var splitted = assigneename.split("|", 2);
     if (value1 == "ignore" || value1 == "closed" || value1 == "invalid" || value1 == "incident") {
-      console.log(assigneename);
+
       this.alertsService.putService({
         "eventId": eventid,
         "status": value,
@@ -191,5 +248,4 @@ export class AlertsComponent implements OnInit {
 
     }
   }
-
 }
