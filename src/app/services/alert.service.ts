@@ -9,9 +9,9 @@ export class AlertService {
   headers: Headers;
   options: RequestOptions;
 
-  private alerts_url = config.XOPSAPI+'/alerts';
-  private alerts_stats_url = config.XOPSAPI+'/alerts/stats';
-
+  private alerts_url = config.XOPSAPI + '/alerts';
+  private alerts_stats_url = config.XOPSAPI + '/alerts/stats';
+  private my_alerts_url = config.XOPSAPI + '/myalerts';
   constructor(private http: Http) {
     this.headers = new Headers({
       'Content-Type': 'application/json',
@@ -29,10 +29,21 @@ export class AlertService {
   }
 
   getAlertTrends(hours): Observable<any[]> {
-    return this.http.get(this.alerts_url+`/trend?hours=${hours}`)
+    return this.http.get(this.alerts_url + `/trend?hours=${hours}`)
       .map((res: Response) => res.json());
   }
 
+  getAllalertsByPearson() {
+    return this.http.get(this.my_alerts_url)
+      .toPromise()
+      .then(res => {
+        var responseJson = res.json();
+        return <Alert[]>res.json();
+      })
+      .then(data => {
+        return data
+      });
+  }
   getALertsMapped() {
     return this.http.get(this.alerts_url)
       .toPromise()
@@ -40,25 +51,25 @@ export class AlertService {
         var responseJson = res.json();
         // console.log(responseJson[0]._source);
         // return <Alert[]> res.json()._source
-        return <Alert[] > res.json();
+        return <Alert[]>res.json();
       })
       .then(data => {
         return data
       });
   }
 
-putService(param: any): Observable < any > {
+  putService(param: any): Observable<any> {
     let body = JSON.stringify(param);
     console.log(body);
     return this.http
       .put(this.alerts_url, body, this.options)
       .map(this.extractData)
       .catch(this.handleError);
-}
+  }
 
-   widgetStatus() {
+  widgetStatus() {
     return this.http.get(this.alerts_stats_url)
-      .map((res:Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
   private extractData(res: Response) {

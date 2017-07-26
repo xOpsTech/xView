@@ -5,8 +5,11 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
-import { ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule,DropdownModule, AccordionModule, SliderModule, ChartModule } from 'primeng/primeng';
+import { AutoCompleteModule } from 'primeng/primeng';
+import {
+  ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
+  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule
+} from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
 import { AppComponent } from './app.component';
@@ -35,7 +38,7 @@ import { RssfeedService } from './services/rssfeed.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';
-
+import {StepsModule} from 'primeng/primeng';
 import { TruncatePipe } from './common/pipe.truncate';
 import { BusinessComponent } from './business/business.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
@@ -43,6 +46,9 @@ import { CircleProgressComponent } from '../shared/circle-progress.component';
 import { MatchHeightDirective } from '../shared/match-height.directive';
 import { LoginComponent } from './login/login.component';
 import { XviewTemplateComponent } from './xview-template/xview-template.component';
+import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
+import { SignupComponent } from './signup/signup.component';
+
 
 @NgModule({
   declarations: [
@@ -74,7 +80,11 @@ import { XviewTemplateComponent } from './xview-template/xview-template.componen
     CircleProgressComponent,
     MatchHeightDirective,
     LoginComponent,
-    XviewTemplateComponent
+    XviewTemplateComponent,
+    AlertIndividualComponent,
+    SignupComponent,
+    AlertIndividualComponent,
+    SignupComponent,
 ],
 
   imports: [
@@ -86,19 +96,14 @@ import { XviewTemplateComponent } from './xview-template/xview-template.componen
     AmChartsModule,
     Select2Module,
     SlimScrollModule,
-
+    AutoCompleteModule,
+    StepsModule,
 
     RouterModule.forRoot([
-      // {
-      //   path: 'login',
-      //   component: LoginComponent,
-      //   children: [
-      //     {
-      //       path: 'nested',
-      //       component: WidgetHomeComponent
-      //     }
-      //   ]
-      // },
+      {
+        path: 'signup',
+        component: SignupComponent,
+      },
       {
         path: '',
         component: XviewTemplateComponent,
