@@ -1,172 +1,174 @@
-<h3 class="first">
-
-  Sign Up</h3>
-<div>Join the xOps Community</div>
-<br/>
-<p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
-
-<div *ngIf="stage1">
-<form #CreateAccountForm="ngForm"  (ngSubmit)="OnStage1Completion(CreateAccountForm)">
-  <div class="ui-g">
-    <div class="ui-g-12 ui-md-6">
-      <div class="ui-g-4">
-        First Name :
-      </div>
-      <div class="ui-g-8">
-        <input pInputText type="text" class="form-control" name="firstname" [(ngModel)]="firstname" />
-      </div>
-      <div class="ui-g-4">
-        Last Name :
-      </div>
-      <div class="ui-g-8">
-        <input pInputText type="text" class="form-control" name="lastname" [(ngModel)]="lastname"/>
-      </div>
-      <div class="ui-g-4">
-        Email Address :
-      </div>
-      <div class="ui-g-8">
-        <input pInputText type="text" class="form-control" name="email" [(ngModel)]="email" />
-      </div>
-      <div class="ui-g-4">
-        Username :
-      </div>
-      <div class="ui-g-8">
-        <input pInputText type="text" class="form-control" name="username" [(ngModel)]="username" />
-      </div>
-      <div class="ui-g-4">
-        Password :
-      </div>
-      <div class="ui-g-8">
-        <input pInputText type="password" class="form-control" name="password" [(ngModel)]="password"/>
-      </div>
-      <div class="ui-g-4">
-        Confirm Password :
-      </div>
-      <div class="ui-g-8">
-        <input pInputText type="password" class="form-control" name="cnfrmpassword" [(ngModel)]="cnfrmpassword" />
-      </div>
-      <div class="ui-g-12">
-        __________________________________________________________________________________________
-      </div>
-      <div class="ui-g-12">
-        By Clicking on "Create an account" Button you are agreeing to the
-        <p style="color:blue"> Terms of Service and Privacy policy</p>
-      </div>
-      _____________________________________________________________________________________________
-      <div class="ui-g-4">
-        <button pButton type="submit" label="Create an account"></button>
-      </div>
-
-    </div>
-    <div class="ui-g-4">
-      <p-panel header="xView Feature highlights">
-
-        <li> Feature 1 </li>
-        <li> Feature 2 </li>
-        <li> Feature 3 </li>
-        <li> Feature 4 </li>
-        <li> Feature 5 </li>
-        <li> Feature 6 </li>
-
-      </p-panel>
-    </div>
-  </div>
-  </form>
-</div>
-
-
-  <div *ngIf="stage2">
-    <form #OrginizationInfoForm="ngForm"  (ngSubmit)="OnStage2Completion(OrginizationInfoForm)">
+<div style="padding: 6%">
+  <h3 class="first">
+  
+    Sign Up</h3>
+  <div>Join the xOps Community</div>
+  <br/>
+  <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
+  
+  <div *ngIf="stage1">
+  <form #CreateAccountForm="ngForm"  (ngSubmit)="OnStage1Completion(CreateAccountForm)">
     <div class="ui-g">
       <div class="ui-g-12 ui-md-6">
         <div class="ui-g-4">
-          Organization Name :
+          First Name :
         </div>
         <div class="ui-g-8">
-          <input pInputText type="text" class="form-control" name="orgname" [(ngModel)]="orgname" />
+          <input pInputText type="text" class="form-control" name="firstname" [(ngModel)]="firstname" />
         </div>
         <div class="ui-g-4">
-          Address :
+          Last Name :
         </div>
         <div class="ui-g-8">
-          <input pInputText type="text" class="form-control" name="orgaddress" [(ngModel)]="orgaddress"  />
+          <input pInputText type="text" class="form-control" name="lastname" [(ngModel)]="lastname"/>
         </div>
         <div class="ui-g-4">
-          Phone :
+          Email Address :
         </div>
         <div class="ui-g-8">
-          <input pInputText type="text" class="form-control" name="orgphone" [(ngModel)]="orgphone"  />
+          <input pInputText type="text" class="form-control" name="email" [(ngModel)]="email" />
         </div>
-
         <div class="ui-g-4">
-          <button pButton type="submit"  label="Continue"></button>
+          Username :
         </div>
-
+        <div class="ui-g-8">
+          <input pInputText type="text" class="form-control" name="username" [(ngModel)]="username" />
+        </div>
+        <div class="ui-g-4">
+          Password :
+        </div>
+        <div class="ui-g-8">
+          <input pInputText type="password" class="form-control" name="password" [(ngModel)]="password"/>
+        </div>
+        <div class="ui-g-4">
+          Confirm Password :
+        </div>
+        <div class="ui-g-8">
+          <input pInputText type="password" class="form-control" name="cnfrmpassword" [(ngModel)]="cnfrmpassword" />
+        </div>
+        <div class="ui-g-12">
+          __________________________________________________________________________________________
+        </div>
+        <div class="ui-g-12">
+          By Clicking on "Create an account" Button you are agreeing to the
+          <p style="color:blue"> Terms of Service and Privacy policy</p>
+        </div>
+        _____________________________________________________________________________________________
+        <div class="ui-g-4">
+          <button pButton type="submit" label="Create an account"></button>
+        </div>
+  
       </div>
       <div class="ui-g-4">
         <p-panel header="xView Feature highlights">
-
+  
           <li> Feature 1 </li>
           <li> Feature 2 </li>
           <li> Feature 3 </li>
           <li> Feature 4 </li>
           <li> Feature 5 </li>
           <li> Feature 6 </li>
+  
         </p-panel>
       </div>
     </div>
     </form>
-    </div>
-
-      <div *ngIf="stage3">
-         <form #ConfigurationServicesForm="ngForm"  (ngSubmit)="OnStage3Completion(ConfigurationServicesForm)">
-        <div class="ui-g">
-          <div class="ui-g-12 ui-md-6">
-            <div class="ui-g-4">
-              Service :
-            </div>
-            <div class="ui-g-8">
-               <p-dropdown [options]="services" styleClass="form-control" name="servicename" [(ngModel)]="servicename" [autoWidth]="true"></p-dropdown>
-             
-            </div>
-            <div class="ui-g-4">
-              URL :
-            </div>
-            <div class="ui-g-8">
-              <input pInputText type="text" class="form-control" name="serviceurl" [(ngModel)]="serviceurl" />
-            </div>
-            <div class="ui-g-4">
-              Username :
-            </div>
-            <div class="ui-g-8">
-              <input pInputText type="text" class="form-control" name="srusername" [(ngModel)]="srusername" />
-            </div>
-            <div class="ui-g-4">
-              Password :
-            </div>
-            <div class="ui-g-8">
-              <input pInputText type="password" class="form-control" name="srpassword" [(ngModel)]="srpassword"/>
-            </div>
-            <div class="ui-g-4">
-            <button pButton type="button"  label="Add"></button>
-            </div>
-
-               <div class="ui-g-4">
-          <button pButton type="button" (click)=OnStage3Completion() label="Continue"></button>
-        </div>
+  </div>
+  
+  
+    <div *ngIf="stage2">
+      <form #OrginizationInfoForm="ngForm"  (ngSubmit)="OnStage2Completion(OrginizationInfoForm)">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-6">
+          <div class="ui-g-4">
+            Organization Name :
+          </div>
+          <div class="ui-g-8">
+            <input pInputText type="text" class="form-control" name="orgname" [(ngModel)]="orgname" />
           </div>
           <div class="ui-g-4">
-            <p-panel header="xView Feature highlights">
-
-              <li> Feature 1 </li>
-              <li> Feature 2 </li>
-              <li> Feature 3 </li>
-              <li> Feature 4 </li>
-              <li> Feature 5 </li>
-              <li> Feature 6 </li>
-
-            </p-panel>
+            Address :
           </div>
+          <div class="ui-g-8">
+            <input pInputText type="text" class="form-control" name="orgaddress" [(ngModel)]="orgaddress"  />
+          </div>
+          <div class="ui-g-4">
+            Phone :
+          </div>
+          <div class="ui-g-8">
+            <input pInputText type="text" class="form-control" name="orgphone" [(ngModel)]="orgphone"  />
+          </div>
+  
+          <div class="ui-g-4">
+            <button pButton type="submit"  label="Continue"></button>
+          </div>
+  
         </div>
-         </form>
+        <div class="ui-g-4">
+          <p-panel header="xView Feature highlights">
+  
+            <li> Feature 1 </li>
+            <li> Feature 2 </li>
+            <li> Feature 3 </li>
+            <li> Feature 4 </li>
+            <li> Feature 5 </li>
+            <li> Feature 6 </li>
+          </p-panel>
         </div>
+      </div>
+      </form>
+      </div>
+  
+        <div *ngIf="stage3">
+           <form #ConfigurationServicesForm="ngForm"  (ngSubmit)="OnStage3Completion(ConfigurationServicesForm)">
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+              <div class="ui-g-4">
+                Service :
+              </div>
+              <div class="ui-g-8">
+                 <p-dropdown [options]="services" styleClass="form-control" name="servicename" [(ngModel)]="servicename" [autoWidth]="true"></p-dropdown>
+               
+              </div>
+              <div class="ui-g-4">
+                URL :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" name="serviceurl" [(ngModel)]="serviceurl" />
+              </div>
+              <div class="ui-g-4">
+                Username :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" name="srusername" [(ngModel)]="srusername" />
+              </div>
+              <div class="ui-g-4">
+                Password :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="password" class="form-control" name="srpassword" [(ngModel)]="srpassword"/>
+              </div>
+              <div class="ui-g-4">
+              <button pButton type="button"  label="Add"></button>
+              </div>
+  
+                 <div class="ui-g-4">
+            <button pButton type="button" (click)=OnStage3Completion() label="Continue"></button>
+          </div>
+            </div>
+            <div class="ui-g-4">
+              <p-panel header="xView Feature highlights">
+  
+                <li> Feature 1 </li>
+                <li> Feature 2 </li>
+                <li> Feature 3 </li>
+                <li> Feature 4 </li>
+                <li> Feature 5 </li>
+                <li> Feature 6 </li>
+  
+              </p-panel>
+            </div>
+          </div>
+           </form>
+          </div>
+</div>
