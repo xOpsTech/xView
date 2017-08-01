@@ -5,6 +5,6 @@ let prod = 'http://scholastic.xops.it';
 let host = prod;
 
 export const config = {
-    XOPSHOST  : host,
-    XOPSAPI   : `${host}/api`
+    XOPSHOST: host,
+    XOPSAPI: `${host}/api`
 };

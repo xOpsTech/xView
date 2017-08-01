@@ -1,39 +1,12 @@
 import { StepsModule, MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {SelectItem} from 'primeng/primeng';
+import { SelectItem } from 'primeng/primeng';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styles: [`
-        .ui-steps .ui-steps-item {
-            width: 25%;
-        }
-        
-        .ui-steps.steps-custom {
-            margin-bottom: 30px;
-        }
-         
-        .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
-            height: 10px;
-            padding: 0 1em;
-        }
-         
-        .ui-steps.steps-custom .ui-steps-item .ui-steps-number {
-            background-color: #0081c2;
-            color: #FFFFFF;
-            display: inline-block;
-            width: 36px;
-            border-radius: 50%;
-            margin-top: -14px;
-            margin-bottom: 10px;
-        }
-        
-        .ui-steps.steps-custom .ui-steps-item .ui-steps-title {
-            color: #555555;
-        }
-    `]
+  styleUrls: ['./signup.component.scss'],
 })
 
 export class SignupComponent implements OnInit {
@@ -44,45 +17,52 @@ export class SignupComponent implements OnInit {
   stage3 = false;
 
   services: SelectItem[];
+  servers: SelectItem[];
+  numberofemployees: SelectItem[];
   activeIndex: number = 0;
 
   ngOnInit() {
 
     this.services = [];
-        this.services.push({label:'--Select Services--', value:'--Select Services--'});
-        this.services.push({label:'Apica', value:'Apica'});
-        this.services.push({label:'CloudTest', value:'CloudTest'});
-        this.services.push({label:'Loadrunner ', value:'Loadrunner '});
-        this.services.push({label:'blitz', value:'blitz'});
+    this.services.push({ label: '--Select Services--', value: '--Select Services--' });
+    this.services.push({ label: 'Apica', value: 'Apica' });
+    this.services.push({ label: 'CloudTest', value: 'CloudTest' });
+    this.services.push({ label: 'Loadrunner ', value: 'Loadrunner ' });
+    this.services.push({ label: 'blitz', value: 'blitz' });
 
+    this.servers = [];
+    this.servers.push({ label: '1-3 Servers', value: '1-3 Servers' });
+    this.servers.push({ label: '3-10 Servers', value: '3-10 Servers' });
+    this.servers.push({ label: '11-20 Servers', value: '11-20 Servers' });
+    this.servers.push({ label: '21+ Servers  ', value: '1-3 Servers' });
 
-    this.items = [{
-      label: 'Step 1  \n Create Account',
-      command: (event: any) => {
-        this.activeIndex = 0;
-        this.setDiv();
-      }
-    },
-    {
-      label: 'Step 2 \n Organization info',
-      command: (event: any) => {
-        this.activeIndex = 1;
-        this.setDiv();
-      }
-    },
-    {
-      label: 'Step 3 \n Configurations Services',
-      command: (event: any) => {
-        this.activeIndex = 2;
-        this.setDiv();
-      }
-    },
-
-    ];
+    this.numberofemployees = [];
+    this.numberofemployees.push({ label: '2-20 ', value: '2-20' });
+    this.numberofemployees.push({ label: '21-100 ', value: '21-100' });
+    this.numberofemployees.push({ label: '101-1000 ', value: '101-1000' });
+    this.numberofemployees.push({ label: '1001-5000   ', value: '1001-5000' });
+    this.numberofemployees.push({ label: '5000+', value: '5000+' });
+    this.numberofemployees.push({ label: 'Just Me', value: 'Just Me' });
+ 
 
     this.setDiv();
   }
 
+  OnStage1Click() {
+    this.activeIndex = 0;
+    this.setDiv();
+  }
+
+  OnStage2Click() {
+    this.activeIndex = 1;
+    this.setDiv();
+  }
+
+  OnStage3Click() {
+    this.activeIndex = 2;
+    this.setDiv();
+
+  }
 
   OnStage1Completion(CreateAccountForm: NgForm) {
     this.activeIndex = 1;
@@ -100,7 +80,7 @@ export class SignupComponent implements OnInit {
 
   OnStage3Completion(ConfigurationServicesForm: NgForm) {
     this.setDiv();
-     console.log(ConfigurationServicesForm.value);
+    console.log(ConfigurationServicesForm.value);
   }
 
   setDiv() {

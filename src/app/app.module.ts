@@ -148,9 +148,11 @@ import { SignupComponent } from './signup/signup.component';
             path: 'business',
             component: BusinessComponent
           },
-          {
-            path: '', redirectTo: 'business', pathMatch: 'full'
-          }
+           {
+            path: 'alertindividual',
+            component: AlertIndividualComponent
+          },
+        
         ]
       }
     ], { useHash: true }),
