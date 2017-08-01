@@ -105,6 +105,10 @@ import { SignupComponent } from './signup/signup.component';
         component: SignupComponent,
       },
       {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
         path: '',
         component: XviewTemplateComponent,
         children: [
