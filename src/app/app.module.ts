@@ -152,6 +152,9 @@ import { SignupComponent } from './signup/signup.component';
             path: 'alertindividual',
             component: AlertIndividualComponent
           },
+          {
+            path: '', redirectTo: 'business', pathMatch: 'full'
+          }
         
         ]
       }

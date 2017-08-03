@@ -2,11 +2,13 @@ import { StepsModule, MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SelectItem } from 'primeng/primeng';
+import {SignupService} from '../services/signup.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
+  providers: [SignupService]
 })
 
 export class SignupComponent implements OnInit {
@@ -20,6 +22,14 @@ export class SignupComponent implements OnInit {
   servers: SelectItem[];
   numberofemployees: SelectItem[];
   activeIndex: number = 0;
+
+  userAccountData: {};
+  tenantData = {
+    tenant: "",
+    services: []
+  };
+
+  constructor(private signupService : SignupService) {}
 
   ngOnInit() {
 
@@ -67,20 +77,69 @@ export class SignupComponent implements OnInit {
   OnStage1Completion(CreateAccountForm: NgForm) {
     this.activeIndex = 1;
     this.setDiv();
-    console.log(this.activeIndex);
-    console.log(CreateAccountForm.value);
+    // console.log(this.activeIndex);
+    // console.log(CreateAccountForm.value);
+
+    this.userAccountData = CreateAccountForm.value;
+    console.log ( this.userAccountData );
+    // this.signupService.createUserAccount(CreateAccountForm.value)
+    // .subscribe(res => {
+    //   if (res.status === 200) {
+
+    //   }
+    // });
   }
 
   OnStage2Completion(OrginizationInfoForm: NgForm) {
     this.activeIndex = 2;
     this.setDiv();
-    console.log(this.activeIndex);
-    console.log(OrginizationInfoForm.value);
+    // console.log(this.activeIndex);
+    // console.log(OrginizationInfoForm.value);
+    this.tenantData.tenant = OrginizationInfoForm.value.tenant;
   }
 
   OnStage3Completion(ConfigurationServicesForm: NgForm) {
     this.setDiv();
+
+    var servicesData = {
+      "service": "",
+      "url": "",
+      "username": "",
+      "password": ""
+    };
+
     console.log(ConfigurationServicesForm.value);
+
+    servicesData.service = ConfigurationServicesForm.value.servicename;
+    servicesData.url = ConfigurationServicesForm.value.serviceurl;
+    servicesData.username = ConfigurationServicesForm.value.srusername;
+    servicesData.password = ConfigurationServicesForm.value.srpassword;
+
+    this.tenantData.services.push(servicesData);
+
+    console.log(servicesData)
+
+    delete this.userAccountData['cnfrmpassword'];
+
+    var payload = {
+      "tenant": this.tenantData,
+      "user": this.userAccountData
+    };
+
+    // create user account
+    this.signupService.createUserAccount(this.userAccountData)
+    .subscribe(res => {
+      if (res.status === 200) {
+        // save tenant
+        this.signupService.saveTenant(this.tenantData)
+          .subscribe(response => {
+            if (response.status === 200) {
+              // redirect to login
+              console.log('success');
+            }
+          })
+      }
+    });
   }
 
   setDiv() {

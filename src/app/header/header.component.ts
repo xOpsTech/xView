@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
       console.log(this.user);
       this.userService.getUserData().subscribe(res => {
         this.user = res;
+        this.userService.setUserName(this.user.name);
       });
       console.log(this.user);
   }

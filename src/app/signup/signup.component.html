@@ -7,7 +7,7 @@
   <!--<p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" ></p-steps>-->
 
   <div class="btn-group btn-group-justified">
-    <button class="btn-lg btn-primary" (click)=OnStage1Click()>
+    <button class="btn-lg btn-primary" [disabled]="!stage1" (click)=OnStage1Click()>
      <div class="ui-g-12">
         <div class="ui-g-2">
         <i class="fa fa-user fa-3x " aria-hidden="true"></i>
@@ -18,7 +18,7 @@
         </div>
    </div>
   </button>
-    <button class="btn-lg  btn-primary" (click)=OnStage2Click()>
+    <button class="btn-lg  btn-primary" [disabled]="!stage2" (click)=OnStage2Click()>
   <div class="ui-g-12">
         <div class="ui-g-2">
            <i class="fa fa-university fa-3x" aria-hidden="true"></i>
@@ -29,7 +29,7 @@
   </div>
    </div>
   </button>
-    <button class="btn-lg  btn-primary" (click)=OnStage3Click()>
+    <button class="btn-lg  btn-primary" [disabled]="!stage3" (click)=OnStage3Click()>
       <div class="ui-g-12">
         <div class="ui-g-2">
            <i class="fa fa-signal fa-3x " aria-hidden="true"></i>
@@ -132,7 +132,7 @@
 
           <div class="ui-g-8">
             Full name of the organization :
-             <input pInputText type="text" class="form-control" name="orgphone" [(ngModel)]="orgphone" />
+             <input pInputText type="text" class="form-control" name="tenant" [(ngModel)]="tenant" />
            
           </div> <div class="ui-g-4"></div>
            <div class="ui-g-8">
@@ -196,7 +196,7 @@
           </div>
 
           <div class="ui-g-4">
-            <button pButton type="button" (click)=OnStage3Completion() label="Continue"></button>
+            <button pButton type="submit" (click)=OnStage3Completion() label="Continue"></button>
           </div>
         </div>
         <div class="ui-g-4">
