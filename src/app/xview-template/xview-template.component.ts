@@ -23,7 +23,6 @@ export class XviewTemplateComponent implements OnInit {
   }
 
   updateURLs() {
-    console.log(this.userService.getUsername());
     if (this.userService.getUsername().trim() == 'John Edwards') {
       this.imgURL = "/assets/img/logo/scholastic.png";
     } else {

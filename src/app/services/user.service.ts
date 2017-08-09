@@ -11,7 +11,6 @@ export class UserService {
   username:string;
 
   constructor(private http:Http) {
-    console.log(this.getUserUrl);
     //this.user = this.getUserData();
   }
 
@@ -30,13 +29,11 @@ export class UserService {
     }
 
   getUser() {
-    console.log(this.user);
     if (this.user !== null) {
       return this.user;
     } else {
       this.getUserData().subscribe(res => {
         this.user = res;
-        console.log(res);
         return this.user;
       });
     }

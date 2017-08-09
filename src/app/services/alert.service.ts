@@ -15,12 +15,9 @@ export class AlertService {
   };
   tenantID:string;
 
-  
   headers: Headers;
   options: RequestOptions;
-  // tenantID: string;
   
-  // private alerts_url = config.XOPSAPI + '/alerts/' + this.tenantID;
   private alerts_url; 
   private alerts_stats_url = config.XOPSAPI + '/alerts/stats';
   private my_alerts_url = config.XOPSAPI + '/myalerts';
@@ -35,21 +32,7 @@ export class AlertService {
 
   }
 
-  // ngOnInit() {
-    
-  //   this.userService.getUserData().subscribe(res => {
-  //     this.user = res;
-  //     if (this.user.name.trim() == 'John Edwards') {
-  //       this.tenantID = 'hkpxasc8b';
-  //     } else {
-  //       this.tenantID = 'bjxa6sc8w';
-  //     }
-  //     this.alerts_url = config.XOPSAPI + '/alerts/' + this.tenantID;
-  //   });
-  // }
-
   updateURLs() {
-    console.log(this.userService.getUsername());
     if (this.userService.getUsername().trim() == 'John Edwards') {
       this.alerts_url = config.XOPSAPI + '/alerts/hkpxasc8b';
     } else {
@@ -83,8 +66,6 @@ export class AlertService {
       .toPromise()
       .then(res => {
         var responseJson = res.json();
-        // console.log(responseJson[0]._source);
-        // return <Alert[]> res.json()._source
         return <Alert[]>res.json();
       })
       .then(data => {
