@@ -19,6 +19,7 @@ export class AlertService {
   options: RequestOptions;
   
   private alerts_url; 
+  private alerts_url_old = config.XOPSAPI + '/alerts';; 
   private alerts_stats_url = config.XOPSAPI + '/alerts/stats';
   private my_alerts_url = config.XOPSAPI + '/myalerts';
   constructor(private http: Http, private userService:UserService) {
@@ -46,7 +47,7 @@ export class AlertService {
   }
 
   getAlertTrends(hours): Observable<any[]> {
-    return this.http.get(this.alerts_url + `/trend?hours=${hours}`)
+    return this.http.get(this.alerts_url_old + `/trend?hours=${hours}`)
       .map((res: Response) => res.json());
   }
 
