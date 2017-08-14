@@ -1,4 +1,6 @@
-<p>
-  login works!
-</p>
-<router-outlet></router-outlet>
+<form (ngSubmit)="authenticate()">
+  Username: <input type="text" [(ngModel)]="credentials.username" name="username">
+  Password: <input type="password" [(ngModel)]="credentials.password" name="password">
+  <button type="submit">Login</button>
+</form>
+<button>Login with Google</button>

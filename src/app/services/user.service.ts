@@ -8,9 +8,9 @@ import { config } from '../config/config';
 export class UserService {
   private getUserUrl = config.XOPSAPI+"/user";
   user = null;
+  username:string;
 
   constructor(private http:Http) {
-    console.log(this.getUserUrl);
     //this.user = this.getUserData();
   }
 
@@ -29,15 +29,21 @@ export class UserService {
     }
 
   getUser() {
-    console.log(this.user);
     if (this.user !== null) {
       return this.user;
     } else {
       this.getUserData().subscribe(res => {
         this.user = res;
-        console.log(this.user);
         return this.user;
       });
     }
+  }
+
+  setUserName(loggedInUser) {
+    this.username = loggedInUser;
+  }
+
+  getUsername() {
+    return this.username;
   }
 }

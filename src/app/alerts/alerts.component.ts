@@ -3,6 +3,7 @@ import { Alert } from './Alert';
 import { AlertService } from '../services/alert.service';
 import { IncidentService } from '../services/incident.service';
 import { TruncatePipe } from '../common/pipe.truncate';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -29,9 +30,15 @@ export class AlertsComponent implements OnInit {
   public assignees;
   assgneselections = [];
   assgneselectionsids = [];
+
+  user = {
+    name: "",
+    picture: ""
+  };
+
   //public alertsTable;
   visible: boolean = true;
-  constructor(private alertsService: AlertService, private incidentService: IncidentService) {
+  constructor(private alertsService: AlertService, private incidentService: IncidentService, private userService:UserService) {
     this.incidentService.getAssignees().subscribe(assignees => {
 
       for (var d of assignees.data) {
@@ -68,7 +75,13 @@ export class AlertsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loadSortedAlerts();
+    this.userService.getUserData().subscribe(res => {
+      this.user = res;
+      this.userService.setUserName(this.user.name);
+      this.alertsService.updateURLs()
+      this.loadSortedAlerts();
+    })
+
   }
 
   brands: string[];

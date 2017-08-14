@@ -2,11 +2,15 @@ import { StepsModule, MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SelectItem } from 'primeng/primeng';
-
+import { SignupService } from '../services/signup.service';
+import { EmailValidator } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { NG_VALIDATORS,Validator,Validators,AbstractControl,ValidatorFn } from '@angular/forms';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
+  providers: [SignupService]
 })
 
 export class SignupComponent implements OnInit {
@@ -16,10 +20,20 @@ export class SignupComponent implements OnInit {
   stage2 = false;
   stage3 = false;
 
+  servicestable = [];
   services: SelectItem[];
+
   servers: SelectItem[];
   numberofemployees: SelectItem[];
   activeIndex: number = 0;
+
+  userAccountData: {};
+  tenantData = {
+    tenant: "",
+    services: []
+  };
+
+  constructor(private signupService: SignupService) { }
 
   ngOnInit() {
 
@@ -43,10 +57,12 @@ export class SignupComponent implements OnInit {
     this.numberofemployees.push({ label: '1001-5000   ', value: '1001-5000' });
     this.numberofemployees.push({ label: '5000+', value: '5000+' });
     this.numberofemployees.push({ label: 'Just Me', value: 'Just Me' });
- 
+
 
     this.setDiv();
   }
+
+  
 
   OnStage1Click() {
     this.activeIndex = 0;
@@ -61,27 +77,83 @@ export class SignupComponent implements OnInit {
   OnStage3Click() {
     this.activeIndex = 2;
     this.setDiv();
-
   }
 
+
+  removeConfiguration(index) {
+
+    if (index > -1) {
+      this.servicestable.splice(index, 1);
+      console.log(this.servicestable);
+    }
+  }
   OnStage1Completion(CreateAccountForm: NgForm) {
     this.activeIndex = 1;
     this.setDiv();
-    console.log(this.activeIndex);
-    console.log(CreateAccountForm.value);
+    // console.log(this.activeIndex);
+    // console.log(CreateAccountForm.value);
+
+    this.userAccountData = CreateAccountForm.value;
+    console.log(this.userAccountData);
+    // this.signupService.createUserAccount(CreateAccountForm.value)
+    // .subscribe(res => {
+    //   if (res.status === 200) {
+
+    //   }
+    // });
   }
 
   OnStage2Completion(OrginizationInfoForm: NgForm) {
     this.activeIndex = 2;
     this.setDiv();
-    console.log(this.activeIndex);
-    console.log(OrginizationInfoForm.value);
+    // console.log(this.activeIndex);
+    // console.log(OrginizationInfoForm.value);
+    this.tenantData.tenant = OrginizationInfoForm.value.tenant;
   }
 
-  OnStage3Completion(ConfigurationServicesForm: NgForm) {
+  addservice(ConfigurationServicesForm: NgForm) {
     this.setDiv();
-    console.log(ConfigurationServicesForm.value);
+
+    var servicesData = {
+      "service": "",
+      "url": "",
+      "username": "",
+      "password": ""
+    };
+    this.servicestable.push({ service: ConfigurationServicesForm.value.servicename, url: ConfigurationServicesForm.value.serviceurl, username: ConfigurationServicesForm.value.srusername, password: ConfigurationServicesForm.value.srpassword })
+
+    console.log(this.servicestable);
   }
+  OnStage3Completion(ConfigurationServicesForm: NgForm) {
+
+    this.tenantData.services.push(this.servicestable);
+    delete this.userAccountData['cnfrmpassword'];
+    var payload = {
+      "tenant": this.tenantData,
+      "user": this.userAccountData
+    };
+    console.log(this.tenantData);
+    console.log(this.userAccountData);
+
+
+    //create user account
+    this.signupService.createUserAccount(this.userAccountData)
+      .subscribe(res => {
+        if (res.status === 200) {
+          //save tenant
+          this.signupService.saveTenant(this.tenantData)
+            .subscribe(response => {
+              if (response.status === 200) {
+                // redirect to login
+                console.log('success');
+              }
+            })
+        }
+      });
+    // window.location.href = "http://localhost:4200/login";
+  }
+
+
 
   setDiv() {
     if (this.activeIndex == 0) {

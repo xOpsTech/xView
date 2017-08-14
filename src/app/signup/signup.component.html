@@ -7,7 +7,7 @@
   <!--<p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" ></p-steps>-->
 
   <div class="btn-group btn-group-justified">
-    <button class="btn-lg btn-primary" (click)=OnStage1Click()>
+    <button class="btn-lg btn-primary" [disabled]="!stage1" (click)=OnStage1Click()>
      <div class="ui-g-12">
         <div class="ui-g-2">
         <i class="fa fa-user fa-3x " aria-hidden="true"></i>
@@ -18,7 +18,7 @@
         </div>
    </div>
   </button>
-    <button class="btn-lg  btn-primary" (click)=OnStage2Click()>
+    <button class="btn-lg  btn-primary" [disabled]="!stage2" (click)=OnStage2Click()>
   <div class="ui-g-12">
         <div class="ui-g-2">
            <i class="fa fa-university fa-3x" aria-hidden="true"></i>
@@ -29,7 +29,7 @@
   </div>
    </div>
   </button>
-    <button class="btn-lg  btn-primary" (click)=OnStage3Click()>
+    <button class="btn-lg  btn-primary" [disabled]="!stage3" (click)=OnStage3Click()>
       <div class="ui-g-12">
         <div class="ui-g-2">
            <i class="fa fa-signal fa-3x " aria-hidden="true"></i>
@@ -54,28 +54,61 @@
             </button>
           </div>
           <div class="ui-g-8">
-          -----------------------------------  OR ----------------------------------------
-            
+            ----------------------------------- OR ----------------------------------------
+
           </div>
 
           <div class="ui-g-8">
             Name :
-            <input pInputText type="text" class="form-control" name="name" [(ngModel)]="name" />
+            <input pInputText type="text" class="form-control" required minlength="4" maxlength="100" name="name" [(ngModel)]="name"
+              #urname="ngModel" />
+            <div *ngIf="urname.errors && (urname.dirty || urname.touched)" class="alert alert-danger">
+              <div [hidden]="!urname.errors.required">
+                Name is required
+              </div>
+              <div [hidden]="!urname.errors.minlength">
+                Name must be at least 4 characters long.
+              </div>
+              <div [hidden]="!urname.errors.maxlength">
+                Name cannot be more than 100 characters long.
+              </div>
+            </div>
           </div>
 
           <div class="ui-g-8">
             Email Address :
-            <input pInputText type="text" class="form-control" name="email" [(ngModel)]="email" />
+            <input pInputText type="text" class="form-control" name="email" required pattern="[^ @]*@[^ @]*" required [(ngModel)]="email"
+              #email2="ngModel" />
+            <div *ngIf="email2.errors && (email2.dirty || email2.touched)" class="alert alert-danger">
+              <div [hidden]="!CreateAccountForm.controls.email.valid">
+                Invalid Email
+              </div>
+              <div [hidden]="!email2.errors.required">
+                Email is required
+              </div>
+            </div>
           </div>
 
           <div class="ui-g-8">
             Password :
-            <input pInputText type="password" class="form-control" name="password" [(ngModel)]="password" />
+            <input pInputText type="password" class="form-control" name="password" required [(ngModel)]="password" #passwordd="ngModel"
+            />
+            <div *ngIf="passwordd.errors && (passwordd.dirty || passwordd.touched)" class="alert alert-danger">
+              <div [hidden]="passwordd.valid || passwordd.pristine">
+                Password is required
+              </div>
+            </div>
           </div>
 
           <div class="ui-g-8">
             Confirm Password :
-            <input pInputText type="password" class="form-control" name="cnfrmpassword" [(ngModel)]="cnfrmpassword" />
+            <input pInputText type="password" class="form-control" name="confirmPassword" required [(ngModel)]="confirmPassword" #confirmPasswordd="ngModel"
+              validateEqual="passwordd" />
+            <div *ngIf="confirmPasswordd.errors && (confirmPasswordd.dirty || confirmPasswordd.touched)" class="alert alert-danger">
+              <div [hidden]="confirmPasswordd.valid || confirmPasswordd.pristine">
+                Passwords did not match
+              </div>
+            </div>
           </div>
 
           <div class="ui-g-12">
@@ -87,7 +120,7 @@
           </div>
           _____________________________________________________________________________________________
           <div class="ui-g-4">
-            <button pButton type="submit" label="Create an account"></button>
+            <button pButton type="submit" label="Create an account" [disabled]="!CreateAccountForm.valid"></button>
           </div>
 
         </div>
@@ -115,38 +148,46 @@
           <div class="ui-g-8">
             <b>Want to join an existing organization in xView <br>Enter the organization ID below </b>
           </div>
-           <div class="ui-g-4"> </div>
-         
+          <div class="ui-g-4"> </div>
+
           <div class="ui-g-8">
             Please note that you will be added to the <br>organization once an admin approves your request.
           </div>
-           <div class="ui-g-4"> </div>
+          <div class="ui-g-4"> </div>
           <div class="ui-g-8">
-            <input pInputText type="text" placeholder="Organization ID" class="form-control" name="orgaddress" [(ngModel)]="orgaddress" />
+            <input pInputText type="text" placeholder="Organization ID" class="form-control" name="orgaddress" [(ngModel)]="orgaddress"
+            />
           </div>
           <div class="ui-g-4"></div>
-          <div class="ui-g-8">
-            <b>Or, add your organization to xView</b>
-           
-          </div>
+            <div class="ui-g-8">
+              <b>Or, add your organization to xView</b>
 
-          <div class="ui-g-8">
-            Full name of the organization :
-             <input pInputText type="text" class="form-control" name="orgphone" [(ngModel)]="orgphone" />
-           
-          </div> <div class="ui-g-4"></div>
-           <div class="ui-g-8">
-            Number of employees :
-            <p-dropdown [options]="numberofemployees" styleClass="form-control" name="numberofemployees" [(ngModel)]="numberofemployees" [autoWidth]="true"></p-dropdown>
-          
-          </div> <div class="ui-g-4"></div>
-           <div class="ui-g-8">
-            Number of app servers :
-            <p-dropdown [options]="servers" styleClass="form-control" name="servers" [(ngModel)]="servers" [autoWidth]="true"></p-dropdown>
-            <button pButton type="submit" label="Continue"></button>
-          </div> <div class="ui-g-4"></div>
+            </div>
 
+            <div class="ui-g-8">
+              Full name of the organization :
+              <input pInputText type="text" class="form-control" name="tenant" [(ngModel)]="tenant" />
+
+            </div>
+            <div class="ui-g-4"></div>
+            <div class="ui-g-8">
+              Number of employees :
+              <p-dropdown [options]="numberofemployees" styleClass="form-control" name="numberofemployees" [(ngModel)]="numberofemployees"
+                [autoWidth]="true"></p-dropdown>
+
+            </div>
+            <div class="ui-g-4"></div>
+            <div class="ui-g-8">
+              Number of app servers :
+              <p-dropdown [options]="servers" styleClass="form-control" name="servers" [(ngModel)]="servers" [autoWidth]="true"></p-dropdown>
+            </div>
+            <div class="ui-g-4"></div>
+            <div class="ui-g-8">
+              <button pButton type="submit" label="Continue"></button>
+            </div>
+      
         </div>
+
         <div class="ui-g-4">
           <p-panel header="xView Feature highlights">
 
@@ -163,7 +204,7 @@
   </div>
 
   <div *ngIf="stage3">
-    <form #ConfigurationServicesForm="ngForm" (ngSubmit)="OnStage3Completion(ConfigurationServicesForm)">
+    <form #ConfigurationServicesForm="ngForm" (ngSubmit)="addservice(ConfigurationServicesForm)">
       <div class="ui-g">
         <div class="ui-g-12 ui-md-6">
           <div class="ui-g-4">
@@ -192,11 +233,18 @@
             <input pInputText type="password" class="form-control" name="srpassword" [(ngModel)]="srpassword" />
           </div>
           <div class="ui-g-4">
-            <button pButton type="button" label="Add"></button>
+            <button pButton type="submit" label="Add" (click)=addservice()></button>
           </div>
-
+          <div class="ui-g-8">
+            <table style="width:100%">
+              <tr *ngFor="let alert of servicestable; let i = index">
+                <th>{{alert.service}}</th>
+                <th><button pButton type="button" (click)="removeConfiguration(i)" icon="fa fa-close fa-fw"></button></th>
+              </tr>
+            </table>
+          </div>
           <div class="ui-g-4">
-            <button pButton type="button" (click)=OnStage3Completion() label="Continue"></button>
+            <button pButton type="button" (click)=OnStage3Completion(ConfigurationServicesForm) label="Continue"></button>
           </div>
         </div>
         <div class="ui-g-4">

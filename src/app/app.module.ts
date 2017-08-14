@@ -105,6 +105,10 @@ import { SignupComponent } from './signup/signup.component';
         component: SignupComponent,
       },
       {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
         path: '',
         component: XviewTemplateComponent,
         children: [
@@ -148,6 +152,9 @@ import { SignupComponent } from './signup/signup.component';
             path: 'alertindividual',
             component: AlertIndividualComponent
           },
+          {
+            path: '', redirectTo: 'business', pathMatch: 'full'
+          }
         
         ]
       }

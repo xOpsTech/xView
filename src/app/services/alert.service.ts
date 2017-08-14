@@ -3,24 +3,42 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import { config } from '../config/config';
+import { UserService, } from '../services/user.service';
+import { OnInit } from '@angular/core';
 
 @Injectable()
 export class AlertService {
+
+  user = {
+    name: "",
+    picture: ""
+  };
+  tenantID:string;
+
   headers: Headers;
   options: RequestOptions;
-
-  private alerts_url = config.XOPSAPI + '/alerts';
+  
+  private alerts_url; 
+  private alerts_url_old = config.XOPSAPI + '/alerts';; 
   private alerts_stats_url = config.XOPSAPI + '/alerts/stats';
   private my_alerts_url = config.XOPSAPI + '/myalerts';
-  constructor(private http: Http) {
+  constructor(private http: Http, private userService:UserService) {
     this.headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'q=0.8;application/json;q=0.9'
     });
     this.options = new RequestOptions({
       headers: this.headers
-    });
-    console.log(this.alerts_url);
+    });   
+
+  }
+
+  updateURLs() {
+    if (this.userService.getUsername().trim() == 'John Edwards') {
+      this.alerts_url = config.XOPSAPI + '/alerts/hkpxasc8b';
+    } else {
+      this.alerts_url = config.XOPSAPI + '/alerts/bjxa6sc8w';
+    }
   }
 
   getAlerts() {
@@ -29,7 +47,7 @@ export class AlertService {
   }
 
   getAlertTrends(hours): Observable<any[]> {
-    return this.http.get(this.alerts_url + `/trend?hours=${hours}`)
+    return this.http.get(this.alerts_url_old + `/trend?hours=${hours}`)
       .map((res: Response) => res.json());
   }
 
@@ -49,8 +67,6 @@ export class AlertService {
       .toPromise()
       .then(res => {
         var responseJson = res.json();
-        // console.log(responseJson[0]._source);
-        // return <Alert[]> res.json()._source
         return <Alert[]>res.json();
       })
       .then(data => {
