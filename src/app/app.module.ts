@@ -8,7 +8,8 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { AutoCompleteModule } from 'primeng/primeng';
 import {
   ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule
+  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, 
+  DropdownModule, AccordionModule, SliderModule, ChartModule, SpinnerModule
 } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
@@ -48,6 +49,7 @@ import { LoginComponent } from './login/login.component';
 import { XviewTemplateComponent } from './xview-template/xview-template.component';
 import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
 import { SignupComponent } from './signup/signup.component';
+import { ItemSettingsComponent } from './item-settings/item-settings.component';
 
 
 @NgModule({
@@ -85,6 +87,7 @@ import { SignupComponent } from './signup/signup.component';
     SignupComponent,
     AlertIndividualComponent,
     SignupComponent,
+    ItemSettingsComponent,
 ],
 
   imports: [
@@ -153,6 +156,10 @@ import { SignupComponent } from './signup/signup.component';
             component: AlertIndividualComponent
           },
           {
+            path: 'itemSettings',
+            component: ItemSettingsComponent
+          },
+          {
             path: '', redirectTo: 'business', pathMatch: 'full'
           }
         
@@ -174,7 +181,8 @@ import { SignupComponent } from './signup/signup.component';
     AccordionModule,
     SliderModule,
     ChartModule,
-    DropdownModule
+    DropdownModule,
+    SpinnerModule
   ],
   providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
   bootstrap: [AppComponent],

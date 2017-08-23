@@ -1,0 +1,54 @@
+<h1>
+  Item Definitions
+</h1>
+
+<div class="input-block">
+  <span>Item name:</span> <br>
+  <input type="text" [(ngModel)]="item_name" pInputText />
+</div>
+
+<div class="input-block">
+  <span>Threshold red:</span> <br>
+  <p-spinner size="30" [(ngModel)]="threshold_red" [min]="0" [max]="100"></p-spinner>
+</div>
+
+<div class="input-block">
+  <span>Threshold amber:</span> <br>
+  <p-spinner size="30" [(ngModel)]="threshold_amber" [min]="0" [max]="100"></p-spinner>
+</div>
+
+<p-dataTable [value]="perfIndicators">
+  <p-column field="id" header="Performance Indicator" [filter]="true"></p-column>
+  <p-column field="importance" header="Importance" [editable]="true" [filter]="true">
+    <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+      <span>{{ perfind.importance }}</span>
+      <p-slider [(ngModel)]="perfind.importance" [min]="0" [max]="10" [step]="1"></p-slider>
+    </ng-template>
+  </p-column>
+  <p-column field="thresholdRed" header="Threshold red" [editable]="true" [filter]="true">
+    <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+      <p-spinner size="30" [(ngModel)]="perfind.thresholdRed" [min]="0" [max]="100"></p-spinner>
+    </ng-template>
+  </p-column>
+  <p-column field="thresholdAmber" header="Threshold amber" [editable]="true" [filter]="true">
+      <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+          <p-spinner size="30" [(ngModel)]="perfind.thresholdAmber" [min]="0" [max]="100"></p-spinner>
+      </ng-template>
+  </p-column>
+</p-dataTable>
+
+<button class="top-margin" pButton type="button" label="Save Item" (click)="saveItem()"></button>
+
+
+
+<!-- <table>
+  <tr>
+    <th>Performance Indicator</th>
+    <th>Importance</th> 
+    <th>Threshold red</th>
+    <th>Threshold amber</th>
+  </tr>
+  <tr>
+  
+  </tr>
+</table> -->
