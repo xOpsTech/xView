@@ -11,8 +11,8 @@ import { ItemService } from '../services/item.service';
 })
 export class ItemSettingsComponent implements OnInit {
 
-  threshold_red: number;
-  threshold_amber: number;
+  threshold_red: number = 20;
+  threshold_amber: number = 30;
   item_name: string;
   perfIndicators: PerfIndicator[] = [];
 
@@ -44,8 +44,15 @@ export class ItemSettingsComponent implements OnInit {
 
     this.itemsService.saveItem(payload)
     .subscribe(response => {
-      console.log(response);
+      this.clearForm();
+      this.loadPerfIndicators();
     })
+  }
+
+  clearForm() {
+    this.threshold_red = 20;
+    this.threshold_amber = 30;
+    this.item_name = '';
   }
 
   constructor(private perfIndicatorsService: PerfIndicatorService, private itemsService: ItemService) { }
@@ -54,13 +61,14 @@ export class ItemSettingsComponent implements OnInit {
     this.perfIndicatorsService.getPerfIndicators()
       .subscribe(res => {
         // var perfIndicatorNames: any[] = res;
+        this.perfIndicators = [];
 
         for (var i = 0; i < res.result.length; i++) {
           this.perfIndicators.push(
             {
               "id": res.result[i],
-              "thresholdRed": 0,
-              "thresholdAmber": 0,
+              "thresholdRed": 20,
+              "thresholdAmber": 30,
               "importance": 0
             }
           );
