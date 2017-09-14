@@ -1,0 +1,4 @@
+@import '../../scss/xops.mixins';
+@include alert-status('.red', #f84502);
+@include alert-status('.green', #94ce19);
+@include alert-status('.amber', #fac710);

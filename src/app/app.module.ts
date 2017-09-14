@@ -8,8 +8,7 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { AutoCompleteModule } from 'primeng/primeng';
 import {
   ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, 
-  DropdownModule, AccordionModule, SliderModule, ChartModule, SpinnerModule
+  GrowlModule, DataTableModule, SharedModule,OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule,SpinnerModule
 } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
@@ -39,7 +38,7 @@ import { RssfeedService } from './services/rssfeed.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';
-import {StepsModule} from 'primeng/primeng';
+import { StepsModule } from 'primeng/primeng';
 import { TruncatePipe } from './common/pipe.truncate';
 import { BusinessComponent } from './business/business.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
@@ -50,6 +49,7 @@ import { XviewTemplateComponent } from './xview-template/xview-template.componen
 import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
 import { SignupComponent } from './signup/signup.component';
 import { ItemSettingsComponent } from './item-settings/item-settings.component';
+import { StatusComponent } from './status/status.component';
 
 
 @NgModule({
@@ -88,6 +88,7 @@ import { ItemSettingsComponent } from './item-settings/item-settings.component';
     AlertIndividualComponent,
     SignupComponent,
     ItemSettingsComponent,
+    StatusComponent
 ],
 
   imports: [
@@ -110,6 +111,10 @@ import { ItemSettingsComponent } from './item-settings/item-settings.component';
       {
         path: 'login',
         component: LoginComponent
+      },
+       {
+        path: 'status',
+        component: StatusComponent
       },
       {
         path: '',
@@ -151,7 +156,7 @@ import { ItemSettingsComponent } from './item-settings/item-settings.component';
             path: 'business',
             component: BusinessComponent
           },
-           {
+          {
             path: 'alertindividual',
             component: AlertIndividualComponent
           },
@@ -162,7 +167,7 @@ import { ItemSettingsComponent } from './item-settings/item-settings.component';
           {
             path: '', redirectTo: 'business', pathMatch: 'full'
           }
-        
+
         ]
       }
     ], { useHash: true }),
@@ -182,7 +187,9 @@ import { ItemSettingsComponent } from './item-settings/item-settings.component';
     SliderModule,
     ChartModule,
     DropdownModule,
-    SpinnerModule
+    SpinnerModule,
+    OverlayPanelModule,
+    DataGridModule
   ],
   providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
   bootstrap: [AppComponent],
