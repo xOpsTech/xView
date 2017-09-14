@@ -35,19 +35,6 @@ export class AlertService {
 
   }
 
-  // ngOnInit() {
-    
-  //   this.userService.getUserData().subscribe(res => {
-  //     this.user = res;
-  //     if (this.user.name.trim() == 'John Edwards') {
-  //       this.tenantID = 'hkpxasc8b';
-  //     } else {
-  //       this.tenantID = 'bjxa6sc8w';
-  //     }
-  //     this.alerts_url = config.XOPSAPI + '/alerts/' + this.tenantID;
-  //   });
-  // }
-
   updateURLs() {
     console.log(this.userService.getUsername());
     if (this.userService.getUsername().trim() == 'John Edwards') {
@@ -67,8 +54,8 @@ export class AlertService {
       .map((res: Response) => res.json());
   }
 
-  getAllalertsByPearson() {
-    return this.http.get(this.my_alerts_url)
+  getAllalertsByPearson(assigntoid)  {
+    return this.http.get(this.my_alerts_url + `/myalerts?assignedToId=${assigntoid}`)
       .toPromise()
       .then(res => {
         var responseJson = res.json();

@@ -7,12 +7,38 @@ import { config } from '../config/config';
 
 @Injectable()
 export class AuthenticationService {
+    constructor(private http: Http) { }
 
-  constructor(private http: Http) { }
+    login(username: string, password: string) {
+        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                let user = response.json();
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                }
 
-  authenticate () {
-    console.log('auth service');
-    return this.http.get('http://localhost:4201/api/auth/google')
-      .map((res:Response) => res.json())
+                return user;
+            });
+    }
+
+    loginGoogle(username: string, password: string) {
+        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                let user = response.json();
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                }
+
+                return user;
+            });
+    }
+
+    logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('currentUser');
+    }
   }
-}

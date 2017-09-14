@@ -1,0 +1,12 @@
+@import '../../scss/xops.mixins';
+@include alert-status('.red', #f84502);
+@include alert-status('.green', #94ce19);
+@include alert-status('.amber', #fac710);
+
+.widgetred {
+    border:2px solid;border-color: white;background-color:red;width:inherit;height: 100%;
+}
+
+.widgetgreen {
+    border:2px solid;border-color: white;background-color:green;width:inherit;height: 100%;
+}

@@ -1,0 +1,25 @@
+<div style="padding: 6%">
+  <h1> Item Status</h1>
+<div class="ui-g"  >
+    <div *ngFor="let item of items" (mouseenter)="show(item.id)"
+        (mouseleave)="op.hide($event)" (click)="op.show($event)"class="ui-g-12 ui-md-6 ui-lg-3" style="border:2px solid;border-color: white;background-color:item.status"> <button pButton 
+    class="{{ (item.status === red) ? 'ui-button-warning' : 'ui-button-success'}}" [label]="item.id" ></button></div>
+</div>
+
+  <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true">
+    <p-dataTable [value]="indicater" [style]="{'width':'500px'}">
+      <p-header>{{itemtitle}}</p-header>
+      <p-column field="id" header="Performance Indicator" [sortable]="true"></p-column>
+      <p-column field="status" header="Status" [sortable]="true">
+        <ng-template let-file="rowData" pTemplate="body">
+          <div class="alert-status" [ngClass]="file.status == 'green' ? 'green' :file.status == 'red' ? 'red': 'amber'">
+            <div class="chart-center">
+            </div>
+          </div>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+  </p-overlayPanel>
+</div>
+
+

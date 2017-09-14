@@ -124,7 +124,6 @@ export class WidgetHomeComponent implements OnInit {
     });
   }
 
-
   getSnowAggs() {
     this._snowSvc.getSnowAggs(this.selectedDur).subscribe(
       data => { this.snowData = data },

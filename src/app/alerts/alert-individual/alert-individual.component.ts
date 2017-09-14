@@ -79,7 +79,7 @@ export class AlertIndividualComponent implements OnInit {
     this.userService.getUserData().subscribe(res => {
       this.user = res;
       this.getAssigntoCountPerPerson(this.user.id);
-      this.loadSortedAlerts();
+      this.loadSortedAlerts(this.user.id);
     });
 
   
@@ -154,8 +154,8 @@ export class AlertIndividualComponent implements OnInit {
     }
   }
 
-  loadSortedAlerts() {
-    this.alertsService.getAllalertsByPearson().then(alerts => {
+  loadSortedAlerts(assignid) {
+    this.alertsService.getAllalertsByPearson(assignid).then(alerts => {
       alerts.sort(function (a, b) {
         if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
           return 1;
@@ -231,7 +231,7 @@ export class AlertIndividualComponent implements OnInit {
         result => console.log(result)
         );
 
-      setTimeout(() => this.loadSortedAlerts(), 1000);
+      setTimeout(() => this.loadSortedAlerts(splitted[1]), 1000);
       this.display = false
     }
 
@@ -241,7 +241,7 @@ export class AlertIndividualComponent implements OnInit {
         .subscribe(
         result => console.log(result)
         );
-      setTimeout(() => this.loadSortedAlerts(), 1000);
+      setTimeout(() => this.loadSortedAlerts(splitted[1]), 1000);
       this.display = false
     }
     else {

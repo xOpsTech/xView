@@ -1,6 +1,39 @@
-<form (ngSubmit)="authenticate()">
-  Username: <input type="text" [(ngModel)]="credentials.username" name="username">
-  Password: <input type="password" [(ngModel)]="credentials.password" name="password">
-  <button type="submit">Login</button>
-</form>
-<button>Login with Google</button>
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="col-md-12 m-x-auto pull-xs-none vamiddle">
+        <form action="/login" method="post" name="loginForm" novalidate>
+          <div>
+            <div id="login" class="login">
+              <div class="login-icon-field">
+                <h1>Login</h1>
+                <div><p>New User? <a href="/signup">Register Now</a></p></div>
+              </div>
+            
+                <div class="form-group">
+                  <input type="text" name="username" class="form-control" name="id" required placeholder="Username">
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" class="form-control" required placeholder="Password">
+                </div>
+                <p>
+                <a href="/signup">Forget password?</a>
+                </p>
+              <div class="call-to-action">
+                <div class="form-group">
+                  <button id="login-button" class="btn-danger" type="submit">Login</button>
+                </div>
+                <div class="form-group">
+                  <button id="login-button" class="btn-danger" onclick="location.href='/auth/google';" type="button">Login with Google</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

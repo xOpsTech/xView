@@ -83,7 +83,6 @@ export class AlertsComponent implements OnInit {
     })
 
   }
-
   brands: string[];
   brandids: string[];
 

@@ -1,6 +1,6 @@
 let dev = 'http://localhost:4200';
 let stg = 'http://localhost:4200';
-let prod = 'http://scholastic.xops.it';
+let prod = 'http://localhost:4200';
 
 let host = prod;
 

@@ -1,0 +1,136 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+
+      <div class="ui-g">
+
+        <div class="ui-g-4">
+          Service :
+        </div>
+        <div class="ui-g-8">
+          <p-dropdown [options]="services" (onChange)="onchange($event)" [autoWidth]="true"></p-dropdown>
+
+        </div>
+
+      </div>
+
+      <form #configureServicesForm="ngForm" (ngSubmit)="OnStage2Completion(configureServicesForm) ">
+        <div *ngIf="twitter">
+
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+              <div class="ui-g-4">
+                Consumer key :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="consumer_key" name="consumer_key" [(ngModel)]="consumerkey">
+              </div>
+              <div class="ui-g-4">
+                Active :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="a_active" name="a_active" [(ngModel)]="active">
+              </div>
+              <div class="ui-g-4">
+                Service started :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="service_started" name="service_started" [(ngModel)]="servicestarted">
+              </div>
+              <div class="ui-g-4">
+                <button pButton type="button" label="Update"></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="service_now">
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+               <div class="ui-g-4">
+               Url:
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="urlv" name="urlv" [(ngModel)]="url">
+              </div>
+              <div class="ui-g-4">
+                Api Key:
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="api_key" name="api_key" [(ngModel)]="apiKey">
+              </div>
+              <div class="ui-g-4">
+                Uername :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="user_name" name="user_name" [(ngModel)]="username">
+              </div>
+              <div class="ui-g-4">
+                Password :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="u_password" name="u_password" [(ngModel)]="password">
+              </div>
+              <div class="ui-g-4">
+                Active :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="a_active" name="a_active" [(ngModel)]="active">
+              </div>
+              <div class="ui-g-4">
+                Service started :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="service_started" name="service_started" [(ngModel)]="servicetarted">
+              </div>
+              <div class="ui-g-4">
+                <button pButton type="button" label="Update"></button>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="newrelic">
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+              <div class="ui-g-4">
+               Url:
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="urlv" name="urlv" [(ngModel)]="url">
+              </div>
+              <div class="ui-g-4">
+                Api Key:
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="api_key" name="api_key" [(ngModel)]="apiKey">
+              </div>
+             <div class="ui-g-4">
+                Active :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="a_active" name="a_active" [(ngModel)]="active">
+              </div>
+              <div class="ui-g-4">
+                Service started :
+              </div>
+              <div class="ui-g-8">
+                <input pInputText type="text" class="form-control" id="service_started" name="service_started" [(ngModel)]="servicetarted">
+              </div>
+              <div class="ui-g-4">
+                <button pButton type="button" label="Update"></button>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+</div>

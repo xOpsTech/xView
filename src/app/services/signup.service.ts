@@ -30,7 +30,7 @@ export class SignupService {
 
   saveTenant(tenant) {
     return this.http
-      .post('http://localhost:4200/tenant', tenant, this.options)
+      .post('http://localhost:4200/api/tenant', tenant, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }

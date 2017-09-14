@@ -12,7 +12,7 @@ export class UserService {
 
   constructor(private http:Http) {
     console.log(this.getUserUrl);
-    //this.user = this.getUserData();
+  this.user = this.getUserData();
   }
 
   getUserData() {

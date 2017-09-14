@@ -1,7 +1,7 @@
 <header class="app-header navbar">
   <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">☰</button>
-  
-  <ul class="nav navbar-nav d-md-down-none main-menu-toggle"> 
+
+  <ul class="nav navbar-nav d-md-down-none main-menu-toggle">
     <li class="nav-item">
       <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
     </li>
@@ -10,12 +10,19 @@
   <a class="navbar-brand" href="/"><img src="/assets/img/logo.png" alt="xOps" width="80" /></a>
 
   <ul class="nav navbar-nav ml-auto ">
-    <li class="nav-item">
-      <a tab="" class="nav-link" data-toggle="tab" [routerLink]="['/settings']" role="tab"><i class="fa fa-cog user-settings"></i></a>
-    </li>
+   
     <li class="nav-item hidden-md-down">
       <img class="img-circle" bind-src="user.picture" /> <span>{{ user.name }}</span>
     </li>
+
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [style]="{'width':'150px'}">
+      <ng-template let-car pTemplate="item">
+        <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+          <i class="fa fa-cog user-settings" style="width:24px;position:absolute;top:1px;left:5px"></i>
+          <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
 
   </ul>
 

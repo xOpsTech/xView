@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, } from '../services/user.service';
-import {PersonalizationService } from '../services/personalization.service';
+import { PersonalizationService } from '../services/personalization.service';
 import { NgForm } from '@angular/forms';
 import { Select2OptionData } from 'ng2-select2';
 
@@ -11,77 +11,76 @@ import { Select2OptionData } from 'ng2-select2';
   providers: [PersonalizationService, UserService]
 })
 export class SettingsComponent implements OnInit {
-putUserSetting = {};
-usersets = {
-    "email" :"",
-      "name" : "",
-      "picture" : "",
-           "personalization": {
-          "timezone":"",
-          "theme":"",
-        "dashboard": {
-          "loadtime": "",
-          "ttfb": "",
-          "dom_elements": "",
-        }
- }
-}
+  putUserSetting = {};
+  usersets = {
+    "email": "",
+    "name": "",
+    "picture": "",
+    "personalization": {
+      "timezone": "",
+      "theme": "",
+      "dashboard": {
+        "loadtime": "",
+        "ttfb": "",
+        "dom_elements": "",
+      }
+    }
+  }
 
-theme = "";
-timezone = "";
-fullnameval ="";
-username = "";
-widgetval: any [];
+  theme = "";
+  timezone = "";
+  fullnameval = "";
+  username = "";
+  widgetval: any[];
 
- public widget: string[];
+  public widget: string[];
 
-public exampleData: Array<Select2OptionData>;
-public options: Select2Options;
-public value: string[];
-public current: string;
-public personalization = <any>{};
-public selectedItems: string[] = [];
-public widget_array =  [];
-public widgets =  [];
+  public exampleData: Array<Select2OptionData>;
+  public options: Select2Options;
+  public value: string[];
+  public current: string;
+  public personalization = <any>{};
+  public selectedItems: string[] = [];
+  public widget_array = [];
+  public widgets = [];
 
 
-  constructor(private userService:UserService,private personalizationService:PersonalizationService) {
+  constructor(private userService: UserService, private personalizationService: PersonalizationService) {
   }
 
 
-  changed(data: {value: string[]}) {
+  changed(data: { value: string[] }) {
     this.current = data.value.join(' | ');
   }
 
   ngOnInit() {
     this.userService.getUserData().subscribe(res => {
-    this.usersets = res;
+      this.usersets = res;
 
-    this.fullnameval =this.usersets.name;
-    this.username = this.usersets.email;
-    this.theme = this.usersets.personalization.theme;
-    this.timezone = this.usersets.personalization.timezone;
-        });
-       this.loadWidgetsList();
-      this.value = ['loadtime', 'ttfb','dom_elements'];
-       this.options = {
+      this.fullnameval = this.usersets.name;
+      this.username = this.usersets.email;
+      this.theme = this.usersets.personalization.theme;
+      this.timezone = this.usersets.personalization.timezone;
+    });
+    this.loadWidgetsList();
+    this.value = ['loadtime', 'ttfb', 'dom_elements'];
+    this.options = {
       multiple: true
     }
 
   }
 
-   clicked = false;
-   submitted = false;
+  clicked = false;
+  submitted = false;
 
-   loadWidgetsList() {
+  loadWidgetsList() {
     this.personalizationService.getWidgets()
       .subscribe(res => {
 
-       for(var d of res.message)
-        {
-            this.widget_array.push({'id':d.name,'text':d.label})
+        for (var d of res.message) {
+          this.widget_array.push({ 'id': d.name, 'text': d.label })
         }
-        this.widgets= this.widget_array;
+        this.widgets = this.widget_array;
 
       });
   }
@@ -89,7 +88,7 @@ public widgets =  [];
   loadPersonalizations() {
     this.personalizationService.getPersonalization(this.username)
       .subscribe(res => {
-        if(res.message[0].personalization) {
+        if (res.message[0].personalization) {
           this.personalization = res.message[0].personalization.dashboard;
 
           this.selectedItems = [];
@@ -100,35 +99,33 @@ public widgets =  [];
           }
           this.selectedItems = [...this.selectedItems];
         }
-        console.log( this.selectedItems);
+        console.log(this.selectedItems);
       })
   }
 
   onSubmit(settingForm: NgForm) {
-   this.clicked = true;
-     console.log(settingForm.value);
+    this.clicked = true;
+    console.log(settingForm.value);
     this.putUserSetting = {
-        "email" :settingForm.value.name,
-          "name" : settingForm.value.fullname,
-          "personalization": {
-            "timezone": settingForm.value.timezone,
-              "theme": settingForm.value.themes,
-            "dashboard": {
-              "loadtime": true,
-              "ttfb": true,
-              "dom_elements": false,
-            }
+      "email": settingForm.value.name,
+      "name": settingForm.value.fullname,
+      "personalization": {
+        "timezone": settingForm.value.timezone,
+        "theme": settingForm.value.themes,
+        "dashboard": {
+          "loadtime": true,
+          "ttfb": true,
+          "dom_elements": false,
         }
-
       }
-   this.userService.updateSettings( this.putUserSetting).subscribe(res => {},
-             err => {console.log(err); });
-   this.submitted = true;
+
+    }
+    this.userService.updateSettings(this.putUserSetting).subscribe(res => { },
+      err => { console.log(err); });
+    this.submitted = true;
 
 
   }
   active = true;
-
-
 
 }

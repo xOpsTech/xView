@@ -8,7 +8,7 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { AutoCompleteModule } from 'primeng/primeng';
 import {
   ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule
+  GrowlModule, DataTableModule, SharedModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule
 } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
@@ -38,7 +38,7 @@ import { RssfeedService } from './services/rssfeed.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';
-import {StepsModule} from 'primeng/primeng';
+import { StepsModule } from 'primeng/primeng';
 import { TruncatePipe } from './common/pipe.truncate';
 import { BusinessComponent } from './business/business.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
@@ -48,7 +48,10 @@ import { LoginComponent } from './login/login.component';
 import { XviewTemplateComponent } from './xview-template/xview-template.component';
 import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
 import { SignupComponent } from './signup/signup.component';
-
+import { StatusComponent } from './status/status.component';
+import { OverlayPanelModule } from 'primeng/primeng';
+import { AuthGuard } from './_guards/index';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +88,9 @@ import { SignupComponent } from './signup/signup.component';
     SignupComponent,
     AlertIndividualComponent,
     SignupComponent,
-],
+    StatusComponent,
+    SettingComponent,
+  ],
 
   imports: [
     BrowserModule,
@@ -109,8 +114,14 @@ import { SignupComponent } from './signup/signup.component';
         component: LoginComponent
       },
       {
+        path: 'status',
+        component: StatusComponent
+      },
+   
+      {
         path: '',
         component: XviewTemplateComponent,
+
         children: [
           {
             path: 'home',
@@ -148,14 +159,17 @@ import { SignupComponent } from './signup/signup.component';
             path: 'business',
             component: BusinessComponent
           },
-           {
+          {
             path: 'alertindividual',
             component: AlertIndividualComponent
           },
           {
             path: '', redirectTo: 'business', pathMatch: 'full'
+          },
+          {
+            path: 'setting',
+            component: SettingComponent
           }
-        
         ]
       }
     ], { useHash: true }),
@@ -174,9 +188,11 @@ import { SignupComponent } from './signup/signup.component';
     AccordionModule,
     SliderModule,
     ChartModule,
-    DropdownModule
+    DropdownModule,
+    OverlayPanelModule,
+    DataGridModule
   ],
-  providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
+  providers: [SnowAggsService, UserService, RssfeedService, IncidentService, AuthGuard],
   bootstrap: [AppComponent],
   exports: [
     RouterModule
