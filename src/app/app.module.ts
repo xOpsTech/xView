@@ -49,6 +49,7 @@ import { XviewTemplateComponent } from './xview-template/xview-template.componen
 import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
 import { SignupComponent } from './signup/signup.component';
 import { StatusComponent } from './status/status.component';
+import { ManageComponent } from './manage/manage.component';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import { StatusComponent } from './status/status.component';
     AlertIndividualComponent,
     SignupComponent,
     StatusComponent,
+    ManageComponent,
   ],
 
   imports: [
@@ -145,6 +147,10 @@ import { StatusComponent } from './status/status.component';
           {
             path: 'settings',
             component: SettingsComponent
+          },
+           {
+            path: 'manage',
+            component: ManageComponent
           },
           {
             path: 'custom/cc',
