@@ -34,11 +34,13 @@ export class AlertService {
   }
 
   updateURLs() {
-    if (this.userService.getUsername().trim() == 'John Edwards') {
-      this.alerts_url = config.XOPSAPI + '/alerts/hkpxasc8b';
-    } else {
-      this.alerts_url = config.XOPSAPI + '/alerts/bjxa6sc8w';
-    }
+    var tenantID = this.userService.getTenantId().trim();
+    this.alerts_url = config.XOPSAPI + '/alerts/' + tenantID;
+    // if (this.userService.getUsername().trim() == 'John Edwards') {
+    //   this.alerts_url = config.XOPSAPI + '/alerts/hkpxasc8b';
+    // } else {
+    //   this.alerts_url = config.XOPSAPI + '/alerts/bjxa6sc8w';
+    // }
   }
 
   getAlerts() {

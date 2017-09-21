@@ -18,7 +18,8 @@ export class MapComponent implements OnInit {
 
   user = {
     name: "",
-    picture: ""
+    picture: "",
+    tenantId: ""
   };
 
   constructor(private AmCharts: AmChartsService, private alertsService: AlertService, private userService:UserService) { }
@@ -27,6 +28,7 @@ export class MapComponent implements OnInit {
     this.userService.getUserData().subscribe(res => {
       this.user = res;
       this.userService.setUserName(this.user.name);
+      this.userService.setTenant(this.user.tenantId);
       this.alertsService.updateURLs();
       this.alertsService.getAlerts().subscribe(alerts => {
   

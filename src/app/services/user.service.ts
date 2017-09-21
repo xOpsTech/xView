@@ -9,6 +9,7 @@ export class UserService {
   private getUserUrl = config.XOPSAPI+"/user";
   user = null;
   username:string;
+  tenantId:string;
 
   constructor(private http:Http) {
     //this.user = this.getUserData();
@@ -43,7 +44,15 @@ export class UserService {
     this.username = loggedInUser;
   }
 
+  setTenant(t_id) {
+    this.tenantId = t_id;
+  }
+
   getUsername() {
     return this.username;
+  }
+
+  getTenantId() {
+    return this.tenantId;
   }
 }

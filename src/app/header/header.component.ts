@@ -9,7 +9,8 @@ import { UserService } from '../services/user.service';
 export class HeaderComponent implements OnInit {
   user = {
     name: "",
-    picture: ""
+    picture: "",
+    tenantId: ""
   };
   constructor(private userService:UserService) {
 
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
       this.userService.getUserData().subscribe(res => {
         this.user = res;
         this.userService.setUserName(this.user.name);
+        this.userService.setTenant(this.user.tenantId);
       });
   }
 

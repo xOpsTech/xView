@@ -18,15 +18,25 @@ export class SignupService {
   }
 
   createUserAccount(account) {
-    console.log(account);
     return this.http
       .post('http://localhost:4200/signup', {
         "id": account.email, "password": account.password, 
         "firstname": account.name, "lastname": "", "timezone": "1",
-        "name":account.username
+        "name":account.username, "tenantId":account.tenantId
       }, this.options)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  saveUser(account) {
+    return this.http
+    .post('http://localhost:4200/api/user', {
+      "id": account.email, "password": account.password, 
+      "firstname": account.name, "lastname": "", "timezone": "1",
+      "name":account.username, "tenantId":account.tenantId
+    }, this.options)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   saveTenant(tenant) {
@@ -37,7 +47,6 @@ export class SignupService {
   }
 
   private extractData(res: Response) {
-    console.log(res);
     let body = res.json();
     return body || {};
   }

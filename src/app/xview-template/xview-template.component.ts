@@ -10,7 +10,8 @@ export class XviewTemplateComponent implements OnInit {
   imgURL:string
   user = {
     name: "",
-    picture: ""
+    picture: "",
+    tenantId: ""
   };
   constructor(private userService:UserService) { }
 
@@ -18,6 +19,8 @@ export class XviewTemplateComponent implements OnInit {
     this.userService.getUserData().subscribe(res => {
       this.user = res;
       this.userService.setUserName(this.user.name);
+      var tenant_id = this.user.tenantId;
+      this.userService.setTenant(tenant_id);
       this.updateURLs();
     });
   }

@@ -223,24 +223,20 @@ export class SignupComponent implements OnInit {
     // console.log(this.userAccountData);
 
     // lowercase service name
+    var tenantId = '';
 
-
+    this.signupService.saveTenant(this.tenantData)
+    .subscribe(response => {
+      tenantId = response.result.tenantId;
+      this.userAccountData['tenantId'] = tenantId;
+      this.signupService.createUserAccount(this.userAccountData)
+      .subscribe(res => {
+      });
+      window.location.href = "http://localhost:4200/login";
+    })
 
     // create user account
-    this.signupService.createUserAccount(this.userAccountData)
-      .subscribe(res => {
-        if (res.status === 200) {
-          //save tenant
-          
-        }
-      });
-      this.signupService.saveTenant(this.tenantData)
-      .subscribe(response => {
-        if (response.status === 200) {
-          // redirect to login
-          console.log('success');
-        }
-      })
+    
     // window.location.href = "http://localhost:4200/login";
   }
 
