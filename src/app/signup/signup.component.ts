@@ -20,6 +20,10 @@ export class SignupComponent implements OnInit {
   createAccountForm: FormGroup;
   organizationInfoForm: FormGroup;
   configureServicesForm: FormGroup;
+  twitterConfigForm: FormGroup;
+  serviceNowConfigForm: FormGroup;
+  newRelicConfigForm: FormGroup;
+  selectedService:string = 'twitter';
 
   items: MenuItem[];
   stage1 = true;
@@ -73,16 +77,37 @@ export class SignupComponent implements OnInit {
       srpassword: ['', Validators.required]
 
     }, );
+
+    this.twitterConfigForm = fb3.group({
+      consumer_key: new FormControl('', Validators.required),
+      consumer_secret: new FormControl('', Validators.required),
+      access_token: new FormControl('', Validators.required)
+    });
+
+    this.serviceNowConfigForm = fb3.group({
+      url: new FormControl('', Validators.required),
+      apiKey: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
+    });
+
+    this.newRelicConfigForm = fb3.group({
+      url: new FormControl('', Validators.required),
+      apiKey: new FormControl('', Validators.required)
+    });
   }
 
   ngOnInit() {
 
     this.services = [];
     this.services.push({ label: '--Select Services--', value: '' });
-    this.services.push({ label: 'Apica', value: 'Apica' });
-    this.services.push({ label: 'CloudTest', value: 'CloudTest' });
-    this.services.push({ label: 'Loadrunner ', value: 'Loadrunner ' });
-    this.services.push({ label: 'blitz', value: 'blitz' });
+    // this.services.push({ label: 'Apica', value: 'Apica' });
+    this.services.push({ label: 'Twitter', value: 'twitter' });
+    this.services.push({ label: 'ServiceNow', value: 'servicenow' });
+    this.services.push({ label: 'New relic', value: 'newrelic' });
+    // this.services.push({ label: 'CloudTest', value: 'CloudTest' });
+    // this.services.push({ label: 'Loadrunner ', value: 'Loadrunner ' });
+    // this.services.push({ label: 'blitz', value: 'blitz' });
 
     this.servers = [];
     this.servers.push({ label: '--Select Servers--', value: '' });
@@ -147,12 +172,10 @@ export class SignupComponent implements OnInit {
     this.activeIndex = 2;
     this.setDiv();
     this.tenantData.tenant = OrginizationInfoForm.tenant;
-    // console.log(OrginizationInfoForm.tenant);
   }
 
-  addservice(configureServicesForm) {
+  addservice(service) {
     this.setDiv();
-    console.log(configureServicesForm);
     var servicesData = {
       "service": "",
       "url": "",
@@ -160,36 +183,64 @@ export class SignupComponent implements OnInit {
       "password": ""
     };
 
-    this.servicestable.push({ "service": configureServicesForm.servicename, "url": configureServicesForm.serviceurl, "username": configureServicesForm.srusername, "password": configureServicesForm.srpassword })
-    console.log(this.servicestable);
+    if (this.selectedService == 'twitter') {
+      service.service = 'twitter';
+      service.serviceId = 's3';
+      service.active = true;
+      service.service_started = false;
+
+      this.servicestable.push(service);
+    } else if (this.selectedService == 'servicenow') {
+      service.service = 'servicenow';
+      service.serviceId = 's1';
+      service.active = true;
+      service.service_started = false;
+      this.servicestable.push(service);
+    } else if (this.selectedService == 'newrelic') {
+      service.service = 'newrelic';
+      service.serviceId = 's2';
+      service.active = true;
+      service.service_started = false;
+      this.servicestable.push(service);
+    } else {
+      this.servicestable.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
+    }
+
+
+    // console.log(this.servicestable);
 
   }
 
   OnStage3Completion(configureServicesForm) {
+    // console.log(JSON.stringify(this.servicestable));
     this.tenantData.services.push(this.servicestable);
     delete this.userAccountData['cnfmpassword'];
     var payload = {
       "tenant": this.tenantData,
       "user": this.userAccountData
     };
-    console.log(JSON.stringify(this.tenantData));
-    console.log(this.userAccountData);
+    // console.log(JSON.stringify(this.tenantData));
+    // console.log(this.userAccountData);
+
+    // lowercase service name
 
 
-    //create user account
+
+    // create user account
     this.signupService.createUserAccount(this.userAccountData)
       .subscribe(res => {
         if (res.status === 200) {
           //save tenant
-          this.signupService.saveTenant(this.tenantData)
-            .subscribe(response => {
-              if (response.status === 200) {
-                // redirect to login
-                console.log('success');
-              }
-            })
+          
         }
       });
+      this.signupService.saveTenant(this.tenantData)
+      .subscribe(response => {
+        if (response.status === 200) {
+          // redirect to login
+          console.log('success');
+        }
+      })
     // window.location.href = "http://localhost:4200/login";
   }
 

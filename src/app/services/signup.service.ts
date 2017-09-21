@@ -22,7 +22,8 @@ export class SignupService {
     return this.http
       .post('http://localhost:4200/signup', {
         "id": account.email, "password": account.password, 
-        "firstname": account.name, "lastname": "", "timezone": "1"
+        "firstname": account.name, "lastname": "", "timezone": "1",
+        "name":account.username
       }, this.options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -30,7 +31,7 @@ export class SignupService {
 
   saveTenant(tenant) {
     return this.http
-      .post('http://localhost:4200/tenant', tenant, this.options)
+      .post('http://localhost:4200/api/tenant', tenant, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -44,7 +45,6 @@ export class SignupService {
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message :
     error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg);
     return Observable.throw(errMsg);
   }
 

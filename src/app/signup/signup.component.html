@@ -105,7 +105,8 @@
               </div>
               _____________________________________________________________________________________________
               <div class="ui-g-4">
-                <button pButton type="submit" label="Create an account" [disabled]="!createAccountForm.valid"></button>
+                <!-- <button pButton type="submit" label="Create an account" [disabled]="!createAccountForm.valid"></button> -->
+                <button pButton type="submit" label="Create an account"></button>
               </div>
 
             </div>
@@ -174,61 +175,151 @@
       </div>
 
       <div *ngIf="stage3">
-        <form [formGroup]="configureServicesForm" (ngSubmit)="OnStage2Completion(configureServicesForm.value)">
+        <form [formGroup]="configureServicesForm" (ngSubmit)="OnStage3Completion(configureServicesForm.value)">
           <div class="ui-g">
             <div class="ui-g-12 ui-md-6">
               <div class="ui-g-4">
                 Service :
               </div>
               <div class="ui-g-8">
-                <p-dropdown [options]="services" styleClass="form-control" formControlName="servicename" id="servicename" [formGroup]="configureServicesForm"
-                  [autoWidth]="true"></p-dropdown>
+                  <p-dropdown [options]="services" styleClass="form-control" formControlName="servicename" 
+                  id="servicename" [formGroup]="configureServicesForm"
+                    [autoWidth]="true" [(ngModel)]="selectedService"></p-dropdown>
+  
+              </div>
+              <!-- APICA  -->      
+              <div *ngIf="selectedService=='Apica'">
+                <div class="ui-g-4">
+                  URL :
+                </div>
+                <div class="ui-g-8">
+                  <input pInputText type="text" class="form-control" formControlName="serviceurl" id="serviceurl" [formGroup]="configureServicesForm"
+                  />
+                </div>
+                <div class="ui-g-4">
+                  Username :
+                </div>
+                <div class="ui-g-8">
+                  <input pInputText type="text" class="form-control" formControlName="srusername" id="srusername" [formGroup]="configureServicesForm"
+                  />
+                  <div class="alert"  *ngIf="configureServicesForm.get('srusername').hasError('required') && configureServicesForm.get('srusername').dirty">
+                    Oops, please provide a name!
+                  </div>
+                  <div class="alert"  *ngIf="configureServicesForm.get('srusername').hasError('minlength')  && configureServicesForm.get('srusername').dirty">
+                    Name should have atleast 4 characters!
+                  </div>
+                </div>
+                <div class="ui-g-4">
+                  Password :
+                </div>
+                <div class="ui-g-8">
+                  <input pInputText type="password" class="form-control" formControlName="srpassword" id="srpassword" [formGroup]="configureServicesForm"
+                  />
+                  <div class="alert"  *ngIf="configureServicesForm.get('srpassword').hasError('required')  && configureServicesForm.get('srpassword').dirty">
+                    Password is required!
+                  </div>
+                </div>
+                <div class="ui-g-4">
+                  <button pButton type="button" label="Add" (click)=addservice(configureServicesForm._value)></button>
+                </div>
+                
 
               </div>
-              <div class="ui-g-4">
-                URL :
-              </div>
-              <div class="ui-g-8">
-                <input pInputText type="text" class="form-control" formControlName="serviceurl" id="serviceurl" [formGroup]="configureServicesForm"
-                />
-              </div>
-              <div class="ui-g-4">
-                Username :
-              </div>
-              <div class="ui-g-8">
-                <input pInputText type="text" class="form-control" formControlName="srusername" id="srusername" [formGroup]="configureServicesForm"
-                />
-                <div class="alert"  *ngIf="configureServicesForm.get('srusername').hasError('required') && configureServicesForm.get('srusername').dirty">
-                  Oops, please provide a name!
+              <!-- Twitter -->
+              <form [formGroup]="twitterConfigForm">
+                <div *ngIf="selectedService=='twitter'">
+                    <div class="ui-g-4">
+                        Consumer key:
+                    </div>
+                    <div class="ui-g-8">
+                      <input type="text" pInputText formControlName="consumer_key" class="form-control"/>
+                    </div>
+                    <div class="ui-g-4">
+                        Consumer secret:
+                    </div>
+                    <div class="ui-g-8">
+                      <input type="text" pInputText formControlName="consumer_secret" class="form-control"/>
+                    </div>
+                    <div class="ui-g-4">
+                        Access token:
+                    </div>
+                    <div class="ui-g-8">
+                      <input type="text" pInputText formControlName="access_token" class="form-control"/>
+                    </div>
+                    <div class="ui-g-4">
+                      <button pButton type="button" label="Add" (click)=addservice(twitterConfigForm._value)></button>
+                    </div>
                 </div>
-                <div class="alert"  *ngIf="configureServicesForm.get('srusername').hasError('minlength')  && configureServicesForm.get('srusername').dirty">
-                  Name should have atleast 4 characters!
+
+              </form>
+              <!-- ServiceNow -->
+              <form [formGroup]="serviceNowConfigForm">
+                  <div *ngIf="selectedService=='servicenow'">
+                      <div class="ui-g-4">
+                          URL:
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="url" class="form-control"/>
+                      </div>
+                      <div class="ui-g-4">
+                          API key:
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="apiKey" class="form-control"/>
+                      </div>
+                      <div class="ui-g-4">
+                          Username:
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="username" class="form-control"/>
+                      </div>
+                      <div class="ui-g-4">
+                          Password:
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="password" pInputText formControlName="password" class="form-control"/>
+                      </div>
+                      <div class="ui-g-4">
+                        <button pButton type="button" label="Add" (click)=addservice(serviceNowConfigForm._value)></button>
+                      </div>
+                  </div>
+  
+                </form>
+              <!-- New Relic -->
+              <form [formGroup]="newRelicConfigForm">
+                  <div *ngIf="selectedService=='newrelic'">
+                      <div class="ui-g-4">
+                          URL:
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="url" class="form-control"/>
+                      </div>
+                      <div class="ui-g-4">
+                          API key:
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="apiKey" class="form-control"/>
+                      </div>
+                      <div class="ui-g-4">
+                        <button pButton type="button" label="Add" (click)=addservice(newRelicConfigForm._value)></button>
+                      </div>
+                  </div>
+  
+                </form>
+              <div class="ui-g-4">
+                  <button pButton type="button" (click)=OnStage3Completion(configureServicesForm._value) 
+                    label="Continue"></button>
                 </div>
-              </div>
-              <div class="ui-g-4">
-                Password :
-              </div>
+              <!-- Added services -->
               <div class="ui-g-8">
-                <input pInputText type="password" class="form-control" formControlName="srpassword" id="srpassword" [formGroup]="configureServicesForm"
-                />
-                <div class="alert"  *ngIf="configureServicesForm.get('srpassword').hasError('required')  && configureServicesForm.get('srpassword').dirty">
-                  Password is required!
-                </div>
+                  <table style="width:100%">
+                    <tr *ngFor="let alert of servicestable; let i = index">
+                      <th>{{alert.service}}</th>
+                      <th><button pButton type="button" (click)="removeConfiguration(i)" icon="fa fa-close fa-fw"></button></th>
+                    </tr>
+                  </table>
               </div>
-              <div class="ui-g-4">
-                <button pButton type="button" label="Add" (click)=addservice(configureServicesForm._value)></button>
-              </div>
-              <div class="ui-g-8">
-                <table style="width:100%">
-                  <tr *ngFor="let alert of servicestable; let i = index">
-                    <th>{{alert.service}}</th>
-                    <th><button pButton type="button" (click)="removeConfiguration(i)" icon="fa fa-close fa-fw"></button></th>
-                  </tr>
-                </table>
-              </div>
-              <div class="ui-g-4">
-                <button pButton type="button" (click)=OnStage3Completion(configureServicesForm._value) label="Continue"></button>
-              </div>
+              
             </div>
             <div class="ui-g-4">
          
