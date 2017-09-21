@@ -50,6 +50,7 @@ import { AlertIndividualComponent } from './alerts/alert-individual/alert-indivi
 import { SignupComponent } from './signup/signup.component';
 import { ItemSettingsComponent } from './item-settings/item-settings.component';
 import { StatusComponent } from './status/status.component';
+import { ManageComponent } from './manage/manage.component';
 
 
 @NgModule({
@@ -88,8 +89,11 @@ import { StatusComponent } from './status/status.component';
     AlertIndividualComponent,
     SignupComponent,
     ItemSettingsComponent,
-    StatusComponent
+    StatusComponent,
+    StatusComponent,
+    ManageComponent
 ],
+   
 
   imports: [
     BrowserModule,
@@ -147,6 +151,10 @@ import { StatusComponent } from './status/status.component';
           {
             path: 'settings',
             component: SettingsComponent
+          },
+           {
+            path: 'manage',
+            component: ManageComponent
           },
           {
             path: 'custom/cc',

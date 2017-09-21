@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { indicaters } from '../status/indicaters';
 import { DataGridModule } from 'primeng/primeng';
+import { items } from '../status/items';
 
 @Component({
   selector: 'app-status',
@@ -11,7 +12,7 @@ export class StatusComponent implements OnInit {
   metric: any;
   items: any;
   status: string;
-
+  selectedItem: items;
   itemtitle: string;
   indicater: indicaters[];
 
@@ -55,6 +56,132 @@ export class StatusComponent implements OnInit {
                   },
                   {
                     "id": "xFinance",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
+                    "status": "green"
+                  }
+                ]
+              },
+                {
+                "id": "xFinance",
+                "status": "red",
+                "perfIndicators": [
+                  {
+                    "id": "cpu:10.90.123.2",
+                    "status": "red"
+                  },
+                  {
+                    "id": "freeMemory:10.90.123.12",
                     "status": "green"
                   }
                 ]
