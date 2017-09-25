@@ -319,7 +319,7 @@
               <!-- Added services -->
               <div class="ui-g-8">
                   <table style="width:100%">
-                    <tr *ngFor="let alert of servicestable; let i = index">
+                    <tr *ngFor="let alert of tenantData.services; let i = index">
                       <th>{{alert.service}}</th>
                       <th><button pButton type="button" (click)="removeConfiguration(i)" icon="fa fa-close fa-fw"></button></th>
                     </tr>

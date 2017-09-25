@@ -158,8 +158,8 @@ export class SignupComponent implements OnInit {
 
   removeConfiguration(index) {
     if (index > -1) {
-      this.servicestable.splice(index, 1);
-      console.log(this.servicestable);
+      this.tenantData.services.splice(index, 1);
+      console.log(this.tenantData.services);
     }
   }
   OnStage1Completion(CreateAccountForm) {
@@ -190,7 +190,7 @@ export class SignupComponent implements OnInit {
       service.serviceId = 's3';
       service.active = true;
       service.service_started = false;
-     this.tenantData.services.push(service);
+      this.tenantData.services.push(service);
 
     } else if (this.selectedService == 'servicenow') {
       service.service = 'servicenow';
@@ -205,13 +205,13 @@ export class SignupComponent implements OnInit {
       service.active = true;
       service.service_started = false;
       console.log(JSON.stringify(service));
-      this.servicestable.push(service);
+     this.tenantData.services.push(service);
+     
     } else {
       this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
     }
 
-
-  }
+console.log( this.tenantData.services);  }
 
   OnStage3Completion(configureServicesForm) {
     // console.log(JSON.stringify(this.servicestable));
