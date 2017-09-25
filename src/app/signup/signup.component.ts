@@ -190,14 +190,14 @@ export class SignupComponent implements OnInit {
       service.serviceId = 's3';
       service.active = true;
       service.service_started = false;
-      this.servicestable.push(service);
+     this.tenantData.services.push(service);
 
     } else if (this.selectedService == 'servicenow') {
       service.service = 'servicenow';
       service.serviceId = 's1';
       service.active = true;
       service.service_started = false;
-      this.servicestable.push(service);
+     this.tenantData.services.push(service);
       
     } else if (this.selectedService == 'newrelic') {
       service.service = 'newrelic';
@@ -207,17 +207,14 @@ export class SignupComponent implements OnInit {
       console.log(JSON.stringify(service));
       this.servicestable.push(service);
     } else {
-      this.servicestable.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
+      this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
     }
 
-
-    // console.log(this.servicestable);
 
   }
 
   OnStage3Completion(configureServicesForm) {
     // console.log(JSON.stringify(this.servicestable));
-    this.tenantData.services.push(this.servicestable);
     delete this.userAccountData['cnfmpassword'];
     var payload = {
       "tenant": this.tenantData,
