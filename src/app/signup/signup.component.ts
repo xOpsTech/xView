@@ -206,7 +206,7 @@ export class SignupComponent implements OnInit {
       service.service_started = false;
       console.log(JSON.stringify(service));
      this.tenantData.services.push(service);
-     
+
     } else {
       this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
     }
@@ -232,13 +232,13 @@ console.log( this.tenantData.services);  }
         this.userAccountData['tenantId'] = tenantId;
         this.signupService.createUserAccount(this.userAccountData)
           .subscribe(res => {
+             if (res.status === 200) {
+                // redirect to login
+               window.location.href = "http://xview.xops.it/login";
+              }
           });
-        // window.location.href = "http://localhost:4200/login";
+        // 
       })
-
-    // create user account
-
-    // window.location.href = "http://localhost:4200/login";
   }
 
 
