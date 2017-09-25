@@ -41,7 +41,7 @@ export class SignupService {
 
   saveTenant(tenant) {
     return this.http
-      .post('http://xview.xops.it/tenant', tenant, this.options)
+      .post('http://xview.xops.it/api/tenant', tenant, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
