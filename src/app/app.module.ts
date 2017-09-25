@@ -5,10 +5,9 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
-import { AutoCompleteModule } from 'primeng/primeng';
 import {
-  ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,
-  GrowlModule, DataTableModule, SharedModule,OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule,SpinnerModule
+  ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,AutoCompleteModule,
+  GrowlModule, DataTableModule, SharedModule,OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule,SpinnerModule,FileUploadModule
 } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
@@ -112,10 +111,7 @@ import { ManageComponent } from './manage/manage.component';
         path: 'signup',
         component: SignupComponent,
       },
-      {
-        path: 'login',
-        component: LoginComponent
-      },
+      
        {
         path: 'status',
         component: StatusComponent
@@ -197,7 +193,8 @@ import { ManageComponent } from './manage/manage.component';
     DropdownModule,
     SpinnerModule,
     OverlayPanelModule,
-    DataGridModule
+    DataGridModule,
+    FileUploadModule
   ],
   providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
   bootstrap: [AppComponent],

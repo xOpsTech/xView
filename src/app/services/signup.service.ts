@@ -19,7 +19,7 @@ export class SignupService {
 
   createUserAccount(account) {
     return this.http
-      .post('http://localhost:4200/signup', {
+      .post('http://xview.xops.it/signup', {
         "id": account.email, "password": account.password, 
         "firstname": account.name, "lastname": "", "timezone": "1",
         "name":account.username, "tenantId":account.tenantId
@@ -30,7 +30,7 @@ export class SignupService {
 
   saveUser(account) {
     return this.http
-    .post('http://localhost:4200/api/user', {
+    .post('http://xview.xops.it/api/user', {
       "id": account.email, "password": account.password, 
       "firstname": account.name, "lastname": "", "timezone": "1",
       "name":account.username, "tenantId":account.tenantId
@@ -41,7 +41,7 @@ export class SignupService {
 
   saveTenant(tenant) {
     return this.http
-      .post('http://localhost:4200/api/tenant', tenant, this.options)
+      .post('http://xview.xops.it/tenant', tenant, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }

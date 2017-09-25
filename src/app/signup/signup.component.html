@@ -246,6 +246,12 @@
                     <div class="ui-g-8">
                       <input type="text" pInputText formControlName="access_token" class="form-control"/>
                     </div>
+                      <div class="ui-g-4">
+                        Access token secret:
+                    </div>
+                    <div class="ui-g-8">
+                      <input type="text" pInputText formControlName="access_token_secret" class="form-control"/>
+                    </div>
                     <div class="ui-g-4">
                       <button pButton type="button" label="Add" (click)=addservice(twitterConfigForm._value)></button>
                     </div>
@@ -289,16 +295,16 @@
               <form [formGroup]="newRelicConfigForm">
                   <div *ngIf="selectedService=='newrelic'">
                       <div class="ui-g-4">
-                          URL:
-                      </div>
-                      <div class="ui-g-8">
-                        <input type="text" pInputText formControlName="url" class="form-control"/>
-                      </div>
-                      <div class="ui-g-4">
                           API key:
                       </div>
                       <div class="ui-g-8">
-                        <input type="text" pInputText formControlName="apiKey" class="form-control"/>
+                        <input type="text" pInputText formControlName="api_key" class="form-control"/>
+                      </div>
+                      <div class="ui-g-4">
+                         Query key
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="query_key" class="form-control"/>
                       </div>
                       <div class="ui-g-4">
                         <button pButton type="button" label="Add" (click)=addservice(newRelicConfigForm._value)></button>

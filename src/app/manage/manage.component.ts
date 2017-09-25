@@ -60,6 +60,17 @@ export class ManageComponent implements OnInit {
   constructor() {
   }
 
+
+    
+    uploadedFiles: any[] = [];
+
+    onUpload(event) {
+        for(let file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+    
+    
+    }
   services: SelectItem[] = [];
 
   ngOnInit() {

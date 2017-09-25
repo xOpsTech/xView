@@ -10,7 +10,7 @@
         </div>
       </form>
     </div>
-<div class="row">
+    <div class="row">
       <form #configureServicesForm="ngForm" (ngSubmit)="OnStage2Completion(configureServicesForm) ">
         <div class="ui-g">
 
@@ -119,6 +119,14 @@
             </div>
 
           </div>
+
+          <p-fileUpload name="demo[]" (onUpload)="onUpload($event)" multiple="multiple" accept="image/*" maxFileSize="1000000">
+            <ng-template pTemplate type="content">
+              <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
         </div>
       </form>
     </div>

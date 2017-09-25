@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
   twitterConfigForm: FormGroup;
   serviceNowConfigForm: FormGroup;
   newRelicConfigForm: FormGroup;
-  selectedService:string = 'twitter';
+  selectedService: string = 'twitter';
 
   items: MenuItem[];
   stage1 = true;
@@ -81,7 +81,8 @@ export class SignupComponent implements OnInit {
     this.twitterConfigForm = fb3.group({
       consumer_key: new FormControl('', Validators.required),
       consumer_secret: new FormControl('', Validators.required),
-      access_token: new FormControl('', Validators.required)
+      access_token: new FormControl('', Validators.required),
+      access_token_secret: new FormControl('', Validators.required)
     });
 
     this.serviceNowConfigForm = fb3.group({
@@ -93,7 +94,8 @@ export class SignupComponent implements OnInit {
 
     this.newRelicConfigForm = fb3.group({
       url: new FormControl('', Validators.required),
-      apiKey: new FormControl('', Validators.required)
+      api_key: new FormControl('', Validators.required),
+      query_key: new FormControl('', Validators.required)
     });
   }
 
@@ -188,19 +190,21 @@ export class SignupComponent implements OnInit {
       service.serviceId = 's3';
       service.active = true;
       service.service_started = false;
-
       this.servicestable.push(service);
+
     } else if (this.selectedService == 'servicenow') {
       service.service = 'servicenow';
       service.serviceId = 's1';
       service.active = true;
       service.service_started = false;
       this.servicestable.push(service);
+      
     } else if (this.selectedService == 'newrelic') {
       service.service = 'newrelic';
       service.serviceId = 's2';
       service.active = true;
       service.service_started = false;
+      console.log(JSON.stringify(service));
       this.servicestable.push(service);
     } else {
       this.servicestable.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
@@ -226,17 +230,17 @@ export class SignupComponent implements OnInit {
     var tenantId = '';
 
     this.signupService.saveTenant(this.tenantData)
-    .subscribe(response => {
-      tenantId = response.result.tenantId;
-      this.userAccountData['tenantId'] = tenantId;
-      this.signupService.createUserAccount(this.userAccountData)
-      .subscribe(res => {
-      });
-      window.location.href = "http://localhost:4200/login";
-    })
+      .subscribe(response => {
+        tenantId = response.result.tenantId;
+        this.userAccountData['tenantId'] = tenantId;
+        this.signupService.createUserAccount(this.userAccountData)
+          .subscribe(res => {
+          });
+        // window.location.href = "http://localhost:4200/login";
+      })
 
     // create user account
-    
+
     // window.location.href = "http://localhost:4200/login";
   }
 
