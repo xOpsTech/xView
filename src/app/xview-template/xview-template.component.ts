@@ -34,7 +34,14 @@ export class XviewTemplateComponent implements OnInit {
       this.tenantService.getUserBanner().subscribe(res2 => {
         console.log(JSON.stringify(res2))
         console.log(res2.result.tenant.banner)
-        this.photo = res2.result.tenant.banner;
+        if(res2.result.tenant.banner!='undefined')
+        {
+            this.photo = res2.result.tenant.banner;
+        }
+       else
+       {
+          this.photo = '/assets/partner/scholastic-banner.png'
+       }
 
       });
     });
