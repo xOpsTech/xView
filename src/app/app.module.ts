@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import {
-  ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule,AutoCompleteModule,
-  GrowlModule, DataTableModule, SharedModule,OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule,SpinnerModule,FileUploadModule
+  ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule, AutoCompleteModule,
+  GrowlModule, DataTableModule, SharedModule, OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule, SpinnerModule, FileUploadModule
 } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from '../shared/aside.directive';
@@ -50,7 +50,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ItemSettingsComponent } from './item-settings/item-settings.component';
 import { StatusComponent } from './status/status.component';
 import { ManageComponent } from './manage/manage.component';
-
+import { ListboxModule } from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -91,8 +91,8 @@ import { ManageComponent } from './manage/manage.component';
     StatusComponent,
     StatusComponent,
     ManageComponent
-],
-   
+  ],
+
 
   imports: [
     BrowserModule,
@@ -105,14 +105,14 @@ import { ManageComponent } from './manage/manage.component';
     SlimScrollModule,
     AutoCompleteModule,
     StepsModule,
-
+    ListboxModule,
     RouterModule.forRoot([
       {
         path: 'signup',
         component: SignupComponent,
       },
-      
-       {
+
+      {
         path: 'status',
         component: StatusComponent
       },
@@ -148,7 +148,7 @@ import { ManageComponent } from './manage/manage.component';
             path: 'settings',
             component: SettingsComponent
           },
-           {
+          {
             path: 'manage',
             component: ManageComponent
           },
