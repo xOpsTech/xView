@@ -9,7 +9,7 @@ import { TenantService } from '../services/tenant.service';
 })
 export class XviewTemplateComponent implements OnInit {
 
-  imgURL: string
+ imgURL = "/assets/img/logo.png";
   user = {
     name: "",
     picture: "",
@@ -46,14 +46,6 @@ export class XviewTemplateComponent implements OnInit {
       });
     });
 
-  }
-
-  updateURLs() {
-    if (this.userService.getUsername().trim() == 'John Edwards') {
-      this.imgURL = "/assets/img/logo/scholastic.png";
-    } else {
-      this.imgURL = "/assets/img/logo.png";
-    }
   }
 
 }
