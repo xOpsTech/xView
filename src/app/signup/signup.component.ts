@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
 
   servicestable = [];
   services: SelectItem[];
-
+  banners: SelectItem[];
   servers: SelectItem[];
   numberofemployees: SelectItem[];
   activeIndex: number = 0;
@@ -48,6 +48,7 @@ export class SignupComponent implements OnInit {
   tenantData = {
     address: "",
     phone: "",
+    banner: "",
     tenant: "",
     services: []
   };
@@ -67,7 +68,8 @@ export class SignupComponent implements OnInit {
       orgaddress: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       tenant: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       numberofemployees: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
-      servers: ['', Validators.required]
+      servers: ['', Validators.required],
+      selectedBanner: ['', Validators.required]
     }, );
 
     this.configureServicesForm = fb3.group({
@@ -100,6 +102,12 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+    this.banners = [];
+    this.banners.push({ label: 'colorful', value: 'colorful' });
+    this.banners.push({ label: 'map', value: 'map' });
+    this.banners.push({ label: 'beach', value: 'beach' });
 
     this.services = [];
     this.services.push({ label: '--Select Services--', value: '' });
@@ -171,9 +179,12 @@ export class SignupComponent implements OnInit {
   }
 
   OnStage2Completion(OrginizationInfoForm) {
+    console.log(OrginizationInfoForm)
     this.activeIndex = 2;
     this.setDiv();
+    this.tenantData.banner = "http://xview.xops.it/assets/partner/" + OrginizationInfoForm.selectedBanner + ".jpg";
     this.tenantData.tenant = OrginizationInfoForm.tenant;
+    console.log(this.tenantData)
   }
 
   addservice(service) {
@@ -197,21 +208,22 @@ export class SignupComponent implements OnInit {
       service.serviceId = 's1';
       service.active = true;
       service.service_started = false;
-     this.tenantData.services.push(service);
-      
+      this.tenantData.services.push(service);
+
     } else if (this.selectedService == 'newrelic') {
       service.service = 'newrelic';
       service.serviceId = 's2';
       service.active = true;
       service.service_started = false;
       console.log(JSON.stringify(service));
-     this.tenantData.services.push(service);
+      this.tenantData.services.push(service);
 
     } else {
       this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
     }
 
-console.log( this.tenantData.services);  }
+    console.log(this.tenantData.services);
+  }
 
   OnStage3Completion(configureServicesForm) {
     // console.log(JSON.stringify(this.servicestable));
@@ -221,7 +233,7 @@ console.log( this.tenantData.services);  }
       "user": this.userAccountData
     };
     // console.log(JSON.stringify(this.tenantData));
-    // console.log(this.userAccountData);
+    console.log(this.userAccountData);
 
     // lowercase service name
     var tenantId = '';
@@ -232,12 +244,13 @@ console.log( this.tenantData.services);  }
         this.userAccountData['tenantId'] = tenantId;
         this.signupService.createUserAccount(this.userAccountData)
           .subscribe(res => {
-             if (res.status === 200) {
-                // redirect to login
-               window.location.href = "http://xview.xops.it/login";
-              }
+            if (res.status === 200) {
+              // redirect to login
+              window.location.href = "http://xview.xops.it/login";
+            }
           });
         // 
+        window.location.href = "http://xview.xops.it/login";
       })
   }
 

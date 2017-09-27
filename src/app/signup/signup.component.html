@@ -160,7 +160,23 @@
                     [autoWidth]="true"></p-dropdown>
                 </div>
                 <div class="ui-g-4"></div>
+                 <div class="ui-g-8">
+                  Select a Banner :
+                   <p-listbox [options]="banners" formControlName="selectedBanner" [style]="{'width':'190px'}"  [formGroup]="organizationInfoForm" [listStyle]="{'max-height':'450px'}">
+            <ng-template let-banner pTemplate="item">
+              <div class="ui-helper-clearfix">
+                <img src="../assets/partner/{{banner.label}}.jpg" style="display:inline-block;margin:5px 0 0 5px" width="60">
+                <span style="float:right;margin:20px 10px 0 0">{{banner.value}}</span>
               </div>
+            </ng-template>
+            <p-footer>
+              Selected: {{selectedCar||'none'}}
+            </p-footer>
+          </p-listbox>
+                </div>
+              </div>
+
+            
               <div class="ui-g-8">
                 <button pButton type="submit" label="Continue"></button>
               </div>
@@ -328,10 +344,12 @@
               
             </div>
             <div class="ui-g-4">
-         
+              
             </div>
           </div>
         </form>
+
+         
       </div>
     </div>
   </div>
