@@ -6,28 +6,32 @@ import { config } from '../config/config';
 
 @Injectable()
 export class UserService {
-  private getUserUrl = config.XOPSAPI+"/user";
-  user = null;
-  username:string;
-  tenantId:string;
+  private getUserUrl = config.XOPSAPI + "/user";
 
-  constructor(private http:Http) {
-    //this.user = this.getUserData();
+  user = null;
+  email_id: string;
+  emailv = null;
+  username: string;
+  tenantId: string;
+
+  constructor(private http: Http) {
+
   }
 
   getUserData() {
-      return this.http.get(this.getUserUrl)
-                  .map((res:Response) => res.json())
+    return this.http.get(this.getUserUrl)
+      .map((res: Response) => res.json())
   }
 
- updateSettings(body: Object) {
 
-        let headers      = new Headers({ 'Content-Type': 'application/json' });
-        let options       = new RequestOptions({ headers: headers });
-        return this.http.put(`${this.getUserUrl}/${body['email']}`, body, options)
-                         .map((res:Response) => res.json())
-                         .catch((error:any) => Observable.throw(error.json().error));
-    }
+  updateSettings(body: Object) {
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(`${this.getUserUrl}/${body['email']}`, body, options)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error));
+  }
 
   getUser() {
     if (this.user !== null) {
@@ -40,6 +44,9 @@ export class UserService {
     }
   }
 
+
+
+
   setUserName(loggedInUser) {
     this.username = loggedInUser;
   }
@@ -48,8 +55,17 @@ export class UserService {
     this.tenantId = t_id;
   }
 
+  setEmail(email) {
+    this.email_id = email;
+  }
+
+
   getUsername() {
     return this.username;
+  }
+
+  getEmail() {
+    return this.email_id;
   }
 
   getTenantId() {
