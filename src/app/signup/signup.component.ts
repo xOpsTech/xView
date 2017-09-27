@@ -108,6 +108,7 @@ export class SignupComponent implements OnInit {
     this.banners.push({ label: 'colorful', value: 'colorful' });
     this.banners.push({ label: 'map', value: 'map' });
     this.banners.push({ label: 'beach', value: 'beach' });
+    this.banners.push({ label: 'xops', value: 'xops' });
 
     this.services = [];
     this.services.push({ label: '--Select Services--', value: '' });
