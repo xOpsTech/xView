@@ -44,7 +44,7 @@ export class MapComponent implements OnInit {
             "svgPath": this.targetSVGgreen,
             "width": 32,
             "height": 32,
-
+            "color":'#54C40B'
           });
 
           console.log(this.mapcoordinates)
