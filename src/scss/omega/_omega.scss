@@ -30,7 +30,7 @@ $stateActiveTextColor: #212121;
 
 //Highlight State
 $stateHighlightBorderColor: #888;
-$stateHighlightBgColor: #888;
+$stateHighlightBgColor: #1288de;
 $stateHighlightTextColor: #fff;
 
 //Focus State
@@ -125,7 +125,7 @@ $invalidInputBorderColor: #f44336;
 
 /* Spinner */
 .ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:hover {
-    border: 1px solid #1f89ce;
+    border: 1px solid #31A0E6;
     background: #1f89ce;
     outline: 0 none;
     color: #ffffff;
@@ -166,9 +166,9 @@ $invalidInputBorderColor: #f44336;
 .ui-widget-header .ui-button,
 .ui-widget-content .ui-button,
 .ui-button {
-	border: 1px solid #444;
+	border: 1px solid #1288de;
 	color: #fff;
-	background: #444;
+	background: #1288de;
     -webkit-transition: background-color .2s;
     -moz-transition: background-color .2s;
     transition: background-color .2s;

@@ -1,356 +1,272 @@
 <div class="wrapper">
   <div class="container">
     <div class="row">
-      <h3 class="first">
-
-        Sign Up</h3>
-      <div>Join the xOps Community</div>
-      <br/>
-
-      <div class="btn-group btn-group-justified">
-        <button class="btn-lg btn-primary" [disabled]="!stage1" (click)=OnStage1Click()>
-     <div class="ui-g-12">
-        <div class="ui-g-2">
-        <i class="fa fa-user fa-3x " aria-hidden="true"></i>
+      <div id="login" class="signup2">
+        <div [ngClass]="stage1 == true ? 'over-popup' :'over' ">
+            <div >1</div>
+            <div style="font-size:20px;color:white;margin-top:-25px">Account</div>
         </div>
-        <div class="ui-g-10">
-          Step 1 <br>
-        Create Account
+        <div [ngClass]="stage2 == true ? 'over-popup' :'over' ">
+            <div >2</div>
+            <div style="font-size:20px;color:white;margin-top:-25px">Organization</div>
         </div>
-   </div>
-  </button>
-        <button class="btn-lg  btn-primary" [disabled]="!stage2" (click)=OnStage2Click()>
-  <div class="ui-g-12">
-        <div class="ui-g-2">
-           <i class="fa fa-university fa-3x" aria-hidden="true"></i>
-        </div>
-        <div class="ui-g-10">
- Step 2 <br>
-  Organizational Info
-  </div>
-   </div>
-  </button>
-        <button class="btn-lg  btn-primary" [disabled]="!stage3" (click)=OnStage3Click()>
-      <div class="ui-g-12">
-        <div class="ui-g-2">
-           <i class="fa fa-signal fa-3x " aria-hidden="true"></i>
-        </div>
-        <div class="ui-g-10">
-    Step 3 <br>
-  Configure Services
-  </div>
-   </div>
-
-  </button>
+        <div [ngClass]="stage3 == true ? 'over-popup' :'over' "> <div >3</div>
+        <div style="font-size:20px;color:white;margin-top:-25px">Data</div></div>
       </div>
+      <div class="col-md-12 m-x-auto pull-xs-none vamiddle">
+        
+        <div id="login" class="signup">
+          <div *ngIf="stage1">
+            <form  style="padding-top: 90px" [formGroup]="createAccountForm" (ngSubmit)="OnStage1Completion(createAccountForm.value)">
 
-      <div *ngIf="stage1">
-        <form [formGroup]="createAccountForm" (ngSubmit)="OnStage1Completion(createAccountForm.value)">
+              <div class="ui-g">
+                <div class="ui-g-12">
+                  <h1>Register Account</h1>
+                  <p>Already have and account ? <a href="">Login now</a></p>
+                  <div class="ui-g-8">
+                    <!-- <button class="loginBtn loginBtn--google">
+                Continue with Google
+              </button> -->
+                  </div>
+                  <div class="ui-g-8">
 
-          <div class="ui-g">
-            <div class="ui-g-12 ui-md-6">
-              <div class="ui-g-8">
-                <button class="loginBtn loginBtn--google">
-              Continue with Google
-            </button>
-              </div>
-              <div class="ui-g-8">
-               
-              </div>
+                  </div>
 
-              <div class="ui-g-8">
-                Name :
-                <input pInputText type="text" class="form-control" formControlName="username" />
-                <div class="alert" *ngIf="createAccountForm.get('username').hasError('required') && createAccountForm.get('username').dirty">
-                  Oops, please provide a name!
+                  <div class="form-group">
+
+                    <input pInputText type="text" placeholder="Name" class="form-control" formControlName="username" />
+                    <div class="alert" *ngIf="createAccountForm.get('username').hasError('required') && createAccountForm.get('username').dirty">
+                      Oops, please provide a name!
+                    </div>
+                    <div class="alert" *ngIf="createAccountForm.get('username').hasError('minlength')  && createAccountForm.get('username').dirty">
+                      Name should have atleast 4 characters!
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+
+                    <input pInputText placeholder="Email" type="text" class="form-control" formControlName="email" />
+                    <div class="alert" *ngIf="createAccountForm.get('email').hasError('required')  && createAccountForm.get('email').dirty">
+                      Oops, please provide a email!
+                    </div>
+                    <div class="alert" *ngIf="createAccountForm.get('email').hasError('pattern')  && createAccountForm.get('email').dirty">
+                      invalid email address!
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+
+                    <input pInputText type="password" placeholder="Password" class="form-control" formControlName="password" id="password" [formGroup]="createAccountForm"
+                    />
+                    <div class="alert" *ngIf="createAccountForm.get('password').hasError('required')  && createAccountForm.get('password').dirty">
+                      Password is required!
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+
+                    <input pInputText type="password" placeholder="Confirm Password" class="form-control" formControlName="cnfmpassword" id="cnfmpassword"
+                      [formGroup]="createAccountForm" />
+                    <div class="alert" *ngIf="createAccountForm.controls.cnfmpassword.errors?.MatchPassword">Password not match</div>
+                  </div>
+
+                  <div class="ui-g-12">
+                    <button pButton type="submit" label="Register" class="form-control"></button>
+                  </div>
+                  <div class="ui-g-12">
+                    Or
+                  </div>
+                  <div class="ui-g-12">
+                    <button pButton type="submit" label="Connect Google account" class="form-control"></button>
+                  </div>
+                  <div class="ui-g-12">
+                    We're serious about your privacy! Please make sure to check out our <a href="">terms of service</a> and
+                    <a href="">privacy policy</a>
+                  </div>
+
                 </div>
-                <div class="alert"  *ngIf="createAccountForm.get('username').hasError('minlength')  && createAccountForm.get('username').dirty">
-                  Name should have atleast 4 characters!
-                </div>
-              </div>
 
-              <div class="ui-g-8">
-                Email Address :
-                <input pInputText type="text" class="form-control" formControlName="email" />
-                <div class="alert"  *ngIf="createAccountForm.get('email').hasError('required')  && createAccountForm.get('email').dirty">
-                  Oops, please provide a email!
-                </div>
-                <div class="alert" *ngIf="createAccountForm.get('email').hasError('pattern')  && createAccountForm.get('email').dirty">
-                  invalid email address!
-                </div>
               </div>
-
-              <div class="ui-g-8">
-                Password :
-                <input pInputText type="password" class="form-control" formControlName="password" id="password" [formGroup]="createAccountForm"
-                />
-                <div class="alert" *ngIf="createAccountForm.get('password').hasError('required')  && createAccountForm.get('password').dirty">
-                  Password is required!
-                </div>
-              </div>
-
-              <div class="ui-g-8">
-                Confirm Password :
-                <input pInputText type="password" class="form-control" formControlName="cnfmpassword" id="cnfmpassword" [formGroup]="createAccountForm"
-                />
-                <div class="alert" *ngIf="createAccountForm.controls.cnfmpassword.errors?.MatchPassword">Password not match</div>
-              </div>
-
-              <div class="ui-g-12">
-                __________________________________________________________________________________________
-              </div>
-              <div class="ui-g-12">
-                By Clicking on "Create an account" Button you are agreeing to the
-                <p style="color:blue"> Terms of Service and Privacy policy</p>
-              </div>
-              _____________________________________________________________________________________________
-              <div class="ui-g-4">
-                <!-- <button pButton type="submit" label="Create an account" [disabled]="!createAccountForm.valid"></button> -->
-                <button pButton type="submit" label="Create an account"></button>
-              </div>
-
-            </div>
-     
+            </form>
           </div>
-        </form>
-      </div>
 
 
-      <div *ngIf="stage2">
-        <form [formGroup]="organizationInfoForm" (ngSubmit)="OnStage2Completion(organizationInfoForm.value)">
-          <div class="ui-g">
-            <div class="ui-g-12 ui-md-6">
-              <div class="ui-g-8">
-                <b>Want to join an existing organization in xView <br>Enter the organization ID below </b>
-              </div>
-              <div class="ui-g-4"> </div>
+          <div *ngIf="stage2">
+            <form style="padding-top: 90px" [formGroup]="organizationInfoForm" (ngSubmit)="OnStage2Completion(organizationInfoForm.value)">
+              <div class="ui-g">
+                <div class="ui-g-12">
+                  <h1>Add Organization</h1>
+                  <div class="form-group">
+                    <b>To join an existing organization add organization ID.</b>
+                  </div>
 
-              <div class="ui-g-8">
-                Please note that you will be added to the <br>organization once an admin approves your request.
-              </div>
-              <div class="ui-g-4"> </div>
-              <div class="ui-g-8">
-                <input pInputText type="text" placeholder="Organization ID" class="form-control" [ngModel]="orgaddress" (ngModelChange)="onchangeorgid($event)"
-                  formControlName="orgaddress" id="orgaddress" [formGroup]="organizationInfoForm" />
-              </div>
-              <div class="ui-g-4"></div>
-              <div *ngIf="stat">
-                <div class="ui-g-8">
-                  <b>Or, add your organization to xView</b>
+                  <div class="form-group">
+                    <input pInputText type="text" placeholder="Organization ID" class="form-control" [ngModel]="orgaddress" (ngModelChange)="onchangeorgid($event)"
+                      formControlName="orgaddress" id="orgaddress" [formGroup]="organizationInfoForm" />
+                  </div>
 
-                </div>
+                  <div *ngIf="stat">
+                    <div class="form-group">
+                      <b><a href = "">Help I don't know my organization ID!</a></b>
 
-                <div class="ui-g-8">
-                  Full name of the organization :
-                  <input pInputText type="text" class="form-control" formControlName="tenant" id="tenant" [formGroup]="organizationInfoForm"
-                  />
+                    </div>
 
-                </div>
-                <div class="ui-g-4"></div>
-                <div class="ui-g-8">
-                  Number of employees :
-                  <p-dropdown [options]="numberofemployees" styleClass="form-control" formControlName="numberofemployees" id="numberofemployees"
-                    [formGroup]="organizationInfoForm" [autoWidth]="true"></p-dropdown>
+                    <div class="form-group">
+                      Or
+                    </div>
+                    <div class="form-group">
+                      Add a new organization
+                    </div>
+                    <div class="form-group">
+                      <input pInputText type="text" placeholder="Organization name" class="form-control" formControlName="tenant" id="tenant" [formGroup]="organizationInfoForm">
+                    </div>
 
-                </div>
-                <div class="ui-g-4"></div>
-                <div class="ui-g-8">
-                  Number of app servers :
-                  <p-dropdown [options]="servers" styleClass="form-control" formControlName="servers" id="servers" [formGroup]="organizationInfoForm"
-                    [autoWidth]="true"></p-dropdown>
-                </div>
-                <div class="ui-g-4"></div>
-                 <div class="ui-g-8">
-                  Select a Banner :
-                   <p-listbox [options]="banners" formControlName="selectedBanner" [style]="{'width':'190px'}"  [formGroup]="organizationInfoForm" [listStyle]="{'max-height':'450px'}">
-            <ng-template let-banner pTemplate="item">
-              <div class="ui-helper-clearfix">
-                <img src="../assets/partner/{{banner.label}}.jpg" style="display:inline-block;margin:5px 0 0 5px" width="60">
-                <span style="float:right;margin:20px 10px 0 0">{{banner.value}}</span>
-              </div>
-            </ng-template>
-            <p-footer>
-              Selected: {{selectedBanner||'none'}}
-            </p-footer>
-          </p-listbox>
+
+                    <div class="form-group">
+                      <button pButton type="submit" class="form-control" label="Finish Setup!"></button>
+                    </div>
+
+                  </div>
                 </div>
               </div>
 
-            
-              <div class="ui-g-8">
-                <button pButton type="submit" label="Continue"></button>
-              </div>
-
-            </div>
-
-            <div class="ui-g-4">
-           
-            </div>
+            </form>
           </div>
-        </form>
-      </div>
 
-      <div *ngIf="stage3">
-        <form [formGroup]="configureServicesForm" (ngSubmit)="OnStage3Completion(configureServicesForm.value)">
-          <div class="ui-g">
-            <div class="ui-g-12 ui-md-6">
-              <div class="ui-g-4">
-                Service :
-              </div>
-              <div class="ui-g-8">
-                  <p-dropdown [options]="services" styleClass="form-control" formControlName="servicename" 
-                  id="servicename" [formGroup]="configureServicesForm"
-                    [autoWidth]="true" [(ngModel)]="selectedService"></p-dropdown>
-  
-              </div>
-              <!-- APICA  -->      
-              <div *ngIf="selectedService=='Apica'">
-                <div class="ui-g-4">
-                  URL :
-                </div>
-                <div class="ui-g-8">
-                  <input pInputText type="text" class="form-control" formControlName="serviceurl" id="serviceurl" [formGroup]="configureServicesForm"
-                  />
-                </div>
-                <div class="ui-g-4">
-                  Username :
-                </div>
-                <div class="ui-g-8">
-                  <input pInputText type="text" class="form-control" formControlName="srusername" id="srusername" [formGroup]="configureServicesForm"
-                  />
-                  <div class="alert"  *ngIf="configureServicesForm.get('srusername').hasError('required') && configureServicesForm.get('srusername').dirty">
-                    Oops, please provide a name!
+          <div *ngIf="stage3">
+            <form style="padding-top: 90px" [formGroup]="configureServicesForm" (ngSubmit)="OnStage3Completion(configureServicesForm.value)">
+              <div class="ui-g">
+                <div class="ui-g-12">
+                  <div class="ui-g-12">
+                    <h1>Configure Data Sources</h1>
                   </div>
-                  <div class="alert"  *ngIf="configureServicesForm.get('srusername').hasError('minlength')  && configureServicesForm.get('srusername').dirty">
-                    Name should have atleast 4 characters!
+                  <div class="ui-g-6">
+                    <p-dropdown [options]="services" formControlName="servicename" id="servicename" [formGroup]="configureServicesForm" [autoWidth]="true"
+                      [(ngModel)]="selectedService"></p-dropdown>
                   </div>
-                </div>
-                <div class="ui-g-4">
-                  Password :
-                </div>
-                <div class="ui-g-8">
-                  <input pInputText type="password" class="form-control" formControlName="srpassword" id="srpassword" [formGroup]="configureServicesForm"
-                  />
-                  <div class="alert"  *ngIf="configureServicesForm.get('srpassword').hasError('required')  && configureServicesForm.get('srpassword').dirty">
-                    Password is required!
-                  </div>
-                </div>
-                <div class="ui-g-4">
-                  <button pButton type="button" label="Add" (click)=addservice(configureServicesForm._value)></button>
-                </div>
-                
 
-              </div>
-              <!-- Twitter -->
-              <form [formGroup]="twitterConfigForm">
-                <div *ngIf="selectedService=='twitter'">
-                    <div class="ui-g-4">
+                  <!-- Select  -->
+                  <div *ngIf="selectedService=='Select'">
+
+                  </div>
+                  <!-- Twitter -->
+                  <form [formGroup]="twitterConfigForm">
+                    <div *ngIf="selectedService=='twitter'">
+                        <div class="ui-g-6">
+                            <button pButton type="button" class="round-button" label="+" (click)=addservice(twitterConfigForm._value)></button>
+                          </div>
+                      <div class="ui-g-4">
                         Consumer key:
-                    </div>
-                    <div class="ui-g-8">
-                      <input type="text" pInputText formControlName="consumer_key" class="form-control"/>
-                    </div>
-                    <div class="ui-g-4">
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="consumer_key" class="form-control" />
+                      </div>
+                      <div class="ui-g-4">
                         Consumer secret:
-                    </div>
-                    <div class="ui-g-8">
-                      <input type="text" pInputText formControlName="consumer_secret" class="form-control"/>
-                    </div>
-                    <div class="ui-g-4">
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="consumer_secret" class="form-control" />
+                      </div>
+                      <div class="ui-g-4">
                         Access token:
-                    </div>
-                    <div class="ui-g-8">
-                      <input type="text" pInputText formControlName="access_token" class="form-control"/>
-                    </div>
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="access_token" class="form-control" />
+                      </div>
                       <div class="ui-g-4">
                         Access token secret:
+                      </div>
+                      <div class="ui-g-8">
+                        <input type="text" pInputText formControlName="access_token_secret" class="form-control" />
+                      </div>
+                    
                     </div>
-                    <div class="ui-g-8">
-                      <input type="text" pInputText formControlName="access_token_secret" class="form-control"/>
+
+                  </form>
+                  <!-- ServiceNow -->
+                  <form [formGroup]="serviceNowConfigForm ">
+                    <div *ngIf="selectedService=='servicenow' ">
+                        <div class="ui-g-6 ">
+                            <button pButton type="button " class="round-button" label="+"  (click)=addservice(serviceNowConfigForm._value)></button>
+                          </div>
+                      <div class="ui-g-4 ">
+                        URL:
+                      </div>
+                      <div class="ui-g-8 ">
+                        <input type="text " pInputText formControlName="url" class="form-control" />
+                      </div>
+                      <div class="ui-g-4 ">
+                        API key:
+                      </div>
+                      <div class="ui-g-8 ">
+                        <input type="text " pInputText formControlName="apiKey" class="form-control" />
+                      </div>
+                      <div class="ui-g-4 ">
+                        Username:
+                      </div>
+                      <div class="ui-g-8 ">
+                        <input type="text " pInputText formControlName="username" class="form-control" />
+                      </div>
+                      <div class="ui-g-4 ">
+                        Password:
+                      </div>
+                      <div class="ui-g-8 ">
+                        <input type="password " pInputText formControlName="password" class="form-control" />
+                      </div>
+                    
                     </div>
-                    <div class="ui-g-4">
-                      <button pButton type="button" label="Add" (click)=addservice(twitterConfigForm._value)></button>
+
+                  </form>
+                  <!-- New Relic -->
+                  <form [formGroup]="newRelicConfigForm ">
+                    <div *ngIf="selectedService=='newrelic' ">
+                        <div class="ui-g-6 ">
+                            <button pButton type="button " class="round-button" label="+" (click)=addservice(newRelicConfigForm._value)></button>
+                          </div>
+                      <div class="ui-g-4 ">
+                        API key:
+                      </div>
+                      <div class="ui-g-8 ">
+                        <input type="text " pInputText formControlName="api_key" class="form-control" />
+                      </div>
+                      <div class="ui-g-4 ">
+                        Query key
+                      </div>
+                      <div class="ui-g-8 ">
+                        <input type="text " pInputText formControlName="query_key" class="form-control" />
+                      </div>
+                     
                     </div>
+
+                  </form>
+                  <!-- Added services -->
+                  <div class="ui-g-8 ">
+                    <table style="width:100% ">
+                      <tr *ngFor="let alert of tenantData.services; let i=index ">
+                        <th>{{alert.service}}</th>
+                        <th><button pButton type="button" (click)="removeConfiguration(i) " icon="fa fa-close fa-fw "></button></th>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="ui-g-6 ">
+                    <button pButton type="submit" class="form-control" label="Skip this step "></button>
+                  </div>
+                  <div class="ui-g-6 ">
+                    <button pButton type="submit" class="form-control" label="Finish Setup! "></button>
+                  </div>
+
+
+                </div>
+                <div class="ui-g-4 ">
                 </div>
 
-              </form>
-              <!-- ServiceNow -->
-              <form [formGroup]="serviceNowConfigForm">
-                  <div *ngIf="selectedService=='servicenow'">
-                      <div class="ui-g-4">
-                          URL:
-                      </div>
-                      <div class="ui-g-8">
-                        <input type="text" pInputText formControlName="url" class="form-control"/>
-                      </div>
-                      <div class="ui-g-4">
-                          API key:
-                      </div>
-                      <div class="ui-g-8">
-                        <input type="text" pInputText formControlName="apiKey" class="form-control"/>
-                      </div>
-                      <div class="ui-g-4">
-                          Username:
-                      </div>
-                      <div class="ui-g-8">
-                        <input type="text" pInputText formControlName="username" class="form-control"/>
-                      </div>
-                      <div class="ui-g-4">
-                          Password:
-                      </div>
-                      <div class="ui-g-8">
-                        <input type="password" pInputText formControlName="password" class="form-control"/>
-                      </div>
-                      <div class="ui-g-4">
-                        <button pButton type="button" label="Add" (click)=addservice(serviceNowConfigForm._value)></button>
-                      </div>
-                  </div>
-  
-                </form>
-              <!-- New Relic -->
-              <form [formGroup]="newRelicConfigForm">
-                  <div *ngIf="selectedService=='newrelic'">
-                      <div class="ui-g-4">
-                          API key:
-                      </div>
-                      <div class="ui-g-8">
-                        <input type="text" pInputText formControlName="api_key" class="form-control"/>
-                      </div>
-                      <div class="ui-g-4">
-                         Query key
-                      </div>
-                      <div class="ui-g-8">
-                        <input type="text" pInputText formControlName="query_key" class="form-control"/>
-                      </div>
-                      <div class="ui-g-4">
-                        <button pButton type="button" label="Add" (click)=addservice(newRelicConfigForm._value)></button>
-                      </div>
-                  </div>
-  
-                </form>
-              <div class="ui-g-4">
-                  <button pButton type="button" (click)=OnStage3Completion(configureServicesForm._value) 
-                    label="Continue"></button>
-                </div>
-              <!-- Added services -->
-              <div class="ui-g-8">
-                  <table style="width:100%">
-                    <tr *ngFor="let alert of tenantData.services; let i = index">
-                      <th>{{alert.service}}</th>
-                      <th><button pButton type="button" (click)="removeConfiguration(i)" icon="fa fa-close fa-fw"></button></th>
-                    </tr>
-                  </table>
               </div>
-              
-            </div>
-            <div class="ui-g-4">
-              
-            </div>
-          </div>
-        </form>
+            </form>
 
-         
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>

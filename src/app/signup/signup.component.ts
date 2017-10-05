@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
   twitterConfigForm: FormGroup;
   serviceNowConfigForm: FormGroup;
   newRelicConfigForm: FormGroup;
-  selectedService: string = 'twitter';
+  selectedService: string = 'Select';
 
   items: MenuItem[];
   stage1 = true;
@@ -40,8 +40,7 @@ export class SignupComponent implements OnInit {
   servicestable = [];
   services: SelectItem[];
   banners: SelectItem[];
-  servers: SelectItem[];
-  numberofemployees: SelectItem[];
+
   activeIndex: number = 0;
 
   userAccountData: {};
@@ -67,16 +66,10 @@ export class SignupComponent implements OnInit {
     this.organizationInfoForm = fb2.group({
       orgaddress: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       tenant: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
-      numberofemployees: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
-      servers: ['', Validators.required],
-      selectedBanner: ['', Validators.required]
     }, );
 
     this.configureServicesForm = fb3.group({
       servicename: ['', Validators.required],
-      serviceurl: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
-      srusername: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
-      srpassword: ['', Validators.required]
 
     }, );
 
@@ -104,37 +97,11 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
 
 
-    this.banners = [];
-    this.banners.push({ label: 'colorful', value: 'colorful' });
-    this.banners.push({ label: 'map', value: 'map' });
-    this.banners.push({ label: 'beach', value: 'beach' });
-    this.banners.push({ label: 'xops', value: 'xops' });
-
     this.services = [];
-    this.services.push({ label: '--Select Services--', value: '' });
-    // this.services.push({ label: 'Apica', value: 'Apica' });
+    this.services.push({ label: 'Select Services--', value: 'Select' });
     this.services.push({ label: 'Twitter', value: 'twitter' });
     this.services.push({ label: 'ServiceNow', value: 'servicenow' });
     this.services.push({ label: 'New relic', value: 'newrelic' });
-    // this.services.push({ label: 'CloudTest', value: 'CloudTest' });
-    // this.services.push({ label: 'Loadrunner ', value: 'Loadrunner ' });
-    // this.services.push({ label: 'blitz', value: 'blitz' });
-
-    this.servers = [];
-    this.servers.push({ label: '--Select Servers--', value: '' });
-    this.servers.push({ label: '1-3 Servers', value: '1-3 Servers' });
-    this.servers.push({ label: '3-10 Servers', value: '3-10 Servers' });
-    this.servers.push({ label: '11-20 Servers', value: '11-20 Servers' });
-    this.servers.push({ label: '21+ Servers  ', value: '1-3 Servers' });
-
-    this.numberofemployees = [];
-    this.numberofemployees.push({ label: '--Select range--', value: '' });
-    this.numberofemployees.push({ label: '2-20 ', value: '2-20' });
-    this.numberofemployees.push({ label: '21-100 ', value: '21-100' });
-    this.numberofemployees.push({ label: '101-1000 ', value: '101-1000' });
-    this.numberofemployees.push({ label: '1001-5000   ', value: '1001-5000' });
-    this.numberofemployees.push({ label: '5000+', value: '5000+' });
-    this.numberofemployees.push({ label: 'Just Me', value: 'Just Me' });
 
     this.setDiv();
   }
@@ -166,9 +133,10 @@ export class SignupComponent implements OnInit {
 
 
   removeConfiguration(index) {
+    console.log(this.tenantData.services);
     if (index > -1) {
       this.tenantData.services.splice(index, 1);
-      console.log(this.tenantData.services);
+      console.log("removed" +this.tenantData.services);
     }
   }
   OnStage1Completion(CreateAccountForm) {
@@ -218,25 +186,26 @@ export class SignupComponent implements OnInit {
       service.service_started = false;
       console.log(JSON.stringify(service));
       this.tenantData.services.push(service);
+  
 
     } else {
       this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
+   
     }
 
     console.log(this.tenantData.services);
   }
 
   OnStage3Completion(configureServicesForm) {
-    // console.log(JSON.stringify(this.servicestable));
+
     delete this.userAccountData['cnfmpassword'];
     var payload = {
       "tenant": this.tenantData,
       "user": this.userAccountData
     };
-    // console.log(JSON.stringify(this.tenantData));
+   
     console.log(this.userAccountData);
 
-    // lowercase service name
     var tenantId = '';
 
     this.signupService.saveTenant(this.tenantData)
