@@ -8,7 +8,7 @@ import { MapService } from '../services/map.service';
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  providers: [UserService, AlertService,MapService],
+  providers: [UserService, AlertService, MapService],
 })
 export class MapComponent implements OnInit {
   chart: any;
@@ -33,19 +33,27 @@ export class MapComponent implements OnInit {
       this.userService.setTenant(this.user.tenantId);
       this.mapService.updateURLs();
       this.mapService.getNewRelicMapData().subscribe(newrelicmapdata => {
+       
+        for (var dv of newrelicmapdata['newrelicMapData']) {
+          var title2  = ""
+          var title = "<b>location</b> = " + dv.locationLabel;
 
-        for (var dv of newrelicmapdata) {
+          for (var i =0;  i< dv.apps.length; i++) {
+            title2 = title2 + "<b>monitorName</b> = " +  dv.apps[i].monitorName + "</br>"+ " <b>duration</b> = " + dv.apps[i].duration + "</br>";
+          }
 
 
           this.mapcoordinates.push({
             "latitude": dv.apps[0].latitude,
             "longitude": dv.apps[0].longitude,
-            "title": "location = " +dv.locationLabel + "duration = " +  dv.apps[0].duration,
+            "title": title + "</br>" +title2,
             "svgPath": this.targetSVGgreen,
             "width": 32,
             "height": 32,
-            "color":'#54C40B'
+            "color": '#54C40B',
+            "textAlign": "left"
           });
+
 
           console.log(this.mapcoordinates)
         }
