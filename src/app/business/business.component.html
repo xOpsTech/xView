@@ -5,30 +5,39 @@
     </div>
   </div>
 </div>
-
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
-    <div class="widget-wrapper">
-      <div class="row">
-        <div class="col-md-4" align="center" *ngFor="let sWgt of svcWidgets">
-          <div class="service-mix-widget">
-            <div class="small-graph">
-              <p-chart type="line" [data]="sWgt.data" height="200" [options]="sgopt"></p-chart>
-              <div><strong>{{sWgt.latency}}</strong></div>
+    <div class="widget-wrapper map">
+      <input type="text" />
+      <!-- <iframe style="width: 100%; height:900px " frameborder="0"
+     src="http://35.196.113.225:5601/app/kibana#/discover?_g=()&_a=(columns:!(_source),index:'metrics-*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'*')),sort:!(timestamp,desc))"></iframe> -->
+      <iframe style="width: 100%; height:900px " [src]="dashboardurl" ></iframe>
+    </div>
+  </div>
+
+  <div class="row row-eq-height">
+    <div class="col-md-12 widget">
+      <div class="widget-wrapper">
+        <div class="row">
+          <div class="col-md-4" align="center" *ngFor="let sWgt of svcWidgets">
+            <div class="service-mix-widget">
+              <div class="small-graph">
+                <p-chart type="line" [data]="sWgt.data" height="200" [options]="sgopt"></p-chart>
+                <div><strong>{{sWgt.latency}}</strong></div>
+              </div>
+              <circle-progress [percent]="sWgt.svcload"></circle-progress><br/>
+              <strong>{{sWgt.title}}</strong>
             </div>
-            <circle-progress [percent]="sWgt.svcload"></circle-progress><br/>
-            <strong>{{sWgt.title}}</strong>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="row row-eq-height">
-  <div class="col-md-12 widget">
-    <div class="widget-wrapper">
-      <p-chart type="line" [data]="alert_trend?.alert_trend" height="100"></p-chart>
+  <div class="row row-eq-height">
+    <div class="col-md-12 widget">
+      <div class="widget-wrapper">
+        <p-chart type="line" [data]="alert_trend?.alert_trend" height="100"></p-chart>
+      </div>
     </div>
   </div>
-</div>
