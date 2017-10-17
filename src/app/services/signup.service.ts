@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import { config } from '../config/config';
 
+
 @Injectable()
 export class SignupService {
   headers: Headers;
@@ -19,7 +20,7 @@ export class SignupService {
 
   createUserAccount(account) {
     return this.http
-      .post('http://xview.xops.it/signup', {
+      .post(config.XOPSHOST +'/signup', {
         "id": account.email, "password": account.password, 
         "firstname": account.name, "lastname": "", "timezone": "1",
         "name":account.username, "tenantId":account.tenantId
@@ -30,7 +31,7 @@ export class SignupService {
 
   saveUser(account) {
     return this.http
-    .post('http://xview.xops.it/api/user', {
+    .post(config.XOPSAPI +'/user', {
       "id": account.email, "password": account.password, 
       "firstname": account.name, "lastname": "", "timezone": "1",
       "name":account.username, "tenantId":account.tenantId
@@ -41,7 +42,15 @@ export class SignupService {
 
   saveTenant(tenant) {
     return this.http
-      .post('http://xview.xops.it/api/tenant', tenant, this.options)
+      .post(config.XOPSAPI+'/tenant', tenant, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  updateTenant(tenantid,tenant) {
+    console.log(tenant);
+    return this.http
+      .put(config.XOPSAPI+'/tenant/'+tenantid, tenant, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
