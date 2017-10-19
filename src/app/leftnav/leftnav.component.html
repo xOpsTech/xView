@@ -5,26 +5,26 @@
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/business']"><i class="material-icons">business</i> Business</a>
       </li>
       <li class="nav-item nav-dropdown" routerLinkActive="open">
-        <a class="nav-link nav-dropdown-toggle" href="#"><i class="material-icons">memory</i> Tech</a>
-        <ul class="nav-dropdown-items">
-          <li class="nav-item">
+        <a class="nav-link" href="#"><i class="material-icons">memory</i> Tech</a>
+        <!-- <ul class="nav-dropdown-items"> -->
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/tech/incident']">Incident</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/tech/third-party']">Third Party Apps</a>
-          </li>
-        </ul>
+          </li> -->
+        <!-- </ul> -->
       </li>
       <li class="nav-item nav-dropdown" routerLinkActive="open">
-        <a class="nav-link nav-dropdown-toggle" href="#"><i class="material-icons">dashboard</i> Custom</a>
-        <ul class="nav-dropdown-items">
-          <li class="nav-item">
+        <a class="nav-link" href="#"><i class="material-icons">dashboard</i> Custom</a>
+        <!-- <ul class="nav-dropdown-items"> -->
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/custom/cc']">Command Center</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/custom/dashboard']">Custom Dashboard</a>
-          </li>
-        </ul>
+          </li> -->
+        <!-- </ul> -->
       </li>
        <li class="nav-item nav-dropdown" routerLinkActive="open">
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="material-icons">dashboard</i> Alerts</a>
@@ -32,13 +32,16 @@
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/alert']">Alerts</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/alertindividual']">My Alerts</a>
-          </li>
+          </li> -->
         </ul>
       </li>
        <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/manage']"><i class="material-icons">settings</i> Manage</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/logSearch']"><i class="material-icons">search</i> Analyze</a>
       </li>
     </ul>
   </nav>

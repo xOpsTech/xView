@@ -102,7 +102,7 @@
 
                   <div class="form-group">
                     <input pInputText type="text" placeholder="Organization ID" class="form-control" [ngModel]="orgaddress" (ngModelChange)="onchangeorgid($event)"
-                      formControlName="orgaddress" id="orgaddress" [formGroup]="organizationInfoForm" />
+                      formControlName="existingtenant" id="existingtenant" [formGroup]="organizationInfoForm" />
                   </div>
 
                   <div *ngIf="stat">
@@ -121,11 +121,9 @@
                       <input pInputText type="text" placeholder="Organization name" class="form-control" formControlName="tenant" id="tenant" [formGroup]="organizationInfoForm">
                     </div>
 
-
-                    <div class="form-group">
-                      <button pButton type="submit" class="form-control" label="Finish Setup!"></button>
-                    </div>
-
+                  </div>
+                  <div class="form-group">
+                    <button pButton type="submit" class="form-control" label="Continue"></button>
                   </div>
                 </div>
               </div>

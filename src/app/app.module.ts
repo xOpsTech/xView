@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
+import { FileSelectDirective } from 'ng2-file-upload';
 import {
   ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule, AutoCompleteModule,
   GrowlModule, DataTableModule, SharedModule, OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule, SpinnerModule, FileUploadModule
@@ -53,6 +54,7 @@ import { ItemSettingsComponent } from './item-settings/item-settings.component';
 import { StatusComponent } from './status/status.component';
 import { ManageComponent } from './manage/manage.component';
 import { ListboxModule } from 'primeng/primeng';
+import { LogsearchComponent } from './logsearch/logsearch.component';
 
 
 @NgModule({
@@ -71,7 +73,7 @@ import { ListboxModule } from 'primeng/primeng';
     HomeComponent,
     WidgetHomeComponent,
     MapComponent,
-
+    FileSelectDirective,
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,
     NAV_DROPDOWN_DIRECTIVES,
@@ -93,7 +95,8 @@ import { ListboxModule } from 'primeng/primeng';
     ItemSettingsComponent,
     StatusComponent,
     StatusComponent,
-    ManageComponent
+    ManageComponent,
+    LogsearchComponent
   ],
 
 
@@ -109,6 +112,7 @@ import { ListboxModule } from 'primeng/primeng';
     AutoCompleteModule,
     StepsModule,
     ListboxModule,
+
     RouterModule.forRoot([
       {
         path: 'signup',
@@ -117,10 +121,6 @@ import { ListboxModule } from 'primeng/primeng';
       {
         path:'login',
         component:LoginComponent,
-      },
-      {
-        path: 'status',
-        component: StatusComponent
       },
       {
         path: '',
@@ -175,6 +175,14 @@ import { ListboxModule } from 'primeng/primeng';
           {
             path: 'itemSettings',
             component: ItemSettingsComponent
+          },
+          {
+            path: 'logSearch',
+            component: LogsearchComponent
+          },
+          {
+            path: 'status',
+            component: StatusComponent
           },
           {
             path: '', redirectTo: 'business', pathMatch: 'full'
