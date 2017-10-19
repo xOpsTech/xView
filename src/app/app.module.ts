@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/guards/auth.guard';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import {
   ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule, AutoCompleteModule,
@@ -51,6 +53,7 @@ import { ItemSettingsComponent } from './item-settings/item-settings.component';
 import { StatusComponent } from './status/status.component';
 import { ManageComponent } from './manage/manage.component';
 import { ListboxModule } from 'primeng/primeng';
+
 
 @NgModule({
   declarations: [
@@ -111,7 +114,10 @@ import { ListboxModule } from 'primeng/primeng';
         path: 'signup',
         component: SignupComponent,
       },
-
+      {
+        path:'login',
+        component:LoginComponent,
+      },
       {
         path: 'status',
         component: StatusComponent
@@ -123,6 +129,7 @@ import { ListboxModule } from 'primeng/primeng';
           {
             path: 'home',
             component: HomeComponent
+            
           },
           {
             path: 'alert',
@@ -158,7 +165,8 @@ import { ListboxModule } from 'primeng/primeng';
           },
           {
             path: 'business',
-            component: BusinessComponent
+            component: BusinessComponent,
+            canActivate: [AuthGuard]
           },
           {
             path: 'alertindividual',
@@ -196,10 +204,10 @@ import { ListboxModule } from 'primeng/primeng';
     DataGridModule,
     FileUploadModule
   ],
-  providers: [SnowAggsService, UserService, RssfeedService, IncidentService],
+  providers: [AuthService,AuthGuard,SnowAggsService, UserService, RssfeedService, IncidentService],
   bootstrap: [AppComponent],
   exports: [
     RouterModule
   ]
 })
-export class AppModule { }
+export class AppModule {}
