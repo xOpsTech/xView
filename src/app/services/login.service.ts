@@ -19,7 +19,7 @@ export class LoginService {
 
    Authenticate(user){
    	return this.http
-      .post('http://localhost:4200/login', {
+      .post('http://xview.xops.it/login', {
         "id": user.id, "password": user.password,
       }, this.options)
       .map(this.extractData)
