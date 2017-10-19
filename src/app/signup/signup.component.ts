@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
   servicestable = [];
   services: SelectItem[];
   banners: SelectItem[];
-
+  existingtenant :String = '';
   activeIndex: number = 0;
 
   userAccountData: {};
@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
 
 
     this.organizationInfoForm = fb2.group({
-      orgaddress: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
+      existingtenant: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       tenant: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
     }, );
 
@@ -153,6 +153,7 @@ export class SignupComponent implements OnInit {
     this.setDiv();
     this.tenantData.banner = "http://xview.xops.it/assets/partner/" + OrginizationInfoForm.selectedBanner + ".jpg";
     this.tenantData.tenant = OrginizationInfoForm.tenant;
+    this.existingtenant = OrginizationInfoForm.existingtenant;
     console.log(this.tenantData)
   }
 
@@ -205,8 +206,26 @@ export class SignupComponent implements OnInit {
     };
    
     console.log(this.userAccountData);
-
-    var tenantId = '';
+    if(this.existingtenant != '')
+    {
+       delete this.tenantData['services'];
+       console.log(this.tenantData);
+      this.signupService.updateTenant(this.existingtenant,this.tenantData)
+      .subscribe(response => {
+        this.userAccountData['tenantId'] = this.existingtenant;
+        this.signupService.createUserAccount(this.userAccountData)
+          .subscribe(res => {
+            if (res.status === 200) {
+              // redirect to login
+             window.location.href = "http://xview.xops.it/login";
+            }
+          });
+       
+       window.location.href = "http://xview.xops.it/login";
+      })
+    }
+    else
+    {    var tenantId = '';
 
     this.signupService.saveTenant(this.tenantData)
       .subscribe(response => {
@@ -223,6 +242,7 @@ export class SignupComponent implements OnInit {
         window.location.href = "http://xview.xops.it/login";
       })
   }
+}
 
 
 
