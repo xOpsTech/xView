@@ -30,6 +30,7 @@
     "intl": "^1.2.5",
     "jquery": "^3.2.1",
     "ng2-charts": "^1.5.0",
+    "ng2-file-upload": "^1.2.1",
     "ng2-select2": "^1.0.0-beta.10",
     "ng2-slimscroll": "^2.0.1",
     "primeng": "^4.0.0-rc.3",
@@ -39,7 +40,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.3",
+    "@angular/cli": "^1.4.4",
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
