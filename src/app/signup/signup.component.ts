@@ -194,6 +194,7 @@ export class SignupComponent implements OnInit {
    
     }
 
+    console.log(this.tenantData.services);
   }
 
   OnStage3Completion(configureServicesForm) {
@@ -204,25 +205,27 @@ export class SignupComponent implements OnInit {
       "tenant": this.tenantData,
       "user": this.userAccountData
     };
- 
-    if(typeof this.existingtenant !=='undefined')
-    {
-       delete this.tenantData['services'];
-      this.signupService.updateTenant(this.existingtenant,this.tenantData)
-      .subscribe(response => {
-        this.userAccountData['tenantId'] = this.existingtenant;
-        this.signupService.createUserAccount(this.userAccountData)
-          .subscribe(res => {
-            if (res.status === 200) {
-              // redirect to login
-             window.location.href = "http://xview.xops.it/login";
-            }
-          });
+    console.log(this.existingtenant)
+    // console.log(this.userAccountData);
+  //   if(typeof this.existingtenant !=='undefined')
+  //   {
+  //      delete this.tenantData['services'];
+      
+  //     this.signupService.updateTenant(this.existingtenant,this.tenantData)
+  //     .subscribe(response => {
+  //       this.userAccountData['tenantId'] = this.existingtenant;
+  //       this.signupService.createUserAccount(this.userAccountData)
+  //         .subscribe(res => {
+  //           if (res.status === 200) {
+  //             // redirect to login
+  //            window.location.href = "http://xview.xops.it/login";
+  //           }
+  //         });
        
-        window.location.href = "http://xview.xops.it/login";
-      })
-    }
-   else {
+  //       window.location.href = "http://xview.xops.it/login";
+  //     })
+  //   }
+  //  else {
 
     this.signupService.saveTenant(this.tenantData)
       .subscribe(response => {
@@ -240,7 +243,7 @@ export class SignupComponent implements OnInit {
         window.location.href = "http://xview.xops.it/login";
       })
   }
-}
+// }
 }
 
 
