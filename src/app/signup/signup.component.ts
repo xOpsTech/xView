@@ -208,7 +208,6 @@ export class SignupComponent implements OnInit {
     if(typeof this.existingtenant !=='undefined')
     {
        delete this.tenantData['services'];
-      
       this.signupService.updateTenant(this.existingtenant,this.tenantData)
       .subscribe(response => {
         this.userAccountData['tenantId'] = this.existingtenant;
