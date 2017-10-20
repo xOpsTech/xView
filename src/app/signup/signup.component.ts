@@ -151,7 +151,7 @@ export class SignupComponent implements OnInit {
     console.log(OrginizationInfoForm)
     this.activeIndex = 2;
     this.setDiv();
-    this.tenantData.banner = "http://xview.xops.it/assets/partner/" + OrginizationInfoForm.selectedBanner + ".jpg";
+    this.tenantData.banner = "http://localhost:4200/assets/partner/xops.png";
     this.tenantData.tenant = OrginizationInfoForm.tenant;
     this.existingtenant = OrginizationInfoForm.existingtenant;
     console.log(this.tenantData)
@@ -194,22 +194,21 @@ export class SignupComponent implements OnInit {
    
     }
 
-    console.log(this.tenantData.services);
   }
 
   OnStage3Completion(configureServicesForm) {
-
+    {    
+    
     delete this.userAccountData['cnfmpassword'];
     var payload = {
       "tenant": this.tenantData,
       "user": this.userAccountData
     };
-   
-    console.log(this.userAccountData);
-    if(this.existingtenant != '')
+ 
+    if(typeof this.existingtenant !=='undefined')
     {
        delete this.tenantData['services'];
-       console.log(this.tenantData);
+      
       this.signupService.updateTenant(this.existingtenant,this.tenantData)
       .subscribe(response => {
         this.userAccountData['tenantId'] = this.existingtenant;
@@ -221,15 +220,15 @@ export class SignupComponent implements OnInit {
             }
           });
        
-       window.location.href = "http://xview.xops.it/login";
+        window.location.href = "http://xview.xops.it/login";
       })
     }
-    else
-    {    var tenantId = '';
+   else {
 
     this.signupService.saveTenant(this.tenantData)
       .subscribe(response => {
-        tenantId = response.result.tenantId;
+        var tenantId = response.result.tenantId;
+        console.log(tenantId);
         this.userAccountData['tenantId'] = tenantId;
         this.signupService.createUserAccount(this.userAccountData)
           .subscribe(res => {
@@ -242,6 +241,7 @@ export class SignupComponent implements OnInit {
         window.location.href = "http://xview.xops.it/login";
       })
   }
+}
 }
 
 
