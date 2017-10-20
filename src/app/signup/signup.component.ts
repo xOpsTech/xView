@@ -239,8 +239,7 @@ export class SignupComponent implements OnInit {
               window.location.href = "http://xview.xops.it/login";
             }
           });
-        // 
-        window.location.href = "http://xview.xops.it/login";
+       
       })
   }
 // }
