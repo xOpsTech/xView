@@ -240,7 +240,6 @@ export class SignupComponent implements OnInit {
             }
           });
         // 
-        this.router.navigate(['/login']);
       })
   }
 }
