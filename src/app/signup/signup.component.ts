@@ -216,13 +216,8 @@ export class SignupComponent implements OnInit {
         this.userAccountData['tenantId'] = this.existingtenant;
         this.signupService.createUserAccount(this.userAccountData)
           .subscribe(res => {
-            if (res.status === 200) {
-              // redirect to login
-             this.router.navigate(['/login']);
-            }
+            this.router.navigate(['/login']);
           });
-       
-      this.router.navigate(['/login']);
       })
     }
     else
@@ -235,10 +230,8 @@ export class SignupComponent implements OnInit {
         this.userAccountData['tenantId'] = tenantId;
         this.signupService.createUserAccount(this.userAccountData)
           .subscribe(res => {
-            if (res.status === 200) {
-              // redirect to login
+            console.log(res.status)
               this.router.navigate(['/login']);
-            }
           });
         // 
       });
