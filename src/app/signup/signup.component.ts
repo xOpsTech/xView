@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
   servicestable = [];
   services: SelectItem[];
   banners: SelectItem[];
-  existingtenant :String = '';
+  existingtenant: String = '';
   activeIndex: number = 0;
 
   userAccountData: {};
@@ -136,7 +136,7 @@ export class SignupComponent implements OnInit {
     console.log(this.tenantData.services);
     if (index > -1) {
       this.tenantData.services.splice(index, 1);
-      console.log("removed" +this.tenantData.services);
+      console.log("removed" + this.tenantData.services);
     }
   }
   OnStage1Completion(CreateAccountForm) {
@@ -187,63 +187,62 @@ export class SignupComponent implements OnInit {
       service.service_started = false;
       console.log(JSON.stringify(service));
       this.tenantData.services.push(service);
-  
+
 
     } else {
       this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
-   
+
     }
 
     console.log(this.tenantData.services);
   }
 
   OnStage3Completion(configureServicesForm) {
-    {    
-    
-    delete this.userAccountData['cnfmpassword'];
-    var payload = {
-      "tenant": this.tenantData,
-      "user": this.userAccountData
-    };
-    console.log(this.existingtenant)
-    // console.log(this.userAccountData);
-  //   if(typeof this.existingtenant !=='undefined')
-  //   {
-  //      delete this.tenantData['services'];
-      
-  //     this.signupService.updateTenant(this.existingtenant,this.tenantData)
-  //     .subscribe(response => {
-  //       this.userAccountData['tenantId'] = this.existingtenant;
-  //       this.signupService.createUserAccount(this.userAccountData)
-  //         .subscribe(res => {
-  //           if (res.status === 200) {
-  //             // redirect to login
-  //            window.location.href = "http://xview.xops.it/login";
-  //           }
-  //         });
-       
-  //       window.location.href = "http://xview.xops.it/login";
-  //     })
-  //   }
-  //  else {
+    {
 
-    this.signupService.saveTenant(this.tenantData)
-      .subscribe(response => {
-        var tenantId = response.result.tenantId;
-        console.log(tenantId);
-        this.userAccountData['tenantId'] = tenantId;
-        this.signupService.createUserAccount(this.userAccountData)
-          .subscribe(res => {
-            if (res.status === 200) {
-              // redirect to login
-              window.location.href = "http://xview.xops.it/login";
-            }
-          });
-       
-      })
+      delete this.userAccountData['cnfmpassword'];
+      var payload = {
+        "tenant": this.tenantData,
+        "user": this.userAccountData
+      };
+      console.log(this.existingtenant)
+      // console.log(this.userAccountData);
+      if (typeof this.existingtenant !== 'undefined') {
+        delete this.tenantData['services'];
+
+        this.signupService.updateTenant(this.existingtenant, this.tenantData)
+          .subscribe(response => {
+            this.userAccountData['tenantId'] = this.existingtenant;
+            this.signupService.createUserAccount(this.userAccountData)
+              .subscribe(res => {
+                if (res.status === 200) {
+                  // redirect to login
+                  window.location.href = "http://xview.xops.it/login";
+                }
+              });
+
+            window.location.href = "http://xview.xops.it/login";
+          })
+      }
+      else {
+        console.log(this.tenantData);
+        this.signupService.saveTenant(this.tenantData)
+          .subscribe(response => {
+            var tenantId = response.result.tenantId;
+            console.log(tenantId);
+            this.userAccountData['tenantId'] = tenantId;
+            this.signupService.createUserAccount(this.userAccountData)
+              .subscribe(res => {
+                if (res.status === 200) {
+                  // redirect to login
+                  window.location.href = "http://xview.xops.it/login";
+                }
+              });
+
+          })
+      }
+    }
   }
-// }
-}
 
 
 
