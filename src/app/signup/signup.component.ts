@@ -5,6 +5,7 @@ import { SignupService } from '../services/signup.service';
 import { EmailValidator } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { PasswordValidation } from '../signup/passwordvalidation';
+import { Router}  from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -52,7 +53,7 @@ export class SignupComponent implements OnInit {
     services: []
   };
 
-  constructor(private signupService: SignupService, private fb1: FormBuilder, private fb2: FormBuilder, private fb3: FormBuilder) {
+  constructor(private signupService: SignupService, private fb1: FormBuilder, private fb2: FormBuilder, private fb3: FormBuilder ,private router: Router) {
     this.createAccountForm = fb1.group({
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('[a-z0-9.@]*')])],
@@ -217,11 +218,11 @@ export class SignupComponent implements OnInit {
           .subscribe(res => {
             if (res.status === 200) {
               // redirect to login
-             window.location.href = "http://xview.xops.it/login";
+             this.router.navigate(['/login']);
             }
           });
        
-       window.location.href = "http://xview.xops.it/login";
+      this.router.navigate(['/login']);
       })
     }
     else
@@ -235,11 +236,11 @@ export class SignupComponent implements OnInit {
           .subscribe(res => {
             if (res.status === 200) {
               // redirect to login
-              window.location.href = "http://xview.xops.it/login";
+              this.router.navigate(['/login']);
             }
           });
         // 
-        window.location.href = "http://xview.xops.it/login";
+        this.router.navigate(['/login']);
       })
   }
 }
