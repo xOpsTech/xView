@@ -207,7 +207,7 @@ export class SignupComponent implements OnInit {
     };
    
     console.log(this.userAccountData);
-    if(this.existingtenant != '')
+    if(typeof this.existingtenant !== 'undefined')
     {
        delete this.tenantData['services'];
        console.log(this.tenantData);
@@ -226,11 +226,12 @@ export class SignupComponent implements OnInit {
       })
     }
     else
-    {    var tenantId = '';
+    {   
 
     this.signupService.saveTenant(this.tenantData)
       .subscribe(response => {
-        tenantId = response.result.tenantId;
+        var tenantId = response.result.tenantId;
+        console.log(tenantId);
         this.userAccountData['tenantId'] = tenantId;
         this.signupService.createUserAccount(this.userAccountData)
           .subscribe(res => {
@@ -240,7 +241,7 @@ export class SignupComponent implements OnInit {
             }
           });
         // 
-      })
+      });
   }
 }
 
