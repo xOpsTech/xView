@@ -2,6 +2,7 @@ import { StepsModule, MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
 import { SignupService } from '../services/signup.service';
+import { TenantService } from '../services/tenant.service';
 import { EmailValidator } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { PasswordValidation } from '../signup/passwordvalidation';
@@ -11,7 +12,7 @@ import { Router}  from '@angular/router';
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  providers: [SignupService]
+  providers: [SignupService,TenantService]
 
 
 })
@@ -37,7 +38,7 @@ export class SignupComponent implements OnInit {
   email: String = '';
   password: String = '';
   cnfmpassword: String = '';
-
+  public tenantId: String = '';
   servicestable = [];
   services: SelectItem[];
   banners: SelectItem[];
@@ -53,7 +54,7 @@ export class SignupComponent implements OnInit {
     services: []
   };
 
-  constructor(private signupService: SignupService, private fb1: FormBuilder, private fb2: FormBuilder, private fb3: FormBuilder ,private router: Router) {
+  constructor(private tenantService: TenantService,private signupService: SignupService, private fb1: FormBuilder, private fb2: FormBuilder, private fb3: FormBuilder ,private router: Router) {
     this.createAccountForm = fb1.group({
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('[a-z0-9.@]*')])],
@@ -66,7 +67,7 @@ export class SignupComponent implements OnInit {
 
     this.organizationInfoForm = fb2.group({
       existingtenant: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
-      tenant: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
+      tenant: ['', Validators.compose([Validators.required, Validators.maxLength(500)])],
     }, );
 
     this.configureServicesForm = fb3.group({
@@ -210,15 +211,21 @@ export class SignupComponent implements OnInit {
     if(typeof this.existingtenant !== 'undefined')
     {
        delete this.tenantData['services'];
-       console.log(this.tenantData);
-      this.signupService.updateTenant(this.existingtenant,this.tenantData)
-      .subscribe(response => {
-        this.userAccountData['tenantId'] = this.existingtenant;
+
+       this.tenantService.getTenantIDbytenant(this.existingtenant)
+       .subscribe(res1 => {
+        this.tenantId = res1.tenantId;
+        console.log("tenatid + "+ this.tenantId)
+        this.userAccountData['tenantId'] = this.tenantId;
+         
+      // this.signupService.updateTenant(this.tenantId,this.tenantData)
+      // .subscribe(response => {
         this.signupService.createUserAccount(this.userAccountData)
           .subscribe(res => {
+            console.log(res);
             this.router.navigate(['/login']);
           });
-      })
+        });
     }
     else
     {   
@@ -230,10 +237,10 @@ export class SignupComponent implements OnInit {
         this.userAccountData['tenantId'] = tenantId;
         this.signupService.createUserAccount(this.userAccountData)
           .subscribe(res => {
-            console.log(res.status)
+            console.log("Response" +res);
               this.router.navigate(['/login']);
           });
-        // 
+        this.router.navigate(['/login']);
       });
   }
 }
