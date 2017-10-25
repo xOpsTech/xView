@@ -237,7 +237,7 @@ export class SignupComponent implements OnInit {
           .subscribe(res => {
             if (res.status === 200) {
               // redirect to login
-              this.router.navigate(['/login']);
+              this.router.navigate(['/#/login']);
             }
           });
         // 

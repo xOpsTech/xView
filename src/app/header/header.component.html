@@ -9,7 +9,7 @@
   </ul>
   <a class="navbar-brand" href="/"><img src="/assets/img/logo.png" alt="xOps" width="80" /></a>
 
-  <ul class="nav navbar-nav ml-auto ">
+<!--   <ul class="nav navbar-nav ml-auto ">
     <li class="nav-item">
       <a tab="" class="nav-link" data-toggle="tab" [routerLink]="['/settings']" role="tab"><i class="fa fa-cog user-settings"></i></a>
     </li>
@@ -17,6 +17,17 @@
       <img class="img-circle" bind-src="user.picture" /> <span>{{ user.name }}</span>
     </li>
 
-  </ul>
+  </ul> -->
+
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" (click)="toggledropDown()" >
+   {{ user.name }}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="selected">
+    <a class="dropdown-item" [routerLink]="['/settings']">settings</a>
+    <!-- <a class="dropdown-item" href="#">Another action</a> -->
+    <a class="dropdown-item" href="http://xview.xops.it/#/login" (click)="logout()" >logout</a>
+  </div>
+</div>
 
 </header>
