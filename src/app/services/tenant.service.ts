@@ -10,7 +10,6 @@ import { OnInit } from '@angular/core';
 export class TenantService {
 
   emailv:string;
-
   headers: Headers;
   options: RequestOptions;
   
@@ -33,9 +32,17 @@ export class TenantService {
   }
 
  
-  getUserBanner() {
+  getTenantDetails() {
     this.emailv = this.userService.getEmail();
     return this.http.get(this.getTenantUrl)
       .map((res: Response) => res.json())
   }
+
+  getTenantIDbytenant(tenant)
+  {
+    return this.http.get(config.XOPSAPI + '/gettenant/'+tenant)
+    .map((res: Response) => res.json())
+  }
+
+
 }
