@@ -244,6 +244,9 @@ export class SignupComponent implements OnInit {
       });
   }
 }
+loginredirect():void{
+this.router.navigate(['/login']);
+}
 
 
 
