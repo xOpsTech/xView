@@ -42,11 +42,11 @@ import { Select2Module } from 'ng2-select2';
 import { SlimScrollModule } from 'ng2-slimscroll';
 import { StepsModule } from 'primeng/primeng';
 import { TruncatePipe } from './common/pipe.truncate';
+import { LoginComponent } from './login/login.component';
 import { BusinessComponent } from './business/business.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
 import { CircleProgressComponent } from '../shared/circle-progress.component';
 import { MatchHeightDirective } from '../shared/match-height.directive';
-import { LoginComponent } from './login/login.component';
 import { XviewTemplateComponent } from './xview-template/xview-template.component';
 import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
 import { SignupComponent } from './signup/signup.component';
@@ -82,11 +82,11 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
     RssfeedComponent,
     SettingsComponent,
     TruncatePipe,
+    LoginComponent,
     BusinessComponent,
     BreadcrumbsComponent,
     CircleProgressComponent,
-    MatchHeightDirective,
-    LoginComponent,
+    MatchHeightDirective,   
     XviewTemplateComponent,
     AlertIndividualComponent,
     SignupComponent,
@@ -117,10 +117,12 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
       {
         path: 'signup',
         component: SignupComponent,
+
       },
       {
         path:'login',
         component:LoginComponent,
+
       },
       {
         path: '',
@@ -185,7 +187,7 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
             component: StatusComponent
           },
           {
-            path: '', redirectTo: 'business', pathMatch: 'full'
+            path: '**', redirectTo: '', pathMatch: 'full'
           }
 
         ]

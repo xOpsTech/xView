@@ -226,6 +226,7 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['/login']);
           });
         });
+
     }
     else
     {   
@@ -239,10 +240,14 @@ export class SignupComponent implements OnInit {
           .subscribe(res => {
             console.log("Response" +res);
               this.router.navigate(['/login']);
+
           });
         this.router.navigate(['/login']);
       });
   }
+}
+loginredirect():void{
+this.router.navigate(['/login']);
 }
 
 
