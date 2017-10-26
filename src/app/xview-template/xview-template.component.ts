@@ -15,7 +15,7 @@ export class XviewTemplateComponent implements OnInit {
     picture: "",
     tenantId: ""
   };
-  photo = '/assets/partner/xops.png';
+  photo = '/assets/partner/xops.jpg';
   constructor(private userService: UserService, private tenantService: TenantService) {
 
   }
@@ -37,11 +37,11 @@ export class XviewTemplateComponent implements OnInit {
         if(typeof res2.result.tenant.banner!='undefined')
         {
             // this.photo = res2.result.tenant.banner;
-            this.photo = '/assets/partner/xops.png'
+            this.photo = '/assets/partner/xops.jpg'
         }
        else
        {
-          this.photo = '/assets/partner/xops.png'
+          this.photo = '/assets/partner/xops.jpg'
        }
 
       });
