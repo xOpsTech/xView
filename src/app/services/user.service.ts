@@ -6,7 +6,7 @@ import { config } from '../config/config';
 
 @Injectable()
 export class UserService {
-  private getUserUrl = config.XOPSAPI + "/user";
+  private getUserUrl = config.devUrl+"/user";
 
   user = null;
   email_id: string;
@@ -41,7 +41,8 @@ export class UserService {
       return this.user;
     } else {
       this.getUserData().subscribe(res => {
-        this.user = res;
+        console.log(res);
+        this.user = res.message;
         return this.user;
       });
     }
