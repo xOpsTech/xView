@@ -55,6 +55,7 @@ import { StatusComponent } from './status/status.component';
 import { ManageComponent } from './manage/manage.component';
 import { ListboxModule } from 'primeng/primeng';
 import { LogsearchComponent } from './logsearch/logsearch.component';
+import { CustomComponent } from './custom/custom.component';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
     StatusComponent,
     StatusComponent,
     ManageComponent,
-    LogsearchComponent
+    LogsearchComponent,
+    CustomComponent
   ],
 
 
@@ -138,10 +140,10 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
             path: 'alert',
             component: AlertsComponent
           },
-          {
-            path: 'custom/dashboard',
-            component: DashboardComponent
-          },
+          // {
+          //   path: 'custom/dashboard',
+          //   component: DashboardComponent
+          // },
           {
             path: 'map',
             component: MapComponent
@@ -162,10 +164,10 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
             path: 'manage',
             component: ManageComponent
           },
-          {
-            path: 'custom/cc',
-            component: WidgetHomeComponent
-          },
+          // {
+          //   path: 'custom/cc',
+          //   component: WidgetHomeComponent
+          // },
           {
             path: 'business',
             component: BusinessComponent,
@@ -186,6 +188,10 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
           {
             path: 'status',
             component: StatusComponent
+          },
+          {
+            path: 'custom',
+            component: CustomComponent
           },
           {
             path: '**', redirectTo: '', pathMatch: 'full'
