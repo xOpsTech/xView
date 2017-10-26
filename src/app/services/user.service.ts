@@ -42,7 +42,7 @@ export class UserService {
     } else {
       this.getUserData().subscribe(res => {
         console.log(res);
-        this.user = res.message;
+        this.user = res.message[0];
         return this.user;
       });
     }

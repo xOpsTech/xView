@@ -6,5 +6,6 @@ let host = dev;
 
 export const config = {
     XOPSHOST: host,
-    XOPSAPI: `${host}/api`
+    XOPSAPI: `${host}/api`,
+    devUrl:prod
 };

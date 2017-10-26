@@ -24,7 +24,7 @@ export class XviewTemplateComponent implements OnInit {
     this.userService.getUserData().subscribe(res => {
 
       console.log(res.id);
-      this.user = res;
+      this.user = res.message[0];
       this.userService.setUserName(this.user.name);
       var tenant_id = this.user.tenantId;
       this.userService.setTenant(tenant_id);
