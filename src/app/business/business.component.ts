@@ -115,8 +115,8 @@ export class BusinessComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUserData().subscribe(res => {
-      console.log(res.id);
-      this.user = res;
+      console.log(res);
+      this.user = res.message;
       this.userService.setUserName(this.user.name);
       this.tenant_id = this.user.tenantId;
       console.log(this.tenant_id);
