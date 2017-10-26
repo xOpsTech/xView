@@ -1,136 +1,137 @@
 <div class="wrapper">
   <div class="container">
     <div class="row">
-      <form #configureServicesForm="ngForm" (ngSubmit)="OnStage2Completion(configureServicesForm) ">
+      <div id="login" class="signup2">
+      <form  [formGroup]="configureServicesForm" (ngSubmit)="OnStage3Completion(configureServicesForm.value)">
         <div class="ui-g">
-          <div class="ui-g-6"> Service :</div>
-          <div class="ui-g-6">
-            <p-dropdown [options]="services" (onChange)="onchange($event)" [autoWidth]="true"></p-dropdown>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="row">
-      <form #configureServicesForm="ngForm" (ngSubmit)="OnStage2Completion(configureServicesForm) ">
-        <div class="ui-g">
-
-          <div *ngIf="twitter">
-
-            <div class="ui-g-4"> Consumer key :</div>
-            <div class="ui-g-8"><input pInputText type="text" class="form-control" id="consumer_key" name="consumer_key" [(ngModel)]="consumerkey"></div>
-
-            <div class="ui-g-4">Active :</div>
-            <div class="ui-g-8">
-              <p-checkbox name="a_active" [(ngModel)]="active" binary="true"></p-checkbox>
-            </div>
-
-            <div class="ui-g-4">Service started :</div>
-            <div class="ui-g-8">
-              <p-checkbox name="service_started" [(ngModel)]="service_started" binary="true"></p-checkbox>
-            </div>
-
+          <div class="ui-g-12">
             <div class="ui-g-12">
-              <button pButton type="button" label="Update"></button>
+              <h1>Manage Data Sources</h1>
             </div>
-          </div>
+            <div class="ui-g-6">
+              <p-dropdown [options]="services" formControlName="servicename" id="servicename" [formGroup]="configureServicesForm" [autoWidth]="true"
+                [(ngModel)]="selectedService"></p-dropdown>
+            </div>
+   <!-- Added services -->
+   <div class="ui-g-8 ">
+    <table style="width:100% ">
+      <tr *ngFor="let alert of tenantData.services; let i=index ">
+        <th>{{alert.service}}</th>
+        <th><button pButton type="button" (click)="removeConfiguration(i) " icon="fa fa-close fa-fw "></button></th>
+      </tr>
+    </table>
+  </div>
+  
+            <!-- Select  -->
+            <div *ngIf="selectedService=='Select'">
 
-          <div *ngIf="service_now">
-            <div class="ui-g">
-              <div class="ui-g-12 ui-md-6">
+            </div>
+            <!-- Twitter -->
+            <form #twitterConfigForm="ngForm" >
+              <div *ngIf="selectedService=='twitter'">
+                <div class="ui-g-12 ">
+                      <button pButton type="button" class="round-button" label="+" (click)=addservice(twitterConfigForm.value)></button>
+                    </div>
                 <div class="ui-g-4">
-                  Url:
+                  Consumer key:
                 </div>
                 <div class="ui-g-8">
-                  <input pInputText type="text" class="form-control" id="urlv" name="urlv" [(ngModel)]="url">
+                  <input type="text" pInputText  [(ngModel)]="consumer_key" name = "consumer_key" class="form-control" />
                 </div>
                 <div class="ui-g-4">
-                  Api Key:
+                  Consumer secret:
                 </div>
                 <div class="ui-g-8">
-                  <input pInputText type="text" class="form-control" id="api_key" name="api_key" [(ngModel)]="apiKey">
+                  <input type="text" pInputText [(ngModel)]="consumer_secret"   name = "consumer_secret" class="form-control" />
                 </div>
                 <div class="ui-g-4">
-                  Uername :
+                  Access token:
                 </div>
                 <div class="ui-g-8">
-                  <input pInputText type="text" class="form-control" id="user_name" name="user_name" [(ngModel)]="username">
+                  <input type="text" pInputText  [(ngModel)]="access_token"  name = "access_token"  class="form-control" />
                 </div>
                 <div class="ui-g-4">
-                  Password :
+                  Access token secret:
                 </div>
                 <div class="ui-g-8">
-                  <input pInputText type="password" class="form-control" id="u_password" name="u_password" [(ngModel)]="password">
+                  <input type="text" pInputText  [(ngModel)]="access_token_secret"  name = "access_token_secret"   class="form-control" />
                 </div>
-                <div class="ui-g-4">
-                  Active :
-                </div>
-                <div class="ui-g-8">
-                  <p-checkbox name="a_active" [(ngModel)]="active" binary="true"></p-checkbox>
+              
+              </div>
 
+            </form>
+            <!-- ServiceNow -->
+            <form #serviceNowConfigForm="ngForm">
+              <div *ngIf="selectedService=='servicenow' ">
+                  <div class="ui-g-12 ">
+                      <button pButton type="button " class="round-button" label="+"  (click)=addservice(serviceNowConfigForm.value)></button>
+                    </div>
+                <div class="ui-g-4 ">
+                  URL:
                 </div>
-                <div class="ui-g-4">
-                  Service started :
+                <div class="ui-g-8 ">
+                  <input type="text " pInputText  [(ngModel)]="url"  name= "url"  class="form-control" />
                 </div>
-                <div class="ui-g-8">
-                  <p-checkbox name="service_started" [(ngModel)]="service_started" binary="true"></p-checkbox>
+                <div class="ui-g-4 ">
+                  API key:
                 </div>
-                <div class="ui-g-12">
-                  <button pButton type="button" label="Update"></button>
+                <div class="ui-g-8 ">
+                  <input type="text " pInputText  [(ngModel)]="apiKey" name= "apiKey" class="form-control" />
+                </div>
+                <div class="ui-g-4 ">
+                  Username:
+                </div>
+                <div class="ui-g-8 ">
+                  <input type="text " pInputText  [(ngModel)]="username" name= "username" class="form-control" />
+                </div>
+                <div class="ui-g-4 ">
+                  Password:
+                </div>
+                <div class="ui-g-8 ">
+                  <input type="password " pInputText  [(ngModel)]="password" name = "password" class="form-control" />
+                </div>
+              
+              </div>
 
+            </form>
+            <!-- New Relic -->
+            <form #newRelicConfigForm="ngForm">
+              <div *ngIf="selectedService=='newrelic' ">
+                <div class="ui-g-12 ">
+                      <button pButton type="button " class="round-button" label="+" (click)=addservice(newRelicConfigForm.value)></button>
+                    </div>
+                <div class="ui-g-4 ">
+                  API key:
+                </div>
+                <div class="ui-g-8 ">
+                  <input type="text " pInputText  [(ngModel)]="api_key" name = "api_key" class="form-control" />
+                </div>
+                <div class="ui-g-4 ">
+                  Query key
+                </div>
+                <div class="ui-g-8 ">
+                  <input type="text " pInputText  [(ngModel)]="query_key" name = "query_key" class="form-control" />
                 </div>
               </div>
+            </form>
+         
+            <div class="ui-g-6 ">
+              <button pButton type="submit" class="form-control" label="Submit "></button>
             </div>
-
+          </div>
+          <div class="ui-g-4 ">
           </div>
 
-          <div *ngIf="newrelic">
-            <div class="ui-g">
-              <div class="ui-g-12 ui-md-6">
-                <div class="ui-g-4">
-                  Url:
-                </div>
-                <div class="ui-g-8">
-                  <input pInputText type="text" class="form-control" id="urlv" name="urlv" [(ngModel)]="url">
-                </div>
-                <div class="ui-g-4">
-                  Api Key:
-                </div>
-                <div class="ui-g-8">
-                  <input pInputText type="text" class="form-control" id="api_key" name="api_key" [(ngModel)]="apiKey">
-                </div>
-                <div class="ui-g-4">
-                  Active :
-                </div>
-                <div class="ui-g-8">
-                  <p-checkbox name="a_active" [(ngModel)]="active" binary="true"></p-checkbox>
-
-                </div>
-                <div class="ui-g-4">
-                  Service started :
-                </div>
-                <div class="ui-g-8">
-                  <p-checkbox name="service_started" [(ngModel)]="service_started" binary="true"></p-checkbox>
-                </div>
-                <div class="ui-g-4">
-                  <button pButton type="button" label="Update"></button>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <p-fileUpload name="demo[]" (onUpload)="onUpload($event)" multiple="multiple" accept="image/*" maxFileSize="1000000">
-            <ng-template pTemplate type="content">
-              <ul *ngIf="uploadedFiles.length">
-                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-              </ul>
-            </ng-template>
-          </p-fileUpload>
         </div>
       </form>
+          <!-- <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+
+          <button type="button" class="btn btn-success" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                Add Banner
+          </button>
+        </div>
+      </form> -->
     </div>
-
-
   </div>
+</div>
 </div>

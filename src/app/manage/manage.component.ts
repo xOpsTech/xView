@@ -1,142 +1,174 @@
+import { StepsModule, MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
+import { EmailValidator } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
-import {CheckboxModule} from 'primeng/primeng';
+import { PasswordValidation } from '../signup/passwordvalidation';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { SignupService } from '../services/signup.service';
+import { UserService } from '../services/user.service';
+import { TenantService } from '../services/tenant.service';
 
+//define the constant url we would be uploading to.
+const URL = 'http://localhost:4200/api/upload';
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
-  styleUrls: ['./manage.component.scss']
+  styleUrls: ['./manage.component.scss'],
+  providers: [SignupService]
 })
 export class ManageComponent implements OnInit {
-  twitter = false;
-  service_now = false;
-  newrelic = false;
 
-  service: string;
-  apiKey: any[];
-  consumerkey: any[];
-  active: boolean;
-  servicestarted: boolean;
-  password: any[];
-  url: any[];
-  username: any[];
+  configureServicesForm: FormGroup;
+  twitterConfigForm: FormGroup;
+  serviceNowConfigForm: FormGroup;
+  newRelicConfigForm: FormGroup;
+  selectedService: string = 'Select';
+
+  consumer_key = "";
+  consumer_secret = "";
+  access_token = "";
+  access_token_secret = "";
+
+  apiKey = "";
+  url = "";
+  username = "";
+  password = "";
+
+  api_key = "";
+  query_key = "";
+
+  servicestable = [];
+  services: SelectItem[];
+  banners: SelectItem[];
+  existingtenant: String = '';
+  activeIndex: number = 0;
 
   tenantData = {
-    "id": "tenant_c",
-    "tenant": "holmes",
-    "address": "221B Baker Street",
-    "phone": "94776666868",
-    "services": [
-      {
-        "serviceId": "s3",
-        "service": "twitter",
-        "consumer_key": "QVhBEkpOIlyogRyl7IxDPEodC",
-        "consumer_secret": "MHYnqIMe26QodxSaqV7haJSHfPz4WjtlSqfflOTRxuD0Exctdl",
-        "access_token": "905887188167966720-JBNFzwipYqgF6Zkc8MKMn4yZDdccouA",
-        "active": true,
-        "service_started": false
-      },
-      {
-        "serviceId": "s1",
-        "service": "service_now",
-        "url": "https://dev15347.service-now.com/api/now/table/incident",
-        "apiKey": "key1",
-        "username": "admin",
-        "password": "RootAdmin1!",
-        "active": true,
-        "service_started": false
-      },
-      {
-        "serviceId": "s2",
-        "service": "newrelic",
-        "url": "https://synthetics.newrelic.com/synthetics/api/v3/monitors",
-        "apiKey": "key1",
-        "active": true,
-        "service_started": false
-      }
-    ]
+    address: "",
+    phone: "",
+    banner: "",
+    tenant: "",
+    services: []
+  };
+
+  constructor(private tenantService: TenantService, private signupService: SignupService, private userService: UserService, private fb3: FormBuilder) {
+
+    this.configureServicesForm = fb3.group({
+      servicename: ['', Validators.required],
+    }, );
+
   }
-  constructor() {
-  }
-
-
-    
-    uploadedFiles: any[] = [];
-
-    onUpload(event) {
-        for(let file of event.files) {
-            this.uploadedFiles.push(file);
-        }
-    
-    
-    }
-  services: SelectItem[] = [];
 
   ngOnInit() {
 
+    this.userService.getUserData().subscribe(res => {
+
+      this.userService.setUserName(res.name);
+      var tenant_id = res.tenantId;
+      this.userService.setTenant(tenant_id);
+      this.userService.setEmail(res.id);
+      this.tenantService.updateURLs();
+
+      this.tenantService.getTenantDetails().subscribe(res2 => {
+
+        for (var service of res2["result"].tenant["services"]) {
+          this.tenantData.services.push(service);
+
+          if (service.service == "twitter") {
+            this.consumer_key = service.consumer_key;
+            this.consumer_secret = service.consumer_secret;
+            this.access_token = service.access_token;
+            this.access_token_secret = service.access_token_secret;
+          }
+
+          if (service.service == "servicenow") {
+            this.apiKey = service.apiKey;
+            this.url = service.url;
+            this.username = service.username;
+            this.password = service.password;
+          }
+
+          if (service.service == "newrelic") {
+            this.api_key = service.api_key;
+            this.query_key = service.query_key;
+          }
+        }
+      });
+    });
+
     this.services = [];
-    this.services.push({ label: '--Select Services--', value: '' });
+    this.services.push({ label: 'Select Services--', value: 'Select' });
+    this.services.push({ label: 'Twitter', value: 'twitter' });
+    this.services.push({ label: 'ServiceNow', value: 'servicenow' });
+    this.services.push({ label: 'New relic', value: 'newrelic' });
 
-    for (var i = 0; i < (this.tenantData['services'].length); i++) {
-      if (this.tenantData['services'][i]['service'] == "twitter") {
-        this.services.push({ label: "Twitter", value: "Twitter" });
-      }
-      if (this.tenantData['services'][i]['service'] == "service_now") {
-        this.services.push({ label: "ServiceNow", value: "ServiceNow" });
-      }
-      if (this.tenantData['services'][i]['service'] == "newrelic") {
-        this.services.push({ label: "NewRelic", value: "NewRelic" });
-      }
-    }
-
-    for (var i = 0; i < (this.tenantData['services'].length); i++) {
-
-      if (this.tenantData['services'][i]['service'] == "twitter") {
-        this.service = this.tenantData['services'][i]['service'];
-        this.consumerkey = this.tenantData['services'][i]['consumer_key'];
-        this.active = this.tenantData['services'][i]['active'];
-        this.servicestarted = this.tenantData['services'][i]['service_started'];
-      }
-
-      if (this.tenantData['services'][i]['service'] == "service_now") {
-        this.service = this.tenantData['services'][i]['service'];
-        this.url = this.tenantData['services'][i]['url'];
-        this.apiKey = this.tenantData['services'][i]['apiKey'];
-        this.username = this.tenantData['services'][i]['username'];
-        this.password = this.tenantData['services'][i]['password'];
-        this.active = this.tenantData['services'][i]['active'];
-        this.servicestarted = this.tenantData['services'][i]['service_started'];
-
-      }
-      if (this.tenantData['services'][i]['service'] == "newrelic") {
-        this.url = this.tenantData['services'][i]['url'];
-        this.apiKey = this.tenantData['services'][i]['apiKey'];
-        this.active = this.tenantData['services'][i]['active'];
-        this.servicestarted = this.tenantData['services'][i]['service_started'];
-
-      }
-
+  }
+  removeConfiguration(index) {
+    console.log(this.tenantData.services);
+    if (index > -1) {
+      this.tenantData.services.splice(index, 1);
+      console.log("removed" + this.tenantData.services);
     }
   }
 
-  onchange(event) {
-    if (event.value == "Twitter") {
-      this.twitter = true;
-      this.newrelic = false;
-      this.service_now = false;
+  addservice(service) {
+    console.log(service)
+    var servicesData = {
+      "service": "",
+      "url": "",
+      "username": "",
+      "password": ""
+    };
+
+    if (this.selectedService == 'twitter') {
+      service.service = 'twitter';
+      service.serviceId = 's3';
+      service.active = true;
+      service.service_started = false;
+      this.tenantData.services.push(service);
+
+    } else if (this.selectedService == 'servicenow') {
+      service.service = 'servicenow';
+      service.serviceId = 's1';
+      service.active = true;
+      service.service_started = false;
+      this.tenantData.services.push(service);
+
+    } else if (this.selectedService == 'newrelic') {
+      service.service = 'newrelic';
+      service.serviceId = 's2';
+      service.active = true;
+      service.service_started = false;
+      console.log(JSON.stringify(service));
+      this.tenantData.services.push(service);
+
+
+    } else {
+      this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
 
     }
-    if (event.value == "ServiceNow") {
-      this.twitter = false;
-      this.newrelic = false;
-      this.service_now = true;
-    }
-    if (event.value == "NewRelic") {
-      this.twitter = false;
-      this.newrelic = true;
-      this.service_now = false;
-    }
+
+    console.log(this.tenantData.services);
+  }
+
+  OnStage3Completion(configureServicesForm) {
+
+    this.userService.getUserData().subscribe(res => {
+      this.userService.setUserName(res.name);
+      var tenant_id = res.tenantId;
+      console.log(tenant_id);
+      console.log(this.tenantData);
+      this.signupService.updateTenant(tenant_id, this.tenantData)
+        .subscribe(res2 => {
+
+          if (res2.status === 200) {
+            // redirect to login
+            window.location.href = "http://xview.xops.it/login";
+          }
+        });
+    });
+
   }
 
 }
