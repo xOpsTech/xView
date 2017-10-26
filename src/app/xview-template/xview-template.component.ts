@@ -15,7 +15,7 @@ export class XviewTemplateComponent implements OnInit {
     picture: "",
     tenantId: ""
   };
-  photo = '/assets/partner/scholastic-banner.png';
+  photo = '/assets/partner/xops.png';
   constructor(private userService: UserService, private tenantService: TenantService) {
 
   }
@@ -31,16 +31,17 @@ export class XviewTemplateComponent implements OnInit {
       this.userService.setEmail(res.id);
       this.tenantService.updateURLs();
 
-      this.tenantService.getUserBanner().subscribe(res2 => {
+      this.tenantService.getTenantDetails().subscribe(res2 => {
         console.log(JSON.stringify(res2))
-        console.log(res2.result.tenant.banner)
-        if(res2.result.tenant.banner!='undefined')
+     
+        if(typeof res2.result.tenant.banner!='undefined')
         {
-            this.photo = res2.result.tenant.banner;
+            // this.photo = res2.result.tenant.banner;
+            this.photo = '/assets/partner/xops.png'
         }
        else
        {
-          this.photo = '/assets/partner/scholastic-banner.png'
+          this.photo = '/assets/partner/xops.png'
        }
 
       });
