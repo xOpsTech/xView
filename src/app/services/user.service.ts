@@ -13,13 +13,16 @@ export class UserService {
   emailv = null;
   username: string;
   tenantId: string;
+ 
 
   constructor(private http: Http) {
 
   }
 
   getUserData() {
-    return this.http.get(this.getUserUrl)
+    var token = localStorage.getItem('token');
+    let headers = new Headers({token});
+    return this.http.get(this.getUserUrl ,{ headers })
       .map((res: Response) => res.json())
   }
 
