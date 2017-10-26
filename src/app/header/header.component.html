@@ -24,9 +24,9 @@
    {{ user.name }}
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="selected">
-    <a class="dropdown-item" [routerLink]="['/settings']">settings</a>
+    <a class="dropdown-item" [routerLink]="['/settings']" (click)="removedropDown()">settings</a>
     <!-- <a class="dropdown-item" href="#">Another action</a> -->
-    <a class="dropdown-item" href="http://xview.xops.it/#/login" (click)="logout()" >logout</a>
+    <a class="dropdown-item"  (click)="logout()" >logout</a>
   </div>
 </div>
 

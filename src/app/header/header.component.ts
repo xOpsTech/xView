@@ -22,7 +22,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.userService.getUserData().subscribe(res => {       
+      this.userService.getUserData().subscribe(res => {
+       
         this.user = res;
         this.userService.setUserName(this.user.name);
         this.userService.setTenant(this.user.tenantId);
@@ -37,7 +38,7 @@ export class HeaderComponent implements OnInit {
 
     logout():void{     
       window.localStorage.removeItem("token");
-      // this.router.navigate(['/login'],{relativeTo: this.route});      
+      this.router.navigate(['/login'],{relativeTo: this.route});      
     }
 
 }

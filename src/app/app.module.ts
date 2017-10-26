@@ -127,6 +127,7 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
       {
         path: '',
         component: XviewTemplateComponent,
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'home',
