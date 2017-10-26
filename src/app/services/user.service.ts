@@ -69,10 +69,19 @@ export class UserService {
   }
 
   getEmail() {
-    return this.email_id;
+    this.getUserData().subscribe(res => {
+      console.log(res);
+      this.user = res.message[0];
+      return this.user.id;
+    });
   }
 
   getTenantId() {
-    return this.tenantId;
+    this.getUserData().subscribe(res => {
+      console.log(res);
+      this.user = res.message[0];
+      return this.user.tenantId;
+    });
+ 
   }
 }

@@ -18,7 +18,8 @@ export class AlertService {
   headers: Headers;
   options: RequestOptions;
   
-  private alerts_url; 
+  private alerts_url;  
+  private new_relic_map_data; 
   private alerts_url_old = config.XOPSAPI + '/alerts';; 
   private alerts_stats_url = config.XOPSAPI + '/alerts/stats';
   private my_alerts_url = config.XOPSAPI + '/myalerts';
@@ -34,19 +35,23 @@ export class AlertService {
   }
 
   updateURLs() {
-    var tenantID = this.userService.getTenantId().trim();
+    var tenantID = this.userService.getTenantId();
     this.alerts_url = config.XOPSAPI + '/alerts/' + tenantID;
-    // if (this.userService.getUsername().trim() == 'John Edwards') {
-    //   this.alerts_url = config.XOPSAPI + '/alerts/hkpxasc8b';
-    // } else {
-    //   this.alerts_url = config.XOPSAPI + '/alerts/bjxa6sc8w';
-    // }
+    this.new_relic_map_data = config.XOPSAPI + '/newrelic/map/' + tenantID;
   }
 
   getAlerts() {
     return this.http.get(this.alerts_url)
       .map((res: Response) => res.json());
   }
+
+  getNewRelicMapData()
+  {
+    return this.http.get(this.new_relic_map_data)
+    .map((res: Response) => res.json());
+  }
+
+
 
   getAlertTrends(hours): Observable<any[]> {
     return this.http.get(this.alerts_url_old + `/trend?hours=${hours}`)

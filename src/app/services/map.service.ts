@@ -32,14 +32,14 @@ export class MapService {
   }
 
   updateURLs() {
-    var tenantID = this.userService.getTenantId().trim();
+    var tenantID = this.userService.getTenantId();
     this.new_relic_map_data = config.XOPSAPI + '/newrelic/map/' + tenantID;
   }
 
 
   getNewRelicMapData()
   {
-    return this.http.get(this.new_relic_map_data)
+    return this.http.get('http://xview.xops.it/api/newrelic/map/test')
     .map((res: Response) => res.json());
   }
 

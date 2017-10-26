@@ -47,10 +47,10 @@ export class SignupService {
       .catch(this.handleError);
   }
 
-  updateTenant(tenantid,tenant) {
+  updateTenant(tenant,tenantdata) {
     console.log(tenant);
     return this.http
-      .put(config.XOPSAPI+'/tenant/'+tenantid, tenant, this.options)
+      .put(config.XOPSAPI+'/tenant/'+tenant, tenantdata, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }

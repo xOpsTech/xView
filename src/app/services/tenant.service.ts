@@ -9,7 +9,7 @@ import { OnInit } from '@angular/core';
 @Injectable()
 export class TenantService {
 
-  emailv:string;
+  emailv:any;
   headers: Headers;
   options: RequestOptions;
   
