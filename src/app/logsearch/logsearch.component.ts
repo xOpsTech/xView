@@ -30,8 +30,7 @@ export class LogsearchComponent implements OnInit {
 
   onSearch(searchLogsForm) {
     this.userService.getUserData().subscribe(res => {
-      console.log(res.id);
-      this.user = res;
+      this.user = res.message[0];
       this.userService.setUserName(this.user.name);
       var tenant_id = this.user.tenantId;
 
@@ -53,10 +52,10 @@ export class LogsearchComponent implements OnInit {
   }
   ngOnInit() {
     this.userService.getUserData().subscribe(res => {
-      console.log(res.id);
-      this.user = res;
+      this.user = res.message[0];
       this.userService.setUserName(this.user.name);
       var tenant_id1 = this.user.tenantId;
+  
       this.logsearchurl = this.sanitizer.bypassSecurityTrustResourceUrl("http://35.196.242.246:5601/app/kibana#/dashboard/dc3ccc90-add9-11e7-b735-1d7e32f6ffa5?embed=true&_g=()&_a=(description:%27%27,filters:!(),options:(darkTheme:!f),panels:!((col:1,columns:!(_source),id:%273c9776f0-add8-11e7-8cb5-cd6bd3193b0e%27,panelIndex:1,row:1,size_x:12,size_y:7,sort:!(timestamp,desc),type:search)),query:(query_string:(analyze_wildcard:!t,query:%27_index:%22metrics-" + tenant_id1 + "%22%20AND%20*%27)),timeRestore:!f,title:%27Search%20Dashboard%27,uiState:(),viewMode:view)");
     });
   }
