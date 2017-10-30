@@ -13,7 +13,8 @@ export class XviewTemplateComponent implements OnInit {
   user = {
     name: "",
     picture: "",
-    tenantId: ""
+    tenantId: "",
+    id:""
   };
   photo = '/assets/partner/xops.jpg';
   constructor(private userService: UserService, private tenantService: TenantService) {
@@ -25,13 +26,9 @@ export class XviewTemplateComponent implements OnInit {
 
       console.log(res.id);
       this.user = res.message[0];
-      this.userService.setUserName(this.user.name);
       var tenant_id = this.user.tenantId;
-      this.userService.setTenant(tenant_id);
-      this.userService.setEmail(res.id);
-      this.tenantService.updateURLs();
-
-      this.tenantService.getTenantDetails().subscribe(res2 => {
+      var email = this.user.id;
+      this.tenantService.getTenantDetails(email).subscribe(res2 => {
         console.log(JSON.stringify(res2))
      
         if(typeof res2.result.tenant.banner!='undefined')

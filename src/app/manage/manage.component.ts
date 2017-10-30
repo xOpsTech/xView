@@ -52,6 +52,12 @@ export class ManageComponent implements OnInit {
     services: []
   };
 
+  user = {
+    name: "",
+    picture: "",
+    tenantId: ""
+  };
+
   constructor(private tenantService: TenantService, private signupService: SignupService, private userService: UserService, private fb3: FormBuilder) {
 
     this.configureServicesForm = fb3.group({
@@ -63,14 +69,9 @@ export class ManageComponent implements OnInit {
   ngOnInit() {
 
     this.userService.getUserData().subscribe(res => {
-
-      this.userService.setUserName(res.name);
-      var tenant_id = res.tenantId;
-      this.userService.setTenant(tenant_id);
-      this.userService.setEmail(res.id);
-      this.tenantService.updateURLs();
-
-      this.tenantService.getTenantDetails().subscribe(res2 => {
+      console.log(res);
+      var email = res.message[0].id;
+      this.tenantService.getTenantDetails(email).subscribe(res2 => {
 
         for (var service of res2["result"].tenant["services"]) {
           this.tenantData.services.push(service);
@@ -155,13 +156,12 @@ export class ManageComponent implements OnInit {
   OnStage3Completion(configureServicesForm) {
 
     this.userService.getUserData().subscribe(res => {
-      this.userService.setUserName(res.name);
-      var tenant_id = res.tenantId;
+      this.user = res.message[0];
+      var tenant_id = this.user.tenantId
       console.log(tenant_id);
       console.log(this.tenantData);
       this.signupService.updateTenant(tenant_id, this.tenantData)
         .subscribe(res2 => {
-
           if (res2.status === 200) {
             // redirect to login
             window.location.href = "http://xview.xops.it/login";

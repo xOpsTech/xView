@@ -22,7 +22,6 @@ export class CustomComponent implements OnInit {
     this.userService.getUserData().subscribe(res => {
       console.log(res);
       this.user = res.message[0];
-      this.userService.setUserName(this.user.name);
       var tenant_id = this.user.tenantId;
  
       console.log("tenantid is  :" + tenant_id)

@@ -22,6 +22,7 @@ export class UserService {
   getUserData() {
     var token = localStorage.getItem('token');
     let headers = new Headers({token});
+    console.log(headers)
     return this.http.get(this.getUserUrl ,{ headers })
       .map((res: Response) => res.json())
   }
@@ -49,24 +50,22 @@ export class UserService {
   }
 
 
+  // setUserName(loggedInUser) {
+  //   this.username = loggedInUser;
+  // }
+
+  // setTenant(t_id) {
+  //   this.tenantId = t_id;
+  // }
+
+  // setEmail(email) {
+  //   this.email_id = email;
+  // }
 
 
-  setUserName(loggedInUser) {
-    this.username = loggedInUser;
-  }
-
-  setTenant(t_id) {
-    this.tenantId = t_id;
-  }
-
-  setEmail(email) {
-    this.email_id = email;
-  }
-
-
-  getUsername() {
-    return this.username;
-  }
+  // getUsername() {
+  //   return this.username;
+  // }
 
   getEmail() {
     this.getUserData().subscribe(res => {
