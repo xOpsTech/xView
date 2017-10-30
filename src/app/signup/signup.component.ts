@@ -13,8 +13,6 @@ import { Router}  from '@angular/router';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
   providers: [SignupService,TenantService]
-
-
 })
 
 export class SignupComponent implements OnInit {

@@ -26,20 +26,12 @@ export class TenantService {
 
   }
 
-  updateURLs() {
-    var emailv = this.userService.getEmail();
-    this.getTenantUrl = config.XOPSAPI + '/tenant/' + emailv;
-  }
-
- 
-  getTenantDetails() {
-    this.emailv = this.userService.getEmail();
-    return this.http.get(this.getTenantUrl)
+  getTenantDetails(email) {
+    return this.http.get(config.XOPSAPI + '/tenant/' + email)
       .map((res: Response) => res.json())
   }
-
-  getTenantIDbytenant(tenant)
-  {
+  
+  getTenantIDbytenant(tenant){
     return this.http.get(config.XOPSAPI + '/gettenant/'+tenant)
     .map((res: Response) => res.json())
   }

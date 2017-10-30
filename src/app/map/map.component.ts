@@ -29,8 +29,6 @@ export class MapComponent implements OnInit {
 
     this.userService.getUserData().subscribe(res => {
       this.user = res;
-      this.userService.setUserName(this.user.name);
-      this.userService.setTenant(this.user.tenantId);
       this.mapService.updateURLs();
       this.mapService.getNewRelicMapData().subscribe(newrelicmapdata => {
        
