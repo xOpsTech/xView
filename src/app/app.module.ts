@@ -56,6 +56,7 @@ import { ManageComponent } from './manage/manage.component';
 import { ListboxModule } from 'primeng/primeng';
 import { LogsearchComponent } from './logsearch/logsearch.component';
 import { CustomComponent } from './custom/custom.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { CustomComponent } from './custom/custom.component';
     StatusComponent,
     ManageComponent,
     LogsearchComponent,
-    CustomComponent
+    CustomComponent,
+    ProfileComponent
   ],
 
 
@@ -192,6 +194,10 @@ import { CustomComponent } from './custom/custom.component';
           {
             path: 'custom',
             component: CustomComponent
+          },
+          {
+            path:'profile',
+            component:ProfileComponent
           },
           {
             path: '**', redirectTo: '', pathMatch: 'full'
