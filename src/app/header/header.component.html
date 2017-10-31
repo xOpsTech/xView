@@ -12,22 +12,22 @@
   <ul class="nav navbar-nav ml-auto ">
     <li class="nav-item">
    <!--  <span [routerLink]="['/login']" (click)="logout()" >logout</span> -->
-      <a alt="Sign out" [routerLink]="['/login']" (click)="logout()" ><i class="fa fa-cog user-settings"></i></a>
+      <a alt="Sign out" [routerLink]="['/login']"  ><i class="fa fa-cog user-settings"></i></a>
     </li>
     <li class="nav-item hidden-md-down">
-     <a [routerLink]="['/profile']" ><img class="img-circle" bind-src="user.picture" /></a>
+     <a (click)="toggledropDown()" ><img class="img-circle" bind-src="user.picture" /></a>
     </li>
   </ul>
 
-<!--   <div class="dropdown">
+ <!--  <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" (click)="toggledropDown()" >
    {{ user.name }}
-  </button>
+  </button> -->
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="selected">
-    <a class="dropdown-item" [routerLink]="['/settings']" (click)="removedropDown()">settings</a> -->
+    <a class="dropdown-item" [routerLink]="['/profile']">profile</a>
     <!-- <a class="dropdown-item" href="#">Another action</a> -->
- <!--    <a class="dropdown-item" [routerLink]="['/login']" (click)="logout()" >logout</a>
+    <a class="dropdown-item" [routerLink]="['/login']" (click)="logout()" >logout</a>
   </div>
-</div> -->
+<!-- </div> -->
 
 </header>
