@@ -52,7 +52,7 @@ export class BusinessComponent implements OnInit {
             }
           ]
         },
-        title: "Service 1",
+        title: "XOA",
         latency: "22ms",
         svcload: 95
       },
@@ -68,7 +68,7 @@ export class BusinessComponent implements OnInit {
             }
           ]
         },
-        title: "Service 2",
+        title: "xOps.it",
         latency: "8ms",
         svcload: 40
       },
@@ -84,7 +84,7 @@ export class BusinessComponent implements OnInit {
             }
           ]
         },
-        title: "Service 3",
+        title: "xView",
         latency: "28ms",
         svcload: 80
       }
