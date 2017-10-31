@@ -95,3 +95,15 @@ color: #20a8d8;
     border-radius: 0;
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
+
+a{
+  color: #3F78E2;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:hover{
+  color: #5587E2;
+  text-decoration: none;
+  background-color: transparent;
+}
