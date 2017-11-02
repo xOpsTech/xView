@@ -36,12 +36,13 @@
          <li class="nav-item nav-dropdown" routerLinkActive="open">
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="material-icons">settings</i> Manage</a>
         <ul class="nav-dropdown-items">
+         <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"   [routerLink]="['/profile']">Profile</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/manage']"> Input Source</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active"   [routerLink]="['/profile']">profile</a>
-          </li>
+       
           <!-- <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/alertindividual']">My Alerts</a>
           </li> -->

@@ -45,10 +45,7 @@ export class ManageComponent implements OnInit {
   activeIndex: number = 0;
 
   tenantData = {
-    address: "",
-    phone: "",
-    banner: "",
-    tenant: "",
+  
     services: []
   };
 
