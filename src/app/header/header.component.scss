@@ -70,7 +70,9 @@ ul.navbar-nav.main-menu-toggle{
 }
 .app-header.navbar .dropdown-menu{
    display: block;
-   margin-left: -137px;
+   position: fixed;
+    top: 35px;
+    left: 86%;
 }
 
 .app-header.navbar .navbar-brand {
