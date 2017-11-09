@@ -275,7 +275,7 @@ this.router.navigate(['/login']);
   }
 
  onGoogleSignInSuccess(event: GoogleSignInSuccess):void {
-    debugger;
+   // debugger;
     let googleUser: gapi.auth2.GoogleUser = event.googleUser;
     let id: string = googleUser.getId();
     let profile: gapi.auth2.BasicProfile = googleUser.getBasicProfile();
