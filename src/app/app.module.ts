@@ -153,8 +153,8 @@ import {GoogleSignInComponent} from 'angular-google-signin';
             component: MapComponent
           },
           {
-            path: 'tech/incident',
-            component: IncidentComponent
+            path: 'tech',
+            component: BusinessInsightsComponent
           },
           {
             path: 'tech/third-party',
