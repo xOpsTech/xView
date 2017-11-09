@@ -7,6 +7,7 @@ import { EmailValidator } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { PasswordValidation } from '../signup/passwordvalidation';
 import { Router}  from '@angular/router';
+import {GoogleSignInSuccess} from 'angular-google-signin';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,7 @@ import { Router}  from '@angular/router';
   providers: [SignupService,TenantService]
 })
 
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
   createAccountForm: FormGroup;
   organizationInfoForm: FormGroup;
@@ -30,6 +31,8 @@ export class SignupComponent implements OnInit {
   stage2 = false;
   stage3 = false;
   public stat = true;
+  private myClientId: string = '1097768545835-cr04oqb5at81e517jge5lfgmos3pcs0t.apps.googleusercontent.com';
+  private myWidth:string='470';
 
   //Initialize Variables
   username: String = '';
@@ -42,7 +45,7 @@ export class SignupComponent implements OnInit {
   banners: SelectItem[];
   existingtenant :String = '';
   activeIndex: number = 0;
-
+  
   userAccountData: {};
   tenantData = {
     address: "",
@@ -244,8 +247,11 @@ export class SignupComponent implements OnInit {
       });
   }
 }
+
 loginredirect():void{
+
 this.router.navigate(['/login']);
+
 }
 
 
@@ -267,4 +273,16 @@ this.router.navigate(['/login']);
       this.stage3 = true;
     }
   }
+
+ onGoogleSignInSuccess(event: GoogleSignInSuccess):void {
+    debugger;
+    let googleUser: gapi.auth2.GoogleUser = event.googleUser;
+    let id: string = googleUser.getId();
+    let profile: gapi.auth2.BasicProfile = googleUser.getBasicProfile();
+    this.userAccountData ={cnfmpassword:'123456789ABC',email:profile.getEmail(),password:'123456789ABC',username:profile.getName()}
+    this.OnStage1Completion(this.userAccountData);
+     console.log(this.userAccountData);
+  }
+
 }
+

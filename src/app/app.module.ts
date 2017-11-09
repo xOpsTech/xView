@@ -57,6 +57,7 @@ import { ListboxModule } from 'primeng/primeng';
 import { LogsearchComponent } from './logsearch/logsearch.component';
 import { CustomComponent } from './custom/custom.component';
 import { ProfileComponent } from './profile/profile.component';
+import {GoogleSignInComponent} from 'angular-google-signin';
 
 
 @NgModule({
@@ -100,7 +101,8 @@ import { ProfileComponent } from './profile/profile.component';
     ManageComponent,
     LogsearchComponent,
     CustomComponent,
-    ProfileComponent
+    ProfileComponent,
+    GoogleSignInComponent
   ],
 
 

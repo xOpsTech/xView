@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "angular-google-signin": "^0.1.5",
     "angular-timezone-selector": "^1.2.1",
     "chart.js": "^2.5.0",
     "classlist.js": "^1.1.20150312",
@@ -57,6 +58,6 @@
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0"
+    "typescript": "~2.3.1"
   }
 }
