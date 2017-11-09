@@ -6,13 +6,13 @@ import { TenantService } from '../services/tenant.service';
 import { EmailValidator } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { PasswordValidation } from '../signup/passwordvalidation';
-import { Router}  from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  providers: [SignupService,TenantService]
+  providers: [SignupService, TenantService]
 })
 
 export class SignupComponent implements OnInit {
@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
   stage2 = false;
   stage3 = false;
   public stat = true;
-
+  tenantexist =false;
   //Initialize Variables
   username: String = '';
   email: String = '';
@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
   servicestable = [];
   services: SelectItem[];
   banners: SelectItem[];
-  existingtenant :String = '';
+  existingtenant: String = '';
   activeIndex: number = 0;
 
   userAccountData: {};
@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
     services: []
   };
 
-  constructor(private tenantService: TenantService,private signupService: SignupService, private fb1: FormBuilder, private fb2: FormBuilder, private fb3: FormBuilder ,private router: Router) {
+  constructor(private tenantService: TenantService, private signupService: SignupService, private fb1: FormBuilder, private fb2: FormBuilder, private fb3: FormBuilder, private router: Router) {
     this.createAccountForm = fb1.group({
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('[a-z0-9.@]*')])],
@@ -136,7 +136,7 @@ export class SignupComponent implements OnInit {
     console.log(this.tenantData.services);
     if (index > -1) {
       this.tenantData.services.splice(index, 1);
-      console.log("removed" +this.tenantData.services);
+      console.log("removed" + this.tenantData.services);
     }
   }
   OnStage1Completion(CreateAccountForm) {
@@ -149,12 +149,30 @@ export class SignupComponent implements OnInit {
 
   OnStage2Completion(OrginizationInfoForm) {
     console.log(OrginizationInfoForm)
-    this.activeIndex = 2;
-    this.setDiv();
+
     this.tenantData.banner = "http://xview.xops.it/assets/partner/" + OrginizationInfoForm.selectedBanner + ".jpg";
     this.tenantData.tenant = OrginizationInfoForm.tenant;
     this.existingtenant = OrginizationInfoForm.existingtenant;
     console.log(this.tenantData)
+
+    
+    console.log(this.userAccountData);
+    if (typeof this.existingtenant !== 'undefined') {
+
+      this.tenantService.getTenantIDbytenant(this.existingtenant)
+        .subscribe(res1 => {
+          this.tenantId = res1.tenantId;
+          if(this.tenantId=="")
+          {
+            this.tenantexist =true;
+            return null;
+          }
+        else{
+          this.activeIndex = 2;
+          this.setDiv();
+        }
+  })
+}
   }
 
   addservice(service) {
@@ -187,15 +205,16 @@ export class SignupComponent implements OnInit {
       service.service_started = false;
       console.log(JSON.stringify(service));
       this.tenantData.services.push(service);
-  
+
 
     } else {
       this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
-   
+
     }
 
     console.log(this.tenantData.services);
   }
+
 
   OnStage3Completion(configureServicesForm) {
 
@@ -204,49 +223,47 @@ export class SignupComponent implements OnInit {
       "tenant": this.tenantData,
       "user": this.userAccountData
     };
-   
-    console.log(this.userAccountData);
-    if(typeof this.existingtenant !== 'undefined')
-    {
-       delete this.tenantData['services'];
 
-       this.tenantService.getTenantIDbytenant(this.existingtenant)
-       .subscribe(res1 => {
-        this.tenantId = res1.tenantId;
-        console.log("tenatid + "+ this.tenantId)
-        this.userAccountData['tenantId'] = this.tenantId;
-         
-      // this.signupService.updateTenant(this.tenantId,this.tenantData)
-      // .subscribe(response => {
-        this.signupService.createUserAccount(this.userAccountData)
-          .subscribe(res => {
-            console.log(res);
-            this.router.navigate(['/login']);
-          });
+    console.log(this.userAccountData);
+    if (typeof this.existingtenant !== 'undefined') {
+      delete this.tenantData['services'];
+
+      this.tenantService.getTenantIDbytenant(this.existingtenant)
+        .subscribe(res1 => {
+          this.tenantId = res1.tenantId;
+          console.log("tenatid + " + this.tenantId)
+          this.userAccountData['tenantId'] = this.tenantId;
+
+          // this.signupService.updateTenant(this.tenantId,this.tenantData)
+          // .subscribe(response => {
+          this.signupService.createUserAccount(this.userAccountData)
+            .subscribe(res => {
+              console.log(res);
+              this.router.navigate(['/login']);
+            });
         });
 
     }
-    else
-    {   
+    else {
 
-    this.signupService.saveTenant(this.tenantData)
-      .subscribe(response => {
-        var tenantId = response.result.tenantId;
-        console.log(tenantId);
-        this.userAccountData['tenantId'] = tenantId;
-        this.signupService.createUserAccount(this.userAccountData)
-          .subscribe(res => {
-            console.log("Response" +res);
+      this.signupService.saveTenant(this.tenantData)
+        .subscribe(response => {
+          var tenantId = response.result.tenantId;
+          console.log(tenantId);
+          this.userAccountData['tenantId'] = tenantId;
+          this.signupService.createUserAccount(this.userAccountData)
+            .subscribe(res => {
+              console.log("Response" + res);
               this.router.navigate(['/login']);
 
-          });
-        this.router.navigate(['/login']);
-      });
+            });
+          this.router.navigate(['/login']);
+        });
+    }
   }
-}
-loginredirect():void{
-this.router.navigate(['/login']);
-}
+  loginredirect(): void {
+    this.router.navigate(['/login']);
+  }
 
 
 

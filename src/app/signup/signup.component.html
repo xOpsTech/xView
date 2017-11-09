@@ -101,6 +101,9 @@
                   </div>
 
                   <div class="form-group">
+                      <div class="alert" *ngIf="tenantexist">
+                          Oops,That Tenant id doesnt exist
+                      </div>
                     <input pInputText type="text" placeholder="Organization ID" class="form-control" [ngModel]="orgaddress" (ngModelChange)="onchangeorgid($event)"
                       formControlName="existingtenant" id="existingtenant" [formGroup]="organizationInfoForm" />
                   </div>

@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
     picture: "",
     tenantId: ""
   };
+  toggleicon = "/assets/img/nav-expand.png";
    selected : boolean;
   constructor( private userService:UserService,private router: Router ,private route: ActivatedRoute) {
     this.selected = false;
@@ -28,6 +29,16 @@ export class HeaderComponent implements OnInit {
         // this.userService.setUserName(this.user.name);
         // this.userService.setTenant(this.user.tenantId);
       });
+  }
+
+  toggleimg()
+  {
+    if(this.toggleicon =="/assets/img/nav-expand.png")
+    { this.toggleicon = "/assets/img/nav-collapse.png";}
+    else{
+      this.toggleicon ="/assets/img/nav-expand.png"
+    }
+   
   }
   toggledropDown(){
         this.selected = !this.selected;
