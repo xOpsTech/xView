@@ -7,6 +7,7 @@ import { config } from '../config/config';
 @Injectable()
 export class UserService {
   private getUserUrl = config.devUrl+"/user";
+  private getcheckUserUrl = config.XOPSAPI+'/checkuser'
 
   user = null;
   email_id: string;
@@ -24,6 +25,13 @@ export class UserService {
     let headers = new Headers({token});
     console.log(headers)
     return this.http.get(this.getUserUrl ,{ headers })
+      .map((res: Response) => res.json())
+  }
+
+  checkUser(userID){
+    let userid =userID; 
+    let headers = new Headers({userid});
+    return this.http.get(this.getcheckUserUrl ,{ headers })
       .map((res: Response) => res.json())
   }
 

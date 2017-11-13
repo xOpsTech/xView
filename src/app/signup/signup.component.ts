@@ -7,7 +7,10 @@ import { EmailValidator } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { PasswordValidation } from '../signup/passwordvalidation';
 import { Router}  from '@angular/router';
-import {GoogleSignInSuccess} from 'angular-google-signin';
+import { AuthService } from 'angular4-social-login';
+import { SocialUser } from 'angular4-social-login';
+import { GoogleLoginProvider} from 'angular4-social-login';
+
 
 @Component({
   selector: 'app-signup',
@@ -25,14 +28,13 @@ export class SignupComponent {
   serviceNowConfigForm: FormGroup;
   newRelicConfigForm: FormGroup;
   selectedService: string = 'Select';
+  user: SocialUser;
 
   items: MenuItem[];
   stage1 = true;
   stage2 = false;
   stage3 = false;
-  public stat = true;
-  private myClientId: string = '1097768545835-cr04oqb5at81e517jge5lfgmos3pcs0t.apps.googleusercontent.com';
-  private myWidth:string='470';
+  public stat = true; 
 
   //Initialize Variables
   username: String = '';
@@ -55,7 +57,8 @@ export class SignupComponent {
     services: []
   };
 
-  constructor(private tenantService: TenantService,private signupService: SignupService, private fb1: FormBuilder, private fb2: FormBuilder, private fb3: FormBuilder ,private router: Router) {
+  constructor(private tenantService: TenantService,private signupService: SignupService, private fb1: FormBuilder,
+   private fb2: FormBuilder, private fb3: FormBuilder ,private router: Router,private authService: AuthService) {
     this.createAccountForm = fb1.group({
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('[a-z0-9.@]*')])],
@@ -107,6 +110,9 @@ export class SignupComponent {
     this.services.push({ label: 'New relic', value: 'newrelic' });
 
     this.setDiv();
+     this.authService.authState.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   //Hide remove New Organization add
@@ -274,15 +280,19 @@ this.router.navigate(['/login']);
     }
   }
 
- onGoogleSignInSuccess(event: GoogleSignInSuccess):void {
-   // debugger;
-    let googleUser: gapi.auth2.GoogleUser = event.googleUser;
-    let id: string = googleUser.getId();
-    let profile: gapi.auth2.BasicProfile = googleUser.getBasicProfile();
-    this.userAccountData ={cnfmpassword:'123456789ABC',email:profile.getEmail(),password:'123456789ABC',username:profile.getName()}
-    this.OnStage1Completion(this.userAccountData);
-     console.log(this.userAccountData);
+   signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);  
   }
+
+  signInTrigger(user){  
+   if(user !== null){    
+    console.log(user); 
+      this.userAccountData ={cnfmpassword:'123456789ABC',email:user.email,password:'123456789ABC',username:user.name};
+      this.OnStage1Completion(this.userAccountData);
+
+   }
+  }
+
 
 }
 

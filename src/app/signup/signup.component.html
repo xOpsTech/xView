@@ -15,7 +15,7 @@
       </div>
       <div class="col-md-12 m-x-auto pull-xs-none vamiddle">
         
-        <div id="login" class="signup">
+        <div id="login" class="signup" style="height: 100%;">
           <div *ngIf="stage1">
             <form  style="padding-top: 90px" [formGroup]="createAccountForm" (ngSubmit)="OnStage1Completion(createAccountForm.value)">
               <div class="ui-g">
@@ -64,26 +64,19 @@
                   </div>
                   <div class="ui-g-12">
                     Or
-                  </div>
-                  <div class="ui-g-12">
-                    <!--  <button pButton type="submit" label="Connect Google account" class="form-control"></button> -->
-                    <google-signin
-                      [clientId]="myClientId"
-                      [width]="myWidth"
-                      [theme]="myTheme"
-                      [scope]="myScope"
-                      [longTitle]="myLongTitle"
-                      (click)="test()"
-                      (googleSignInSuccess)="onGoogleSignInSuccess($event)">
-                    </google-signin>
+                  </div>                 
+                  
+                </div>
+              </div>
+            </form>
+            <div class="ui-g-12">
+            <input type="hidden" [ngModel]="user" *ngIf="signInTrigger(user)==user"/>
+                <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()" style="width: 100%"><span class="fa fa-google" style="padding-right: 10px"></span>login with Google</button>
                   </div>
                   <div class="ui-g-12">
                     We're serious about your privacy! Please make sure to check out our <a href="">terms of service</a> and
                     <a href="">privacy policy</a>
                   </div>
-                </div>
-              </div>
-            </form>
           </div>
           <div *ngIf="stage2">
             <form style="padding-top: 90px" [formGroup]="organizationInfoForm" (ngSubmit)="OnStage2Completion(organizationInfoForm.value)">

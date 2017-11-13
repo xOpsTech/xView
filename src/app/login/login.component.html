@@ -2,33 +2,35 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 login">
-			<div class="login-icon-field">
-									<h1>Login</h1>
-									<div>New User? <a href="/#/signup">Register Now</a></div>
-								</div>
+				<div class="login-icon-field">
+					<h1>Login</h1>
+					<div>New User? <a href="/#/signup">Register Now</a></div>
+				</div>
 				<form (ngSubmit)="authenticate()">
-				<div class="alert alert-danger" *ngIf="errorMessage">
-							 "user not found"
+					<div class="alert alert-danger" *ngIf="errorMessage">
+						"user not found"
+					</div>
+					<div class="login-form">
+						<div class="form-group">
+							
+							<input type="text" [(ngModel)]="credentials.id" class="form-control" name="id">
 						</div>
-				<div class="login-form">
-					<div class="form-group">
-						
-						<input type="text" [(ngModel)]="credentials.id" class="form-control" name="id">
-					</div>
-					<div class="form-group">
-						
-						<input type="password" [(ngModel)]="credentials.password" name="password" class="form-control">
-					</div>
-					<a href="/signup">Forgot your password?</a>
+						<div class="form-group">
+							
+							<input type="password" [(ngModel)]="credentials.password" name="password" class="form-control">
+						</div>
+						<a href="/signup">Forgot your password?</a>
 					</div>
 					<div class="call-to-action">
-					<button class="btn-danger" type="submit">Login</button>
+						<button class="btn-danger" type="submit">Login</button>
 					</div>
-				</form>		
-			</div>			
+				</form>
+				 <input type="hidden" [ngModel]="user" *ngIf="signInTrigger(user)==user"/>				
+				 <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()" style="width: 100%"><span class="fa fa-google" style="padding-right: 10px"></span>login with Google</button>
+			</div>
 		</div>
-	<!-- 	<div class="row justify-content-md-center">
-			<button >Login with Google</button>
+		<!-- 	<div class="row justify-content-md-center">
+				<button >Login with Google</button>
 		</div> -->
 	</div>
 </div>

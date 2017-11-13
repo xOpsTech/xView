@@ -57,7 +57,22 @@ import { ListboxModule } from 'primeng/primeng';
 import { LogsearchComponent } from './logsearch/logsearch.component';
 import { CustomComponent } from './custom/custom.component';
 import { ProfileComponent } from './profile/profile.component';
-import {GoogleSignInComponent} from 'angular-google-signin';
+import { SocialLoginModule } from "angular4-social-login";
+import { AuthServiceConfig} from 'angular4-social-login';
+import {GoogleLoginProvider} from 'angular4-social-login';
+
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("1097768545835-cr04oqb5at81e517jge5lfgmos3pcs0t.apps.googleusercontent.com")
+  }  
+]);
+
+export function provideConfig() {
+  return config;
+}
+
 
 
 @NgModule({
@@ -101,8 +116,7 @@ import {GoogleSignInComponent} from 'angular-google-signin';
     ManageComponent,
     LogsearchComponent,
     CustomComponent,
-    ProfileComponent,
-    GoogleSignInComponent
+    ProfileComponent
   ],
 
 
@@ -118,6 +132,7 @@ import {GoogleSignInComponent} from 'angular-google-signin';
     AutoCompleteModule,
     StepsModule,
     ListboxModule,
+    SocialLoginModule,
 
     RouterModule.forRoot([
       {
@@ -229,7 +244,7 @@ import {GoogleSignInComponent} from 'angular-google-signin';
     DataGridModule,
     FileUploadModule
   ],
-  providers: [AuthService,AuthGuard,SnowAggsService, UserService, RssfeedService, IncidentService],
+  providers: [AuthService,AuthGuard,SnowAggsService, UserService, RssfeedService, IncidentService,{ provide: AuthServiceConfig,useFactory: provideConfig}],
   bootstrap: [AppComponent],
   exports: [
     RouterModule
