@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs';
 import { config } from '../config/config';
 
 

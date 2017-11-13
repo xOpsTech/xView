@@ -6,17 +6,17 @@ import { TenantService } from '../services/tenant.service';
 import { EmailValidator } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { PasswordValidation } from '../signup/passwordvalidation';
-import { Router}  from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'angular4-social-login';
 import { SocialUser } from 'angular4-social-login';
-import { GoogleLoginProvider} from 'angular4-social-login';
+import { GoogleLoginProvider } from 'angular4-social-login';
 
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  providers: [SignupService,TenantService]
+  providers: [SignupService, TenantService]
 })
 
 export class SignupComponent {
@@ -34,7 +34,7 @@ export class SignupComponent {
   stage1 = true;
   stage2 = false;
   stage3 = false;
-  public stat = true; 
+  public stat = true;
 
   //Initialize Variables
   username: String = '';
@@ -45,9 +45,10 @@ export class SignupComponent {
   servicestable = [];
   services: SelectItem[];
   banners: SelectItem[];
-  existingtenant :String = '';
+  existingtenant: String = '';
   activeIndex: number = 0;
-  
+  tenantexist = false;
+
   userAccountData: {};
   tenantData = {
     address: "",
@@ -57,8 +58,8 @@ export class SignupComponent {
     services: []
   };
 
-  constructor(private tenantService: TenantService,private signupService: SignupService, private fb1: FormBuilder,
-   private fb2: FormBuilder, private fb3: FormBuilder ,private router: Router,private authService: AuthService) {
+  constructor(private tenantService: TenantService, private signupService: SignupService, private fb1: FormBuilder,
+    private fb2: FormBuilder, private fb3: FormBuilder, private router: Router, private authService: AuthService) {
     this.createAccountForm = fb1.group({
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(500)])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('[a-z0-9.@]*')])],
@@ -110,7 +111,7 @@ export class SignupComponent {
     this.services.push({ label: 'New relic', value: 'newrelic' });
 
     this.setDiv();
-     this.authService.authState.subscribe((user) => {
+    this.authService.authState.subscribe((user) => {
       this.user = user;
     });
   }
@@ -145,7 +146,7 @@ export class SignupComponent {
     console.log(this.tenantData.services);
     if (index > -1) {
       this.tenantData.services.splice(index, 1);
-      console.log("removed" +this.tenantData.services);
+      console.log("removed" + this.tenantData.services);
     }
   }
   OnStage1Completion(CreateAccountForm) {
@@ -157,13 +158,43 @@ export class SignupComponent {
   }
 
   OnStage2Completion(OrginizationInfoForm) {
-    console.log(OrginizationInfoForm)
-    this.activeIndex = 2;
-    this.setDiv();
-    this.tenantData.banner = "http://xview.xops.it/assets/partner/" + OrginizationInfoForm.selectedBanner + ".jpg";
-    this.tenantData.tenant = OrginizationInfoForm.tenant;
     this.existingtenant = OrginizationInfoForm.existingtenant;
-    console.log(this.tenantData)
+    if (typeof this.existingtenant !== 'undefined') {
+
+      this.tenantService.getTenantIDbytenant(this.existingtenant)
+        .subscribe(res1 => {
+          this.tenantId = res1.tenantId;
+          if (this.tenantId == "") {
+            this.tenantexist = true;
+            return null;
+          }
+          else {
+            delete this.tenantData['services'];
+            this.tenantService.getTenantIDbytenant(this.existingtenant)
+              .subscribe(res1 => {
+                this.tenantId = res1.tenantId;
+                console.log("tenantId : " + this.tenantId)
+                this.userAccountData['tenantId'] = this.tenantId;
+                console.log("userAccountData when existing tenant entered: " + JSON.stringify(this.userAccountData));
+
+                this.signupService.createUserAccount(this.userAccountData)
+                  .subscribe(res => {
+                    this.router.navigate(['/login']);
+                  });
+
+
+              });
+
+          }
+        })
+    }
+    else {
+   
+      this.tenantData.tenant = OrginizationInfoForm.tenant;
+      console.log("tenantData when existing tenant is null : " + JSON.stringify(this.tenantData));
+      this.activeIndex = 2;
+      this.setDiv();
+    }
   }
 
   addservice(service) {
@@ -196,11 +227,11 @@ export class SignupComponent {
       service.service_started = false;
       console.log(JSON.stringify(service));
       this.tenantData.services.push(service);
-  
+
 
     } else {
       this.tenantData.services.push({ "service": service.servicename, "url": service.serviceurl, "username": service.srusername, "password": service.srpassword })
-   
+
     }
 
     console.log(this.tenantData.services);
@@ -213,52 +244,49 @@ export class SignupComponent {
       "tenant": this.tenantData,
       "user": this.userAccountData
     };
-   
-    console.log(this.userAccountData);
-    if(typeof this.existingtenant !== 'undefined')
-    {
-       delete this.tenantData['services'];
 
-       this.tenantService.getTenantIDbytenant(this.existingtenant)
-       .subscribe(res1 => {
-        this.tenantId = res1.tenantId;
-        console.log("tenatid + "+ this.tenantId)
-        this.userAccountData['tenantId'] = this.tenantId;
-         
-      // this.signupService.updateTenant(this.tenantId,this.tenantData)
-      // .subscribe(response => {
-        this.signupService.createUserAccount(this.userAccountData)
-          .subscribe(res => {
-            console.log(res);
-            this.router.navigate(['/login']);
-          });
+    console.log(this.userAccountData);
+    if (typeof this.existingtenant !== 'undefined') {
+      delete this.tenantData['services'];
+
+      this.tenantService.getTenantIDbytenant(this.existingtenant)
+        .subscribe(res1 => {
+          this.tenantId = res1.tenantId;
+          console.log("tenatid + " + this.tenantId)
+          this.userAccountData['tenantId'] = this.tenantId;
+          console.log("userdata before createUserAccount when tenant exist : " + JSON.stringify(this.userAccountData));
+          this.signupService.createUserAccount(this.userAccountData)
+            .subscribe(res => {
+              console.log(res);
+              this.router.navigate(['/login']);
+            });
         });
 
     }
-    else
-    {   
-
-    this.signupService.saveTenant(this.tenantData)
-      .subscribe(response => {
-        var tenantId = response.result.tenantId;
-        console.log(tenantId);
-        this.userAccountData['tenantId'] = tenantId;
-        this.signupService.createUserAccount(this.userAccountData)
-          .subscribe(res => {
-            console.log("Response" +res);
+    else {
+      console.log("Before tenant create tenandata : " + JSON.stringify(this.tenantData));
+      this.signupService.saveTenant(this.tenantData)
+        .subscribe(response => {
+          var tenantId = response.result.tenantId;
+          console.log(tenantId);
+          this.userAccountData['tenantId'] = tenantId;
+          console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
+          this.signupService.createUserAccount(this.userAccountData)
+            .subscribe(res => {
+              console.log("Response" + res);
               this.router.navigate(['/login']);
 
-          });
-        this.router.navigate(['/login']);
-      });
+            });
+          this.router.navigate(['/login']);
+        });
+    }
   }
-}
 
-loginredirect():void{
+  loginredirect(): void {
 
-this.router.navigate(['/login']);
+    this.router.navigate(['/login']);
 
-}
+  }
 
 
 
@@ -280,17 +308,17 @@ this.router.navigate(['/login']);
     }
   }
 
-   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);  
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
-  signInTrigger(user){  
-   if(user !== null){    
-    console.log(user); 
-      this.userAccountData ={cnfmpassword:'123456789ABC',email:user.email,password:'123456789ABC',username:user.name};
+  signInTrigger(user) {
+    if (user !== null) {
+      console.log(user);
+      this.userAccountData = { cnfmpassword: '123456789ABC', email: user.email, password: '123456789ABC', username: user.name };
       this.OnStage1Completion(this.userAccountData);
 
-   }
+    }
   }
 
 
