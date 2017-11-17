@@ -126,21 +126,6 @@ export class SignupComponent {
     }
   }
 
-  OnStage1Click() {
-    this.activeIndex = 0;
-    this.setDiv();
-  }
-
-  OnStage2Click() {
-    this.activeIndex = 1;
-    this.setDiv();
-  }
-
-  OnStage3Click() {
-    this.activeIndex = 2;
-    this.setDiv();
-  }
-
 
   removeConfiguration(index) {
     console.log(this.tenantData.services);
@@ -149,6 +134,7 @@ export class SignupComponent {
       console.log("removed" + this.tenantData.services);
     }
   }
+
   OnStage1Completion(CreateAccountForm) {
     this.activeIndex = 1;
     this.setDiv();
@@ -181,7 +167,7 @@ export class SignupComponent {
                   .subscribe(res => {
                     this.router.navigate(['/login']);
                   });
-
+                this.router.navigate(['/login']);
 
               });
 
@@ -189,7 +175,7 @@ export class SignupComponent {
         })
     }
     else {
-   
+
       this.tenantData.tenant = OrginizationInfoForm.tenant;
       console.log("tenantData when existing tenant is null : " + JSON.stringify(this.tenantData));
       this.activeIndex = 2;
@@ -246,49 +232,38 @@ export class SignupComponent {
     };
 
     console.log(this.userAccountData);
-    if (typeof this.existingtenant !== 'undefined') {
-      delete this.tenantData['services'];
+    console.log("Before tenant create tenandata : " + JSON.stringify(this.tenantData));
+    this.signupService.saveTenant(this.tenantData)
+      .subscribe(response => {
+        var tenantId = response.result.tenantId;
+        console.log(tenantId);
+        this.userAccountData['tenantId'] = tenantId;
+        console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
+        this.signupService.createUserAccount(this.userAccountData)
+          .subscribe(res => {
+            console.log("Response" + res);
+            this.router.navigate(['/login']);
 
-      this.tenantService.getTenantIDbytenant(this.existingtenant)
-        .subscribe(res1 => {
-          this.tenantId = res1.tenantId;
-          console.log("tenatid + " + this.tenantId)
-          this.userAccountData['tenantId'] = this.tenantId;
-          console.log("userdata before createUserAccount when tenant exist : " + JSON.stringify(this.userAccountData));
-          this.signupService.createUserAccount(this.userAccountData)
-            .subscribe(res => {
-              console.log(res);
-              this.router.navigate(['/login']);
-            });
-        });
-
-    }
-    else {
-      console.log("Before tenant create tenandata : " + JSON.stringify(this.tenantData));
-      this.signupService.saveTenant(this.tenantData)
-        .subscribe(response => {
-          var tenantId = response.result.tenantId;
-          console.log(tenantId);
-          this.userAccountData['tenantId'] = tenantId;
-          console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
-          this.signupService.createUserAccount(this.userAccountData)
-            .subscribe(res => {
-              console.log("Response" + res);
-              this.router.navigate(['/login']);
-
-            });
-          this.router.navigate(['/login']);
-        });
-    }
+          });
+        this.router.navigate(['/login']);
+      });
   }
 
-  loginredirect(): void {
-
-    this.router.navigate(['/login']);
-
+  skipSerivceConfigurations() {
+    this.signupService.saveTenant(this.tenantData)
+      .subscribe(response => {
+        var tenantId = response.result.tenantId;
+        console.log(tenantId);
+        this.userAccountData['tenantId'] = tenantId;
+        console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
+        this.signupService.createUserAccount(this.userAccountData)
+          .subscribe(res => {
+            console.log("Response" + res);
+            this.router.navigate(['/login']);
+          });
+        this.router.navigate(['/login']);
+      });
   }
-
-
 
   setDiv() {
     if (this.activeIndex == 0) {
@@ -313,12 +288,11 @@ export class SignupComponent {
   }
 
   signInTrigger(user) {
-    if (user !== null) {
-      console.log(user);
-      this.userAccountData = { cnfmpassword: '123456789ABC', email: user.email, password: '123456789ABC', username: user.name };
-      this.OnStage1Completion(this.userAccountData);
-
-    }
+    // if (user !== null) {
+    //   console.log(user);
+    //   this.userAccountData = { cnfmpassword: '123456789ABC', email: user.email, password: '123456789ABC', username: user.name };
+    //   this.OnStage1Completion(this.userAccountData);
+    // }
   }
 
 

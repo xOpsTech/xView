@@ -195,3 +195,10 @@ a:hover{
 .abcRioButtonContents{
   margin-right: 38px;
 }
+
+.ui-button {
+  border: 1px solid #9B0404;
+  color: #fff;
+  background: #9B0404;
+  transition: background-color .2s;
+}

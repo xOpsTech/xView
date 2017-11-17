@@ -60,7 +60,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { SocialLoginModule } from "angular4-social-login";
 import { AuthServiceConfig} from 'angular4-social-login';
 import {GoogleLoginProvider} from 'angular4-social-login';
-
+import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+import {MessagesModule} from 'primeng/primeng';
 
 let config = new AuthServiceConfig([
   {
@@ -133,6 +134,8 @@ export function provideConfig() {
     StepsModule,
     ListboxModule,
     SocialLoginModule,
+    MessagesModule,
+    ConfirmDialogModule,
 
     RouterModule.forRoot([
       {
@@ -148,7 +151,7 @@ export function provideConfig() {
       {
         path: '',
         component: XviewTemplateComponent,
-        canActivate: [AuthGuard],
+       canActivate: [AuthGuard],
         children: [
           {
             path: 'home',

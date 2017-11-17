@@ -8,7 +8,6 @@ import { SocialUser } from 'angular4-social-login';
 import { GoogleLoginProvider} from 'angular4-social-login';
 // import {GoogleSignInSuccess} from 'angular-google-signin';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -26,9 +25,10 @@ export class LoginComponent implements OnInit {
   // private myClientId: string = '1097768545835-cr04oqb5at81e517jge5lfgmos3pcs0t.apps.googleusercontent.com';
   // private width:string='100%';
   ngOnInit() {
-     this.authService.authState.subscribe((user) => {
-      this.user = user;
-    });
+    //  this.authService.authState.subscribe((user) => {
+    //   this.user = user;
+    //   console.log(this.user)
+    // });
   }
 
   authenticate() {
@@ -44,16 +44,16 @@ export class LoginComponent implements OnInit {
         });
   }
  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    if(this.user){
-       this.credentials={id:this.user.email,password:'123456789ABC'};
-    }
+    // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    // if(this.user){
+    //    this.credentials={id:this.user.email,password:'123456789ABC'};
+    // }
   }
 
   signInTrigger(user){  
-   if(user !== null){ 
-      this.credentials={id:user.email,password:'123456789ABC'};
-   }
+  //  if(user !== null){ 
+  //     this.credentials={id:user.email,password:'123456789ABC'};
+  //  }
  }
 
 }
