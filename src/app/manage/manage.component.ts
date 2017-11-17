@@ -11,7 +11,7 @@ import { TenantService } from '../services/tenant.service';
 import { DialogModule } from 'primeng/primeng';
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
-import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 
 //define the constant url we would be uploading to.
 const URL = 'http://localhost:4200/api/upload';
@@ -19,7 +19,7 @@ const URL = 'http://localhost:4200/api/upload';
   selector: 'app-manage',
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.scss'],
-  providers: [SignupService, MessageService,ConfirmationService]
+  providers: [SignupService, MessageService, ConfirmationService]
 })
 export class ManageComponent implements OnInit {
 
@@ -28,6 +28,7 @@ export class ManageComponent implements OnInit {
   serviceNowConfigForm: FormGroup;
   newRelicConfigForm: FormGroup;
   selectedService: string = 'Select';
+  selectedServiceToEdit: string = 'Select';
   account_name = "";
 
   consumer_key = "";
@@ -63,12 +64,25 @@ export class ManageComponent implements OnInit {
   };
   display: boolean = false;
 
-  showDialog() {
+  showDialog(selectedServiceObj) {
+    console.log(selectedServiceObj);
+
+    if (selectedServiceObj.service == 'twitter') {
+      this.selectedServiceToEdit ='twitter'
+    }
+     else if (selectedServiceObj.service == 'servicenow') {
+      this.selectedServiceToEdit ='servicenow'
+
+    } 
+    else if (selectedServiceObj.service == 'newrelic') {
+      this.selectedServiceToEdit ='newrelic'
+
+    }
     this.display = true;
   }
   msgs: Message[] = [];
   msgs2: Message[] = [];
-  constructor(private confirmationService: ConfirmationService,private messageService: MessageService, private tenantService: TenantService, private signupService: SignupService, private userService: UserService, private fb3: FormBuilder) {
+  constructor(private confirmationService: ConfirmationService, private messageService: MessageService, private tenantService: TenantService, private signupService: SignupService, private userService: UserService, private fb3: FormBuilder) {
   }
 
   showSuccess() {
@@ -78,26 +92,26 @@ export class ManageComponent implements OnInit {
 
   deleteService(index) {
     this.confirmationService.confirm({
-        message: 'Do you want to delete this record?',
-        header: 'Delete Confirmation',
-        icon: 'fa fa-trash',
-        accept: () => {
-            this.msgs2 = [{severity:'info', summary:'Confirmed', detail:'Record deleted'}];
-            console.log(this.existingtenantData.services);
-            if (index > -1) {
-              this.existingtenantData.services.splice(index, 1);
-              console.log(JSON.stringify(this.existingtenantData.services));
-              this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
-              .subscribe(res2 => {
-               
-              });
-            }
-        },
-        reject: () => {
-            this.msgs2 = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.msgs2 = [{ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' }];
+        console.log(this.existingtenantData.services);
+        if (index > -1) {
+          this.existingtenantData.services.splice(index, 1);
+          console.log(JSON.stringify(this.existingtenantData.services));
+          this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
+            .subscribe(res2 => {
+
+            });
         }
+      },
+      reject: () => {
+        this.msgs2 = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
+      }
     });
-}
+  }
 
   ngOnInit() {
 
@@ -164,10 +178,10 @@ export class ManageComponent implements OnInit {
     }
 
     console.log(this.existingtenantData.services);
-      this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
-        .subscribe(res2 => {
-          this.showSuccess();
-        });
+    this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
+      .subscribe(res2 => {
+        this.showSuccess();
+      });
 
   }
 }
