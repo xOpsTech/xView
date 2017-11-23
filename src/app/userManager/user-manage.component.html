@@ -1,0 +1,50 @@
+<div class="wrapper">
+  <div class="container">
+<tabset></tabset>
+    <form  [formGroup]="createAccountForm" (ngSubmit)="createUser(createAccountForm.value)">
+
+      <div align="center" class="ui-g">
+          <div class="ui-g-4">
+            <h1 style="float: left">Create Users</h1>
+            <br>
+          </div>
+            <div class="ui-g-12">
+          <table style="float: left; margin-left: 50px " class="ui-g-1">
+            <tr>
+              <td><b>User Name</b></td>
+              <td><input type="text" required="true" formControlName="username" minlength="4" maxlength="20" pattern="[a-zA-Z0-9\s]+" [value]="username"></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>Email</b></td>
+              <td><input [type]="email" required="true" formControlName="email" ></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>Password</b></td>
+              <td><input type="password" required="true" [value]="password" formControlName="password"></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>Confirm&nbsp;Password</b></td>
+              <td><input type="password" required="true" [value]="cnfmpassword" formControlName="cnfmpassword"></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>Tenant&nbsp;ID</b></td>
+              <td><input type="text" style="color: #607d8b" formControlName="tenantId" readonly="true" [(ngModel)]="tenantId" ></td>
+            </tr>
+            <br>
+            <br>
+            <tr>
+              <td rowspan="2" style="float: left; margin-left: 10px">
+                  <button style="float: left; margin-left: 80px" pButton type="submit" class="btn btn-default"  label="Submit" ></button>
+              </td>
+              <td><button style="float: left; margin-left:5px" pButton type="reset" class="btn btn-default" label="Reset"></button></td>
+            </tr>
+          </table>
+            </div>
+        </div>
+    </form>
+  </div>
+</div>

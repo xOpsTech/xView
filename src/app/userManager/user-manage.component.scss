@@ -1,0 +1,115 @@
+.wrapper {
+
+  background-repeat: repeat;
+  background-size: cover;
+  padding-top:10px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  color: #000000;
+  padding-right: 15px;
+  padding-left: 15px;
+  max-height: 500px}
+@media (min-width: 576px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px; } }
+@media (min-width: 768px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px; } }
+@media (min-width: 992px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px; } }
+@media (min-width: 1200px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px; } }
+@media (min-width: 576px) {
+  .container {
+    width: 540px;
+    max-width: 100%; } }
+@media (min-width: 768px) {
+  .container {
+    width: 720px;
+    max-width: 100%; } }
+@media (min-width: 992px) {
+  .container {
+    width: 960px;
+    max-width: 100%; } }
+@media (min-width: 1200px) {
+  .container {
+    width: 1140px;
+    max-width: 100%; } }
+
+
+.signup {
+  max-width: 680px;
+  min-height: 500px;
+  margin: 9% auto;
+  background-color: rgba(10, 10, 10, .68);
+  padding: 3px 90px 20px;
+  text-align: center;
+  z-index:1;
+}
+
+.signup2
+{
+  max-width: 680px;
+  min-height: 500px;
+  margin:auto;
+  margin-bottom: -170px;
+  z-index:2;
+
+}
+.signup-icon-field {
+  height: 150px;
+  width: 100%;
+  text-align: center;
+  padding: 20px 20px 20px;
+}
+.signup-to-action {
+  margin: 22px 0;
+  height: 110px;
+  width: 100%;
+}
+
+.wrapper.form-success .container h1 {
+  -webkit-transform: translateY(85px);
+  transform: translateY(85px);
+}
+
+
+.over{
+  background-color: rgba(248, 240, 240, 0.68);
+  display: inline-block;
+  margin:  30px;  margin-bottom:-260px;
+  width:100px;  height:100px;
+  border-radius:250px;  font-size:50px;
+  color:#110202;
+  line-height:100px;
+  text-align:center;
+  font-weight: bold;
+
+}
+
+.over-popup {
+  background-color: rgba(248, 240, 240, 0.68);
+  display: inline-block;
+  margin:  30px;  margin-bottom:-260px;
+  width:110px;  height:110px;
+  border-radius:250px;  font-size:95px;
+  color:#110202;
+  line-height:100px;
+  text-align:center;
+  font-weight: bold;
+
+}
