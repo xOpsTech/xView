@@ -41,6 +41,22 @@ export class ManageComponent implements OnInit {
   username = "";
   password = "";
 
+  edit_account_name = "";
+  edit_consumer_key = "";
+  edit_consumer_secret = "";
+  edit_access_token = "";
+  edit_access_token_secret = "";
+
+  edit_url = "";
+  edit_apiKey = "";
+  edit_username = "";
+  edit_password = "";
+
+  edit_api_key = "";
+  edit_query_key = "";
+
+  email = "";
+
   api_key = "";
   query_key = "";
   servicename = "";
@@ -64,19 +80,53 @@ export class ManageComponent implements OnInit {
   };
   display: boolean = false;
 
+  ngOnInit() {
+
+
+    this.userService.getUserData().subscribe(res => {
+      console.log(res);
+      this.tenant_id = res.message[0].tenantId;
+      this.email = res.message[0].id;
+   
+      this.tenantService.getTenantDetails(this.email).subscribe(res2 => {
+        for (var service of res2["result"].tenant["services"]) {
+          this.existingtenantData.services.push(service);
+        }
+      });
+    });
+
+    this.services = [];
+    this.services.push({ label: 'Select Services--', value: 'Select' });
+    this.services.push({ label: 'Twitter', value: 'twitter' });
+    this.services.push({ label: 'ServiceNow', value: 'servicenow' });
+    this.services.push({ label: 'New relic', value: 'newrelic' });
+
+  }
+
   showDialog(selectedServiceObj) {
     console.log(selectedServiceObj);
 
     if (selectedServiceObj.service == 'twitter') {
-      this.selectedServiceToEdit ='twitter'
+      this.selectedServiceToEdit = 'twitter';
+      this.edit_account_name = selectedServiceObj.account_name;
+      this.edit_consumer_key = selectedServiceObj.consumer_key;
+      this.edit_consumer_secret = selectedServiceObj.consumer_secret;
+      this.edit_access_token = selectedServiceObj.access_token;
+      this.edit_access_token_secret = selectedServiceObj.access_token_secret;
     }
-     else if (selectedServiceObj.service == 'servicenow') {
-      this.selectedServiceToEdit ='servicenow'
-
-    } 
+    else if (selectedServiceObj.service == 'servicenow') {
+      this.selectedServiceToEdit = 'servicenow'
+      this.edit_account_name = selectedServiceObj.account_name;
+      this.edit_url = selectedServiceObj.url;
+      this.edit_apiKey = selectedServiceObj.apiKey;
+      this.edit_username = selectedServiceObj.username;
+      this.edit_password = selectedServiceObj.password;
+    }
     else if (selectedServiceObj.service == 'newrelic') {
-      this.selectedServiceToEdit ='newrelic'
-
+      this.selectedServiceToEdit = 'newrelic';
+      this.edit_account_name = selectedServiceObj.account_name;
+      this.edit_api_key = selectedServiceObj.api_key;
+      this.edit_query_key = selectedServiceObj.query_key;
     }
     this.display = true;
   }
@@ -113,30 +163,34 @@ export class ManageComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-    this.userService.getUserData().subscribe(res => {
-      console.log(res);
-      this.tenant_id = res.message[0].tenantId;
-      var email = res.message[0].id;
-
-      this.tenantService.getTenantDetails(email).subscribe(res2 => {
-        for (var service of res2["result"].tenant["services"]) {
-          this.existingtenantData.services.push(service);
+  editService(serviceobj) {
+    console.log(serviceobj);
+    for (var service of this.existingtenantData.services) {
+      if (service.account_name == serviceobj.edit_account_name) {
+        if (service.service == "twitter") {
+          service.consumer_key = serviceobj.edit_consumer_key;
+          service.consumer_secret = serviceobj.edit_consumer_secret;
+          service.access_token = serviceobj.edit_access_token;
+          service.access_token_secret = serviceobj.edit_access_token_secret;
+        }
+        else if (service.service == "servicenow") {
+          service.url = serviceobj.edit_url;
+          service.apiKey = serviceobj.edit_apiKey;
+          service.username = serviceobj.edit_username;
+          service.password = serviceobj.edit_password;
         }
 
-        for (var service1 of this.existingtenantData.services) {
-          console.log(service1)
+        else if (service.service == 'newrelic') {
+          service.api_key = serviceobj.edit_api_key;
+          service.query_key = serviceobj.edit_query_key;
         }
+      }
+    }
+    console.log(this.existingtenantData.services)
+    this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
+      .subscribe(res2 => {
+     
       });
-    });
-
-    this.services = [];
-    this.services.push({ label: 'Select Services--', value: 'Select' });
-    this.services.push({ label: 'Twitter', value: 'twitter' });
-    this.services.push({ label: 'ServiceNow', value: 'servicenow' });
-    this.services.push({ label: 'New relic', value: 'newrelic' });
-
   }
 
   addAccountService(service) {
