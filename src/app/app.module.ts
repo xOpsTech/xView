@@ -62,12 +62,13 @@ import { AuthServiceConfig} from 'angular4-social-login';
 import {GoogleLoginProvider} from 'angular4-social-login';
 import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
 import {MessagesModule} from 'primeng/primeng';
+import {UserManageComponent} from "./userManager/user-manage.component";
 
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
     provider: new GoogleLoginProvider("1097768545835-cr04oqb5at81e517jge5lfgmos3pcs0t.apps.googleusercontent.com")
-  }  
+  }
 ]);
 
 export function provideConfig() {
@@ -105,7 +106,7 @@ export function provideConfig() {
     BusinessComponent,
     BreadcrumbsComponent,
     CircleProgressComponent,
-    MatchHeightDirective,   
+    MatchHeightDirective,
     XviewTemplateComponent,
     AlertIndividualComponent,
     SignupComponent,
@@ -117,7 +118,8 @@ export function provideConfig() {
     ManageComponent,
     LogsearchComponent,
     CustomComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserManageComponent
   ],
 
 
@@ -156,7 +158,7 @@ export function provideConfig() {
           {
             path: 'home',
             component: HomeComponent
-            
+
           },
           {
             path: 'alert',
@@ -218,6 +220,10 @@ export function provideConfig() {
           {
             path:'profile',
             component:ProfileComponent
+          },
+          {
+            path:'user-manage',
+            component:UserManageComponent,
           },
           {
             path: '**', redirectTo: '', pathMatch: 'full'
