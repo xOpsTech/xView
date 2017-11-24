@@ -219,7 +219,7 @@ export function provideConfig() {
           },
           {
             path:'profile',
-            component:ProfileComponent
+            component:SettingsComponent
           },
           {
             path:'user-manage',
