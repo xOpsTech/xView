@@ -34,6 +34,7 @@ export class SignupComponent {
   stage1 = true;
   stage2 = false;
   stage3 = false;
+  stage5 = false;
   public stat = true;
 
   //Initialize Variables
@@ -165,9 +166,15 @@ export class SignupComponent {
 
                 this.signupService.createUserAccount(this.userAccountData)
                   .subscribe(res => {
-                    this.router.navigate(['/login']);
+                    this.stage5 = true;
+                    this.stage1 = false;
+                    this.stage2 = false;
+                    this.stage3 = false;
                   });
-                this.router.navigate(['/login']);
+                  this.stage5 = true;
+                  this.stage1 = false;
+                  this.stage2 = false;
+                  this.stage3 = false;
 
               });
 

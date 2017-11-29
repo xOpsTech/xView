@@ -12,21 +12,40 @@ import { DialogModule } from 'primeng/primeng';
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations'
 
-//define the constant url we would be uploading to.
-const URL = 'http://localhost:4200/api/upload';
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.scss'],
-  providers: [SignupService, MessageService, ConfirmationService]
+  providers: [SignupService, MessageService, ConfirmationService],
+  animations: [
+    
+        trigger('goals', [
+          transition('* => *', [
+    
+            query(':enter', style({ opacity: 0 }), {optional: true}),
+    
+            query(':enter', stagger('300ms', [
+              animate('.6s ease-in', keyframes([
+                style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
+                style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
+                style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+              ]))]), {optional: true})
+          ])
+        ])
+    
+      ]
 })
 export class ManageComponent implements OnInit {
-
+  //Genric form group
   configureServicesForm: FormGroup;
+  //Each Services Configgroup
   twitterConfigForm: FormGroup;
   serviceNowConfigForm: FormGroup;
   newRelicConfigForm: FormGroup;
+
+
   selectedService: string = 'Select';
   selectedServiceToEdit: string = 'Select';
   account_name = "";
@@ -87,7 +106,7 @@ export class ManageComponent implements OnInit {
       console.log(res);
       this.tenant_id = res.message[0].tenantId;
       this.email = res.message[0].id;
-   
+
       this.tenantService.getTenantDetails(this.email).subscribe(res2 => {
         for (var service of res2["result"].tenant["services"]) {
           this.existingtenantData.services.push(service);
@@ -189,11 +208,19 @@ export class ManageComponent implements OnInit {
     console.log(this.existingtenantData.services)
     this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
       .subscribe(res2 => {
-     
+
       });
   }
 
+
   addAccountService(service) {
+    for (var ser of this.existingtenantData.services) {
+      if (ser.account_name == service.account_name) {
+
+        this.msgs.push({ severity: 'error', summary: '', detail: 'That account name already exists, Please try a different name' });
+        return;
+      }
+    }
     console.log(this.selectedService)
     console.log(service)
     var servicesData = {
@@ -204,6 +231,7 @@ export class ManageComponent implements OnInit {
     };
 
     if (this.selectedService == 'twitter') {
+
       service.service = 'twitter';
       service.serviceId = 's3';
       service.active = true;

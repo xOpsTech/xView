@@ -236,6 +236,22 @@
               </div>
             </form>
           </div>
+
+          <div *ngIf="stage5">
+            <form style="padding-top: 90px" [formGroup]="configureServicesForm" (ngSubmit)="OnStage3Completion(configureServicesForm.value)">
+              <div class="ui-g">
+                <div class="ui-g-12">
+                  <div class="ui-g-12">
+                    <h1>Your Account Request has been Submitted </h1>
+                  </div>
+                  <div class="ui-g-12">
+                  <p>You will be able to log in to your account Once an Admin approvees Your request.</p>
+                  </div>
+                </div>
+               
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
