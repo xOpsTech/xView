@@ -18,7 +18,7 @@ export class ItemService {
   }
 
   saveItem(item: any) {
-    return this.http.post(config.XOPSAPI + '/health_configs/item_indicators/tenant_a', item)
+    return this.http.post(config.XOPSAPI + '/health_configs/item_indicators/xtenant', item)
       .map(this.extractData)
   }
 

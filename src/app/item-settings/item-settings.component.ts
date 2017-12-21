@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfIndicator } from './PerfIndicator'
+import { Item } from './items'
 import { PerfIndicatorService } from '../services/perf-indicator.service';
 import { ItemService } from '../services/item.service';
-
+import { SelectItem } from 'primeng/primeng';
 @Component({
   selector: 'app-item-settings',
   templateUrl: './item-settings.component.html',
@@ -11,71 +12,97 @@ import { ItemService } from '../services/item.service';
 })
 export class ItemSettingsComponent implements OnInit {
 
-  threshold_red: number = 20;
-  threshold_amber: number = 30;
+  threshold_green: number = 0;
+  threshold_blue: number = 0;
+  threshold_yellow: number = 0;
+  threshold_orange: number = 0;
+  threshold_red: number = 0;
+  importance: number = 0;
+
   item_name: string;
   perfIndicators: PerfIndicator[] = [];
+  items: Item[] = [];
+  typevalue: SelectItem[];
+  selectedtype = 'item';
 
-  // perfIndicators: PerfIndicator[] = [
-  //   {
-  //     "id": "cpu:10.90.123.2",
-  //     "thresholdRed": 80,
-  //     "thresholdAmber": 70,
-  //     "importance": 9
-  //   },
-  //   {
-  //     "id": "cpu:10.90.123.25",
-  //     "thresholdRed": 70,
-  //     "thresholdAmber": 60,
-  //     "importance": 1
-  //   }
-  // ];
+  payload: any;
 
   saveItem() {
-
-    var payload = {
-      "id": this.item_name,
-      "thresholdRed": this.threshold_red,
-      "thresholdAmber": this.threshold_amber,
-      "perfIndicators": this.perfIndicators
+    if (this.selectedtype == "item") {
+      this.payload = {
+        "id": this.item_name,
+        "importance": this.importance
+      }
+    }
+    if (this.selectedtype == "pindicator") {
+      this.payload = {
+        "id": this.item_name,
+        "thresholdGreen": this.threshold_green,
+        "thresholdBlue": this.threshold_blue,
+        "thresholdYellow": this.threshold_yellow,
+        "thresholdOrange": this.threshold_orange,
+        "thresholdRed": this.threshold_red,
+        "importance": this.importance
+      }
     }
 
-    console.log(payload);
+    console.log( this.payload);
 
-    this.itemsService.saveItem(payload)
-    .subscribe(response => {
-      this.clearForm();
-      this.loadPerfIndicators();
-    })
+    this.itemsService.saveItem(this.payload)
+      .subscribe(response => {
+        this.clearForm();
+        this.loadPerfIndicators();
+      })
   }
 
   clearForm() {
     this.threshold_red = 20;
-    this.threshold_amber = 30;
     this.item_name = '';
   }
 
-  constructor(private perfIndicatorsService: PerfIndicatorService, private itemsService: ItemService) { }
+  constructor(private perfIndicatorsService: PerfIndicatorService, private itemsService: ItemService) {
+    this.typevalue = [
+      { label: '--Select Type--', value: null },
+      { label: 'Item', value: 'item' },
+      { label: 'Performance Indicator', value: 'pindicator' },
+    ];
+  }
 
   loadPerfIndicators() {
     this.perfIndicatorsService.getPerfIndicators()
       .subscribe(res => {
+        console.log(res.result.perf)
         // var perfIndicatorNames: any[] = res;
         this.perfIndicators = [];
 
-        for (var i = 0; i < res.result.length; i++) {
+        for (var i = 0; i < res.result.perf.length; i++) {
           this.perfIndicators.push(
             {
-              "id": res.result[i],
-              "thresholdRed": 20,
-              "thresholdAmber": 30,
+              "id": res.result.perf[i],
+              "thresholdGreen": 0,
+              "thresholdBlue": 0,
+              "thresholdYellow": 0,
+              "thresholdOrange": 0,
+              "thresholdRed": 0,
               "importance": 0
             }
           );
         }
         this.perfIndicators = [...this.perfIndicators];
+
+
+        for (var i = 0; i < res.result.items.length; i++) {
+          this.items.push(
+            {
+              "id": res.result.items[i],
+              "importance": 0
+            }
+          );
+        }
+        this.items = [...this.items];
       })
   }
+
 
   ngOnInit() {
     this.loadPerfIndicators();
