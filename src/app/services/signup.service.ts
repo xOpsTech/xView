@@ -23,7 +23,7 @@ export class SignupService {
       .post(config.XOPSHOST +'/signup', {
         "id": account.email, "password": account.password, 
         "firstname": account.name, "lastname": "", "timezone": "1",
-        "name":account.username, "tenantId":account.tenantId
+        "name":account.username, "tenantId":account.tenantId,
       }, this.options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -34,7 +34,7 @@ export class SignupService {
     .post(config.XOPSAPI +'/user', {
       "id": account.email, "password": account.password, 
       "firstname": account.name, "lastname": "", "timezone": "1",
-      "name":account.username, "tenantId":account.tenantId
+      "name":account.username, "tenantId":account.tenantId,"approval":account.approval,"status":account.status
     }, this.options)
     .map(this.extractData)
     .catch(this.handleError);

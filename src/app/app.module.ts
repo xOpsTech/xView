@@ -58,12 +58,12 @@ import { LogsearchComponent } from './logsearch/logsearch.component';
 import { CustomComponent } from './custom/custom.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SocialLoginModule } from "angular4-social-login";
-import { AuthServiceConfig} from 'angular4-social-login';
-import {GoogleLoginProvider} from 'angular4-social-login';
-import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
-import {MessagesModule} from 'primeng/primeng';
-import {UserManageComponent} from "./userManager/user-manage.component";
-
+import { AuthServiceConfig } from 'angular4-social-login';
+import { GoogleLoginProvider } from 'angular4-social-login';
+import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { MessagesModule } from 'primeng/primeng';
+import { UserManageComponent } from "./userManager/user-manage.component";
+import { DragulaModule } from 'ng2-dragula';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -125,6 +125,7 @@ export function provideConfig() {
 
   imports: [
     BrowserModule,
+    DragulaModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -146,14 +147,14 @@ export function provideConfig() {
 
       },
       {
-        path:'login',
-        component:LoginComponent,
+        path: 'login',
+        component: LoginComponent,
 
       },
       {
         path: '',
         component: XviewTemplateComponent,
-       canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
           {
             path: 'home',
@@ -164,10 +165,10 @@ export function provideConfig() {
             path: 'alert',
             component: AlertsComponent
           },
-          // {
-          //   path: 'custom/dashboard',
-          //   component: DashboardComponent
-          // },
+          {
+            path: 'dashboard',
+            component: DashboardComponent
+          },
           {
             path: 'map',
             component: MapComponent
@@ -218,12 +219,12 @@ export function provideConfig() {
             component: CustomComponent
           },
           {
-            path:'profile',
-            component:SettingsComponent
+            path: 'profile',
+            component: SettingsComponent
           },
           {
-            path:'user-manage',
-            component:UserManageComponent,
+            path: 'user-manage',
+            component: UserManageComponent,
           },
           {
             path: '**', redirectTo: '', pathMatch: 'full'
@@ -253,10 +254,10 @@ export function provideConfig() {
     DataGridModule,
     FileUploadModule
   ],
-  providers: [AuthService,AuthGuard,SnowAggsService, UserService, RssfeedService, IncidentService,{ provide: AuthServiceConfig,useFactory: provideConfig}],
+  providers: [AuthService, AuthGuard, SnowAggsService, UserService, RssfeedService, IncidentService, { provide: AuthServiceConfig, useFactory: provideConfig }],
   bootstrap: [AppComponent],
   exports: [
     RouterModule
   ]
 })
-export class AppModule {}
+export class AppModule { }

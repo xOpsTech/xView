@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { indicaters } from '../status/indicaters';
 import { DataGridModule } from 'primeng/primeng';
-import { items } from '../status/items';
-
+import {DialogModule} from 'primeng/primeng';
+import {CheckboxModule} from 'primeng/primeng';
+import { DragulaService } from 'ng2-dragula';
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
@@ -11,195 +11,37 @@ import { items } from '../status/items';
 export class StatusComponent implements OnInit {
   metric: any;
   items: any;
+  qtd:any= {};
   status: string;
-  selectedItem: items;
-  itemtitle: string;
-  indicater: indicaters[];
 
 
-  selectedindicaters: indicaters;
+  
+  selectedDashboards: string[] = ['Dashboard1', 'Dashboard2'];
+  availableDashboards: string[] = ['Dashboard1', 'Dashboard2','Dashboard1'];
+  display: boolean = false;
+  
+      showDialog() {
+          this.display = true;
+      }
+  
 
-  constructor() { }
+  constructor(private dragulaService: DragulaService) {
+
+    dragulaService.setOptions('third-bag', {
+      removeOnSpill: false
+    });
+  }
+
 
   ngOnInit() {
+    this.selectedDashboards = ['Dashboard1', 'Dashboard2'];
+  
 
-    this.metric =
-      [
-        {
-          "_index": "item_status_tenant_a",
-          "_type": "metrics",
-          "_id": "AV4K9oTKzonvsBDZ_5jx",
-          "_score": 1,
-          "_source": {
-            "result": [
-              {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-              {
-                "id": "xCompany",
-                "status": "amber",
-                "perfIndicators": [
-                  {
-                    "id": "xNews",
-                    "status": "red"
-                  },
-                  {
-                    "id": "xFinance",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              },
-                {
-                "id": "xFinance",
-                "status": "red",
-                "perfIndicators": [
-                  {
-                    "id": "cpu:10.90.123.2",
-                    "status": "red"
-                  },
-                  {
-                    "id": "freeMemory:10.90.123.12",
-                    "status": "green"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ];
-    this.items = this.metric[0]["_source"]["result"];
   }
-
-  show(event) {
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].id == event) {
-        this.indicater = this.metric[0]["_source"]["result"][i].perfIndicators;
-        this.itemtitle = event;
-      }
-    }
+  removeBox(index)
+  {
+    this.selectedDashboards.splice(index, 1);
   }
+ 
 
 }

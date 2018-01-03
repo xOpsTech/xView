@@ -50,7 +50,7 @@ export class SignupComponent {
   activeIndex: number = 0;
   tenantexist = false;
 
-  userAccountData: {};
+  userAccountData: {"picture":'http://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png'};
   tenantData = {
     address: "",
     phone: "",
@@ -104,7 +104,6 @@ export class SignupComponent {
 
   ngOnInit() {
 
-
     this.services = [];
     this.services.push({ label: 'Select Services--', value: 'Select' });
     this.services.push({ label: 'Twitter', value: 'twitter' });
@@ -117,6 +116,16 @@ export class SignupComponent {
     });
   }
 
+  setApproval() {
+    if (typeof this.existingtenant == 'undefined') {
+      this.userAccountData['approval'] = true;
+      this.userAccountData['status'] = "Active"
+    }
+    else {
+      this.userAccountData['approval'] = false;
+      this.userAccountData['status'] = "Pending";
+    }
+  }
   //Hide remove New Organization add
   onchangeorgid(event) {
     if (event == "" || event == null) {
@@ -126,7 +135,6 @@ export class SignupComponent {
       this.stat = false;
     }
   }
-
 
   removeConfiguration(index) {
     console.log(this.tenantData.services);
@@ -162,19 +170,20 @@ export class SignupComponent {
                 this.tenantId = res1.tenantId;
                 console.log("tenantId : " + this.tenantId)
                 this.userAccountData['tenantId'] = this.tenantId;
+                this.setApproval();
                 console.log("userAccountData when existing tenant entered: " + JSON.stringify(this.userAccountData));
 
-                this.signupService.createUserAccount(this.userAccountData)
+                this.signupService.saveUser(this.userAccountData)
                   .subscribe(res => {
                     this.stage5 = true;
                     this.stage1 = false;
                     this.stage2 = false;
                     this.stage3 = false;
                   });
-                  this.stage5 = true;
-                  this.stage1 = false;
-                  this.stage2 = false;
-                  this.stage3 = false;
+                this.stage5 = true;
+                this.stage1 = false;
+                this.stage2 = false;
+                this.stage3 = false;
 
               });
 
@@ -230,6 +239,7 @@ export class SignupComponent {
     console.log(this.tenantData.services);
   }
 
+ 
   OnStage3Completion(configureServicesForm) {
 
     delete this.userAccountData['cnfmpassword'];
@@ -245,8 +255,9 @@ export class SignupComponent {
         var tenantId = response.result.tenantId;
         console.log(tenantId);
         this.userAccountData['tenantId'] = tenantId;
+        this.setApproval();
         console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
-        this.signupService.createUserAccount(this.userAccountData)
+        this.signupService.saveUser(this.userAccountData)
           .subscribe(res => {
             console.log("Response" + res);
             this.router.navigate(['/login']);
@@ -263,7 +274,7 @@ export class SignupComponent {
         console.log(tenantId);
         this.userAccountData['tenantId'] = tenantId;
         console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
-        this.signupService.createUserAccount(this.userAccountData)
+        this.signupService.saveUser(this.userAccountData)
           .subscribe(res => {
             console.log("Response" + res);
             this.router.navigate(['/login']);
@@ -294,6 +305,7 @@ export class SignupComponent {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
+  
   signInTrigger(user) {
     // if (user !== null) {
     //   console.log(user);
@@ -301,7 +313,5 @@ export class SignupComponent {
     //   this.OnStage1Completion(this.userAccountData);
     // }
   }
-
-
 }
 

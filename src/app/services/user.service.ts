@@ -8,7 +8,7 @@ import { config } from '../config/config';
 export class UserService {
   private getUserUrl = config.devUrl+"/user";
   private getcheckUserUrl = config.XOPSAPI+'/checkuser'
-
+  private getUserDetailsUrl = config.XOPSAPI+"/user";
   user = null;
   email_id: string;
   emailv = null;
@@ -20,13 +20,20 @@ export class UserService {
 
   }
 
-  getUserData() {
-    var token = localStorage.getItem('token');
-    let headers = new Headers({token});
-    console.log(headers)
-    return this.http.get(this.getUserUrl ,{ headers })
-      .map((res: Response) => res.json())
-  }
+  
+    checkUserStatus(email) {
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      return this.http.get(`${this.getUserDetailsUrl}/${email}`, { headers })
+        .map((res: Response) => res.json())
+    }
+
+    getUserData() {
+      var token = localStorage.getItem('token');
+      let headers = new Headers({token});
+      console.log(headers)
+      return this.http.get(this.getUserUrl ,{ headers })
+        .map((res: Response) => res.json())
+    }
 
   checkUser(userID){
     let userid =userID; 
@@ -57,23 +64,6 @@ export class UserService {
     }
   }
 
-
-  // setUserName(loggedInUser) {
-  //   this.username = loggedInUser;
-  // }
-
-  // setTenant(t_id) {
-  //   this.tenantId = t_id;
-  // }
-
-  // setEmail(email) {
-  //   this.email_id = email;
-  // }
-
-
-  // getUsername() {
-  //   return this.username;
-  // }
 
   getEmail() {
     this.getUserData().subscribe(res => {
