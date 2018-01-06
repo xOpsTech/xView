@@ -16,7 +16,10 @@ import { GoogleLoginProvider} from 'angular4-social-login';
 })
 export class LoginComponent implements OnInit {
 
-  credentials = {};
+  credentials = {
+    "id" :"",
+    "password":""
+  };
   errorMessage:boolean = false;
   user: SocialUser;
 
@@ -32,7 +35,13 @@ export class LoginComponent implements OnInit {
   }
 
   authenticate() {
-    var user = this.credentials;     
+    
+    var user = this.credentials;  
+    var email = this.credentials.id;  
+ console.log(email);
+    this.userService.checkUserStatus(email)
+    .subscribe(res => { 
+     });
      this.loginService.Authenticate(user)
       .subscribe(res => {           
             if (res.success) {              

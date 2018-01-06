@@ -154,7 +154,7 @@ export function provideConfig() {
       {
         path: '',
         component: XviewTemplateComponent,
-        canActivate: [AuthGuard],
+       // canActivate: [AuthGuard],
         children: [
           {
             path: 'home',

@@ -28,31 +28,25 @@ export class ItemSettingsComponent implements OnInit {
   payload: any;
 
   saveItem() {
-    if (this.selectedtype == "item") {
-      this.payload = {
-        "id": this.item_name,
-        "importance": this.importance
-      }
-    }
-    if (this.selectedtype == "pindicator") {
-      this.payload = {
-        "id": this.item_name,
-        "thresholdGreen": this.threshold_green,
-        "thresholdBlue": this.threshold_blue,
-        "thresholdYellow": this.threshold_yellow,
-        "thresholdOrange": this.threshold_orange,
-        "thresholdRed": this.threshold_red,
-        "importance": this.importance
-      }
-    }
 
-    console.log( this.payload);
+      // this.payload = {
+      //   "id": this.item_name,
+      //   "thresholdGreen": this.threshold_green,
+      //   "thresholdBlue": this.threshold_blue,
+      //   "thresholdYellow": this.threshold_yellow,
+      //   "thresholdOrange": this.threshold_orange,
+      //   "thresholdRed": this.threshold_red,
+      //   "importance": this.importance
+      // }
+ 
+      console.log(this.perfIndicators);
+   
 
-    this.itemsService.saveItem(this.payload)
-      .subscribe(response => {
-        this.clearForm();
-        this.loadPerfIndicators();
-      })
+    // this.itemsService.saveItem(this.payload)
+    //   .subscribe(response => {
+    //     this.clearForm();
+    //     this.loadPerfIndicators();
+    //   })
   }
 
   clearForm() {
@@ -71,14 +65,14 @@ export class ItemSettingsComponent implements OnInit {
   loadPerfIndicators() {
     this.perfIndicatorsService.getPerfIndicators()
       .subscribe(res => {
-        console.log(res.result.perf)
+        console.log(res.perf)
         // var perfIndicatorNames: any[] = res;
         this.perfIndicators = [];
 
-        for (var i = 0; i < res.result.perf.length; i++) {
+        for (var i = 0; i < res.perf.length; i++) {
           this.perfIndicators.push(
             {
-              "id": res.result.perf[i],
+              "id": res.perf[i],
               "thresholdGreen": 0,
               "thresholdBlue": 0,
               "thresholdYellow": 0,
@@ -91,10 +85,10 @@ export class ItemSettingsComponent implements OnInit {
         this.perfIndicators = [...this.perfIndicators];
 
 
-        for (var i = 0; i < res.result.items.length; i++) {
+        for (var i = 0; i < res.items.length; i++) {
           this.items.push(
             {
-              "id": res.result.items[i],
+              "id": res.items[i],
               "importance": 0
             }
           );
