@@ -64,6 +64,8 @@ import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { MessagesModule } from 'primeng/primeng';
 import { UserManageComponent } from "./userManager/user-manage.component";
 import { DragulaModule } from 'ng2-dragula';
+import {UserTypemanagementComponent} from './userTypeManagement/userTypemanagement.component';
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -119,8 +121,10 @@ export function provideConfig() {
     LogsearchComponent,
     CustomComponent,
     ProfileComponent,
-    UserManageComponent
-  ],
+    UserManageComponent,
+    UserTypemanagementComponent
+
+      ],
 
 
   imports: [
@@ -226,6 +230,11 @@ export function provideConfig() {
             path: 'user-manage',
             component: UserManageComponent,
           },
+          {
+            path:'userTypemanagement',
+            component:UserTypemanagementComponent,
+          },
+
           {
             path: '**', redirectTo: '', pathMatch: 'full'
           }

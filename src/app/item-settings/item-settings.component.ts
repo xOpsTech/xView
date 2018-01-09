@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfIndicator } from './PerfIndicator'
-import { Item } from './items'
+import { Item } from './Items'
 import { PerfIndicatorService } from '../services/perf-indicator.service';
 import { ItemService } from '../services/item.service';
 import { SelectItem } from 'primeng/primeng';
@@ -38,9 +38,9 @@ export class ItemSettingsComponent implements OnInit {
       //   "thresholdRed": this.threshold_red,
       //   "importance": this.importance
       // }
- 
+
       console.log(this.perfIndicators);
-   
+
 
     // this.itemsService.saveItem(this.payload)
     //   .subscribe(response => {

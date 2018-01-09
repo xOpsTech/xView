@@ -1,0 +1,159 @@
+ <div class="wrapper">
+  <div class="container" style="background-color: white">
+    <form [formGroup]="createUserTypeForm" (ngSubmit)="createNewTenant(createUserTypeForm.value)">
+      <div style="background-color: white" align="center" >
+        <div style="background-color: white" >
+          <br>
+          <h1 >Create User Types</h1>
+          <br>
+          <br>
+            <table>
+
+              <tr style="align-self: center">
+                <td style="align-self: center">
+                  Name
+                </td>
+                <td style="text-align:center;">
+                  <input pInputText [value]="name" required="true" type="text" placeholder="User Type Name" formControlName="name">
+                </td>
+              </tr>
+              <br>
+              <tr style="text-align:center;">
+                <td>
+                  Management
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" [value]="management" [ngModel]="management" formControlName="management">
+                </td>
+              </tr>
+              <br>
+              <tr style="text-align:center;">
+                <td>
+                  Develop
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" [value]="develop" [ngModel]="develop" formControlName="develop">
+                </td>
+              </tr>
+              <br>
+              <tr style="text-align:center;">
+                <td>
+                  User Types Manager
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" [value]="userTypeManager" [ngModel]="userTypeManager" formControlName="userTypeManager">
+                </td>
+              </tr>
+              <br>
+
+              <tr style="text-align:center;">
+                <td>
+                  User Manager
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" [value]="userManager" [ngModel]="userManager" formControlName="userManager">
+                </td>
+              </tr>
+              <br>
+
+              <tr style="text-align:center;">
+                <td>
+                  Profile Manager
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" [value]="profileManager" [ngModel]="profileManager" formControlName="profileManager">
+                </td>
+              </tr>
+              <br>
+
+              <tr style="text-align:center;">
+                <td>
+                  Input Source Manager
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" [value]="inputSourceManager" [ngModel]="inputSourceManager" formControlName="inputSourceManager">
+                </td>
+              </tr>
+              <br>
+
+              <tr style="text-align:center;">
+                <td>
+                  Tenant Id
+                </td>
+                <td style="align-self: center">
+                  <input pInputText [(ngModel)]="tenantId" readonly="true" formControlName="tenantId">
+                </td>
+              </tr>
+              <br>
+
+              <tr style="align-content: center">
+                <td colspan="2" style="align-self: center">
+                  <button pButton type="submit" label="Submit"></button>
+                  <button pButton type="reset" label="Reset"></button>
+                </td>
+
+              </tr>
+            </table>
+        </div>
+
+
+      </div>
+      <br>
+      <br>
+    </form>
+    <br>
+    <br>
+  </div>
+   <br>
+   <br>
+   <div class="container" style="background-color: white">
+      <table>
+        <tr>
+          <td style="text-align: left">
+            Name
+          </td>
+          <td style="text-align: left">
+            Management
+          </td>
+          <td>
+            <p style="text-align: left">Develop</p>
+          </td>
+          <td>
+            <p style="text-align: left">User Type Management</p>
+          </td>
+          <td>
+            <p style="text-align: left">User Management</p>
+          </td>
+          <td>
+            <p style="text-align: left">Profile Management</p>
+          </td>
+          <td>
+            <p style="text-align: left">Input Source Management</p>
+          </td>
+        </tr>
+        <tr *ngFor="let UserType of useTypes let i=index">
+          <td>
+            <input pInputText [value]="UserType.name">
+          </td>
+          <td>
+            <input pInputText [value]="UserType.management" checked="UserType.management">
+          </td>
+          <td>
+            <input pInputText [value]="UserType.develop" checked="UserType.develop">
+          </td>
+          <td>
+            <input pInputText [value]="UserType.userTypeManager" checked="UserType.userTypeManager">
+          </td>
+          <td>
+            <input pInputText [value]="UserType.profileManager" checked="UserType.profileManager">
+          </td>
+          <td>
+            <input pInputText [value]="UserType.userManager" checked="UserType.userManager">
+          </td>
+          <td>
+            <input pInputText [value]="UserType.inputSourceManager" checked="UserType.inputSourceManager">
+          </td>
+        </tr>
+      </table>
+   </div>
+</div>
