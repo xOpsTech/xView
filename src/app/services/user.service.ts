@@ -20,10 +20,9 @@ export class UserService {
 
   }
 
-  
     checkUserStatus(email) {
       let headers = new Headers({ 'Content-Type': 'application/json' });
-      return this.http.get(`${this.getUserDetailsUrl}/${email}`, { headers })
+      return this.http.get(`${this.getcheckUserUrl}/${email}`, { headers })
         .map((res: Response) => res.json())
     }
 
@@ -42,9 +41,7 @@ export class UserService {
       .map((res: Response) => res.json())
   }
 
-
   updateSettings(body: Object) {
-
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.put(`${this.getUserUrl}/${body['email']}`, body, options)

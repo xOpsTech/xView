@@ -24,7 +24,7 @@ export class XviewTemplateComponent implements OnInit {
   ngOnInit() {
     this.userService.getUserData().subscribe(res => {
 
-      console.log(res.id);
+      console.log(res.message[0]);
       this.user = res.message[0];
       var tenant_id = this.user.tenantId;
       var email = this.user.id;

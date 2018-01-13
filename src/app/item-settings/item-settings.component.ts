@@ -4,6 +4,7 @@ import { Item } from './items'
 import { PerfIndicatorService } from '../services/perf-indicator.service';
 import { ItemService } from '../services/item.service';
 import { SelectItem } from 'primeng/primeng';
+import { CheckboxModule } from 'primeng/primeng';
 @Component({
   selector: 'app-item-settings',
   templateUrl: './item-settings.component.html',
@@ -21,44 +22,54 @@ export class ItemSettingsComponent implements OnInit {
 
   item_name: string;
   perfIndicators: PerfIndicator[] = [];
+  selectedperfs: PerfIndicator[];
+  selecteditems: Item[];
   items: Item[] = [];
   typevalue: SelectItem[];
   selectedtype = 'item';
-
   payload: any;
-
+  payload2: any;
   saveItem() {
-    if (this.selectedtype == "item") {
-      this.payload = {
-        "id": this.item_name,
-        "importance": this.importance
-      }
-    }
+
+
+
+
+    console.log(JSON.stringify("selected pref = " + JSON.stringify(this.selectedperfs)));
+    console.log(JSON.stringify("selected items = " +  JSON.stringify(this.selecteditems)));
+
+    console.log("type is " + this.selectedtype);
     if (this.selectedtype == "pindicator") {
+
       this.payload = {
         "id": this.item_name,
-        "thresholdGreen": this.threshold_green,
-        "thresholdBlue": this.threshold_blue,
-        "thresholdYellow": this.threshold_yellow,
-        "thresholdOrange": this.threshold_orange,
-        "thresholdRed": this.threshold_red,
-        "importance": this.importance
+        "perfIndicators": this.selectedperfs
       }
+      console.log(JSON.stringify(this.payload));
+
+      console.log("went inside pindicator" + this.payload);
+      this.itemsService.saveItem(this.payload)
+        .subscribe(response => {
+           // window.location.reload();
+        })
     }
 
-    console.log( this.payload);
 
-    this.itemsService.saveItem(this.payload)
-      .subscribe(response => {
-        this.clearForm();
-        this.loadPerfIndicators();
-      })
+    if (this.selectedtype == "item") {
+
+      this.payload2 = {
+        "id": this.item_name,
+        "perfIndicators": this.selecteditems
+      }
+
+      console.log("went inside item" + this.payload2);
+      this.itemsService.saveItem(this.payload2)
+        .subscribe(response => {
+         //  window.location.reload();
+        })
+    }
+
   }
 
-  clearForm() {
-    this.threshold_red = 20;
-    this.item_name = '';
-  }
 
   constructor(private perfIndicatorsService: PerfIndicatorService, private itemsService: ItemService) {
     this.typevalue = [
@@ -71,14 +82,14 @@ export class ItemSettingsComponent implements OnInit {
   loadPerfIndicators() {
     this.perfIndicatorsService.getPerfIndicators()
       .subscribe(res => {
-        console.log(res.result.perf)
+        console.log(res.result)
         // var perfIndicatorNames: any[] = res;
         this.perfIndicators = [];
 
-        for (var i = 0; i < res.result.perf.length; i++) {
+        for (var i = 0; i < res.result["perf"].length; i++) {
           this.perfIndicators.push(
             {
-              "id": res.result.perf[i],
+              "id": res.result["perf"][i],
               "thresholdGreen": 0,
               "thresholdBlue": 0,
               "thresholdYellow": 0,
@@ -91,10 +102,10 @@ export class ItemSettingsComponent implements OnInit {
         this.perfIndicators = [...this.perfIndicators];
 
 
-        for (var i = 0; i < res.result.items.length; i++) {
+        for (var i = 0; i < res.result["items"].length; i++) {
           this.items.push(
             {
-              "id": res.result.items[i],
+              "id": res.result["items"][i],
               "importance": 0
             }
           );
