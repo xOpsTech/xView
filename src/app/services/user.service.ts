@@ -26,7 +26,7 @@ export class UserService {
     checkUserStatus(email) {
       console.log("Hello" + email+" Iwork");
       let headers = new Headers({ 'Content-Type': 'application/json' });
-      return this.http.get(`${this.getUserDetailsUrl}/${email}`, { headers })
+      return this.http.get(`${this.getcheckUserUrl}/${email}`, { headers })
         .map((res: Response) => res.json())
     }
 
