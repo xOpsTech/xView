@@ -57,13 +57,14 @@ import { ListboxModule } from 'primeng/primeng';
 import { LogsearchComponent } from './logsearch/logsearch.component';
 import { CustomComponent } from './custom/custom.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SocialLoginModule } from "angular4-social-login";
-import { AuthServiceConfig } from 'angular4-social-login';
-import { GoogleLoginProvider } from 'angular4-social-login';
 import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { MessagesModule } from 'primeng/primeng';
 import { UserManageComponent } from "./userManager/user-manage.component";
 import { DragulaModule } from 'ng2-dragula';
+import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
+import { HealthComponent } from './health/health.component';
+ 
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -74,8 +75,6 @@ let config = new AuthServiceConfig([
 export function provideConfig() {
   return config;
 }
-
-
 
 @NgModule({
   declarations: [
@@ -119,7 +118,8 @@ export function provideConfig() {
     LogsearchComponent,
     CustomComponent,
     ProfileComponent,
-    UserManageComponent
+    UserManageComponent,
+    HealthComponent
   ],
 
 
@@ -139,7 +139,7 @@ export function provideConfig() {
     SocialLoginModule,
     MessagesModule,
     ConfirmDialogModule,
-
+    SocialLoginModule,
     RouterModule.forRoot([
       {
         path: 'signup',
@@ -152,9 +152,14 @@ export function provideConfig() {
 
       },
       {
+        path: 'health',
+        component: HealthComponent,
+        
+      },
+      {
         path: '',
         component: XviewTemplateComponent,
-       canActivate: [AuthGuard],
+       //canActivate: [AuthGuard],
         children: [
           {
             path: 'home',
@@ -228,7 +233,9 @@ export function provideConfig() {
           },
           {
             path: '**', redirectTo: '', pathMatch: 'full'
-          }
+          },
+       
+
 
         ]
       }
@@ -254,7 +261,10 @@ export function provideConfig() {
     DataGridModule,
     FileUploadModule
   ],
-  providers: [AuthService, AuthGuard, SnowAggsService, UserService, RssfeedService, IncidentService, { provide: AuthServiceConfig, useFactory: provideConfig }],
+  providers: [AuthService, AuthGuard, SnowAggsService, UserService, RssfeedService, IncidentService, {
+    provide: AuthServiceConfig,
+    useFactory: provideConfig
+  }],
   bootstrap: [AppComponent],
   exports: [
     RouterModule
