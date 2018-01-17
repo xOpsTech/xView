@@ -39,9 +39,10 @@
               <td><b>User&nbsp;Type</b></td>
               <!--<td><p-dropdown [options]="useTypes"  optionLabel="name" placeholder="User Type"></p-dropdown></td>-->
               <td>
-                <select formControlName="userType" >
-              <option *ngFor="let UserTypes of useTypes let i=index" [value]="UserTypes">{{UserTypes.name}}</option>
-              </select>
+                  <select [(ngModel)]="userType" formControlName="userType" >
+                    <!--<option [ngValue]="null">Please select value</option>-->
+                    <option *ngFor="let UserTypes of useTypes;let i = index " [ngValue]="UserTypes">{{UserTypes.name}}</option>
+                  </select>
               </td>
             </tr>
             <br>
@@ -79,7 +80,7 @@
         <br>
       </div>
 
-        <table>
+        <table >
           <tr>
             <td></td>
           <td style="text-align:center;">ID</td>
@@ -88,22 +89,22 @@
           <td>TenantId</td>
           <td colspan="2"></td>
           </tr>
-          <tr *ngFor="let Users of useTypes let i=index">
+          <tr *ngFor="let Users of userAccounts " style="width: 5px">
             <!--<td style="text-align: center">{{i+1}}</td>-->
             <td></td>
-            <td>
-              <input pInputText readonly="{{editable}}" [value]="Users.id">
+            <td style="width: 5px">
+              <input  pInputText readonly="{{editable}}" [value]="Users.id">
             </td>
-            <td>
+            <td style="width: 25px">
               <input pInputText readonly="{{editable}}" [value]="Users.name">
             </td>
-            <td>
+            <td style="width: 5px">
               <input pInputText readonly="{{editable}}" type="password" [value]="Users.password">
             </td>
-            <td>
+            <td style="width: 25px">
               <input pInputText disabled [value]="Users.tenantId">
             </td>
-            <td>
+            <td style="width: 25px">
               <input pInputText type="button" (click)="editUser()" value="Edit{{i}}">
             </td>
           </tr>

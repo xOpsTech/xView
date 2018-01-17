@@ -24,12 +24,30 @@ export class UserManageComponent implements OnInit {
   password: String = '';
   cnfmpassword: String = '';
   tenantId: any = '';
-  userType:UserType;
+  userType:{
+    name:"Select User Type";
+    management:false;
+    develop:false;
+    userTypeManager:false;
+    profileManager:false;
+    userManager:false;
+    inputSourceManager:false;
+  };
   userAccountData: {};
   editable:boolean=false;
 
+  userAccountsCount=0;
+
   userAccounts:any[];
-  useTypes:UserType[];
+  useTypes:{
+    name:"";
+    management:false;
+    develop:false;
+    userTypeManager:false;
+    profileManager:false;
+    userManager:false;
+    inputSourceManager:false;
+  }[];
 
   editUsersAccountData:{};
   editUserTypes:{};
@@ -43,10 +61,10 @@ export class UserManageComponent implements OnInit {
   constructor(private signupService: SignupService,private userService:UserService) {
     this.createAccountForm = new FormGroup(
       {
-      username: new FormControl(),
-      email: new FormControl(),
-      password: new FormControl(),
-      cnfmpassword: new FormControl(),
+        username: new FormControl(),
+        email: new FormControl(),
+        password: new FormControl(),
+        cnfmpassword: new FormControl(),
         userType:new FormControl(),
       tenantId:new FormControl({disabled:true})
     });
@@ -85,7 +103,12 @@ export class UserManageComponent implements OnInit {
       // this.useTypes[0]="Select UserType";
 
       this.editUserTypes=this.userService.getUserTypeByTenantId(this.tenantId).subscribe(res=>{
-        this.useTypes=res.data;
+
+
+
+        if(res.data.length!=0){
+          this.useTypes=res.data;
+        }
         console.log(this.useTypes);
       });
     });
@@ -97,7 +120,10 @@ export class UserManageComponent implements OnInit {
 
 
 createUser(CreateAccountForm){
-    console.log("type CreateAccountForm"+ typeof CreateAccountForm);
+    // console.log("type CreateAccountForm"+ typeof CreateAccountForm);
+    console.log( CreateAccountForm);
+    console.log(CreateAccountForm.userType);
+
 
     // delete CreateAccountForm['cnfmpassword'];
 
@@ -113,8 +139,7 @@ createUser(CreateAccountForm){
       this.createAccountForm.reset();
     });
 
-  //
-  location.reload();
+   location.reload();
 
 
   console.log(CreateAccountForm);

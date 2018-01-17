@@ -1,9 +1,9 @@
 export interface UserType {
   name;
-  management;
-  develop;
-  userTypeManager;
-  profileManager;
-  userManager;
-  inputSourceManager;
+  management:false;
+  develop:false;
+  userTypeManager:false;
+  profileManager:false;
+  userManager:false;
+  inputSourceManager:false;
 }
