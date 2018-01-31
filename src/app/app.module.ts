@@ -159,7 +159,7 @@ export function provideConfig() {
       {
         path: '',
         component: XviewTemplateComponent,
-       //canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
         children: [
           {
             path: 'home',
@@ -225,7 +225,7 @@ export function provideConfig() {
           },
           {
             path: 'profile',
-            component: SettingsComponent
+            component: ProfileComponent
           },
           {
             path: 'user-manage',

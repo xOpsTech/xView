@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { ActivatedRoute ,Router}     from '@angular/router';
-
-
-
+import { TenantService } from '../services/tenant.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
- 
+
 })
 export class HeaderComponent implements OnInit {
   user = {
@@ -16,42 +14,54 @@ export class HeaderComponent implements OnInit {
     picture: "",
     tenantId: ""
   };
+
+
+  logourl = "/assets/img/logo.png"
   toggleicon = "/assets/img/nav-expand.png";
-   selected : boolean;
-  constructor( private userService:UserService,private router: Router ,private route: ActivatedRoute) {
+  selected: boolean;
+
+  constructor(private userService: UserService, private tenantService: TenantService, private router: Router, private route: ActivatedRoute) {
     this.selected = false;
   }
 
   ngOnInit() {
-      this.userService.getUserData().subscribe(res => {
+    this.userService.getUserData().subscribe(res => {
+      this.user = res.message[0];
+      if(typeof res.message[0].picture =="undefined")
+      {
+        this.user.picture = "/assets/img/profilepics/default-profile-image.png"
+      }
+      else{
+        this.user.picture = "/assets/img/profilepics/" + res.message[0].picture;
+      }
+ 
+    });
+   
 
-        this.user = res.message[0];       
-        // this.userService.setUserName(this.user.name);
-        // this.userService.setTenant(this.user.tenantId);
-      });
+  }
+  
+  toggleimg() {
+    if (this.toggleicon == "/assets/img/nav-expand.png") { this.toggleicon = "/assets/img/nav-collapse.png"; }
+    else {
+      this.toggleicon = "/assets/img/nav-expand.png"
+    }
   }
 
-  toggleimg()
-  {
-    if(this.toggleicon =="/assets/img/nav-expand.png")
-    { this.toggleicon = "/assets/img/nav-collapse.png";}
-    else{
-      this.toggleicon ="/assets/img/nav-expand.png"
-    }
-   
+  toggledropDown() {
+    this.selected = !this.selected;
   }
-  toggledropDown(){
-        this.selected = !this.selected;
-    }
-    removedropDown(){
-      this.selected = !this.selected;
-    }
+  removedropDown() {
+    this.selected = !this.selected;
+  }
 
-    logout():void{     
-      window.localStorage.removeItem("token");
-      this.router.navigate(['/login'],{relativeTo: this.route});  
-    //  window.location.reload();    
-    }
-   
+  logout(): void {
+    localStorage.removeItem("token");
+    localStorage.removeItem("UserDetails");
+
+    this.router.navigate(['/login'], { relativeTo: this.route });
+    window.location.reload();
+  }
+
+
 
 }

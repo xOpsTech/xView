@@ -41,11 +41,11 @@ export class LoginComponent implements OnInit {
     var user = this.credentials;
     var email = this.credentials.id;
     console.log("---------------------------------");
-    this.userService.checkUserStatus(email)
-      .subscribe(res => {
+    // this.userService.checkUserStatus(email)
+    //   .subscribe(res => {
         console.log("---------------------------------");
-        var approval = res.message[0].approval;
-        if (approval == true) {
+        // var approval = res.message[0].approval;
+        // if (approval == true) {
           this.loginService.Authenticate(user)
             .subscribe(res => {
               if (res.success) {
@@ -55,12 +55,12 @@ export class LoginComponent implements OnInit {
               this.errorMessage = true;
             });
         }
-        else{
-          this.errorMessage2 = true;
-          console.log("approval denied");
-        }
-      });
-  }
+        // else{
+        //   this.errorMessage2 = true;
+        //   console.log("approval denied");
+        // }
+      // });
+  // }
 
   signInWithGoogle(): void {
     // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);

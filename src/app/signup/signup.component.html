@@ -30,7 +30,7 @@
                   <div class="ui-g-8">
                   </div>
                   <div class="form-group">
-                    <input pInputText type="text" [value]="username" placeholder="Name" class="form-control" formControlName="username" />
+                    <input pInputText type="text" [(ngModel)] = "uname" [value]="username" placeholder="Name" class="form-control" formControlName="username" />
                     <div class="alert" *ngIf="createAccountForm.get('username').hasError('required') && createAccountForm.get('username').dirty">
                       Oops, please provide a name!
                     </div>
@@ -70,6 +70,8 @@
               </div>
             </form>
             <div class="ui-g-12">
+               
+           
             <input type="hidden" [ngModel]="user" *ngIf="signInTrigger(user)==user"/>
                 <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()" style="width: 100%"><span class="fa fa-google" style="padding-right: 10px"></span>login with Google</button>
                   </div>
@@ -249,7 +251,7 @@
                   </div>
                 </div>
                 <div class="ui-g-12">
-                    <button pButton type="submit"  (click)="removeConfiguration(i)" class="form-control" label="Back to Login"></button>
+                    <button pButton type="submit"  (click)="backtologin()" class="form-control" label="Back to Login"></button>
                   </div>
               </div>
             </form>

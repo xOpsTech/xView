@@ -29,7 +29,8 @@ export class SignupComponent {
   newRelicConfigForm: FormGroup;
   selectedService: string = 'Select';
   user: SocialUser;
-
+  uname :String;
+  googleuser: {};
   items: MenuItem[];
   stage1 = true;
   stage2 = false;
@@ -50,7 +51,7 @@ export class SignupComponent {
   activeIndex: number = 0;
   tenantexist = false;
 
-  userAccountData: {"picture":'http://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png'};
+  userAccountData: {};
   tenantData = {
     address: "",
     phone: "",
@@ -112,7 +113,11 @@ export class SignupComponent {
 
     this.setDiv();
     this.authService.authState.subscribe((user) => {
-      this.user = user;
+      this.googleuser = user;
+    //  this.uname = this.googleuser.name
+      // this.username= this.googleuser.name
+      // this.email= this.googleuser.email
+      console.log( this.googleuser)
     });
   }
 
@@ -170,6 +175,7 @@ export class SignupComponent {
                 this.tenantId = res1.tenantId;
                 console.log("tenantId : " + this.tenantId)
                 this.userAccountData['tenantId'] = this.tenantId;
+                this.userAccountData['picture'] = 'default-profile-image.png';
                 this.setApproval();
                 console.log("userAccountData when existing tenant entered: " + JSON.stringify(this.userAccountData));
 
@@ -255,6 +261,7 @@ export class SignupComponent {
         var tenantId = response.result.tenantId;
         console.log(tenantId);
         this.userAccountData['tenantId'] = tenantId;
+        this.userAccountData['picture'] = 'default-profile-image.png';
         this.setApproval();
         console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
         this.signupService.saveUser(this.userAccountData)
@@ -273,6 +280,7 @@ export class SignupComponent {
         var tenantId = response.result.tenantId;
         console.log(tenantId);
         this.userAccountData['tenantId'] = tenantId;
+        this.userAccountData['picture'] = 'default-profile-image.png';
         console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
         this.signupService.saveUser(this.userAccountData)
           .subscribe(res => {
@@ -304,7 +312,18 @@ export class SignupComponent {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
-
+ 
+  backtologin()
+  {
+    this.router.navigate(['/login']);
+  }
+  // signInWithFB(): void {
+  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
+ 
+  signOut(): void {
+    this.authService.signOut();
+  }
   
   signInTrigger(user) {
     // if (user !== null) {

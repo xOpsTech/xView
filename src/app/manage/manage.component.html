@@ -4,8 +4,8 @@
       <p-messages [(value)]="msgs"></p-messages>
 
       <p-growl [value]="msgs2"></p-growl>
-      
-  <p-confirmDialog></p-confirmDialog>
+
+      <p-confirmDialog></p-confirmDialog>
       <h3>Add Data Sources</h3>
     </div>
 
@@ -120,7 +120,7 @@
           <th>{{srv.account_name}}</th>
 
           <!-- Start of Dilaog box to Edit Services -->
-       
+
 
           <th><button type="button" (click)="showDialog(srv)" pButton icon="fa-external-link-square" label="Edit"></button></th>
           <th><button type="button" (click)="deleteService(i)" pButton icon="fa-trash" label="Delete"></button></th>
@@ -128,7 +128,7 @@
       </table>
       <p-dialog [(visible)]="display" modal="modal" width="600" [responsive]="true">
         <p-header closable="true">
-      {{  edit_account_name}}
+          {{ edit_account_name}}
         </p-header>
         <div class="wrapper">
 
@@ -137,47 +137,47 @@
               <!-- Twitter -->
               <form #edittwitterConfigForm="ngForm" (ngSubmit)="editService(edittwitterConfigForm.value)">
                 <div *ngIf="selectedServiceToEdit=='twitter'">
-                    <div class="ui-g-6">
-                        account name
-                    </div>
                   <div class="ui-g-6">
-                    <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control" 
+                    account name
+                  </div>
+                  <div class="ui-g-6">
+                    <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control"
                     />
                   </div>
                   <div class="ui-g-6">
-                      consumer key
+                    consumer key
                   </div>
                   <div class="ui-g-6">
-                      <input type="text" pInputText [(ngModel)]="edit_consumer_key" placeholder="consumer key" name="edit_consumer_key" class="form-control"
-                      />
-               
-                  </div>
-                  <div class="ui-g-6">
-                      consumer secret
-                  </div>
-                  <div class="ui-g-6">
-                    <input type="text" pInputText [(ngModel)]="edit_consumer_secret" placeholder="consumer secret" name="edit_consumer_secret" class="form-control"
+                    <input type="text" pInputText [(ngModel)]="edit_consumer_key" placeholder="consumer key" name="edit_consumer_key" class="form-control"
                     />
+
                   </div>
                   <div class="ui-g-6">
-                      access token
+                    consumer secret
+                  </div>
+                  <div class="ui-g-6">
+                    <input type="text" pInputText [(ngModel)]="edit_consumer_secret" placeholder="consumer secret" name="edit_consumer_secret"
+                      class="form-control" />
+                  </div>
+                  <div class="ui-g-6">
+                    access token
                   </div>
                   <div class="ui-g-6">
                     <input type="text" pInputText [(ngModel)]="edit_access_token" placeholder="access token" name="edit_access_token" class="form-control"
                     />
                   </div>
                   <div class="ui-g-6">
-                      access token secret
+                    access token secret
                   </div>
                   <div class="ui-g-6">
                     <input type="text" pInputText [(ngModel)]="edit_access_token_secret" placeholder="access token secret" name="edit_access_token_secret"
                       class="form-control" />
                   </div>
                   <p-footer>
-                      <div class="ui-g-12 ">
-                        <button pButton type="submit" class="form-control" label="Edit Account"></button>
-                      </div>
-                    </p-footer>
+                    <div class="ui-g-12 ">
+                      <button pButton type="submit" class="form-control" label="Edit Account"></button>
+                    </div>
+                  </p-footer>
 
                 </div>
               </form>
@@ -188,42 +188,44 @@
               <!-- ServiceNow -->
               <form #editserviceNowConfigForm="ngForm" (ngSubmit)="editService(editserviceNowConfigForm.value)">
                 <div *ngIf="selectedServiceToEdit=='servicenow'">
-                    <div class="ui-g-6">
-                        account name
-                    </div>
                   <div class="ui-g-6">
-                    <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control" 
+                    account name
+                  </div>
+                  <div class="ui-g-6">
+                    <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control"
                     />
                   </div>
                   <div class="ui-g-6">
-                      url
+                    url
                   </div>
                   <div class="ui-g-6">
                     <input type="text " pInputText [(ngModel)]="edit_url" placeholder="url" name="edit_url" class="form-control" />
                   </div>
                   <div class="ui-g-6">
-                      api Key
+                    api Key
                   </div>
                   <div class="ui-g-6">
                     <input type="text " pInputText [(ngModel)]="edit_apiKey" placeholder="api Key" name="edit_apiKey" class="form-control" />
                   </div>
                   <div class="ui-g-6">
-                      user name
+                    user name
                   </div>
                   <div class="ui-g-6">
-                    <input type="text " pInputText [(ngModel)]="edit_username" placeholder="user name" name="edit_username" class="form-control" />
+                    <input type="text " pInputText [(ngModel)]="edit_username" placeholder="user name" name="edit_username" class="form-control"
+                    />
                   </div>
                   <div class="ui-g-6">
-                      password
+                    password
                   </div>
                   <div class="ui-g-6">
-                    <input type="password " pInputText [(ngModel)]="edit_password" placeholder="password" name="edit_password" class="form-control" />
+                    <input type="password " pInputText [(ngModel)]="edit_password" placeholder="password" name="edit_password" class="form-control"
+                    />
                   </div>
                   <p-footer>
-                      <div class="ui-g-12 ">
-                        <button pButton type="submit" class="form-control" label="Edit Account"></button>
-                      </div>
-                    </p-footer>
+                    <div class="ui-g-12 ">
+                      <button pButton type="submit" class="form-control" label="Edit Account"></button>
+                    </div>
+                  </p-footer>
                 </div>
               </form>
             </div>
@@ -233,24 +235,26 @@
               <!-- New Relic -->
               <form #editnewRelicConfigForm="ngForm" (ngSubmit)="editService(editnewRelicConfigForm.value)">
                 <div *ngIf="selectedServiceToEdit=='newrelic'">
-                    <div class="ui-g-6">
-                        account name
-                    </div>
                   <div class="ui-g-6">
-                    <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control" 
+                    account name
+                  </div>
+                  <div class="ui-g-6">
+                    <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control"
                     />
                   </div>
                   <div class="ui-g-6">
-                      api key
+                    api key
                   </div>
                   <div class="ui-g-6 ">
-                    <input type="text " pInputText [(ngModel)]="edit_api_key" placeholder="api key" name="edit_api_key" class="form-control" />
+                    <input type="text " pInputText [(ngModel)]="edit_api_key" placeholder="api key" name="edit_api_key" class="form-control"
+                    />
                   </div>
                   <div class="ui-g-6">
-                      query key
+                    query key
                   </div>
                   <div class="ui-g-6 ">
-                    <input type="text " pInputText [(ngModel)]="edit_query_key" placeholder="query key" name="edit_query_key" class="form-control" />
+                    <input type="text " pInputText [(ngModel)]="edit_query_key" placeholder="query key" name="edit_query_key" class="form-control"
+                    />
                   </div>
                   <p-footer>
                     <div class="ui-g-12 ">
@@ -258,16 +262,45 @@
                     </div>
                   </p-footer>
                 </div>
-           
+
               </form>
             </div>
 
           </div>
 
         </div>
-       
+
       </p-dialog>
       <!-- End of Dilaog box to Edit Services -->
+    </div>
+  </div>
+</div>
+<div class="wrapper" style="margin-top: 10px">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h3>Log Input Sources</h3>
+    </div>
+    <div class="ui-g-12">
+      <h1>FileBeat</h1>
+      <div class="form-group">
+
+        Download and unzip Filebeat (Download link) Edit the filebeat.yml configuration file Start the daemon by running sudo ./filebeat
+        -e -c filebeat.yml
+      </div>
+      <div class="form-group" style="background-color:black;color:white">
+
+        <ul style="color:#5656FF">filebeat.prospectors:</ul>
+        <ul style="color:rgba(28, 207, 28, 0.66)"> - input_type: log</ul>
+        <ul># Paths that should be crawled and fetched. Glob based paths.</ul>
+        <ul style="color:#5656FF"> paths :</ul>
+        <ul style="color:rgba(28, 207, 28, 0.66)">- {{log_path1}} </ul>
+        <ul style="color:rgba(28, 207, 28, 0.66)">- {{log_path2}} </ul>
+        <ul style="color:#5656FF">output.elasticsearch: </ul>
+        <ul># Array of hosts to connect to. </ul>
+        <ul style="color:rgba(28, 207, 28, 0.66)"> hosts: {{hosts}}</ul>
+        <ul style="color:rgba(28, 207, 28, 0.66)"> index: {{logindex}} </ul>
+
+      </div>
     </div>
   </div>
 </div>

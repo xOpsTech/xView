@@ -9,6 +9,7 @@ export class UserService {
   private getUserUrl = config.devUrl+"/user";
   private getcheckUserUrl = config.XOPSAPI+'/checkuser'
   private getUserDetailsUrl = config.XOPSAPI+"/user";
+  private updateuser = config.XOPSAPI+"/updateuser";
   user = null;
   email_id: string;
   emailv = null;
@@ -44,7 +45,7 @@ export class UserService {
   updateSettings(body: Object) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.put(`${this.getUserUrl}/${body['email']}`, body, options)
+    return this.http.put(`${this.updateuser}/${body['email']}`, body, options)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error));
   }

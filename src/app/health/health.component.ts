@@ -35,7 +35,7 @@ export class HealthComponent implements OnInit {
             "result": [
               {
                 "id": "xFinance",
-                "status": "red",
+                "health_value": 4.9399999999999995,
                 "perfIndicators": [
                   {
                     "id": "cpu:10.90.123.2",
@@ -49,7 +49,7 @@ export class HealthComponent implements OnInit {
               },
               {
                 "id": "xCompany",
-                "status": "amber",
+                "health_value": 4.9399999999999995,
                 "perfIndicators": [
                   {
                     "id": "xNews",
