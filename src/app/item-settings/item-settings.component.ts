@@ -57,7 +57,8 @@ export class ItemSettingsComponent implements OnInit {
 
       this.payload2 = {
         "id": this.item_name,
-        "perfIndicators": this.selecteditems
+        "perfIndicators": this.selecteditems,
+        "isBoolean": this.isBoolean
       }
 
       console.log("went inside item" + this.payload2);
