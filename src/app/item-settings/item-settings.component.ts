@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfIndicator } from './PerfIndicator'
-import { Item } from './items'
+import { Items } from './Items'
 import { PerfIndicatorService } from '../services/perf-indicator.service';
 import { ItemService } from '../services/item.service';
 import { SelectItem } from 'primeng/primeng';
@@ -23,8 +23,8 @@ export class ItemSettingsComponent implements OnInit {
   item_name: string;
   perfIndicators: PerfIndicator[] = [];
   selectedperfs: PerfIndicator[];
-  selecteditems: Item[];
-  items: Item[] = [];
+  selecteditems: Items[];
+  items: Items[] = [];
   typevalue: SelectItem[];
   selectedtype = 'item';
   payload: any;
