@@ -32,6 +32,7 @@ export class SignupService {
   saveUser(account) {
     return this.http
     .post(config.XOPSAPI +'/user', {
+
       "id": account.email,
       "password": account.password,
       "firstname": account.name,
@@ -42,6 +43,7 @@ export class SignupService {
       "approval":account.approval,
       "status":account.status,
       "userType":account.userType
+
     }, this.options)
     .map(this.extractData)
     .catch(this.handleError);

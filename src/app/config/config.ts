@@ -7,5 +7,8 @@ let host = dev;
 export const config = {
     XOPSHOST: host,
     XOPSAPI: `${host}/api`,
-    devUrl:dev
+
+    devUrl: host,
+    elasticsearchurl: 'http://elastic.xops.it'
+
 };

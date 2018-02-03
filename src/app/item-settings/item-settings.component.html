@@ -67,6 +67,11 @@
           <p-slider [(ngModel)]="perfind.importance" [min]="0" [max]="10" [step]="1"></p-slider>
         </ng-template>
       </p-column>
+      <p-column field="brand" header="Flag" [filter]="true" filterMatchMode="equals">
+        <ng-template let-col let-perfind="rowData"  pTemplate="body">
+          <p-checkbox name="groupname" value="val1" [(ngModel)]="perfind.isBoolean"></p-checkbox>
+        </ng-template>
+    </p-column>
     </p-dataTable>
   </div>
 

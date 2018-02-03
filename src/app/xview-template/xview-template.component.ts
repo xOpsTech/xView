@@ -14,33 +14,44 @@ export class XviewTemplateComponent implements OnInit {
     name: "",
     picture: "",
     tenantId: "",
-    id:""
+    id:"",
+    banner:""
   };
-  photo = '/assets/partner/xops.jpg';
+  banner_image = '/assets/partner/xops.jpg';
+  logo_image = "/assets/img/logo.png";
+
   constructor(private userService: UserService, private tenantService: TenantService) {
 
   }
-
   ngOnInit() {
     this.userService.getUserData().subscribe(res => {
-
-      console.log(res.message[0]);
       this.user = res.message[0];
       var tenant_id = this.user.tenantId;
       var email = this.user.id;
+      localStorage.setItem("UserDetails",JSON.stringify(res.message[0]));
+      this.user = JSON.parse(localStorage.getItem("UserDetails"));
+      console.log(this.user)
       this.tenantService.getTenantDetails(email).subscribe(res2 => {
-        console.log(JSON.stringify(res2))
      
-        if(typeof res2.result.tenant.banner!='undefined')
+        if(res2.result.tenant.banner!='')
         {
-            // this.photo = res2.result.tenant.banner;
-            this.photo = '/assets/partner/xops.jpg'
+           console.log(res2.result.tenant.banner)
+            this.banner_image = '/assets/img/banners/'+res2.result.tenant.banner;
         }
        else
        {
-          this.photo = '/assets/partner/xops.jpg'
+          this.banner_image = '/assets/partner/xops.jpg'
        }
+   
 
+       if (typeof res2.result.tenant.logo!= "undefined") 
+       { 
+         this.logo_image = "/assets/img/logo/" + res2.result.tenant.logo;
+       }
+        
+       else {
+         this.logo_image = "/assets/img/logo.png";
+       }
       });
     });
 

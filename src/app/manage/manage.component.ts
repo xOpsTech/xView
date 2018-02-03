@@ -13,6 +13,7 @@ import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations'
+import { config } from '../config/config';
 
 @Component({
   selector: 'app-manage',
@@ -20,22 +21,22 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
   styleUrls: ['./manage.component.scss'],
   providers: [SignupService, MessageService, ConfirmationService],
   animations: [
-    
-        trigger('goals', [
-          transition('* => *', [
-    
-            query(':enter', style({ opacity: 0 }), {optional: true}),
-    
-            query(':enter', stagger('300ms', [
-              animate('.6s ease-in', keyframes([
-                style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
-                style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-                style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
-              ]))]), {optional: true})
-          ])
-        ])
-    
-      ]
+
+    trigger('goals', [
+      transition('* => *', [
+
+        query(':enter', style({ opacity: 0 }), { optional: true }),
+
+        query(':enter', stagger('300ms', [
+          animate('.6s ease-in', keyframes([
+            style({ opacity: 0, transform: 'translateY(-75%)', offset: 0 }),
+            style({ opacity: .5, transform: 'translateY(35px)', offset: 0.3 }),
+            style({ opacity: 1, transform: 'translateY(0)', offset: 1.0 }),
+          ]))]), { optional: true })
+      ])
+    ])
+
+  ]
 })
 export class ManageComponent implements OnInit {
   //Genric form group
@@ -98,9 +99,17 @@ export class ManageComponent implements OnInit {
     tenantId: ""
   };
   display: boolean = false;
+  logindex = ""
+  log_path1 = ""
+  log_path2 = ""
+  hosts = "";
 
+  day: any;
+  month: any;
+  today_fo: any;
+
+  hostip = config.elasticsearchurl;
   ngOnInit() {
-
 
     this.userService.getUserData().subscribe(res => {
       console.log(res);
@@ -119,6 +128,11 @@ export class ManageComponent implements OnInit {
     this.services.push({ label: 'Twitter', value: 'twitter' });
     this.services.push({ label: 'ServiceNow', value: 'servicenow' });
     this.services.push({ label: 'New relic', value: 'newrelic' });
+
+    this.log_path1 = "/opt/elasticsearch-5.5.0/logs/*.log";
+    this.log_path2 = "/var/log/*.log";
+    this.logindex = this.user.tenantId + "%{" + this.getTodaysDate() + "}";
+    this.hosts = "['" + this.hostip + "']";
 
   }
 
@@ -259,11 +273,32 @@ export class ManageComponent implements OnInit {
 
     }
 
-    console.log(this.existingtenantData.services);
     this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
       .subscribe(res2 => {
         this.showSuccess();
       });
-
   }
+  //TO display Log Configuration Details
+  getTodaysDate() {
+    
+    var today = new Date();
+    var month = '' + (today.getMonth() + 1);
+    var day = '' + today.getDate();
+    var year = today.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    this.today_fo = year + '.' +month + '.' + day;
+    return this.today_fo
+  }
+
+
 }
+
+
+
+
+
+
+

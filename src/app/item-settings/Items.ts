@@ -1,4 +1,5 @@
-export interface Item {
+export interface Items {
     id;
     importance;
+    isBoolean;
 }

@@ -3,11 +3,14 @@
   
   <ul class="nav navbar-nav d-md-down-none main-menu-toggle"> 
     <li class="nav-item">
-      <a (click)="toggleimg()" class="nav-link navbar-toggler sidebar-toggler" href="#"><img width="30px" bind-src="toggleicon"  ></a>
+      <a (click)="toggleimg()" class="nav-link navbar-toggler sidebar-toggler" href="#">
+        <img width="30px" bind-src="toggleicon"></a>
     </li>
-
   </ul>
-  <a class="navbar-brand" href="/"><img src="/assets/img/logo.png" alt="xOps" width="80" /></a>
+  
+  <a class="navbar-brand" href="/">
+    <img bind-src="logourl"  width="80" />
+  </a>
 
   <ul class="nav navbar-nav ml-auto ">
     <li class="nav-item">
@@ -24,7 +27,7 @@
    {{ user.name }}
   </button> -->
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="selected">
-    <a class="dropdown-item" [routerLink]="['/profile']">profile</a>
+    <a class="dropdown-item" [routerLink]="['/setting']">profile</a>
     <!-- <a class="dropdown-item" href="#">Another action</a> -->
     <a class="dropdown-item" [routerLink]="['/login']" (click)="logout()" >logout</a>
   </div>

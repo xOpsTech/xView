@@ -23,15 +23,14 @@ export class ItemSettingsComponent implements OnInit {
   item_name: string;
   perfIndicators: PerfIndicator[] = [];
   selectedperfs: PerfIndicator[];
-  selecteditems: Item[];
-  items: Item[] = [];
+  selecteditems: Items[];
+  items: Items[] = [];
   typevalue: SelectItem[];
   selectedtype = 'item';
   payload: any;
   payload2: any;
+  isBoolean : boolean;;
   saveItem() {
-
-
 
 
 
@@ -50,7 +49,7 @@ export class ItemSettingsComponent implements OnInit {
       console.log("went inside pindicator" + this.payload);
       this.itemsService.saveItem(this.payload)
         .subscribe(response => {
-           // window.location.reload();
+          window.location.reload();
         })
     }
 
@@ -59,13 +58,14 @@ export class ItemSettingsComponent implements OnInit {
 
       this.payload2 = {
         "id": this.item_name,
-        "perfIndicators": this.selecteditems
+        "perfIndicators": this.selecteditems,
+        "isBoolean": this.isBoolean
       }
 
       console.log("went inside item" + this.payload2);
       this.itemsService.saveItem(this.payload2)
         .subscribe(response => {
-         //  window.location.reload();
+      window.location.reload();
         })
     }
 
@@ -110,6 +110,8 @@ export class ItemSettingsComponent implements OnInit {
           this.items.push(
             {
               "id": res.result["items"][i],
+
+              "isBoolean":this.isBoolean,
 
               "importance": 0
             }
