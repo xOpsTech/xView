@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfIndicator } from './PerfIndicator'
-import { Item } from './Items'
+import { Items } from './Items'
 import { PerfIndicatorService } from '../services/perf-indicator.service';
 import { ItemService } from '../services/item.service';
 import { SelectItem } from 'primeng/primeng';

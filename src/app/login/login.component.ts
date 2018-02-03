@@ -59,14 +59,7 @@ export class LoginComponent implements OnInit {
             });
         }
 
-        else{
-          this.errorMessage2 = true;
-          console.log("approval denied");
-        }
-      });
-
-  }
-
+ 
 
   signInWithGoogle(): void {
     // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
