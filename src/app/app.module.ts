@@ -61,10 +61,11 @@ import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { MessagesModule } from 'primeng/primeng';
 import { UserManageComponent } from "./userManager/user-manage.component";
 import { DragulaModule } from 'ng2-dragula';
+import {UserTypemanagementComponent} from './userTypeManagement/userTypemanagement.component';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { HealthComponent } from './health/health.component';
- 
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -119,6 +120,7 @@ export function provideConfig() {
     CustomComponent,
     ProfileComponent,
     UserManageComponent,
+    UserTypemanagementComponent,
     HealthComponent
   ],
 
@@ -139,7 +141,6 @@ export function provideConfig() {
     SocialLoginModule,
     MessagesModule,
     ConfirmDialogModule,
-    SocialLoginModule,
     RouterModule.forRoot([
       {
         path: 'signup',
@@ -159,7 +160,9 @@ export function provideConfig() {
       {
         path: '',
         component: XviewTemplateComponent,
+
      canActivate: [AuthGuard],
+
         children: [
           {
             path: 'home',
@@ -231,6 +234,11 @@ export function provideConfig() {
             path: 'user-manage',
             component: UserManageComponent,
           },
+          {
+            path:'userTypemanagement',
+            component:UserTypemanagementComponent,
+          },
+
           {
             path: '**', redirectTo: '', pathMatch: 'full'
           },

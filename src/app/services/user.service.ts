@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -9,19 +10,23 @@ export class UserService {
   private getUserUrl = config.devUrl+"/user";
   private getcheckUserUrl = config.XOPSAPI+'/checkuser'
   private getUserDetailsUrl = config.XOPSAPI+"/user";
+  private  getAllUsers = config.XOPSAPI+"/users";
+  private  getAllUserTypes=config.XOPSAPI+"/userType";
   private updateuser = config.XOPSAPI+"/updateuser";
+
   user = null;
   email_id: string;
   emailv = null;
   username: string;
   tenantId: string;
- 
+  options: RequestOptions;
 
   constructor(private http: Http) {
 
   }
 
     checkUserStatus(email) {
+      console.log("Hello" + email+" Iwork");
       let headers = new Headers({ 'Content-Type': 'application/json' });
       return this.http.get(`${this.getcheckUserUrl}/${email}`, { headers })
         .map((res: Response) => res.json())
@@ -36,7 +41,7 @@ export class UserService {
     }
 
   checkUser(userID){
-    let userid =userID; 
+    let userid =userID;
     let headers = new Headers({userid});
     return this.http.get(this.getcheckUserUrl ,{ headers })
       .map((res: Response) => res.json())
@@ -62,6 +67,39 @@ export class UserService {
     }
   }
 
+  getUserByTenantId(tenantId) {
+      var token = localStorage.getItem('token');
+      let headers = new Headers({token});
+      console.log(headers)
+      return this.http.get(this.getAllUsers+'/'+tenantId ,{ headers })
+        .map((res: Response) => res.json())
+    }
+
+    getUserTypeByTenantId(tenantId){
+      var token = localStorage.getItem('token');
+      let headers = new Headers({token});
+      console.log(headers)
+      return this.http.get(this.getAllUserTypes+'/'+tenantId ,{ headers })
+        .map((res: Response) => res.json())
+
+    }
+
+  saveUserType(userType) {
+    return this.http
+      .post(config.XOPSAPI +'/userType', {
+        "name": userType.name,
+        "management": userType.management,
+        "develop": userType.develop,
+        "userTypeManager":userType.userTypeManager,
+        "profileManager":userType.profileManager,
+        "userManager":userType.userManager,
+        "inputSourceManager":userType.userManager,
+        "tenantId":userType.tenantId
+      }, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
 
   getEmail() {
     this.getUserData().subscribe(res => {
@@ -77,6 +115,16 @@ export class UserService {
       this.user = res.message[0];
       return this.user.tenantId;
     });
- 
+
+  }
+  private extractData(res: Response) {
+    let body = res.json();
+    return body || {};
+  }
+
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    return Observable.throw(errMsg);
   }
 }

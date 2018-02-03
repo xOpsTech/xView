@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfIndicator } from './PerfIndicator'
-import { Items } from './Items'
+import { Item } from './Items'
 import { PerfIndicatorService } from '../services/perf-indicator.service';
 import { ItemService } from '../services/item.service';
 import { SelectItem } from 'primeng/primeng';
@@ -31,6 +31,7 @@ export class ItemSettingsComponent implements OnInit {
   payload2: any;
   isBoolean : boolean;;
   saveItem() {
+
 
 
     console.log(JSON.stringify("selected pref = " + JSON.stringify(this.selectedperfs)));
@@ -82,6 +83,7 @@ export class ItemSettingsComponent implements OnInit {
   loadPerfIndicators() {
     this.perfIndicatorsService.getPerfIndicators()
       .subscribe(res => {
+
         console.log(res.result)
         // var perfIndicatorNames: any[] = res;
         this.perfIndicators = [];
@@ -90,6 +92,7 @@ export class ItemSettingsComponent implements OnInit {
           this.perfIndicators.push(
             {
               "id": res.result["perf"][i],
+
               "thresholdGreen": 0,
               "thresholdBlue": 0,
               "thresholdYellow": 0,
@@ -102,11 +105,14 @@ export class ItemSettingsComponent implements OnInit {
         this.perfIndicators = [...this.perfIndicators];
 
 
+
         for (var i = 0; i < res.result["items"].length; i++) {
           this.items.push(
             {
               "id": res.result["items"][i],
+
               "isBoolean":this.isBoolean,
+
               "importance": 0
             }
           );
