@@ -13,5 +13,9 @@ export class PerfIndicatorService {
     return this.http.get(config.XOPSAPI + '/health_configs/configs/xtenant')
       .map((res: Response) => res.json())
   
+  }  getHealth() {
+    return this.http.get(config.XOPSAPI + '/health/xtenant_new')
+      .map((res: Response) => res.json())
+  
   }
 }
