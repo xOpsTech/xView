@@ -36,6 +36,7 @@ import { SnowAggsService } from './services/snow-aggs.service';
 import { IncidentService } from './services/incident.service';
 import { SettingsComponent } from './settings/settings.component';
 import { UserService } from './services/user.service';
+import { PerfIndicatorService } from './services/perf-indicator.service';
 import { RssfeedService } from './services/rssfeed.service';
 import { RssfeedComponent } from './widgets/rssfeed/rssfeed.component';
 import { Select2Module } from 'ng2-select2';
@@ -61,10 +62,12 @@ import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { MessagesModule } from 'primeng/primeng';
 import { UserManageComponent } from "./userManager/user-manage.component";
 import { DragulaModule } from 'ng2-dragula';
+import { UserTypemanagementComponent } from './userTypeManagement/userTypemanagement.component';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { HealthComponent } from './health/health.component';
- 
+import { ToggleButtonModule } from 'primeng/primeng';
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -119,6 +122,7 @@ export function provideConfig() {
     CustomComponent,
     ProfileComponent,
     UserManageComponent,
+    UserTypemanagementComponent,
     HealthComponent
   ],
 
@@ -139,7 +143,7 @@ export function provideConfig() {
     SocialLoginModule,
     MessagesModule,
     ConfirmDialogModule,
-    SocialLoginModule,
+    ToggleButtonModule,
     RouterModule.forRoot([
       {
         path: 'signup',
@@ -154,12 +158,14 @@ export function provideConfig() {
       {
         path: 'health',
         component: HealthComponent,
-        
+
       },
       {
         path: '',
         component: XviewTemplateComponent,
-     canActivate: [AuthGuard],
+
+       ///canActivate: [AuthGuard],
+
         children: [
           {
             path: 'home',
@@ -201,7 +207,7 @@ export function provideConfig() {
           {
             path: 'business',
             component: BusinessComponent,
-            canActivate: [AuthGuard]
+           // canActivate: [AuthGuard]
           },
           {
             path: 'alertindividual',
@@ -232,9 +238,14 @@ export function provideConfig() {
             component: UserManageComponent,
           },
           {
+            path: 'userTypemanagement',
+            component: UserTypemanagementComponent,
+          },
+
+          {
             path: '**', redirectTo: '', pathMatch: 'full'
           },
-       
+
 
 
         ]
@@ -261,7 +272,7 @@ export function provideConfig() {
     DataGridModule,
     FileUploadModule
   ],
-  providers: [AuthService, AuthGuard, SnowAggsService, UserService, RssfeedService, IncidentService, {
+  providers: [AuthService,PerfIndicatorService, AuthGuard, SnowAggsService, UserService, RssfeedService, IncidentService, {
     provide: AuthServiceConfig,
     useFactory: provideConfig
   }],

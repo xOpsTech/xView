@@ -23,7 +23,7 @@
       <p-column field="importance" header="Importance" [editable]="true" [filter]="true">
         <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
           <span>{{ perfind.importance }}</span>
-          <p-slider [(ngModel)]="perfind.importance" [min]="0" [max]="10" [step]="1"></p-slider>
+          <p-slider [style]="{'width':'100%','margin-top':'8px', 'border-radius': '0px','height': '13px'}" [(ngModel)]="perfind.importance"  [min]="0" [max]="10" (onChange)="onYearChange($event, dt)"></p-slider>
         </ng-template>
       </p-column>
       <p-column field="thresholdGreen" header="Threshold green " [editable]="true" [filter]="true">
@@ -64,12 +64,12 @@
       <p-column field="importance" header="Importance" [editable]="true" [filter]="true">
         <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
           <span>{{ perfind.importance }}</span>
-          <p-slider [(ngModel)]="perfind.importance" [min]="0" [max]="10" [step]="1"></p-slider>
+          <p-slider [style]="{'width':'100%','margin-top':'8px', 'border-radius': '0px','height': '13px'}"  [(ngModel)]="perfind.importance" [min]="0" [max]="10" [step]="1"></p-slider>
         </ng-template>
       </p-column>
-      <p-column field="brand" header="Flag" [filter]="true" filterMatchMode="equals">
+      <p-column field="brand" header="Flag" [filter]="true" filterMatchMode="equals"  [style]="{'text-align':'center'}">
         <ng-template let-col let-perfind="rowData"  pTemplate="body">
-          <p-checkbox name="groupname" value="val1" [(ngModel)]="perfind.isBoolean"></p-checkbox>
+          <p-checkbox name="groupname"  [(ngModel)]="perfind.isBoolean" binary="true"></p-checkbox>
         </ng-template>
     </p-column>
     </p-dataTable>

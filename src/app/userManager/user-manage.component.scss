@@ -15,8 +15,8 @@
   margin-left: auto;
   color: #000000;
   padding-right: 15px;
-  padding-left: 15px;
-  max-height: 500px}
+  padding-left: 15px;}
+  //max-height: 500px}
 @media (min-width: 576px) {
   .container {
     padding-right: 15px;
@@ -112,4 +112,11 @@
   text-align:center;
   font-weight: bold;
 
+}
+
+.ui-button {
+  border: 1px solid #9B0404;
+  color: #fff;
+  background: #9B0404;
+  transition: background-color .2s;
 }

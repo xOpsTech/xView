@@ -17,12 +17,14 @@ import { GoogleLoginProvider } from 'angular4-social-login';
 export class LoginComponent implements OnInit {
 
   credentials = {
+
     "id": "",
     "password": ""
   };
 
   errorMessage: boolean = false;
   errorMessage2: boolean = false;
+
   user: SocialUser;
 
   constructor(private authenticationService: AuthenticationService, private loginService: LoginService, private router: Router,
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
   }
 
   authenticate() {
+
 
     var user = this.credentials;
     var email = this.credentials.id;
@@ -55,12 +58,8 @@ export class LoginComponent implements OnInit {
               this.errorMessage = true;
             });
         }
-        // else{
-        //   this.errorMessage2 = true;
-        //   console.log("approval denied");
-        // }
-      // });
-  // }
+
+ 
 
   signInWithGoogle(): void {
     // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);

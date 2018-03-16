@@ -39,7 +39,11 @@ export class MapService {
 
   getNewRelicMapData()
   {
-    return this.http.get('http://xview.xops.it/api/newrelic/map/test')
+    var tenantID = this.userService.getTenantId();
+    var url = config.XOPSAPI + '/newrelic/map/' + tenantID;
+    console.log(url);
+    //var url = 'http://localhost:4200/api/newrelic/map/dmetbyc'
+    return this.http.get(url)
     .map((res: Response) => res.json());
   }
 

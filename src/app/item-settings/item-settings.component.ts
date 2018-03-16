@@ -26,12 +26,15 @@ export class ItemSettingsComponent implements OnInit {
   selecteditems: Items[];
   items: Items[] = [];
   typevalue: SelectItem[];
+  selected_item = [];
   selectedtype = 'item';
   payload: any;
+  val1:any;
   payload2: any;
-  isBoolean : boolean;;
-  saveItem() {
+  isBoolean : boolean = false;;
 
+
+  saveItem() {
 
     console.log(JSON.stringify("selected pref = " + JSON.stringify(this.selectedperfs)));
     console.log(JSON.stringify("selected items = " +  JSON.stringify(this.selecteditems)));
@@ -55,16 +58,20 @@ export class ItemSettingsComponent implements OnInit {
 
     if (this.selectedtype == "item") {
 
+      this.isBoolean = this.selecteditems[0]["isBoolean"];
+      delete this.selecteditems[0].isBoolean;
+      console.log(JSON.stringify(this.selecteditems));
       this.payload2 = {
         "id": this.item_name,
         "perfIndicators": this.selecteditems,
         "isBoolean": this.isBoolean
       }
 
-      console.log("went inside item" + this.payload2);
+      console.log(JSON.stringify(this.payload2));
+      console.log(this.isBoolean); 
       this.itemsService.saveItem(this.payload2)
         .subscribe(response => {
-      window.location.reload();
+     // window.location.reload();
         })
     }
 
@@ -82,6 +89,7 @@ export class ItemSettingsComponent implements OnInit {
   loadPerfIndicators() {
     this.perfIndicatorsService.getPerfIndicators()
       .subscribe(res => {
+
         console.log(res.result)
         // var perfIndicatorNames: any[] = res;
         this.perfIndicators = [];
@@ -90,6 +98,7 @@ export class ItemSettingsComponent implements OnInit {
           this.perfIndicators.push(
             {
               "id": res.result["perf"][i],
+
               "thresholdGreen": 0,
               "thresholdBlue": 0,
               "thresholdYellow": 0,
@@ -102,11 +111,14 @@ export class ItemSettingsComponent implements OnInit {
         this.perfIndicators = [...this.perfIndicators];
 
 
+
         for (var i = 0; i < res.result["items"].length; i++) {
           this.items.push(
             {
               "id": res.result["items"][i],
-              "isBoolean":this.isBoolean,
+
+              "isBoolean":false,
+
               "importance": 0
             }
           );
