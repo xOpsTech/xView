@@ -10,7 +10,7 @@
     </div>
 
     <div class="ui-g-12">
-      <p-dropdown [options]="services" id="servicename" [autoWidth]="true" [(ngModel)]="selectedService">
+      <p-dropdown [options]="services" id="servicename" (onChange)="onAccountSelect($event.value)" [autoWidth]="true" [(ngModel)]="selectedService">
       </p-dropdown>
     </div>
 
@@ -84,17 +84,17 @@
     <div class="ui-g-6">
       <!-- New Relic -->
       <form #newRelicConfigForm="ngForm" (ngSubmit)="addAccountService(newRelicConfigForm.value)">
-        <div *ngIf="selectedService=='newrelic' ">
+        <div *ngIf="selectedService=='newrelic'">
 
           <div class="ui-g-12">
             <input type="text" pInputText [(ngModel)]="account_name" placeholder="account name" name="account_name" class="form-control"
             />
           </div>
-          <div class="ui-g-12 ">
-            <input type="text " pInputText [(ngModel)]="api_key" placeholder="api key" name="api_key" class="form-control" />
+          <div class="ui-g-12">
+            <input type="text" pInputText [(ngModel)]="api_key" placeholder="api key" name="api_key" class="form-control" />
           </div>
-          <div class="ui-g-12 ">
-            <input type="text " pInputText [(ngModel)]="query_key" placeholder="query key" name="query_key" class="form-control" />
+          <div class="ui-g-12">
+            <input type="text" pInputText [(ngModel)]="query_key" placeholder="query key" name="query_key" class="form-control" />
           </div>
           <div class="ui-g-12 ">
             <button pButton type="submit" class="form-control" label="Add account"></button>
@@ -104,6 +104,7 @@
 
     </div>
     <div class="ui-g-6"></div>
+
   </div>
 
 </div>
@@ -117,9 +118,8 @@
     <div class="ui-g-6">
       <table style="width:100% ">
         <tr *ngFor="let srv of existingtenantData.services; let i=index ">
+          <th style="text-transform: capitalize;">{{srv.service}}</th>
           <th>{{srv.account_name}}</th>
-
-          <!-- Start of Dilaog box to Edit Services -->
 
 
           <th><button type="button" (click)="showDialog(srv)" pButton icon="fa-external-link-square" label="Edit"></button></th>
@@ -135,10 +135,14 @@
           <div class="ui-g">
             <div class="ui-g-12">
               <!-- Twitter -->
-              <form #edittwitterConfigForm="ngForm" (ngSubmit)="editService(edittwitterConfigForm.value)">
-                <div *ngIf="selectedServiceToEdit=='twitter'">
+              <div *ngIf="selectedServiceToEdit=='twitter'">
+                <form #edittwitterConfigForm="ngForm" (ngSubmit)="editService(edittwitterConfigForm.value)">
                   <div class="ui-g-6">
                     account name
+                  </div>
+                  <div class="ui-g-6">
+                    <input type="hidden" pInputText [(ngModel)]="edit_account_name_bkp" placeholder="" name="edit_account_name_bkp" class="form-control"
+                    />
                   </div>
                   <div class="ui-g-6">
                     <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control"
@@ -178,18 +182,21 @@
                       <button pButton type="submit" class="form-control" label="Edit Account"></button>
                     </div>
                   </p-footer>
-
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
 
 
             <div class="ui-g-12">
               <!-- ServiceNow -->
-              <form #editserviceNowConfigForm="ngForm" (ngSubmit)="editService(editserviceNowConfigForm.value)">
-                <div *ngIf="selectedServiceToEdit=='servicenow'">
+              <div *ngIf="selectedServiceToEdit=='servicenow'">
+                <form #editserviceNowConfigForm="ngForm" (ngSubmit)="editService(editserviceNowConfigForm.value)">
                   <div class="ui-g-6">
                     account name
+                  </div>
+                  <div class="ui-g-6">
+                    <input type="hidden" pInputText [(ngModel)]="edit_account_name_bkp" placeholder="" name="edit_account_name_bkp" class="form-control"
+                    />
                   </div>
                   <div class="ui-g-6">
                     <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control"
@@ -226,17 +233,23 @@
                       <button pButton type="submit" class="form-control" label="Edit Account"></button>
                     </div>
                   </p-footer>
-                </div>
-              </form>
+
+                </form>
+              </div>
             </div>
 
 
             <div class="ui-g-12">
               <!-- New Relic -->
-              <form #editnewRelicConfigForm="ngForm" (ngSubmit)="editService(editnewRelicConfigForm.value)">
-                <div *ngIf="selectedServiceToEdit=='newrelic'">
+              <div *ngIf="selectedServiceToEdit=='newrelic'">
+                <form #editnewRelicConfigForm="ngForm" (ngSubmit)="editService(editnewRelicConfigForm.value)">
+
                   <div class="ui-g-6">
                     account name
+                  </div>
+                  <div class="ui-g-6">
+                    <input type="hidden" pInputText [(ngModel)]="edit_account_name_bkp" placeholder="" name="edit_account_name_bkp" class="form-control"
+                    />
                   </div>
                   <div class="ui-g-6">
                     <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control"
@@ -261,10 +274,65 @@
                       <button pButton type="submit" class="form-control" label="Edit Account"></button>
                     </div>
                   </p-footer>
-                </div>
 
-              </form>
+                </form>
+              </div>
             </div>
+
+            <div class="ui-g-12">
+                <!-- New Relic -->
+                <h3>Log Configuration Steps</h3>
+                <div *ngIf="selectedServiceToEdit=='log'">
+                  <form #editlogConfigForm="ngForm" (ngSubmit)="editService(editlogConfigForm.value)">
+                      <div class="form-group">
+                          <ul>Download and unzip Filebeat <a href="https://www.elastic.co/downloads/past-releases/filebeat-5-5-2">(Download link)</a>            </ul>
+                          <ul>Edit the filebeat.yml configuration file</ul>
+                          <ul>Start the daemon by running sudo ./filebeat -e -c filebeat.yml</ul>
+                        </div>
+                        <div class="form-group" style="background-color:black;color:white">
+                
+                          <ul style="color:#5656FF">filebeat.prospectors:</ul>
+                          <ul style="color:rgba(28, 207, 28, 0.66)"> - input_type: log</ul>
+                          <ul># Paths that should be crawled and fetched. Glob based paths.</ul>
+                          <ul style="color:#5656FF"> paths :</ul>
+                          <ul style="color:rgba(28, 207, 28, 0.66)">- {{log_path1}} </ul>
+                          <ul style="color:rgba(28, 207, 28, 0.66)">- {{log_path2}} </ul>
+                          <ul style="color:#5656FF">output.elasticsearch: </ul>
+                          <ul># Array of hosts to connect to. </ul>
+                          <ul style="color:rgba(28, 207, 28, 0.66)"> hosts: {{hosts}}</ul>
+                          <ul style="color:rgba(28, 207, 28, 0.66)"> index: {{logindex}} </ul>
+                
+                        </div> 
+                    <div class="ui-g-6">
+                      account name
+                    </div>
+                 
+                    <div class="ui-g-6">
+                      <input type="text" pInputText [(ngModel)]="edit_account_name" placeholder="account name" name="edit_account_name" class="form-control"
+                      />
+                    </div>
+                    <div class="ui-g-6">
+                      log key
+                    </div>
+                    <div class="ui-g-6 ">
+                      <input type="text " pInputText [(ngModel)]="edit_log_key" placeholder="log key" name="edit_log_key" class="form-control"
+                      />
+                    </div>
+                   
+                    <p-footer>
+                      <div class="ui-g-12 ">
+                        <button pButton type="submit" class="form-control" label="Edit Account"></button>
+                      </div>
+                    </p-footer>
+                    <div class="ui-g-6">
+                        <input type="hidden" pInputText [(ngModel)]="edit_account_name_bkp" placeholder="" name="edit_account_name_bkp" class="form-control"
+                        />
+                      </div>
+  
+                  </form>
+                </div>
+              </div>
+
 
           </div>
 
@@ -275,32 +343,88 @@
     </div>
   </div>
 </div>
-<div class="wrapper" style="margin-top: 10px">
+<!-- <div class="wrapper" style="margin-top: 10px">
   <div class="ui-g">
     <div class="ui-g-12">
       <h3>Log Input Sources</h3>
     </div>
     <div class="ui-g-12">
-      <h1>FileBeat</h1>
-      <div class="form-group">
-
-        Download and unzip Filebeat (Download link) Edit the filebeat.yml configuration file Start the daemon by running sudo ./filebeat
-        -e -c filebeat.yml
-      </div>
-      <div class="form-group" style="background-color:black;color:white">
-
-        <ul style="color:#5656FF">filebeat.prospectors:</ul>
-        <ul style="color:rgba(28, 207, 28, 0.66)"> - input_type: log</ul>
-        <ul># Paths that should be crawled and fetched. Glob based paths.</ul>
-        <ul style="color:#5656FF"> paths :</ul>
-        <ul style="color:rgba(28, 207, 28, 0.66)">- {{log_path1}} </ul>
-        <ul style="color:rgba(28, 207, 28, 0.66)">- {{log_path2}} </ul>
-        <ul style="color:#5656FF">output.elasticsearch: </ul>
-        <ul># Array of hosts to connect to. </ul>
-        <ul style="color:rgba(28, 207, 28, 0.66)"> hosts: {{hosts}}</ul>
-        <ul style="color:rgba(28, 207, 28, 0.66)"> index: {{logindex}} </ul>
-
-      </div>
+      <form #logConfigForm="ngForm" (ngSubmit)="addLogging(logConfigForm.value)">
+        <div class="ui-g-6">
+          Logging Status
+        </div>
+        <div class="ui-g-6 ">
+          <p-toggleButton onLabel="Enabled" [ngModelOptions]="{standalone: true}" offLabel="Disabled" onIcon="fa-check-square" offIcon="fa-square"
+            [(ngModel)]="log_service_started"></p-toggleButton>
+        </div>
+        <div class="ui-g-4 ">
+          <button pButton type="submit" class="form-control" label="Save"></button>
+        </div>
+        <div class="ui-g-8 "></div>
+      </form>
     </div>
   </div>
-</div>
+</div> -->
+
+
+<p-dialog [(visible)]="display_logs" modal="modal" width="600" [responsive]="true">
+  <p-header closable="true">
+
+  </p-header>
+  <!-- <div *ngIf="log_config_visibility"> -->
+    <div class="wrapper" style="margin-top: 10px">
+      <div class="ui-g">
+        <!-- <div class="ui-g-12">
+        <h3>Log Configuration Steps</h3>
+      </div> -->
+        <div class="ui-g-12">
+          <form #logConfigForm="ngForm" (ngSubmit)="addLogging(logConfigForm.value)">
+
+            <div class="ui-g-6">
+              account name
+            </div>
+
+            <div class="ui-g-6">
+              <input type="text" pInputText [(ngModel)]="account_name" placeholder="account name" name="account_name" class="form-control"
+              />
+            </div>
+            <div class="ui-g-6">
+              log key
+            </div>
+            <div class="ui-g-6 ">
+              <input type="text " pInputText [(ngModel)]="log_key" placeholder="log key" name="log_key" class="form-control" />
+            </div>
+
+            <p-footer>
+              <div class="ui-g-12 ">
+                <button pButton type="submit" class="form-control" label="Submit"></button>
+              </div>
+            </p-footer>
+
+          </form>
+          <!-- 
+        <h4>FileBeat</h4>
+        <div class="form-group">
+          <ul>Download and unzip Filebeat <a href="https://www.elastic.co/downloads/past-releases/filebeat-5-5-2">(Download link)</a>            </ul>
+          <ul>Edit the filebeat.yml configuration file</ul>
+          <ul>Start the daemon by running sudo ./filebeat -e -c filebeat.yml</ul>
+        </div>
+        <div class="form-group" style="background-color:black;color:white">
+
+          <ul style="color:#5656FF">filebeat.prospectors:</ul>
+          <ul style="color:rgba(28, 207, 28, 0.66)"> - input_type: log</ul>
+          <ul># Paths that should be crawled and fetched. Glob based paths.</ul>
+          <ul style="color:#5656FF"> paths :</ul>
+          <ul style="color:rgba(28, 207, 28, 0.66)">- {{log_path1}} </ul>
+          <ul style="color:rgba(28, 207, 28, 0.66)">- {{log_path2}} </ul>
+          <ul style="color:#5656FF">output.elasticsearch: </ul>
+          <ul># Array of hosts to connect to. </ul>
+          <ul style="color:rgba(28, 207, 28, 0.66)"> hosts: {{hosts}}</ul>
+          <ul style="color:rgba(28, 207, 28, 0.66)"> index: {{logindex}} </ul>
+
+        </div> -->
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</p-dialog>
