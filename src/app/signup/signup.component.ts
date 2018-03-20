@@ -176,6 +176,16 @@ export class SignupComponent {
                 console.log("tenantId : " + this.tenantId)
                 this.userAccountData['tenantId'] = this.tenantId;
                 this.userAccountData['picture'] = 'default-profile-image.png';
+                this.userAccountData['userType'] ={
+                  "name": "admin",
+                  "management": true,
+                  "develop": true,
+                  "userTypeManager": true,
+                  "profileManager": true,
+                  "userManager": true,
+                  "inputSourceManager": true,
+                  "tenantId":this.tenantId
+                  }
                 this.setApproval();
                 console.log("userAccountData when existing tenant entered: " + JSON.stringify(this.userAccountData));
 
@@ -262,6 +272,17 @@ export class SignupComponent {
         console.log(tenantId);
         this.userAccountData['tenantId'] = tenantId;
         this.userAccountData['picture'] = 'default-profile-image.png';
+        
+        this.userAccountData['userType'] ={
+          "name": "admin",
+          "management": true,
+          "develop": true,
+          "userTypeManager": true,
+          "profileManager": true,
+          "userManager": true,
+          "inputSourceManager": true,
+          "tenantId":this.tenantId
+          }
         this.setApproval();
         console.log("userdata before createUserAccount when tenant doesnt already exist : " + JSON.stringify(this.userAccountData));
         this.signupService.saveUser(this.userAccountData)
