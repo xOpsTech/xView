@@ -29,8 +29,8 @@ export class MapComponent implements OnInit {
 
     this.userService.getUserData().subscribe(res => {
       this.user = res;
-      this.mapService.updateURLs();
-      this.mapService.getNewRelicMapData().subscribe(newrelicmapdata => {
+      var tenantId = res.message[0].tenantId
+      this.mapService.getNewRelicMapData(tenantId).subscribe(newrelicmapdata => {
        
         for (var dv of newrelicmapdata['newrelicMapData']) {
           var title2  = ""

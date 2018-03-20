@@ -9,16 +9,9 @@ import { OnInit } from '@angular/core';
 @Injectable()
 export class MapService {
 
-  user = {
-    name: "",
-    picture: ""
-  };
-  tenantID:string;
-
   headers: Headers;
   options: RequestOptions;
 
-  private new_relic_map_data; 
 
   constructor(private http: Http, private userService:UserService) {
     this.headers = new Headers({
@@ -31,18 +24,10 @@ export class MapService {
 
   }
 
-  updateURLs() {
-    var tenantID = this.userService.getTenantId();
-    this.new_relic_map_data = config.XOPSAPI + '/newrelic/map/' + tenantID;
-  }
-
-
-  getNewRelicMapData()
+  getNewRelicMapData(tenantID)
   {
-    var tenantID = this.userService.getTenantId();
     var url = config.XOPSAPI + '/newrelic/map/' + tenantID;
     console.log(url);
-    //var url = 'http://localhost:4200/api/newrelic/map/dmetbyc'
     return this.http.get(url)
     .map((res: Response) => res.json());
   }
