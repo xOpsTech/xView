@@ -29,7 +29,22 @@ export class MapService {
     var url = config.XOPSAPI + '/newrelic/map/' + tenantID;
     console.log(url);
     return this.http.get(url)
-    .map((res: Response) => res.json());
+    .map((res: Response) => {
+      if (res) {
+          if (res.status === 201) {
+              return res.json();
+          }
+          else if (res.status === 200) {
+            return res.json();
+          }
+      }
+  }).   catch(this.handleError);
+}
+
+private handleError(error: any) { 
+  let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+  return Observable.throw(error);
+}
+ 
   }
 
-}
