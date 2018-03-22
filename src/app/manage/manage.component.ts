@@ -127,9 +127,7 @@ export class ManageComponent implements OnInit {
 
       this.tenantService.getTenantDetails(this.email).subscribe(res2 => {
         for (var service of res2["result"].tenant["services"]) {
-
           this.existingtenantData.services.push(service);
-     
         }
       });
 

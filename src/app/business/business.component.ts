@@ -9,7 +9,7 @@ import { TenantService, } from '../services/tenant.service';
 import { WidgetStats } from './WidgetStats';
 import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { SelectItem } from 'primeng/primeng';
-PerfIndicatorService
+import {PanelModule} from 'primeng/primeng';
 @Component({
   selector: 'app-business',
   templateUrl: './business.component.html',
@@ -51,7 +51,6 @@ export class BusinessComponent implements OnInit {
     this.alertsService.getAlertTrends('12')
       .subscribe((data: any) => {
         this.alert_trend = data;
-        //console.log(this.alert_trend);
       });
 
     this.sgopt = {
@@ -81,7 +80,7 @@ export class BusinessComponent implements OnInit {
 
       "healthitems": [this.selectedItem1, this.selectedItem2, this.selectedItem3],
     }
-    console.log(this.putTenantSetting)
+    //console.log(this.putTenantSetting)
     this.tenantService.updateTenant(this.tenantid, this.putTenantSetting).subscribe(res => { },
       err => { console.log(err); });
 
@@ -98,7 +97,7 @@ export class BusinessComponent implements OnInit {
         for (var item in res.result.tenant.healthitems) {
           this.health_items_top3.push(res.result.tenant.healthitems[item]);
         }
-        console.log("asdasdassdad" + this.health_items_top3)
+        //console.log("asdasdassdad" + this.health_items_top3)
       });
     });
     this.perfIndicatorsService.getHealth()
@@ -107,8 +106,8 @@ export class BusinessComponent implements OnInit {
  
           
           for (var array of res["metrics"]) {
-            console.log(array.id)
-            console.log(array_top3)
+            //console.log(array.id)
+            //console.log(array_top3)
             if ( array.id == array_top3) {
               this.svcWidgets.push(array);
            

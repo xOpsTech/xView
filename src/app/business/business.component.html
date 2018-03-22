@@ -5,49 +5,55 @@
     </div>
   </div>
 </div>
-<p-dialog [(visible)]="display" modal="modal" width="600" height="400" [responsive]="true">
+<p-dialog [(visible)]="display" modal="modal"   [contentStyle]="{'max-height':'200px' [autoAlign]='true'}" [responsive]="true">
   <p-header closable="true">
   </p-header>
-  <div class="container">
-    <div class="form-group">
-      <label for="health1"> Health Config 1</label>
-      <p-dropdown [options]="tenant_items_all"  class="form-control"  id="selectedItem1"  width="100" [autoWidth]="true" [(ngModel)]="selectedItem1">
-      </p-dropdown>
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-6">
+        <div class="ui-g-4">
+          Health Config 1
+        </div>
+        <div class="ui-g-8">
+          <p-dropdown [options]="tenant_items_all"    id="selectedItem1" [autoWidth]="false"  [(ngModel)]="selectedItem1">
+          </p-dropdown>
+        </div>
     </div>
-
-    <div class="form-group">
-      <label for="health2"> Health Config 2</label>
-      <p-dropdown [options]="tenant_items_all"  class="form-control"  id="selectedItem2" width="100" [autoWidth]="true" [(ngModel)]="selectedItem2">
-      </p-dropdown>
+    <div class="ui-g-12 ui-md-6">
+        <div class="ui-g-4">
+          Health Config 2
+        </div>
+        <div class="ui-g-8">
+          <p-dropdown [options]="tenant_items_all"   id="selectedItem2" [autoWidth]="false" [(ngModel)]="selectedItem2">
+          </p-dropdown>
+        </div>
     </div>
-
-    <div class="form-group">
-      <label for="health3"> Health Config 3</label>
-      <p-dropdown [options]="tenant_items_all"   class="form-control"  id="selectedItem3"  width="100" [autoWidth]="true" [(ngModel)]="selectedItem3">
-      </p-dropdown>
-    </div>
+    <div class="ui-g-12 ui-md-6">
+      <div class="ui-g-4">
+        Health Config 3
+      </div>
+      <div class="ui-g-8">
+        <p-dropdown [options]="tenant_items_all" id="selectedItem3"  [autoWidth]="false" [(ngModel)]="selectedItem3">
+        </p-dropdown>
+      </div>
   </div>
-  <p-footer>
-    <div class="col-md-12">
-      <button (click) = "onSubmit()" pButton type="submit" class="form-control" label="Submit"></button>
+</div>
+
+    <div class="ui-g-12 ui-md-6">
+      <button (click) = "onSubmit()" pButton type="submit"  label="Submit"></button>
     </div>
-  </p-footer>
 
 </p-dialog>
+
 <div class="row row-eq-height">
-
-  <div class="col-md-12 widget">
+  <div class="ui-g-12 widget">
     <div class="widget-wrapper">
-
       <div class="row">
-        <div class="col-md-11">
-        </div>
-        <div class="col-md-1">
-          <i class="fa fa-gear" style="font-size:24px" (click)="confirm()"></i>
+        <div class="ui-g-12">
+          <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px;" (click)="confirm()"></i>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4" align="center" *ngFor="let item of WidgetStats">
+        <div class="ui-g-4" align="center" *ngFor="let item of WidgetStats">
           <div class="service-mix-widget">
             <div class="small-graph">
               <p-chart type="line" height="200" [options]="sgopt"></p-chart>
