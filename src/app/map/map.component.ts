@@ -83,11 +83,12 @@ export class MapComponent implements OnInit {
           }
         });
 
-      }),
-        (err) => {
+      },
+        (error) => {
           this.mapgear = true;
-          console.log(err+ "  sdsfdsdfsdfsfs")
-        };
+          console.log(error+ "  sdsfdsdfsdfsfs")
+          console.log(this.mapgear + "  sdsfdsdfsdfsfs")
+        });
     });
 
 
