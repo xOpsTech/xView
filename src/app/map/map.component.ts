@@ -95,10 +95,10 @@ export class MapComponent implements OnInit {
   }
 
   confirm() {
-    this.router.navigate(['/manage']);
+    this.router.navigate(['manage']);
   }
 
   ngOnDestroy() {
-    this.AmCharts.destroyChart(this.chart);
+//    this.AmCharts.destroyChart(this.chart);
   }
 }
