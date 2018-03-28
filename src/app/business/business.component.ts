@@ -116,7 +116,8 @@ export class BusinessComponent implements OnInit {
       }
 
         for (var title of this.svcWidgets) {
-          var classv = "c100 p100 " + title.status
+          var classv = "c100 p100 " + title.status;
+	  console.log(title + "pasndu pasindu");
           this.WidgetStats.push({
             "name": title.id,
             "class_name": classv,
@@ -139,6 +140,28 @@ export class BusinessComponent implements OnInit {
         }
       }
       );
+this.WidgetStats.push({
+            "name": "xView",
+            "class_name": "c100 p100 green",
+            "color": "green",
+            "health_value": 0
+          });
+
+this.WidgetStats.push({
+            "name": "xOps.it",
+            "class_name": "c100 p100 green",
+            "color": "green",
+            "health_value": 0
+          });
+
+this.WidgetStats.push({
+            "name": "xOps Army",
+            "class_name": "c100 p100 green",
+            "color": "green",
+            "health_value": 0
+          });
+
+
   }
 
 }

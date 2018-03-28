@@ -37,12 +37,16 @@ export class MapService {
           else if (res.status === 200) {
             return res.json();
           }
+	  else if (res.status === 500){
+			console.log("dddddddddddddddddddddddddddfdfadfadfadsfadsdddddddddddddddddddddddddddddddddd");
+	}
       }
-  }).   catch(this.handleError);
+  }) .catch(this.handleError);
 }
 
 private handleError(error: any) { 
   let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+  console.log("fdsaf ha ha aha ahaha a ha");
   return Observable.throw(error);
 }
  
