@@ -32,6 +32,7 @@ export class AlertIndividualComponent implements OnInit {
   public assignees;
   assgneselections = [];
   assgneselectionsids = [];
+  tenantID : string;
   //public alertsTable;
   visible: boolean = true;
 
@@ -62,7 +63,7 @@ export class AlertIndividualComponent implements OnInit {
         //console.log(this.alert_trend);
       });
 
-    this.alertsService.widgetStatus().subscribe(widget_data1 => {
+    this.alertsService.widgetStatus(this.tenantID).subscribe(widget_data1 => {
       this.widget_data = widget_data1;
       console.log(this.widget_data)
     });
