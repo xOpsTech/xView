@@ -34,10 +34,12 @@ export class AlertService {
 
   }
 
-  updateURLs() {
-    var tenantID = this.userService.getTenantId();
-    this.alerts_url = config.XOPSAPI + '/alerts/' + tenantID;
-    this.new_relic_map_data = config.XOPSAPI + '/newrelic/map/' + tenantID;
+  updateURLs(tenantId) {
+    //var tenantID = this.userService.getTenantId();
+    this.tenantID = tenantId;
+    this.alerts_url = config.XOPSAPI + '/alerts/' + this.tenantID;
+    this.new_relic_map_data = config.XOPSAPI + '/newrelic/map/' + this.tenantID;
+    this.alerts_stats_url = config.XOPSAPI + '/alerts/stats/'+this.tenantID ;
   }
 
   getAlerts() {
@@ -90,8 +92,8 @@ export class AlertService {
       .catch(this.handleError);
   }
 
-  widgetStatus() {
-    return this.http.get(this.alerts_stats_url)
+  widgetStatus(tenantID) {
+    return this.http.get(this.alerts_stats_url+'/'+tenantID)
       .map((res: Response) => res.json());
   }
 

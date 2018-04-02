@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Alert } from './Alert';
 import { AlertService } from '../services/alert.service';
 import { IncidentService } from '../services/incident.service';
@@ -14,7 +14,7 @@ import { UserService } from '../services/user.service';
 
 })
 
-export class AlertsComponent implements OnInit {
+export class AlertsComponent implements OnInit , OnChanges{
   alert_put_values: { _id: string };
   title: any;
   alerts: Alert[] = [];
@@ -30,6 +30,7 @@ export class AlertsComponent implements OnInit {
   public assignees;
   assgneselections = [];
   assgneselectionsids = [];
+  tenantID : string = "xxxxxx" ;
 
   user = {
     name: "",
@@ -53,6 +54,13 @@ export class AlertsComponent implements OnInit {
       console.log(this.assignees)
     });
 
+    this.userService.getUserData().subscribe(res => {
+      var user = res;
+      console.log(JSON.stringify(user.message[0].tenantId) + "----------++++  pasindu----------");
+      this.tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(this.tenantID)
+      
+    });
 
     this.alertsService.getAlertTrends('12')
 
@@ -61,7 +69,7 @@ export class AlertsComponent implements OnInit {
         //console.log(this.alert_trend);
       });
 
-    this.alertsService.widgetStatus().subscribe(widget_data1 => {
+    this.alertsService.widgetStatus(this.tenantID).subscribe(widget_data1 => {
       this.widget_data = widget_data1;
       //console.log(this.widget_data)
     });
@@ -74,11 +82,24 @@ export class AlertsComponent implements OnInit {
     this.display = true;
   }
 
+  ngOnChanges(changes: SimpleChanges){
+    this.userService.getUserData().subscribe(res => {
+      var user = res;
+      console.log( JSON.stringify(user.message[0].tenantId) + "-----------------user pasindu----------")
+      this.tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(this.tenantID)
+      this.loadSortedAlerts();
+    })
+;
+  }
+
   ngOnInit() {
 
     this.userService.getUserData().subscribe(res => {
-      this.user = res;
-      this.alertsService.updateURLs()
+      var user = res;
+      console.log( JSON.stringify(user.message[0].tenantId) + "-----------------user pasindu----------")
+      this.tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(this.tenantID)
       this.loadSortedAlerts();
     })
 
