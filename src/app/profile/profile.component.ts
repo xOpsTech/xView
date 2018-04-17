@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   address = "";
   username = "";
   tenantid = "";
+  public profileimage: any;
   public bannerimage: any;
   public logoimage: any;
 
@@ -29,8 +30,10 @@ export class ProfileComponent implements OnInit {
   //pass in the Url to be uploaded to, and pass the itemAlais, which would be the name of the //file input when sending the post request.
 
   //This is the default title property created by the angular cli. Its responsible for the app works 
+  public uploader_profile = new FileUploader({ url: URL, itemAlias: 'photo', allowedMimeType: ['image/jpeg', 'image/png'] });
   public uploader_banner = new FileUploader({ url: URL, itemAlias: 'photo', allowedMimeType: ['image/jpeg', 'image/png'] });
   public uploader_logo = new FileUploader({ url: URL, itemAlias: 'photo', allowedMimeType: ['image/jpeg', 'image/png'] });
+  
 
 
   constructor(private userService: UserService, private tenantService: TenantService) {
@@ -48,6 +51,17 @@ export class ProfileComponent implements OnInit {
 
       });
     });
+    //-----------profile picture uploader-------------------
+    this.uploader_logo.onBuildItemForm = (fileItem: any, form: any) => {
+      form.append('type', "profile");
+      form.append('id', this.tenantid);
+    };
+     //override the onAfterAddingfile property
+    this.uploader_logo.onAfterAddingFile = (file) => { file.withCredentials = false; };
+     //overide the onCompleteItem property of the uploader to deal with the server response.
+    this.uploader_logo.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      this.profileimage = response;
+    };
 
     //-----------banner uploader-------------------
     this.uploader_banner.onBuildItemForm = (fileItem: any, form: any) => {

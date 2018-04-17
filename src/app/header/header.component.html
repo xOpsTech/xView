@@ -27,7 +27,7 @@
    {{ user.name }}
   </button> -->
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="selected">
-    <a class="dropdown-item" [routerLink]="['/setting']">profile</a>
+    <a class="dropdown-item" [routerLink]="['/setting']"(click)="profile()" >profile</a>
     <!-- <a class="dropdown-item" href="#">Another action</a> -->
     <a class="dropdown-item" [routerLink]="['/login']" (click)="logout()" >logout</a>
   </div>
