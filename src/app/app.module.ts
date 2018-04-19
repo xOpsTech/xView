@@ -68,6 +68,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-logi
 import { HealthComponent } from './health/health.component';
 import { ToggleButtonModule } from 'primeng/primeng';
 
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -123,7 +124,8 @@ export function provideConfig() {
     ProfileComponent,
     UserManageComponent,
     UserTypemanagementComponent,
-    HealthComponent
+    HealthComponent,
+  
   ],
 
 

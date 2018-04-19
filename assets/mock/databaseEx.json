@@ -1,0 +1,83 @@
+{
+
+  "Server": [
+    {
+      "name": "Server 01",
+      "color": "green"
+    },
+    {
+      "name": "Server 02",
+      "strenth": "green"
+    },
+     {
+      "name": "Server 03",
+      "color": "green"
+    },
+     {
+      "name": "Server 04",
+      "color": "green"
+    },
+     {
+      "name": "Server 05",
+      "color": "green"
+    },
+     {
+      "name": "Server 06",
+      "color": "green"
+    },
+     {
+      "name": "Server 07",
+      "color": "green"
+    },
+     {
+      "name": "Server 08",
+      "color": "green"
+    },
+     {
+      "name": "Server 09",
+      "color": "green"
+    },
+     {
+      "name": "Server 10",
+      "color": "green"
+    },
+     {
+      "name": "Server 11",
+      "color": "green"
+    },
+     {
+      "name": "Server 12",
+      "color": "green"
+    },
+     {
+      "name": "Server 13",
+      "color": "green"
+    },
+     {
+      "name": "Server 14",
+      "color": "green"
+    },
+     {
+      "name": "Server 15",
+      "color": "green"
+    },
+     {
+      "name": "Server 16",
+      "color": "green"
+    },
+     {
+      "name": "Server 17",
+      "color": "green"
+    },
+     {
+      "name": "Server 18",
+      "color": "green"
+    },
+    {
+      "name": "Server 19",
+      "strenth": "green"
+    }
+  ]
+
+
+}
