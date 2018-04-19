@@ -1,54 +1,58 @@
 <div class="row">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header">
-       Change Profile Picture
-      </div>
-      <div class="card-block">
-        <div class="container">
-          <div class="form-group">
-            <input type="file" name="photo" ng2FileSelect [uploader]="uploader_profile" />
-            <button type="button" class="btn btn-primary" (click)="uploader_profile.uploadAll()" [disabled]="!uploader_profile.getNotUploadedItems().length">
-                  Upload
-              </button>
+  <div class="col-sm-4">
+      <div class="card">
+          <div class="card-header">
+              Change Company Profile Picture
+          </div>
+          <div class="card-block">
+            <div class="container">
+              <div class="form-group">
+                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_profile" />
+                <button type="button" class="btn btn-primary" (click)="uploader_profile.uploadAll()" [disabled]="!uploader_profile.getNotUploadedItems().length">
+                      Upload
+                  </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-<div class="row">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header">
-       Change Company Banner
-      </div>
-      <div class="card-block">
-        <div class="container">
-          <div class="form-group">
-            <input type="file" name="photo" ng2FileSelect [uploader]="uploader_banner" />
-            <button type="button" class="btn btn-primary" (click)="uploader_banner.uploadAll()" [disabled]="!uploader_banner.getNotUploadedItems().length">
-                  Upload
-              </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">
-          Change Company Logo
-      </div>
-      <div class="card-block">
-        <div class="container">
-          <div class="form-group">
-            <input type="file" name="photo" ng2FileSelect [uploader]="uploader_logo" />
-            <button type="button" class="btn btn-primary" (click)="uploader_logo.uploadAll()" [disabled]="!uploader_logo.getNotUploadedItems().length">
-                  Upload
-              </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-8">
+
+          <div class="col-sm-4">
+              <div class="card">
+                  <div class="card-header">
+                      Change Company Banner
+                  </div>
+                  <div class="card-block">
+                    <div class="container">
+                      <div class="form-group">
+                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader_banner" />
+                        <button type="button" class="btn btn-primary" (click)="uploader_banner.uploadAll()" [disabled]="!uploader_banner.getNotUploadedItems().length">
+                              Upload
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                  <div class="col-sm-4">
+                      <div class="card">
+                          <div class="card-header">
+                              Change Company Logo
+                          </div>
+                          <div class="card-block">
+                            <div class="container">
+                              <div class="form-group">
+                                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_logo" />
+                                <button type="button" class="btn btn-primary" (click)="uploader_logo.uploadAll()" [disabled]="!uploader_logo.getNotUploadedItems().length">
+                                      Upload
+                                  </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+  
+  <div class="col-sm-8">
 
     <div class="card">
       <div class="card-header">
