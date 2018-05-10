@@ -106,19 +106,7 @@ export class BusinessInsightsComponent implements OnInit {
                       new Database('Database 04', 4, 'green') ];               
 
              
-// For json import-------------------------------------------------
-                      // servers: Array<Server>;
-//   constructor(private http: Http) {}
-// ngOnInit() {
-//     this.http
-//       .get("/assets/mock/databaseEx.json")
-//       .map(data => data.json() as Array<Server>)
-//       .subscribe(data => {
-//         this.servers = data;
-//         console.log(data);
-//       });
-//   }
-// }
+
 
 constructor() { }
 

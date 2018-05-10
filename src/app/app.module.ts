@@ -8,6 +8,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { FileSelectDirective } from 'ng2-file-upload';
+
 import {
   ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule, AutoCompleteModule,
   GrowlModule, DataTableModule, SharedModule, OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule, SpinnerModule, FileUploadModule
@@ -67,6 +68,7 @@ import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { HealthComponent } from './health/health.component';
 import { ToggleButtonModule } from 'primeng/primeng';
+import { TechMapComponent } from './business-insights/tech-map/tech-map.component';
 
 
 let config = new AuthServiceConfig([
@@ -125,12 +127,14 @@ export function provideConfig() {
     UserManageComponent,
     UserTypemanagementComponent,
     HealthComponent,
+    TechMapComponent,
   
   ],
 
 
   imports: [
     BrowserModule,
+    AmChartsModule,
     DragulaModule,
     FormsModule,
     ReactiveFormsModule,

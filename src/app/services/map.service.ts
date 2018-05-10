@@ -44,6 +44,14 @@ export class MapService {
   }) .catch(this.handleError);
 }
 
+getTecMapData(){
+
+  var url = 'http://localhost:3000/newrelicMapData';
+  console.log(url);
+  
+
+}
+
 private handleError(error: any) { 
   let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
   console.log("fdsaf ha ha aha ahaha a ha");

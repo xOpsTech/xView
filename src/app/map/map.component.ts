@@ -30,7 +30,7 @@ export class MapComponent implements OnInit {
     this.userService.getUserData().subscribe(res => {
       this.user = res;
       var tenantId = res.message[0].tenantId
-      console.log("sdfsdfsfsdfsdfsdfsdf");
+      
       this.mapService.getNewRelicMapData(tenantId).subscribe(newrelicmapdata => {
         for (var dv of newrelicmapdata['newrelicMapData']) {
           var title2 = ""
@@ -54,7 +54,7 @@ export class MapComponent implements OnInit {
           console.log(this.mapcoordinates)
         }
 
-        this.chart = this.AmCharts.makeChart("chartdiv", {
+        this.chart = this.AmCharts.makeChart("mapdiv", {
           "type": "map",
           "theme": "black",
           "projection": "miller",
@@ -86,8 +86,7 @@ export class MapComponent implements OnInit {
       },
         (error) => {
           this.mapgear = true;
-          console.log(error+ "  sdsfdsdfsdfsfs")
-          console.log(this.mapgear + "  sdsfdsdfsdfsfs")
+        
         });
     });
 

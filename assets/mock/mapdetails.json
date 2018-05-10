@@ -1,0 +1,54 @@
+{
+  "newrelicMapData": [
+    {
+      "locationLabel": "Mumbai, IN",
+      "apps": [
+        {
+          "monitorName": "xops-app",
+          "locationLabel": "Mumbai, IN",
+          "latitude": "19.0759837",
+          "longitude": "72.8776559"
+        },
+        {
+          "duration": 1255.6319050000002,
+          "monitorName": "xops",
+          "locationLabel": "Mumbai, IN",
+          "latitude": "19.0759837",
+          "longitude": "72.8776559"
+        },
+        {
+          "duration": 1144.004859,
+          "monitorName": "xops-fb",
+          "locationLabel": "Mumbai, IN",
+          "latitude": "19.0759837",
+          "longitude": "72.8776559"
+        }
+      ]
+    },
+    {
+      "locationLabel": "Washington, DC, USA",
+      "apps": [
+        {
+          "duration": 169.68211900000003,
+          "monitorName": "xops-app",
+          "locationLabel": "Washington, DC, USA",
+          "latitude": "38.9071923",
+          "longitude": "-77.0368707"
+        }
+      ]
+    },
+    {
+      "locationLabel": "San Francisco, CA, USA",
+      "apps": [
+        {
+          "duration": 353.392463,
+          "monitorName": "xops-fb",
+          "locationLabel": "San Francisco, CA, USA",
+          "latitude": "37.7749295",
+          "longitude": "-122.4194155"
+        }
+      ]
+    }
+  ]
+
+}

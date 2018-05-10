@@ -1,7 +1,7 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper map">
-      <app-map></app-map>
+   <app-map></app-map>
     </div>
   </div>
 </div>
@@ -93,7 +93,11 @@
           <div class="ui-g-11" style="margin-top: -9px; font-weight: bold; padding-left: 16px;">Network
 
             <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
-              <div *ngFor="let server of servers">
+
+                <app-tech-map></app-tech-map>
+               
+            <!--<div *ngFor="let server of servers">
+                 
                
                  <!-- <div class="gridy" style="text-align:center">
                          
@@ -113,9 +117,9 @@
                           </div>
                       </div>
                      </ng-template> 
-                    </div> -->
+                    </div> 
 
-                </div>
+                </div>-->
           </div>
           </div>
         <div class="ui-g-1" style="padding: 0; margin-top: -8px">
@@ -185,7 +189,7 @@
                   
                     <i class="fa fa-list" style="font-size:48px;" [ngStyle]="storage.color == 'red' ? {'color' : 'red'} : storage.color == 'green' ? {'color' : 'green'} : {'color' : 'orange'}">
                     </i>
-                    
+                   
                   </div>
               </div>
         </div>
