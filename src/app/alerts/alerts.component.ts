@@ -30,7 +30,7 @@ export class AlertsComponent implements OnInit , OnChanges{
   public assignees;
   assgneselections = [];
   assgneselectionsids = [];
-  tenantID : string = "xxxxxx" ;
+
 
   user = {
     name: "",
@@ -56,11 +56,9 @@ export class AlertsComponent implements OnInit , OnChanges{
 
     this.userService.getUserData().subscribe(res => {
       var user = res;
-      console.log(JSON.stringify(user.message[0].tenantId) + "----------++++  pasindu----------");
-      this.tenantID = user.message[0].tenantId;
-      this.alertsService.updateURLs(this.tenantID)
+      var tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(user.message[0].tenantId)
       
-    });
 
     this.alertsService.getAlertTrends('12')
 
@@ -69,11 +67,11 @@ export class AlertsComponent implements OnInit , OnChanges{
         //console.log(this.alert_trend);
       });
 
-    this.alertsService.widgetStatus(this.tenantID).subscribe(widget_data1 => {
+    this.alertsService.widgetStatus(tenantID).subscribe(widget_data1 => {
       this.widget_data = widget_data1;
       //console.log(this.widget_data)
     });
-
+  });
   }
 
   disabled: boolean = true;
@@ -85,9 +83,8 @@ export class AlertsComponent implements OnInit , OnChanges{
   ngOnChanges(changes: SimpleChanges){
     this.userService.getUserData().subscribe(res => {
       var user = res;
-      console.log( JSON.stringify(user.message[0].tenantId) + "-----------------user pasindu----------")
-      this.tenantID = user.message[0].tenantId;
-      this.alertsService.updateURLs(this.tenantID)
+     var tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(tenantID)
       this.loadSortedAlerts();
     })
 ;
@@ -97,9 +94,9 @@ export class AlertsComponent implements OnInit , OnChanges{
 
     this.userService.getUserData().subscribe(res => {
       var user = res;
-      console.log( JSON.stringify(user.message[0].tenantId) + "-----------------user pasindu----------")
-      this.tenantID = user.message[0].tenantId;
-      this.alertsService.updateURLs(this.tenantID)
+     
+      var tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(tenantID)
       this.loadSortedAlerts();
     })
 
