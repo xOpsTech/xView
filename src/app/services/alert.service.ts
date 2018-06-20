@@ -39,7 +39,7 @@ export class AlertService {
     this.tenantID = tenantId;
     this.alerts_url = config.XOPSAPI + '/alerts/' + this.tenantID;
     this.new_relic_map_data = config.XOPSAPI + '/newrelic/map/' + this.tenantID;
-    this.alerts_stats_url = config.XOPSAPI + '/alerts/stats/'+this.tenantID ;
+    this.alerts_stats_url = config.XOPSAPI + '/alerts/stats/';
   }
 
   getAlerts() {
