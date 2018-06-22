@@ -1,0 +1,147 @@
+<div class="row">
+  <div class="col-sm-4">
+      <div class="card">
+          <div class="card-header">
+              Change Company Profile Picture
+          </div>
+          <div class="card-block">
+            <div class="container">
+              <div class="form-group">
+                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_profile" />
+                <button type="button" class="btn btn-primary" (click)="uploader_profile.uploadAll()" [disabled]="!uploader_profile.getNotUploadedItems().length">
+                      Upload
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+          <div class="col-sm-4">
+              <div class="card">
+                  <div class="card-header">
+                      Change Company Banner
+                  </div>
+                  <div class="card-block">
+                    <div class="container">
+                      <div class="form-group">
+                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader_banner" />
+                        <button type="button" class="btn btn-primary" (click)="uploader_banner.uploadAll()" [disabled]="!uploader_banner.getNotUploadedItems().length">
+                              Upload
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                  <div class="col-sm-4">
+                      <div class="card">
+                          <div class="card-header">
+                              Change Company Logo
+                          </div>
+                          <div class="card-block">
+                            <div class="container">
+                              <div class="form-group">
+                                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_logo" />
+                                <button type="button" class="btn btn-primary" (click)="uploader_logo.uploadAll()" [disabled]="!uploader_logo.getNotUploadedItems().length">
+                                      Upload
+                                  </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+  
+  <div class="col-sm-8">
+
+    <div class="card">
+      <div class="card-header">
+        Settings
+      </div>
+      <div class="card-block">
+        <div class="container">
+          <div>
+
+            <form #settingForm="ngForm" *ngIf="active" (ngSubmit)="onSubmit(settingForm)">
+              <div class="form-group">
+                <label for="name">Tenant name</label>
+
+                <input type="text" id="tenant" class="form-control" required minlength="4" maxlength="100" name="tenant" [(ngModel)]="tenantname"
+                  #tenant="ngModel">
+
+                <div *ngIf="tenant.errors && (tenant.dirty || tenant.touched)" class="alert alert-danger">
+                  <div [hidden]="!tenant.errors.required">
+                    Tenant is required
+                  </div>
+                  <div [hidden]="!tenant.errors.minlength">
+                    Tenant must be at least 4 characters long.
+                  </div>
+                  <div [hidden]="!tenant.errors.maxlength">
+                    Tenant cannot be more than 100 characters long.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone</label>
+
+                <input type="text" id="phone" class="form-control" required minlength="4" maxlength="100" name="phone" [(ngModel)]="phonenumber"
+                  #phone="ngModel">
+
+                <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger">
+                  <div [hidden]="!phone.errors.required">
+                    Phone Number is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="fullname">Address</label>
+
+                <textarea id="address" class="form-control" required minlength="4" maxlength="24" name="address_box" [(ngModel)]="address"
+                  #address_box="ngModel"></textarea>
+
+                <div *ngIf="address_box.errors && (address_box.dirty || address_box.touched)" class="alert alert-danger">
+                  <div [hidden]="!address_box.errors.required">
+                    Address Name is required
+                  </div>
+                  <div [hidden]="!address_box.errors.minlength">
+                    Name must be at least 10 characters long.
+                  </div>
+
+                </div>
+              </div>
+
+
+
+              <button type="submit" class="btn btn-primary" (click)="uploader.uploadAll()" [disabled]="!settingForm.form.valid">Submit</button>
+
+              <div class="form-group">
+                <div *ngIf="clicked">
+                  <div *ngIf="settingForm.form.valid &&  submitted" class="alert alert-success">
+                    <div>
+                      Form is Successfully Submitted
+                    </div>
+                  </div>
+                  <div *ngIf="settingForm.form.valid &&  !submitted" class="alert alert-danger">
+                    <div>
+                      Form Not Submitted
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+
+      </div>
+    </div>
+
+  </div>
+</div>

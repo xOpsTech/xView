@@ -1,0 +1,54 @@
+<!-- <div style="padding: 6%">
+  <h1> Item Status</h1>
+
+  <div class="ui-g">
+    <div *ngFor="let item of items" (mouseenter)="show(item.id)" (mouseleave)="op.hide($event)" (click)="op.show($event)" class="ui-g-12 ui-md-6 ui-lg-3">
+      <div class="box2" [style.background-color]="(item.status === 'red') ? 'red':'green'">
+        <div class= "mid-text"> {{item.id}} </div>
+      </div>
+    </div>
+  </div>
+
+  <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true">
+    <p-dataTable [value]="indicater" [style]="{'width':'500px'}">
+      <p-header>{{itemtitle}}</p-header>
+      <p-column field="id" header="Performance Indicator" [sortable]="true"></p-column>
+      <p-column field="status" header="Status" [sortable]="true">
+        <ng-template let-file="rowData" pTemplate="body">
+          <div class="alert-status" [ngClass]="file.status == 'green' ? 'green' :file.status == 'red' ? 'red': 'amber'">
+            <div class="chart-center">
+            </div>
+          </div>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+  </p-overlayPanel>
+</div> -->
+<div style="padding: 6%">
+    
+      <button type="button" (click)="showDialog()" pButton icon="fa fa-plus"></button>
+    </div>
+    
+    <p-dialog header="Selct Dashboards" [(visible)]="display" modal="modal" width="300" [responsive]="true">
+      <div class="ui-g" style="width:250px;margin-bottom:10px">
+          <div class="ui-g-12">
+        <div *ngFor="let num of availableDashboards; let i=index">
+            <p-checkbox name="group2" value="Dashboard{{i+1}}" label="Dashboard{{i+1}}" [(ngModel)]="selectedDashboards" inputId="dashboard{{i+1}}"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      
+    </p-dialog>
+    
+    <div class="ui-g">
+      <div *ngFor="let item of selectedDashboards;let i=index" class="ui-g-12" [dragula]='"third-bag"' style=" padding-top: 10px;">
+        <div class="card">
+            <div class="card-header drag ui-sortable-handle">
+              
+                {{item}}
+                <span class="badge badge-pill  float-right"> <button type="button" (click)="removeBox(i)" pButton icon="fa fa-window-close"></button></span>
+              </div>
+        </div>
+      </div>
+    </div>
+ 

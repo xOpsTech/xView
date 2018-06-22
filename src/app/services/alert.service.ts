@@ -3,24 +3,43 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import { config } from '../config/config';
+import { UserService, } from '../services/user.service';
+import { OnInit } from '@angular/core';
 
 @Injectable()
 export class AlertService {
+
+  user = {
+    name: "",
+    picture: ""
+  };
+  tenantID:string;
+
   headers: Headers;
   options: RequestOptions;
-
-  private alerts_url = config.XOPSAPI + '/alerts';
+  
+  private alerts_url;  
+  private new_relic_map_data; 
+  private alerts_url_old = config.XOPSAPI + '/alerts';; 
   private alerts_stats_url = config.XOPSAPI + '/alerts/stats';
   private my_alerts_url = config.XOPSAPI + '/myalerts';
-  constructor(private http: Http) {
+  constructor(private http: Http, private userService:UserService) {
     this.headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'q=0.8;application/json;q=0.9'
     });
     this.options = new RequestOptions({
       headers: this.headers
-    });
-    console.log(this.alerts_url);
+    });   
+
+  }
+
+  updateURLs(tenantId) {
+    //var tenantID = this.userService.getTenantId();
+    this.tenantID = tenantId;
+    this.alerts_url = config.XOPSAPI + '/alerts/' + this.tenantID;
+    this.new_relic_map_data = config.XOPSAPI + '/newrelic/map/' + this.tenantID;
+    this.alerts_stats_url = config.XOPSAPI + '/alerts/stats/';
   }
 
   getAlerts() {
@@ -28,8 +47,16 @@ export class AlertService {
       .map((res: Response) => res.json());
   }
 
+  getNewRelicMapData()
+  {
+    return this.http.get(this.new_relic_map_data)
+    .map((res: Response) => res.json());
+  }
+
+
+
   getAlertTrends(hours): Observable<any[]> {
-    return this.http.get(this.alerts_url + `/trend?hours=${hours}`)
+    return this.http.get(this.alerts_url_old + `/trend?hours=${hours}`)
       .map((res: Response) => res.json());
   }
 
@@ -49,8 +76,6 @@ export class AlertService {
       .toPromise()
       .then(res => {
         var responseJson = res.json();
-        // console.log(responseJson[0]._source);
-        // return <Alert[]> res.json()._source
         return <Alert[]>res.json();
       })
       .then(data => {
@@ -67,8 +92,8 @@ export class AlertService {
       .catch(this.handleError);
   }
 
-  widgetStatus() {
-    return this.http.get(this.alerts_stats_url)
+  widgetStatus(tenantID) {
+    return this.http.get(this.alerts_stats_url+'/'+tenantID)
       .map((res: Response) => res.json());
   }
 

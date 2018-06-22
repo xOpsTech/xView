@@ -1,0 +1,141 @@
+<div class="wrapper">
+  <div class="container" style="background-color: white">
+<!-- <tabset></tabset> -->
+    <form  [formGroup]="createAccountForm"  (ngSubmit)="createUser(createAccountForm.value)">
+
+      <div align="center" class="ui-g">
+          <div class="ui-g-4">
+            <h1 style="float: left">Create Users</h1>
+            <br>
+          </div>
+            <div class="ui-g-12">
+          <table style="float: left; margin-left: 50px " class="ui-g-1">
+            <tr>
+              <td><b>User Name</b></td>
+              <td><input pInputText type="text" required="true" formControlName="username" minlength="4" maxlength="20" pattern="[a-zA-Z0-9\s]+" [value]="username"></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>Email</b></td>
+              <td><input pInputText [type]="email" required="true" formControlName="email" ></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>Password</b></td>
+              <td><input pInputText type="password" required="true" [value]="password" formControlName="password"></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>Confirm&nbsp;Password</b></td>
+              <td><input pInputText type="password" required="true" [value]="cnfmpassword" formControlName="cnfmpassword"></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>Tenant&nbsp;ID</b></td>
+              <td><input pInputText type="text" style="color: #607d8b" formControlName="tenantId" readonly="true" [(ngModel)]="tenantId" ></td>
+            </tr>
+            <br>
+            <tr>
+              <td><b>User&nbsp;Type</b></td>
+              <!--<td><p-dropdown [options]="useTypes"  optionLabel="name" placeholder="User Type"></p-dropdown></td>-->
+              <td>
+                  <select [(ngModel)]="userType" formControlName="userType" >
+                    <!--<option [ngValue]="null">Please select value</option>-->
+                    <option *ngFor="let UserTypes of useTypes;let i = index " [ngValue]="UserTypes">{{UserTypes.name}}</option>
+                  </select>
+              </td>
+            </tr>
+            <br>
+            <br>
+
+
+            <tr>
+              <td rowspan="2" style="float: left; margin-left: 10px">
+                  <button pButton style="float: left; margin-left: 80px" pButton type="submit"   label="Submit" ></button>
+              </td>
+              <td><button pButton style="float: left; margin-left:5px" pButton type="reset"  label="Reset"></button>
+                </td>
+            </tr>
+          </table>
+            </div>
+        <br>
+        <br>
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+  <br>
+  <br>
+
+
+  <div class="container" style="background-color: white">
+    <form [formGroup]="editUserAccountForm" >
+
+      <div align="center" class="ui-g">
+      <div class="ui-g-4">
+        <h1 style="float: left">Edit Users</h1>
+        <br>
+      </div>
+
+        <table >
+          <tr>
+            <td></td>
+          <td style="text-align:center;">ID</td>
+          <td>Name</td>
+          <td>Password</td>
+          <td>TenantId</td>
+          <td colspan="2"></td>
+          </tr>
+          <tr *ngFor="let Users of userAccounts " style="width: 5px">
+            <!--<td style="text-align: center">{{i+1}}</td>-->
+            <td></td>
+            <td style="width: 5px">
+              <input  pInputText readonly="{{editable}}" [value]="Users.id">
+            </td>
+            <td style="width: 25px">
+              <input pInputText readonly="{{editable}}" [value]="Users.name">
+            </td>
+            <td style="width: 5px">
+              <input pInputText readonly="{{editable}}" type="password" [value]="Users.password">
+            </td>
+            <td style="width: 25px">
+              <input pInputText disabled [value]="Users.tenantId">
+            </td>
+            <td style="width: 25px">
+              <input pInputText type="button" (click)="editUser()" value="Edit{{i}}">
+            </td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+
+        <!--<p-dataTable [value]="userAccounts" [editable]="true">-->
+
+          <!--<p-column field="id" header="id" [editable]="true" ></p-column>-->
+          <!--<p-column field="name" header="Name" [editable]="true"></p-column>-->
+          <!--<p-column field="password" datatype="password" header="password" [editable]="true" ></p-column>-->
+          <!--<p-column field="tenantId" header="TenantId" [editable]="false"></p-column>-->
+          <!--&lt;!&ndash;<p-column>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<button type="button"  pButton>edit</button>&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;</p-column>&ndash;&gt;-->
+
+        <!--</p-dataTable>-->
+
+
+        <br>
+        <br>
+      </div>
+
+    </form>
+
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>

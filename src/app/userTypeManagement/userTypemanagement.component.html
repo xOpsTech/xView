@@ -1,0 +1,144 @@
+ <div class="wrapper">
+  <div class="container" style="background-color: white">
+    <form [formGroup]="createUserTypeForm" (ngSubmit)="createNewTenant(createUserTypeForm.value)">
+      <div style="background-color: white" align="center" >
+        <div style="background-color: white" >
+          <br>
+          <h1 >Create User Types</h1>
+          <br>
+          <br>
+            <table>
+
+              <tr>
+                <td colspan="2" style="text-align: center">
+                  <b style="font-family: Courier New;font-size:15px">Name</b>
+                </td>
+                <td colspan="2" style="height:60px;">
+                  <input style="font-size: 15px" pInputText [value]="name" required="true" type="text" placeholder="User Type Name" formControlName="name">
+                </td>
+              </tr>
+              <tr style="text-align:center;width:300px;height: 60px">
+                <td style="text-align:left;">
+                  <b style="font-family: Courier New;font-size:15px">Management</b>
+                </td>
+                <td style="align-self: center;width: 150px;" >
+                  <input type="checkbox" style="transform: scale(2)" [value]="management" [ngModel]="management" formControlName="management">
+                </td>
+                <td style="text-align:left;width:300px;height: 60px">
+                  <b style="font-family: Courier New;font-size:15px">Develop</b>
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" style="transform: scale(2)" [value]="develop" [ngModel]="develop" formControlName="develop">
+                </td>
+              </tr>
+              <tr style="text-align:center;">
+                <td style="text-align:left;width:300px;height: 60px">
+                  <b style="font-family: Courier New;font-size:15px">User Types Manager</b>
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" style="transform: scale(2)" [value]="userTypeManager" [ngModel]="userTypeManager" formControlName="userTypeManager">
+                </td>
+                <td style="text-align:left;width:300px;height: 60px">
+                  <b style="font-family: Courier New;font-size:15px">User Manager</b>
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" style="transform: scale(2)" [value]="userManager" [ngModel]="userManager" formControlName="userManager">
+                </td>
+              </tr>
+              <tr style="text-align:center;">
+                <td style="text-align:left;width:300px;height: 60px">
+                  <b style="font-family: Courier New;font-size:15px">Profile Manager</b>
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" style="transform: scale(2)" [value]="profileManager" [ngModel]="profileManager" formControlName="profileManager">
+                </td>
+                <td style="text-align:left;width:300px;height: 60px">
+                  <b style="font-family: Courier New;font-size:15px">Input Source Manager</b>
+                </td>
+                <td style="align-self: center">
+                  <input type="checkbox" style="transform: scale(2)" [value]="inputSourceManager" [ngModel]="inputSourceManager" formControlName="inputSourceManager">
+                </td>
+              </tr>
+              <tr style="text-align:center;">
+                <td colspan="4" style="text-align:center;">
+                  <b style="font-family: Courier New;font-size:15px">Tenant Id</b>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4" style="align-self: center;text-align:center;height: 50px;">
+                  <input style="font-size: 15px" disabled pInputText [(ngModel)]="tenantId" readonly="true" formControlName="tenantId">
+                </td>
+              </tr>
+              <br>
+              <tr style="align-content: center">
+                <td colspan="4" style="text-align: center">
+                  <div style="align-items: center">
+                  <button pButton type="submit" label="Submit" style="font-size: 18px"></button>
+                  <button pButton type="reset" label="Reset" style="font-size: 18px"></button>
+                  </div>
+                </td>
+              </tr>
+            </table>
+        </div>
+
+
+      </div>
+      <br>
+      <br>
+    </form>
+    <br>
+    <br>
+  </div>
+   <br>
+   <br>
+   <div class="container" style="background-color: white">
+      <table>
+        <tr>
+          <td style="text-align: left">
+            Name
+          </td>
+          <td >
+            <p style="text-align: left">Management</p>
+          </td>
+          <td>
+            <p style="text-align: left">Develop</p>
+          </td>
+          <td>
+            <p style="text-align: left">User Type Management</p>
+          </td>
+          <td>
+            <p style="text-align: left">User Management</p>
+          </td>
+          <td>
+            <p style="text-align: left">Profile Management</p>
+          </td>
+          <td>
+            <p style="text-align: left">Input Source Management</p>
+          </td>
+        </tr>
+        <tr *ngFor="let UserType of useTypes let i=index">
+          <td>
+            <input style="width: 100px;" pInputText [value]="UserType.name">
+          </td>
+          <td>
+            <input style="width: 75px;" pInputText [value]="UserType.management" checked="UserType.management">
+          </td>
+          <td>
+            <input style="width: 75px;" pInputText [value]="UserType.develop" checked="UserType.develop">
+          </td>
+          <td>
+            <input style="width: 75px;" pInputText [value]="UserType.userTypeManager" checked="UserType.userTypeManager">
+          </td>
+          <td>
+            <input style="width: 75px;" pInputText [value]="UserType.profileManager" checked="UserType.profileManager">
+          </td>
+          <td>
+            <input style="width: 75px;" pInputText [value]="UserType.userManager" checked="UserType.userManager">
+          </td>
+          <td>
+            <input style="width: 75px;" pInputText [value]="UserType.inputSourceManager" checked="UserType.inputSourceManager">
+          </td>
+        </tr>
+      </table>
+   </div>
+</div>

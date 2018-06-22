@@ -5,19 +5,69 @@
     </div>
   </div>
 </div>
+<p-dialog [(visible)]="display" modal="modal"   [contentStyle]="{'max-height':'200px' [autoAlign]='true'}" [responsive]="true">
+  <p-header closable="true">
+  </p-header>
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-6">
+        <div class="ui-g-4">
+          Health Config 1
+        </div>
+        <div class="ui-g-8">
+          <p-dropdown [options]="tenant_items_all"    id="selectedItem1" [autoWidth]="false"  [(ngModel)]="selectedItem1">
+          </p-dropdown>
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+        <div class="ui-g-4">
+          Health Config 2
+        </div>
+        <div class="ui-g-8">
+          <p-dropdown [options]="tenant_items_all"   id="selectedItem2" [autoWidth]="false" [(ngModel)]="selectedItem2">
+          </p-dropdown>
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <div class="ui-g-4">
+        Health Config 3
+      </div>
+      <div class="ui-g-8">
+        <p-dropdown [options]="tenant_items_all" id="selectedItem3"  [autoWidth]="false" [(ngModel)]="selectedItem3">
+        </p-dropdown>
+      </div>
+  </div>
+</div>
+
+    <div class="ui-g-12 ui-md-6">
+      <button (click) = "onSubmit()" pButton type="submit"  label="Submit"></button>
+    </div>
+
+</p-dialog>
 
 <div class="row row-eq-height">
-  <div class="col-md-12 widget">
+  <div class="ui-g-12 widget">
     <div class="widget-wrapper">
       <div class="row">
-        <div class="col-md-4" align="center" *ngFor="let sWgt of svcWidgets">
+        <div class="ui-g-12">
+          <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px;" (click)="confirm()"></i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ui-g-4" align="center" *ngFor="let item of WidgetStats">
           <div class="service-mix-widget">
             <div class="small-graph">
-              <p-chart type="line" [data]="sWgt.data" height="200" [options]="sgopt"></p-chart>
-              <div><strong>{{sWgt.latency}}</strong></div>
+              <p-chart type="line" height="200" [options]="sgopt"></p-chart>
+              <strong style="float:left;text-transform: capitalize;">{{item.name}}</strong>
             </div>
-            <circle-progress [percent]="sWgt.svcload"></circle-progress><br/>
-            <strong>{{sWgt.title}}</strong>
+            <div [className]="item.class_name">
+              <span></span>
+              <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+              </div>
+            </div>
+            <div></div>
+
           </div>
         </div>
       </div>

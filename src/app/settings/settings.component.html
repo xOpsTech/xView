@@ -3,14 +3,19 @@
     <div class="card">
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="{{usersets.picture}}" alt="User profile picture">
+          <img class="profile-user-img img-responsive img-circle" src="{{profilepicture}}" alt="User profile picture">
 
-          <h3 class="profile-username text-center">{{usersets.name}}</h3>
+          <h3 class="profile-username text-center">{{fullname}}</h3>
 
-          <p class="text-muted text-center">{{usersets.email}}</p>
+          <p class="text-muted text-center">{{username}}</p>
 
           <ul class="list-group list-group-unbordered">
-
+            <div class="form-group">
+              <input type="file" name="photo" ng2FileSelect [uploader]="uploader_2" />
+          <button type="button" class="btn btn-primary" (click)="uploader_2.uploadAll()" [disabled]="!uploader_2.getNotUploadedItems().length">
+              Upload a Profile pic
+          </button>
+        </div>
           </ul>
 
           <a href="#" class="btn btn-primary btn-block"><b></b></a>
@@ -89,6 +94,7 @@
     </div>
   </div>
   <div class="col-md-8">
+
     <div class="card">
       <div class="card-header">
         Settings
@@ -239,7 +245,12 @@
                 <label>Widgets</label>
                 <select2 class="form-control input-lg"  [(ngModel)]="widgetval" name="widgetss" [width]="500" [data]="widgets" [options]="options"  [value]="value" (valueChanged)="changed($event)" ngDefaultControl ></select2>
               </div>
-                
+              <div class="form-group">
+                  <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+              <button type="button" class="btn btn-primary" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                  Upload a Banner
+              </button>
+            </div>
               <button type="submit" class="btn btn-primary" [disabled]="!settingForm.form.valid">Submit</button>
               
               <div class="form-group">

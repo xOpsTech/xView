@@ -1,0 +1,109 @@
+.wrapper{
+    background-image: url('/assets/img/loginbackgroundblured.png');
+    background-repeat: repeat;
+      background-size: cover;
+  position: absolute;
+  padding-top:6px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.login{
+  max-width: 420px;
+      min-height: 500px;
+      margin: 11% auto;
+      background-color: rgba(10, 10, 10, .68);
+      padding: 3px 20px 20px;
+}
+
+@-webkit-keyframes square {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-700px) rotate(600deg);
+            transform: translateY(-700px) rotate(600deg);
+  }
+}
+@keyframes square {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-700px) rotate(600deg);
+            transform: translateY(-700px) rotate(600deg);
+  }
+}
+
+.login-icon-field {
+      height: 150px;
+      width: 100%;
+      text-align: center;
+      padding: 20px 20px 20px;
+    }
+  .login-icon-field a{
+color: #20a8d8;
+    text-decoration: none;
+    background-color: transparent;
+  }
+  .login-icon-field h1{
+  font-size: 2.5rem;
+       margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #fff;
+  }  
+.login-icon-field div{
+      color: #fff;
+    font-size: 0.875rem;
+    }  
+
+    .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    color: #607d8b;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+    .call-to-action {
+    margin: 22px 0;
+    height: 110px;
+    width: 100%;
+}
+
+.btn-danger {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    color: #fff;
+    background-color: #611717;
+    border-color: #611717;
+    border-radius: 0;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+a{
+  color: #3F78E2;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:hover{
+  color: #5587E2;
+  text-decoration: none;
+  background-color: transparent;
+}

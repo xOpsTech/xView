@@ -10,16 +10,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
 <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
 <script src="https://www.amcharts.com/lib/3/themes/black.js"></script>
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+
 <script defer src="https://apis.google.com/js/platform.js"></script>
 <script src="https://use.fontawesome.com/cda663583d.js"></script>
+<!-- <script src="https://apis.google.com/js/platform.js" ></script> -->
+<script>
+// window.onLoadCallback = function(){
+//   gapi.auth2.init({
+//       client_id: '1097768545835-cr04oqb5at81e517jge5lfgmos3pcs0t.apps.googleusercontent.com'
+//     });
+// }
+</script>
+
 <app-root>
   <div style=" color:black;top:0;left:0;right:0;bottom:0;margin:auto;" > <i class="fa fa-cog fa-spin fa-3x fa-fw" ></i></div>
 
 </app-root>
+
 </body>
 </html>

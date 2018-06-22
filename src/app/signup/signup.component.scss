@@ -1,0 +1,204 @@
+/*This is modifying the btn-primary colors but you could create your own .btn-something class as well*/
+.btn-primary {
+    color: #fff;
+    background-color: #0495c9;
+    border-color: #357ebd; /*set the color you want here*/
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #00b3db;
+    border-color: #285e8e; /*set the color you want here*/
+}
+.wrapper {
+  background-image: url('/assets/img/loginbackgroundblured.png');
+  background-repeat: repeat;
+    background-size: cover;
+position: absolute;
+padding-top:10px;
+left: 0;
+width: 100%;
+height: 100%;
+overflow-y: auto;
+}
+
+.alert {
+   color:red;
+   text-decoration: bold
+
+}
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  color: white;
+  padding-right: 15px;
+  padding-left: 15px; 
+max-height: 500px}
+  @media (min-width: 576px) {
+    .container {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 768px) {
+    .container {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 992px) {
+    .container {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 1200px) {
+    .container {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 576px) {
+    .container {
+      width: 540px;
+      max-width: 100%; } }
+  @media (min-width: 768px) {
+    .container {
+      width: 720px;
+      max-width: 100%; } }
+  @media (min-width: 992px) {
+    .container {
+      width: 960px;
+      max-width: 100%; } }
+  @media (min-width: 1200px) {
+    .container {
+      width: 1140px;
+      max-width: 100%; } }
+
+/* Shared */
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  /* width: 13em;  - apply for fixed size */
+  margin: 0.2em;
+  padding: 0 15px 0 46px;
+  border: none;
+  text-align: left;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+  width: 100%;
+}
+.loginBtn:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
+}
+.loginBtn:focus {
+  outline: none;
+}
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+
+
+/* Google */
+.loginBtn--google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background: #DD4B39;
+}
+.loginBtn--google:before {
+  border-right: #BB3F30 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+}
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #E74B37;
+}
+
+.signup {
+  max-width: 680px;
+  min-height: 500px;
+  margin: 9% auto;
+  background-color: rgba(10, 10, 10, .68);
+  padding: 3px 90px 20px;
+  text-align: center;
+  z-index:1;
+}
+
+.signup2
+{
+  max-width: 680px;
+  margin:auto;
+  margin-bottom: -170px;
+  z-index:2;
+
+}
+.signup-icon-field {
+  height: 150px;
+  width: 100%;
+  text-align: center;
+  padding: 20px 20px 20px;
+}
+.signup-to-action {
+  margin: 22px 0;
+  height: 110px;
+  width: 100%;
+}
+
+.wrapper.form-success .container h1 {
+  -webkit-transform: translateY(85px);
+          transform: translateY(85px);
+}
+
+
+.over{
+  background-color: rgba(248, 240, 240, 0.68);
+  display: inline-block;
+  margin:  30px;  margin-bottom:-260px;  
+  width:100px;  height:100px;
+  border-radius:250px;  font-size:50px;
+  color:#110202;
+  line-height:100px;
+  text-align:center;
+  font-weight: bold;
+
+}
+
+.over-popup {
+  background-color: rgba(248, 240, 240, 0.68);
+  display: inline-block;
+  margin:  30px;  margin-bottom:-260px;  
+  width:110px;  height:110px;
+  border-radius:250px;  font-size:95px;
+  color:#110202;
+  line-height:100px;
+  text-align:center;
+  font-weight: bold;
+
+}
+
+.round-button {
+  border-radius: 50%;text-align: center;font-size: 20px;display: inline-block;padding-right: 50px;
+  width: 30px;height: 45px; 
+}
+
+a{
+  color: #3F78E2;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:hover{
+  color: #5587E2;
+  text-decoration: none;
+  background-color: transparent;
+}
+.abcRioButtonContents{
+  margin-right: 38px;
+}
+
+.ui-button {
+  border: 1px solid #9B0404;
+  color: #fff;
+  background: #9B0404;
+  transition: background-color .2s;
+}

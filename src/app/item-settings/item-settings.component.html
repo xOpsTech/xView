@@ -1,0 +1,93 @@
+<div class="container">
+
+  <h1>
+    Item Definitions
+  </h1>
+
+  <div class="input-block">
+    <span>Item Name:</span> <br>
+    <input size="30" type="text" [(ngModel)]="item_name" pInputText />
+  </div>
+
+  <div class="input-block">
+    <span>Type:</span> <br>
+    <p-dropdown [options]="typevalue" [autoWidth]="true" [(ngModel)]="selectedtype"></p-dropdown>
+  </div>
+
+
+
+  <div *ngIf="selectedtype =='pindicator'">
+    <p-dataTable [value]="perfIndicators" [(selection)]="selectedperfs" dataKey="id">
+      <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+      <p-column field="id" header="Performance Indicator" [filter]="true"></p-column>
+      <p-column field="importance" header="Importance" [editable]="true" [filter]="true">
+        <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{ perfind.importance }}</span>
+          <p-slider [style]="{'width':'100%','margin-top':'8px', 'border-radius': '0px','height': '13px'}" [(ngModel)]="perfind.importance"  [min]="0" [max]="10" (onChange)="onYearChange($event, dt)"></p-slider>
+        </ng-template>
+      </p-column>
+      <p-column field="thresholdGreen" header="Threshold green " [editable]="true" [filter]="true">
+        <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+          <input type="text" [(ngModel)]="perfind.thresholdGreen">
+        </ng-template>
+
+      </p-column>
+      <p-column field="thresholdBlue" header="Threshold blue " [editable]="true" [filter]="true">
+        <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+          <input type="text" [(ngModel)]="perfind.thresholdBlue">
+        </ng-template>
+      </p-column>
+      <p-column field="thresholdYellow" header="Threshold yellow " [editable]="true" [filter]="true">
+        <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+          <input type="text" [(ngModel)]="perfind.thresholdYellow">
+        </ng-template>
+      </p-column>
+      <p-column field="thresholdOrange" header="Threshold orange" [editable]="true" [filter]="true">
+        <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+          <input type="text" [(ngModel)]="perfind.thresholdOrange">
+        </ng-template>
+      </p-column>
+      <p-column field="thresholdRed" header="Threshold red" [editable]="true" [filter]="true">
+        <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+          <input type="text" [(ngModel)]="perfind.thresholdRed">
+        </ng-template>
+      </p-column>
+
+    </p-dataTable>
+  </div>
+
+  <div *ngIf="selectedtype =='item'">
+
+    <p-dataTable [value]="items" [(selection)]="selecteditems" dataKey="id">
+      <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+      <p-column field="id" header="Items" [filter]="true"></p-column>
+      <p-column field="importance" header="Importance" [editable]="true" [filter]="true">
+        <ng-template let-col let-perfind="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{ perfind.importance }}</span>
+          <p-slider [style]="{'width':'100%','margin-top':'8px', 'border-radius': '0px','height': '13px'}"  [(ngModel)]="perfind.importance" [min]="0" [max]="10" [step]="1"></p-slider>
+        </ng-template>
+      </p-column>
+      <p-column field="brand" header="Flag" [filter]="true" filterMatchMode="equals"  [style]="{'text-align':'center'}">
+        <ng-template let-col let-perfind="rowData"  pTemplate="body">
+          <p-checkbox name="groupname"  [(ngModel)]="perfind.isBoolean" binary="true"></p-checkbox>
+        </ng-template>
+    </p-column>
+    </p-dataTable>
+  </div>
+
+  <button class="top-margin" pButton type="button" label="Save Item" (click)="saveItem()"></button>
+
+</div>
+
+
+<!-- <table>
+  <tr>
+    <th>Performance Indicator</th>
+    <th>Importance</th> 
+    <th>Threshold red</th>
+    <th>Threshold amber</th>
+  </tr>
+  <tr>
+  
+  </tr>
+</table> -->

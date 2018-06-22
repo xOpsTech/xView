@@ -64,3 +64,19 @@ ul.navbar-nav.main-menu-toggle{
   border: 1px solid #263238;
   overflow: hidden;
 }
+
+.navbar-brand {
+  margin-left: 2%;
+}
+.app-header.navbar .dropdown-menu{
+   display: block;
+   position: fixed;
+    top: 35px;
+    left: 86%;
+}
+
+.app-header.navbar .navbar-brand {
+  display: inline-block;
+  margin-right: 0;
+  border-bottom: 0px solid #cfd8dc;
+}

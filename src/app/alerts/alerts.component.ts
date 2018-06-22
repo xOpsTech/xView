@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Alert } from './Alert';
 import { AlertService } from '../services/alert.service';
 import { IncidentService } from '../services/incident.service';
 import { TruncatePipe } from '../common/pipe.truncate';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { TruncatePipe } from '../common/pipe.truncate';
 
 })
 
-export class AlertsComponent implements OnInit {
+export class AlertsComponent implements OnInit , OnChanges{
   alert_put_values: { _id: string };
   title: any;
   alerts: Alert[] = [];
@@ -29,9 +30,17 @@ export class AlertsComponent implements OnInit {
   public assignees;
   assgneselections = [];
   assgneselectionsids = [];
+
+
+  user = {
+    name: "",
+    picture: "",
+    tenantId: ""
+  };
+
   //public alertsTable;
   visible: boolean = true;
-  constructor(private alertsService: AlertService, private incidentService: IncidentService) {
+  constructor(private alertsService: AlertService, private incidentService: IncidentService, private userService:UserService) {
     this.incidentService.getAssignees().subscribe(assignees => {
 
       for (var d of assignees.data) {
@@ -45,6 +54,11 @@ export class AlertsComponent implements OnInit {
       console.log(this.assignees)
     });
 
+    this.userService.getUserData().subscribe(res => {
+      var user = res;
+      var tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(user.message[0].tenantId)
+      
 
     this.alertsService.getAlertTrends('12')
 
@@ -53,11 +67,11 @@ export class AlertsComponent implements OnInit {
         //console.log(this.alert_trend);
       });
 
-    this.alertsService.widgetStatus().subscribe(widget_data1 => {
+    this.alertsService.widgetStatus(tenantID).subscribe(widget_data1 => {
       this.widget_data = widget_data1;
       //console.log(this.widget_data)
     });
-
+  });
   }
 
   disabled: boolean = true;
@@ -66,9 +80,26 @@ export class AlertsComponent implements OnInit {
     this.display = true;
   }
 
+  ngOnChanges(changes: SimpleChanges){
+    this.userService.getUserData().subscribe(res => {
+      var user = res;
+     var tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(tenantID)
+      this.loadSortedAlerts();
+    })
+;
+  }
+
   ngOnInit() {
 
-    this.loadSortedAlerts();
+    this.userService.getUserData().subscribe(res => {
+      var user = res;
+     
+      var tenantID = user.message[0].tenantId;
+      this.alertsService.updateURLs(tenantID)
+      this.loadSortedAlerts();
+    })
+
   }
 
   brands: string[];
