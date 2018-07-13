@@ -4,9 +4,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Git clone https://github.com/xoperations/xView.git -b develop
 
+#Install node
+
 ## Install Angular CLI in xView project folder
-npm install
-npm install @angular/cli
+Sudo npm install
+** if they give you unexpected token error run: rm package-lock.json
+Sudo npm install @angular/cli
 
 ## Build
 
