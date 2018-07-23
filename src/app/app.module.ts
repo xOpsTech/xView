@@ -69,6 +69,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-logi
 import { HealthComponent } from './health/health.component';
 import { ToggleButtonModule } from 'primeng/primeng';
 import { TechMapComponent } from './business-insights/tech-map/tech-map.component';
+import { IntroComponent } from './intro/intro.component';
 
 
 let config = new AuthServiceConfig([
@@ -128,6 +129,7 @@ export function provideConfig() {
     UserTypemanagementComponent,
     HealthComponent,
     TechMapComponent,
+    IntroComponent,
   
   ],
 
@@ -246,6 +248,10 @@ export function provideConfig() {
           {
             path: 'userTypemanagement',
             component: UserTypemanagementComponent,
+          },
+          {
+            path: '',
+            component: IntroComponent,
           },
 
           {
