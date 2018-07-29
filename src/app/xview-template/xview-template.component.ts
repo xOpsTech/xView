@@ -10,11 +10,11 @@ import { TenantService } from '../services/tenant.service';
 export class XviewTemplateComponent implements OnInit {
 
  imgURL = "/assets/img/logo.png";
-  user = {
+  userDetails = {
+    id:"",
     name: "",
     picture: "",
     tenantId: "",
-    id:"",
     banner:""
   };
   banner_image = '/assets/partner/xops.jpg';
@@ -24,15 +24,11 @@ export class XviewTemplateComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.userService.getUserData().subscribe(res => {
-      this.user = res.message[0];
-      var tenant_id = this.user.tenantId;
-      var email = this.user.id;
-      localStorage.setItem("UserDetails",JSON.stringify(res.message[0]));
-      this.user = JSON.parse(localStorage.getItem("UserDetails"));
-      console.log(this.user)
-      this.tenantService.getTenantDetails(email).subscribe(res2 => {
-     
+    
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      console.log(this.userDetails)
+      this.tenantService.getTenantDetails(this.userDetails.id).subscribe(res2 => {
+    
         if(res2.result.tenant.banner!='')
         {
            console.log(res2.result.tenant.banner)
@@ -53,8 +49,6 @@ export class XviewTemplateComponent implements OnInit {
          this.logo_image = "/assets/img/logo.png";
        }
       });
-    });
-
-  }
+    }
 
 }

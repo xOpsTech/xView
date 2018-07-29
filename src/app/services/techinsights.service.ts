@@ -1,5 +1,5 @@
 import { Injectable } from "../../../node_modules/@angular/core";
-import { Http, Response, RequestOptions } from '@angular/http';
+import { Http, Response, RequestOptions ,Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { config } from '../config/config';
 import 'rxjs';
@@ -10,8 +10,10 @@ export class TechInsightsService {
   constructor(private http: Http) { }
 
   getServerDetails(): Observable<Server[]> {
-
-    return this.http.get(config.XOPSAPI + '/tech/servers/')
+    var token = localStorage.getItem('token');
+    let headers = new Headers({token});
+     console.log(token)
+    return this.http.get(config.XOPSAPI + '/tech/servers/',{ headers })
       .map(res => {
         console.log(res.json())
         return res.json().Servers.map(serverD => {
@@ -26,8 +28,10 @@ export class TechInsightsService {
   }
 
   getCloudDetails(): Observable<Cloud[]> {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({token});
 
-    return this.http.get(config.XOPSAPI + '/tech/clouds/')
+    return this.http.get(config.XOPSAPI + '/tech/clouds/',{ headers })
       .map(res => {
         console.log(res.json())
         return res.json().Clouds.map(CloudD => {
