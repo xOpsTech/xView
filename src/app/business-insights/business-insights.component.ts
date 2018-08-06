@@ -24,9 +24,17 @@ import { TechInsightsService } from '../services/techinsights.service'
   providers: [TechInsightsService]
 })
 
+export class ClickMeComponent {
+
+}
+
 export class BusinessInsightsComponent implements OnInit {
   private serverData: Server[];
   private cloudData: Cloud[];
+  private applicationData: Application[];
+  private storageData: Storage[];
+  private databaseData: Database[];
+  clickMessage = '';
   constructor(private techInsightsService: TechInsightsService) {
 
   }
@@ -75,6 +83,18 @@ export class BusinessInsightsComponent implements OnInit {
 
     this.techInsightsService.getCloudDetails().subscribe(cloudData => {
       this.cloudData = cloudData
+    });
+
+    this.techInsightsService.getApplicationDetails().subscribe(applicationData => {
+      this.applicationData = applicationData
+    });
+
+    this.techInsightsService.getStorageDetails().subscribe(storageData => {
+      this.storageData = storageData
+    });
+
+    this.techInsightsService.getDatabaseDetails().subscribe(databaseData => {
+      this.databaseData = databaseData
     });
   }
 

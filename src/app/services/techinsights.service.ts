@@ -11,7 +11,7 @@ export class TechInsightsService {
 
   getServerDetails(): Observable<Server[]> {
 
-    return this.http.get(config.XOPSAPI + '/tech/servers/')
+    return this.http.get(config.XOPSAPI + '/getServers/')
       .map(res => {
         console.log(res.json())
         return res.json().Servers.map(serverD => {
@@ -27,7 +27,7 @@ export class TechInsightsService {
 
   getCloudDetails(): Observable<Cloud[]> {
 
-    return this.http.get(config.XOPSAPI + '/tech/clouds/')
+    return this.http.get(config.XOPSAPI + '/getCloud/')
       .map(res => {
         console.log(res.json())
         return res.json().Clouds.map(CloudD => {
@@ -41,5 +41,54 @@ export class TechInsightsService {
       });
   }
 
+  getApplicationDetails(): Observable<Application[]> {
+
+    //return this.http.get(config.XOPSAPI + '/tech/applications/')
+    return this.http.get(config.XOPSAPI + '/getApplication/')
+      .map(res => {
+        console.log(res.json())
+        return res.json().Applications.map(ApplicationD => {
+
+          return new Server(
+            ApplicationD.name,
+            ApplicationD.strength,
+            ApplicationD.color,
+          );
+        });
+      });
+  }
+
+  getStorageDetails(): Observable<Storage[]> {
+
+    return this.http.get(config.XOPSAPI + '/getStorage/')
+      .map(res => {
+        console.log(res.json())
+        return res.json().Storages.map(StorageD => {
+
+          return new Server(
+            StorageD.name,
+            StorageD.strength,
+            StorageD.color,
+          );
+        });
+      });
+  }
+
+  getDatabaseDetails(): Observable<Database[]> {
+
+    //return this.http.get(config.XOPSAPI + '/tech/applications/')
+    return this.http.get(config.XOPSAPI + '/getDatabase/')
+      .map(res => {
+        console.log(res.json())
+        return res.json().Databases.map(DatabaseD => {
+
+          return new Server(
+            DatabaseD.name,
+            DatabaseD.strength,
+            DatabaseD.color,
+          );
+        });
+      });
+  }
 
 }

@@ -140,7 +140,7 @@
           <div class="ui-g-11" style="margin-top: -9px; padding-left: 16px;"><Strong>Application</Strong>
 
             <div class="servers" style="margin-top:10px; overflow:auto; height: 150px;">
-              <div *ngFor="let application of Applications">
+              <div *ngFor="let application of applicationData">
                
                 <div class="ui-g-8" style="margin-top: 3px; padding-left: 46px">
                   <p style="margin-bottom: 0;">{{application.name}}</p>
@@ -182,7 +182,7 @@
           <div class="ui-g-11" style="margin-top: -14px; font-weight: bold; padding-left: 16px;">Storage
            
             <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
-            <div *ngFor="let storage of Storages">
+            <div *ngFor="let storage of storageData">
              
             <div class="ui-g-3" style="text-align:center">
                        
@@ -213,7 +213,7 @@
             <div class="ui-g-11" style="margin-top: -14px; font-weight: bold; padding-left: 16px;">Database
              
               <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
-              <div *ngFor="let database of Databases">
+              <div *ngFor="let database of databaseData">
                
               <div class="ui-g-2" style="text-align:center">
                          
