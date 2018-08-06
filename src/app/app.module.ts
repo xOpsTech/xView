@@ -168,11 +168,11 @@ export function provideConfig() {
         component: HealthComponent,
 
       },
+     
       {
         path: '',
         component: XviewTemplateComponent,
-
-       ///canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
 
         children: [
           {
@@ -208,14 +208,11 @@ export function provideConfig() {
             path: 'manage',
             component: ManageComponent
           },
-          // {
-          //   path: 'custom/cc',
-          //   component: WidgetHomeComponent
-          // },
+        
           {
             path: 'business',
             component: BusinessComponent,
-           // canActivate: [AuthGuard]
+            //canActivate: [AuthGuard]
           },
           {
             path: 'alertindividual',

@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import {UserService} from '../services/user.service';
-import {UserType} from '../userManager/userType';
+import { UserService } from '../services/user.service';
+import { UserDetails } from '../models/userDetails';
+import { TenantDetails } from '../models/tenantDetails';
 
 @Component({
   selector: 'app-leftnav',
@@ -9,20 +10,35 @@ import {UserType} from '../userManager/userType';
 })
 export class LeftnavComponent implements OnInit {
   public disabled: boolean = false;
-  public status: {isopen: boolean} = {isopen: false};
+  public status: { isopen: boolean } = { isopen: false };
   public nav_gap = 135;
 
-  public manager:boolean = false;
+  public manager: boolean = false;
 
-  public userManager:boolean=false;
-  public management:boolean=false;
-  public develop:boolean=false;
-  public userTypeManager:boolean=false;
-  public profileManager:boolean=false;
-  public inputSourceManager:boolean=false;
+  public userManager: boolean = false;
+  public management: boolean = false;
+  public develop: boolean = false;
+  public userTypeManager: boolean = false;
+  public profileManager: boolean = false;
+  public inputSourceManager: boolean = false;
 
   userAccountData: {};
-  userType:UserType;
+  userDetails: UserDetails = {
+    userType: {
+      management: false,
+      develop: false,
+      userTypeManager: false,
+      profileManager: false,
+      userManager: false,
+      inputSourceManager: false
+    }
+  }
+
+  tenantDetails: TenantDetails = {
+    banner: "",
+    logo: "",
+    id: ""
+  }
 
   public toggled(open: boolean): void {
     console.log('Dropdown is now: ', open);
@@ -34,9 +50,9 @@ export class LeftnavComponent implements OnInit {
     this.status.isopen = !this.status.isopen;
   }
 
-   @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll', ['$event'])
   public onWindowScroll(): void {
-    if(window.pageYOffset<100) {
+    if (window.pageYOffset < 100) {
       this.nav_gap = 135 - window.pageYOffset;
     }
     else {
@@ -44,33 +60,28 @@ export class LeftnavComponent implements OnInit {
     }
   }
 
-  constructor(private userService: UserService) { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.userAccountData = this.userService.getUserData().subscribe(res => {
-      console.log(res);
+    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
+    }
 
-      this.userType=res.message[0].userType;
+    this.userManager = this.userDetails.userType.userManager;
+    this.profileManager = this.userDetails.userType.profileManager;
+    this.userTypeManager = this.userDetails.userType.userTypeManager;
+    this.inputSourceManager = this.userDetails.userType.inputSourceManager;
+    this.develop = this.userDetails.userType.develop;
 
-      console.log(this.userType);
+    if (this.userManager == false && this.profileManager == false && this.userTypeManager == false && this.inputSourceManager == false && this.develop == false) {
+      this.manager = false;
+    } else {
+      this.manager = true;
 
+    }
 
-
-
-      this.userManager=this.userType.userManager;
-      this.profileManager=this.userType.profileManager;
-      this.userTypeManager=this.userType.userTypeManager;
-      this.inputSourceManager=this.userType.inputSourceManager;
-      this.develop=this.userType.develop;
-
-      if(this.userManager==false&&this.profileManager==false&&this.userTypeManager==false&&this.inputSourceManager==false&&this.develop==false){
-        this.manager=false;
-      }else {
-        this.manager=true;
-      }
-
-
-    });
 
   }
 

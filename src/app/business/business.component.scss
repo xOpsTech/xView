@@ -7,6 +7,19 @@
     }
 }
 
+span.boxtitle {
+  display: block;
+  width: 100%;
+  height:30px;
+  font-weight: bold;
+}
+
+span.boxfill {
+  display: block;
+  width: 100%;
+  height: 150px;
+  
+}
 .service-mix-widget{
     position: relative;
     width: 200px;
@@ -248,8 +261,6 @@
   width: 1em;
   height: 1em;
   border-radius: 50%;
-  float: left;
-  margin: 0 0.1em 0.1em 0;
   background-color: #cccccc;
 }
 .c100 *,

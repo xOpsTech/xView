@@ -1,5 +1,5 @@
 import { Injectable } from "../../../node_modules/@angular/core";
-import { Http, Response, RequestOptions } from '@angular/http';
+import { Http, Response, RequestOptions ,Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { config } from '../config/config';
 import 'rxjs';
@@ -10,10 +10,10 @@ export class TechInsightsService {
   constructor(private http: Http) { }
 
   getServerDetails(): Observable<Server[]> {
-
-    return this.http.get(config.XOPSAPI + '/getServers/')
+    var token = localStorage.getItem('token');
+    let headers = new Headers({token});
+    return this.http.get(config.XOPSAPI + '/tech/servers',{ headers })
       .map(res => {
-        console.log(res.json())
         return res.json().Servers.map(serverD => {
 
           return new Server(
@@ -26,10 +26,11 @@ export class TechInsightsService {
   }
 
   getCloudDetails(): Observable<Cloud[]> {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({token});
 
-    return this.http.get(config.XOPSAPI + '/getCloud/')
+    return this.http.get(config.XOPSAPI + '/tech/clouds',{ headers })
       .map(res => {
-        console.log(res.json())
         return res.json().Clouds.map(CloudD => {
 
           return new Server(
@@ -42,9 +43,7 @@ export class TechInsightsService {
   }
 
   getApplicationDetails(): Observable<Application[]> {
-
-    //return this.http.get(config.XOPSAPI + '/tech/applications/')
-    return this.http.get(config.XOPSAPI + '/getApplication/')
+    return this.http.get(config.XOPSAPI + '/tech/applications/')
       .map(res => {
         console.log(res.json())
         return res.json().Applications.map(ApplicationD => {
@@ -60,7 +59,7 @@ export class TechInsightsService {
 
   getStorageDetails(): Observable<Storage[]> {
 
-    return this.http.get(config.XOPSAPI + '/getStorage/')
+    return this.http.get(config.XOPSAPI + '/tech/storage/')
       .map(res => {
         console.log(res.json())
         return res.json().Storages.map(StorageD => {
@@ -76,8 +75,7 @@ export class TechInsightsService {
 
   getDatabaseDetails(): Observable<Database[]> {
 
-    //return this.http.get(config.XOPSAPI + '/tech/applications/')
-    return this.http.get(config.XOPSAPI + '/getDatabase/')
+    return this.http.get(config.XOPSAPI + '/tech/applications/')
       .map(res => {
         console.log(res.json())
         return res.json().Databases.map(DatabaseD => {

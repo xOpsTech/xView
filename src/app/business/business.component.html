@@ -54,21 +54,15 @@
       </div>
       <div class="row">
         <div class="ui-g-4" align="center" *ngFor="let item of WidgetStats">
-          <div class="service-mix-widget">
-            <div class="small-graph">
-              <p-chart type="line" height="200" [options]="sgopt"></p-chart>
-              <strong style="float:left;text-transform: capitalize;">{{item.name}}</strong>
-            </div>
-            <div [className]="item.class_name">
-              <span></span>
-              <div class="slice">
-                <div class="bar"></div>
-                <div class="fill"></div>
-              </div>
-            </div>
-            <div></div>
-
-          </div>
+       
+          
+            <span class="boxfill"> <div [className]="item.class_name">
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+                </div> </span>
+          <span class="boxtitle">{{item.name}}</span>
         </div>
       </div>
     </div>
