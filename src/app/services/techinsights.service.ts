@@ -12,10 +12,8 @@ export class TechInsightsService {
   getServerDetails(): Observable<Server[]> {
     var token = localStorage.getItem('token');
     let headers = new Headers({token});
-     console.log(token)
-    return this.http.get(config.XOPSAPI + '/tech/servers/',{ headers })
+    return this.http.get(config.XOPSAPI + '/tech/servers',{ headers })
       .map(res => {
-        console.log(res.json())
         return res.json().Servers.map(serverD => {
 
           return new Server(
@@ -31,9 +29,8 @@ export class TechInsightsService {
     var token = localStorage.getItem('token');
     let headers = new Headers({token});
 
-    return this.http.get(config.XOPSAPI + '/tech/clouds/',{ headers })
+    return this.http.get(config.XOPSAPI + '/tech/clouds',{ headers })
       .map(res => {
-        console.log(res.json())
         return res.json().Clouds.map(CloudD => {
 
           return new Server(

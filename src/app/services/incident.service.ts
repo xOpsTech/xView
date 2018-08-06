@@ -6,44 +6,40 @@ import { config } from '../config/config';
 
 @Injectable()
 export class IncidentService {
-  headers: Headers;
-  options: RequestOptions;
+
 
   private incident_url = config.XOPSAPI + '/incidents/_create';
   private incident_assignees = config.XOPSAPI + '/user/_list';
   private incident_count_per_person = config.XOPSAPI + '/alerts/_count';
 
-  constructor(private http: Http) {
-    this.headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'q=0.8;application/json;q=0.9'
-    });
-    this.options = new RequestOptions({ headers: this.headers });
-    console.log(this.incident_url);
-  }
 
+  constructor(private http: Http) {
+   
+  }
 
   postIncident(param: any): Observable<any> {
     let body = JSON.stringify(param);
-    console.log(body);
+    var token = localStorage.getItem('token');
+    let headers = new Headers({token});
     return this.http
-      .post(this.incident_url, body, this.options)
+      .post(this.incident_url, body, {headers})
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getAssignees() {
     return this.http.get(this.incident_assignees)
-      .map((res: Response) => res.json());
+      .map((res: Response) => res.json()).timeoutWith(5000, Observable.throw(new Error('Timeout Bro!')));
   }
 
   getAssigntoCountPerPerson(param: any): Observable<any> {
     let body = JSON.stringify(param);
-    console.log(body);
+    var token = localStorage.getItem('token');
+    let headers = new Headers({token});
     return this.http
-      .post(this.incident_count_per_person, body, this.options)
+      .post(this.incident_count_per_person, body,  {headers})
       .map(this.extractData)
-      .catch(this.handleError);
+      .catch(this.handleError).timeoutWith(5000, Observable.throw(new Error('Timeout Bro!')));;
   }
 
 

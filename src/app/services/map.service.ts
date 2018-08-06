@@ -38,7 +38,7 @@ export class MapService {
             return res.json();
           }
 	  else if (res.status === 500){
-			console.log("dddddddddddddddddddddddddddfdfadfadfadsfadsdddddddddddddddddddddddddddddddddd");
+
 	}
       }
   }) .catch(this.handleError);
@@ -47,14 +47,12 @@ export class MapService {
 getTecMapData(){
 
   var url = 'http://localhost:3000/newrelicMapData';
-  console.log(url);
   
 
 }
 
 private handleError(error: any) { 
   let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-  console.log("fdsaf ha ha aha ahaha a ha");
   return Observable.throw(error);
 }
  

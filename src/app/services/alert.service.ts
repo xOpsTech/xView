@@ -18,7 +18,7 @@ export class AlertService {
   headers: Headers;
   options: RequestOptions;
   
-  private newRelicMapData; 
+  private newRelicMapData =config.XOPSAPI + '/newrelic/map/'; 
   private alertsUrl = config.XOPSAPI + '/alerts';; 
   private alertsStatUrl = config.XOPSAPI + '/alerts/stats';
   private myAlertsUrl = config.XOPSAPI + '/myalerts';
@@ -35,29 +35,19 @@ export class AlertService {
 
   }
 
-  updateURLs(tenantId) {
-    //var tenantID = this.userService.getTenantId();
-    this.tenantID = tenantId;
-    this.alertsUrl = config.XOPSAPI + '/alerts/' + this.tenantID;
-    this.newRelicMapData = config.XOPSAPI + '/newrelic/map/' + this.tenantID;
-    this.alertsStatUrl = config.XOPSAPI + '/alerts/stats/';
-  }
 
   getAlerts() {
     return this.http.get(this.alertsUrl)
       .map((res: Response) => res.json());
   }
 
-  getNewRelicMapData()
-  {
+  getNewRelicMapData() {
     return this.http.get(this.newRelicMapData)
     .map((res: Response) => res.json());
   }
 
-
-
-  getAlertTrends(hours): Observable<any[]> {
-    return this.http.get(this.alertsUrl + `/trend?hours=${hours}`)
+  getAlertTrends(hours,tenantId): Observable<any[]> {
+    return this.http.get(this.alertsUrl +"/"+tenantId,`/trend?hours=${hours}`)
       .map((res: Response) => res.json());
   }
 
@@ -72,8 +62,9 @@ export class AlertService {
         return data
       });
   }
-  getALertsMapped() {
-    return this.http.get(this.alertsUrl)
+
+  getALertsMapped(tenantId) {
+    return this.http.get(this.alertsUrl+"/"+tenantId)
       .toPromise()
       .then(res => {
         var responseJson = res.json();
@@ -86,7 +77,6 @@ export class AlertService {
 
   putService(param: any): Observable<any> {
     let body = JSON.stringify(param);
-    console.log(body);
     return this.http
       .put(this.alertsUrl, body, this.options)
       .map(this.extractData)
@@ -94,7 +84,7 @@ export class AlertService {
   }
 
   widgetStatus(tenantID) {
-    return this.http.get(this.alertsUrl+'/'+tenantID)
+    return this.http.get(this.alertsUrl+"/"+tenantID)
       .map((res: Response) => res.json());
   }
 

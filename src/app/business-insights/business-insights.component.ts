@@ -12,11 +12,6 @@ import { PanelModule } from 'primeng/primeng';
 import { Server, Cloud, Application, Storage, Database } from '../business-insights/Server';
 import { TechInsightsService } from '../services/techinsights.service'
 
-// For json import------------------------------------
-// import { Http, Response } from "@angular/http";
-// export type Server = { name:string , color:string };
-// import 'rxjs/add/operator/map'
-
 @Component({
   selector: 'app-business-insights',
   templateUrl: './business-insights.component.html',

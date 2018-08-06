@@ -7,7 +7,8 @@ import { AuthService } from 'angular4-social-login';
 import { SocialUser } from 'angular4-social-login';
 import { GoogleLoginProvider } from 'angular4-social-login';
 import * as jwt_decode from 'jwt-decode';
-
+import { UserDetails } from '../models/userDetails';
+import { TenantDetails } from '../models/tenantDetails';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +16,15 @@ import * as jwt_decode from 'jwt-decode';
   styleUrls: ['./login.component.scss'],
   providers: [AuthenticationService, LoginService]
 })
+
 export class LoginComponent implements OnInit {
-  userd = {};
-  userDetails = {
-    tenantId: ""
-  };
+  payload = {};
+  userDetails: UserDetails = {
+    tenantId: "",
+  }
+  
+  tenantDetails: TenantDetails;
+
   credentials = {
 
     "id": "",
@@ -31,8 +36,9 @@ export class LoginComponent implements OnInit {
 
   user: SocialUser;
 
-  constructor(private authenticationService: AuthenticationService, private loginService: LoginService, private router: Router,
-    private userService: UserService, private authService: AuthService) { }
+  constructor(private loginService: LoginService, private router: Router) {
+ 
+  }
 
   ngOnInit() {
 
@@ -42,31 +48,32 @@ export class LoginComponent implements OnInit {
 
     var user = this.credentials;
     var email = this.credentials.id;
-          this.loginService.Authenticate(user)
-            .subscribe(res => {
-              if (res.success) {
-                this.userd = this.getDecodedAccessToken(res.token);
-                console.log(this.userd["user"])
-                localStorage.setItem('token', res.token);
-                localStorage.setItem('userDetails',JSON.stringify(this.userd["user"]));
-                
-                this.userDetails= JSON.parse(localStorage.getItem("userDetails"));
-                console.log(this.userDetails.tenantId);
-                
-                this.router.navigate(['/business']);
-              }
-              this.errorMessage = true;
-            });
-        }
+    this.loginService.Authenticate(user)
+      .subscribe(res => {
+        if (res.success) {
+          this.payload = this.getDecodedAccessToken(res.token);
 
-        getDecodedAccessToken(token: string): any {
-          try{
-              return jwt_decode(token);
-          }
-          catch(Error){
-              return null;
-          }
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('userDetails', JSON.stringify(this.payload["user"]));
+          localStorage.setItem('tenantDetails', JSON.stringify(this.payload["tenant"]));
+
+          this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+          this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
+
+          this.router.navigate(['/business']);
         }
+        this.errorMessage = true;
+      });
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    }
+    catch (Error) {
+      return null;
+    }
+  }
 
   signInWithGoogle(): void {
     // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);

@@ -36,19 +36,13 @@ export class ItemSettingsComponent implements OnInit {
 
   saveItem() {
 
-    console.log(JSON.stringify("selected pref = " + JSON.stringify(this.selectedperfs)));
-    console.log(JSON.stringify("selected items = " +  JSON.stringify(this.selecteditems)));
-
-    console.log("type is " + this.selectedtype);
     if (this.selectedtype == "pindicator") {
 
       this.payload = {
         "id": this.item_name,
         "perfIndicators": this.selectedperfs
       }
-      console.log(JSON.stringify(this.payload));
 
-      console.log("went inside pindicator" + this.payload);
       this.itemsService.saveItem(this.payload)
         .subscribe(response => {
           window.location.reload();
@@ -60,15 +54,12 @@ export class ItemSettingsComponent implements OnInit {
 
       this.isBoolean = this.selecteditems[0]["isBoolean"];
       delete this.selecteditems[0].isBoolean;
-      console.log(JSON.stringify(this.selecteditems));
       this.payload2 = {
         "id": this.item_name,
         "perfIndicators": this.selecteditems,
         "isBoolean": this.isBoolean
       }
 
-      console.log(JSON.stringify(this.payload2));
-      console.log(this.isBoolean); 
       this.itemsService.saveItem(this.payload2)
         .subscribe(response => {
      // window.location.reload();
@@ -90,8 +81,6 @@ export class ItemSettingsComponent implements OnInit {
     this.perfIndicatorsService.getPerfIndicators()
       .subscribe(res => {
 
-        console.log(res.result)
-        // var perfIndicatorNames: any[] = res;
         this.perfIndicators = [];
 
         for (var i = 0; i < res.result["perf"].length; i++) {

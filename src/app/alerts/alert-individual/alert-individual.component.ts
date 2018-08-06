@@ -3,8 +3,9 @@ import { Alert } from '../Alert';
 import { AlertService } from '../../services/alert.service';
 import { IncidentService } from '../../services/incident.service';
 import { UserService } from '../../services/user.service';
-
 import { TruncatePipe } from '../../common/pipe.truncate';
+import { UserDetails } from '../../models/userDetails';
+import { TenantDetails } from '../../models/tenantDetails';
 
 @Component({
   selector: 'app-alert-individual',
@@ -21,6 +22,12 @@ export class AlertIndividualComponent implements OnInit {
   eventid: any;
   alertselections: any[];
   status: any;
+
+  userDetails: UserDetails = {
+    id: "",
+    tenantId:""
+  }
+
   public isincident: boolean;
   public colorval: string;
   public alert_trend;
@@ -36,11 +43,8 @@ export class AlertIndividualComponent implements OnInit {
   //public alertsTable;
   visible: boolean = true;
 
-  user = {
-    name: "",
-    picture: "",
-    id: ""
-  };
+  user : UserDetails;
+
   constructor(private alertsService: AlertService, private incidentService: IncidentService, private userService: UserService) {
     this.incidentService.getAssignees().subscribe(assignees => {
 
@@ -52,20 +56,14 @@ export class AlertIndividualComponent implements OnInit {
       }
       this.brands = this.assgneselections;
       this.brandids = this.assgneselectionsids;
-      console.log(this.assignees)
+
     });
 
 
-    this.alertsService.getAlertTrends('12')
-
-      .subscribe((data: any) => {
-        this.alert_trend = data;
-        //console.log(this.alert_trend);
-      });
 
     this.alertsService.widgetStatus(this.tenantID).subscribe(widget_data1 => {
       this.widget_data = widget_data1;
-      console.log(this.widget_data)
+
     });
 
   }
@@ -77,12 +75,22 @@ export class AlertIndividualComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserData().subscribe(res => {
-      this.user = res;
-      this.getAssigntoCountPerPerson(this.user.id);
-      this.loadSortedAlerts();
-    });
 
+
+    if (localStorage.getItem("userDetails")!==null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
+ 
+      this.getAssigntoCountPerPerson(this.userDetails.id);
+      this.loadSortedAlerts();
+
+
+    this.alertsService.getAlertTrends('12',this.userDetails.tenantId)
+
+      .subscribe((data: any) => {
+        this.alert_trend = data;
+
+      });
   
   }
 
@@ -97,7 +105,7 @@ export class AlertIndividualComponent implements OnInit {
     }).subscribe(
       result => {
         this.severity1 = result;
-        console.log(this.severity1);
+
       });
 
    this.incidentService.getAssigntoCountPerPerson({
@@ -110,7 +118,7 @@ export class AlertIndividualComponent implements OnInit {
     }).subscribe(
       result => {
         this.severity3 = result;
-        console.log(this.severity3);
+
       });
 
     this.incidentService.getAssigntoCountPerPerson({
@@ -125,7 +133,7 @@ export class AlertIndividualComponent implements OnInit {
       .subscribe(
       result => {
         this.severity4 = result;
-        console.log(this.severity4);
+   
       });
 
   }
@@ -218,7 +226,7 @@ export class AlertIndividualComponent implements OnInit {
 
   onclickAsses(value, eventid, assigneename) {
     let value1 = value.toLowerCase();
-    console.log(assigneename);
+
     var splitted = assigneename.split("|", 2);
     if (value1 == "ignore" || value1 == "closed" || value1 == "invalid" || value1 == "incident") {
 
