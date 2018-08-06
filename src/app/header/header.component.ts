@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   toggleicon = globals.NAV_EXPAND_ICO;
   selected: boolean;
-
+  logourl = globals.DEFAULT_LOGO;
   userDetails: UserDetails = {
     id: "",
     picture: ""
@@ -34,6 +34,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.logourl = globals.DEFAULT_LOGO;
+    
     if (localStorage.getItem("userDetails") !== null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
     }
