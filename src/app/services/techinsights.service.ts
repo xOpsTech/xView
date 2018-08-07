@@ -75,7 +75,7 @@ export class TechInsightsService {
 
   getDatabaseDetails(): Observable<Database[]> {
 
-    return this.http.get(config.XOPSAPI + '/tech/applications/')
+    return this.http.get(config.XOPSAPI + '/tech/databases/')
       .map(res => {
         console.log(res.json())
         return res.json().Databases.map(DatabaseD => {

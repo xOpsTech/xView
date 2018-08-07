@@ -19,19 +19,19 @@ import { TechInsightsService } from '../services/techinsights.service'
   providers: [TechInsightsService]
 })
 
-export class ClickMeComponent {
-
-}
-
 export class BusinessInsightsComponent implements OnInit {
   private serverData: Server[];
   private cloudData: Cloud[];
   private applicationData: Application[];
   private storageData: Storage[];
   private databaseData: Database[];
-  clickMessage = '';
   constructor(private techInsightsService: TechInsightsService) {
-
+  }
+  fireEvent(server){
+    console.log(server);
+    var popup = document.getElementById(server.name);
+    popup.classList.toggle("show");
+    popup.innerHTML = server.name + " " + server.strength + " " + server.color;
   }
 
   Applications = [new Application('Application 01', 1, 'amber'),

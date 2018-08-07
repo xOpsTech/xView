@@ -23,9 +23,11 @@
               <div *ngFor="let server of serverData">
                
               <div class="gridy" style="text-align:center">
-                         
+                        
                     <div>
-                      <div [ngClass]="server.color == 'green' ? 'g-circle'  :server.color == 'red' ? 'r-circle' : 'o-circle' ">
+                      <div class = "popup" > <span class="popuptext" [id]="server.name"></span> </div>
+                      <div (mouseenter) = "fireEvent(server)" (mouseleave) = "fireEvent(server)"[ngClass]="server.color == 'green' ? 'g-circle'  :server.color == 'red' ? 'r-circle' : 'o-circle' ">
+                        
                       </div>
                       </div> 
                     </div>
