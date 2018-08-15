@@ -26,7 +26,6 @@ export class UserService {
   }
 
     checkUserStatus(email) {
-      console.log("Hello" + email+" Iwork");
       let headers = new Headers({ 'Content-Type': 'application/json' });
       return this.http.get(`${this.getcheckUserUrl}/${email}`, { headers })
         .map((res: Response) => res.json())
@@ -35,7 +34,6 @@ export class UserService {
     getUserData() {
       var token = localStorage.getItem('token');
       let headers = new Headers({token});
-      console.log(headers)
       return this.http.get(this.getUserUrl ,{ headers })
         .map((res: Response) => res.json())
     }
@@ -60,7 +58,6 @@ export class UserService {
       return this.user;
     } else {
       this.getUserData().subscribe(res => {
-        console.log(res);
         this.user = res.message[0];
         return this.user;
       });
@@ -70,7 +67,6 @@ export class UserService {
   getUserByTenantId(tenantId) {
       var token = localStorage.getItem('token');
       let headers = new Headers({token});
-      console.log(headers)
       return this.http.get(this.getAllUsers+'/'+tenantId ,{ headers })
         .map((res: Response) => res.json())
     }
@@ -78,7 +74,6 @@ export class UserService {
     getUserTypeByTenantId(tenantId){
       var token = localStorage.getItem('token');
       let headers = new Headers({token});
-      console.log(headers)
       return this.http.get(this.getAllUserTypes+'/'+tenantId ,{ headers })
         .map((res: Response) => res.json())
 
@@ -103,7 +98,6 @@ export class UserService {
 
   getEmail() {
     this.getUserData().subscribe(res => {
-      console.log(res);
       this.user = res.message[0];
       return this.user.id;
     });
@@ -111,7 +105,6 @@ export class UserService {
 
   getTenantId() {
     this.getUserData().subscribe(res => {
-      console.log(res);
       this.user = res.message[0];
       return this.user.tenantId;
     });

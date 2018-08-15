@@ -4,7 +4,8 @@ import { AlertService } from '../services/alert.service';
 import { IncidentService } from '../services/incident.service';
 import { TruncatePipe } from '../common/pipe.truncate';
 import { UserService } from '../services/user.service';
-
+import { UserDetails } from '../models/userDetails';
+import { TenantDetails } from '../models/tenantDetails';
 
 @Component({
   selector: 'app-alerts',
@@ -14,7 +15,7 @@ import { UserService } from '../services/user.service';
 
 })
 
-export class AlertsComponent implements OnInit , OnChanges{
+export class AlertsComponent implements OnInit, OnChanges {
   alert_put_values: { _id: string };
   title: any;
   alerts: Alert[] = [];
@@ -23,24 +24,33 @@ export class AlertsComponent implements OnInit , OnChanges{
   eventid: any;
   alertselections: any[];
   status: any;
+
   public isincident: boolean;
   public colorval: string;
   public alert_trend;
-  public widget_data;
+  public widget_data = {
+    severity_stats :
+    {
+      critical:0,
+      warning:0,
+      info:0
+    }
+  }
   public assignees;
+  
+  
   assgneselections = [];
   assgneselectionsids = [];
 
+  userDetails: UserDetails = {
+    id: "",
+    tenantId:""
+  }
 
-  user = {
-    name: "",
-    picture: "",
-    tenantId: ""
-  };
+  tenantId : String;
 
-  //public alertsTable;
   visible: boolean = true;
-  constructor(private alertsService: AlertService, private incidentService: IncidentService, private userService:UserService) {
+  constructor(private alertsService: AlertService, private incidentService: IncidentService, private userService: UserService) {
     this.incidentService.getAssignees().subscribe(assignees => {
 
       for (var d of assignees.data) {
@@ -51,27 +61,30 @@ export class AlertsComponent implements OnInit , OnChanges{
       }
       this.brands = this.assgneselections;
       this.brandids = this.assgneselectionsids;
-      console.log(this.assignees)
+
     });
 
-    this.userService.getUserData().subscribe(res => {
-      var user = res;
-      var tenantID = user.message[0].tenantId;
-      this.alertsService.updateURLs(user.message[0].tenantId)
-      
+    if (localStorage.getItem("userDetails")!==null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
+    
+    this.tenantId = this.userDetails.tenantId;
 
-    this.alertsService.getAlertTrends('12')
+    console.log("test" + this.tenantId)
+    this.alertsService.getAlertTrends('12',this.tenantId )
 
       .subscribe((data: any) => {
         this.alert_trend = data;
-        //console.log(this.alert_trend);
+
       });
 
-    this.alertsService.widgetStatus(tenantID).subscribe(widget_data1 => {
-      this.widget_data = widget_data1;
-      //console.log(this.widget_data)
+    this.alertsService.widgetStatus(this.tenantId).subscribe(widget_data1 => {
+      if(widget_data1["severity_stats"]!== undefined)
+      {
+        this.widget_data = widget_data1;
+      }
+
     });
-  });
   }
 
   disabled: boolean = true;
@@ -80,25 +93,15 @@ export class AlertsComponent implements OnInit , OnChanges{
     this.display = true;
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    this.userService.getUserData().subscribe(res => {
-      var user = res;
-     var tenantID = user.message[0].tenantId;
-      this.alertsService.updateURLs(tenantID)
-      this.loadSortedAlerts();
-    })
-;
+  ngOnChanges(changes: SimpleChanges) {
+
+      this.loadSortedAlerts(this.tenantId);
+
   }
 
   ngOnInit() {
 
-    this.userService.getUserData().subscribe(res => {
-      var user = res;
-     
-      var tenantID = user.message[0].tenantId;
-      this.alertsService.updateURLs(tenantID)
-      this.loadSortedAlerts();
-    })
+    this.loadSortedAlerts(this.tenantId);
 
   }
 
@@ -120,15 +123,15 @@ export class AlertsComponent implements OnInit , OnChanges{
   filterBrands(event) {
     this.filteredBrands = [];
     for (let i = 0; i < this.brands.length; i++) {
-      let brand = this.brands[i]+ "|"+this.brandids[i];
+      let brand = this.brands[i] + "|" + this.brandids[i];
       if (brand.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
         this.filteredBrands.push(brand);
       }
     }
   }
 
-  loadSortedAlerts() {
-    this.alertsService.getALertsMapped().then(alerts => {
+  loadSortedAlerts(tenantId) {
+    this.alertsService.getALertsMapped(tenantId).then(alerts => {
       alerts.sort(function (a, b) {
         if (a._source.raisedTimestamp < b._source.raisedTimestamp) {
           return 1;
@@ -192,7 +195,7 @@ export class AlertsComponent implements OnInit , OnChanges{
     let value1 = value.toLowerCase();
     console.log(value);
     console.log(assigneename);
-    var splitted = assigneename.split("|", 2); 
+    var splitted = assigneename.split("|", 2);
     if (value1 == "ignore" || value1 == "closed" || value1 == "invalid" || value1 == "incident") {
       console.log(assigneename);
       this.alertsService.putService({
@@ -202,10 +205,10 @@ export class AlertsComponent implements OnInit , OnChanges{
         "assignedToId": splitted[1],
       })
         .subscribe(
-        result => console.log(result)
+          result => console.log(result)
         );
 
-      setTimeout(() => this.loadSortedAlerts(), 1000);
+      setTimeout(() => this.loadSortedAlerts(this.tenantId), 1000);
       this.display = false
     }
 
@@ -213,9 +216,9 @@ export class AlertsComponent implements OnInit , OnChanges{
 
       this.incidentService.postIncident({ "eventId": eventid })
         .subscribe(
-        result => console.log(result)
+          result => console.log(result)
         );
-      setTimeout(() => this.loadSortedAlerts(), 1000);
+      setTimeout(() => this.loadSortedAlerts(this.tenantId), 1000);
       this.display = false
     }
     else {

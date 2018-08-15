@@ -42,7 +42,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.getUserData().subscribe(res0 => {
       var email = res0.message[0].id;
-      console.log(email)
       this.tenantService.getTenantDetails(email).subscribe(res => {
         this.tenantid = res.result.tenant.id;
         this.tenantname = res.result.tenant.tenant;

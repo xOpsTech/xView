@@ -10,7 +10,11 @@ import { TenantService, } from '../services/tenant.service';
 import { WidgetStats } from './WidgetStats';
 import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { SelectItem } from 'primeng/primeng';
-import {PanelModule} from 'primeng/primeng';
+import { PanelModule } from 'primeng/primeng';
+import { UserDetails } from '../models/userDetails';
+import { TenantDetails } from '../models/tenantDetails';
+
+
 @Component({
   selector: 'app-business',
   templateUrl: './business.component.html',
@@ -28,11 +32,17 @@ export class BusinessComponent implements OnInit {
   display = false;
   tenants_items = [];
 
-  user = {
-    name: "",
-    picture: "",
+  userDetails: UserDetails = {
+    id: "",
     tenantId: ""
-  };
+
+  }
+  tenantDetails: TenantDetails = {
+    banner: "",
+    logo: "",
+    id: "",
+    healthitems: [""]
+  }
 
   selectedItem1 = "";
   selectedItem2 = ""
@@ -45,14 +55,11 @@ export class BusinessComponent implements OnInit {
   public sgopt;
   public svcWidgets = [];
   public dashboardurl;
-  public tenant_id;
+  public tenantId;
 
   constructor(private userService: UserService, private tenantService: TenantService, private confirmationService: ConfirmationService, private perfIndicatorsService: PerfIndicatorService, private alertsService: AlertService, private sanitizer: DomSanitizer) {
 
-    this.alertsService.getAlertTrends('12')
-      .subscribe((data: any) => {
-        this.alert_trend = data;
-      });
+
 
     this.sgopt = {
       scales: {
@@ -81,7 +88,10 @@ export class BusinessComponent implements OnInit {
 
       "healthitems": [this.selectedItem1, this.selectedItem2, this.selectedItem3],
     }
-    //console.log(this.putTenantSetting)
+
+    this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    console.log(this.userDetails)
+
     this.tenantService.updateTenant(this.tenantid, this.putTenantSetting).subscribe(res => { },
       err => { console.log(err); });
 
@@ -89,36 +99,44 @@ export class BusinessComponent implements OnInit {
 
   ngOnInit() {
 
-    this.userService.getUserData().subscribe(res0 => {
-      var email = res0.message[0].id;
+    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
+    }
 
-      this.tenantService.getTenantDetails(email).subscribe(res => {
-        this.tenantid = res.result.tenant.id;
+    this.tenantId = this.userDetails.tenantId;
 
-        for (var item in res.result.tenant.healthitems) {
-          this.health_items_top3.push(res.result.tenant.healthitems[item]);
-        }
-        //console.log("asdasdassdad" + this.health_items_top3)
+    console.log("Business component tentid" + this.tenantId);
+
+    this.alertsService.getAlertTrends('12', this.tenantId)
+      .subscribe((data: any) => {
+
+        this.alert_trend = data;
       });
-    });
-    this.perfIndicatorsService.getHealth()
+
+    for (var item in this.tenantDetails.healthitems) {
+      this.health_items_top3.push(this.tenantDetails.healthitems[item]);
+    }
+
+
+
+    this.perfIndicatorsService.getHealth(this.tenantId)
       .subscribe(res => {
         for (var array_top3 of this.health_items_top3) {
- 
-          
+
+
           for (var array of res["metrics"]) {
-            //console.log(array.id)
-            //console.log(array_top3)
-            if ( array.id == array_top3) {
+
+            if (array.id == array_top3) {
               this.svcWidgets.push(array);
-           
+
+            }
           }
         }
-      }
 
         for (var title of this.svcWidgets) {
           var classv = "c100 p100 " + title.status;
-	  console.log(title + "pasndu pasindu");
+
           this.WidgetStats.push({
             "name": title.id,
             "class_name": classv,
@@ -128,39 +146,42 @@ export class BusinessComponent implements OnInit {
 
         }
       });
+
     this.classname = "c100 p95 green big";
 
     this.tenant_items_all = [];
     this.tenant_items_all.push({ label: "Select Item", value: "Select_Item" });
-    this.perfIndicatorsService.getHealth()
+
+
+    this.perfIndicatorsService.getHealth( this.tenantId )
       .subscribe(res => {
 
         for (var arr of res["metrics"]) {
-          this.tenant_items_all.push({ label: arr.id, value:arr.id });
+          this.tenant_items_all.push({ label: arr.id, value: arr.id });
 
         }
       }
       );
-this.WidgetStats.push({
-            "name": "xView",
-            "class_name": "c100 p100 green",
-            "color": "green",
-            "health_value": 0
-          });
+    this.WidgetStats.push({
+      "name": "xView",
+      "class_name": "c100 p100 green",
+      "color": "green",
+      "health_value": 0
+    });
 
-this.WidgetStats.push({
-            "name": "xOps.it",
-            "class_name": "c100 p100 green",
-            "color": "green",
-            "health_value": 0
-          });
+    this.WidgetStats.push({
+      "name": "xOps.it",
+      "class_name": "c100 p100 green",
+      "color": "green",
+      "health_value": 0
+    });
 
-this.WidgetStats.push({
-            "name": "xOps Army",
-            "class_name": "c100 p100 green",
-            "color": "green",
-            "health_value": 0
-          });
+    this.WidgetStats.push({
+      "name": "xOps Army",
+      "class_name": "c100 p100 green",
+      "color": "green",
+      "health_value": 0
+    });
 
 
   }

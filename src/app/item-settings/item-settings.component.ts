@@ -5,6 +5,8 @@ import { PerfIndicatorService } from '../services/perf-indicator.service';
 import { ItemService } from '../services/item.service';
 import { SelectItem } from 'primeng/primeng';
 import { CheckboxModule } from 'primeng/primeng';
+import { UserDetails } from '../models/userDetails';
+
 @Component({
   selector: 'app-item-settings',
   templateUrl: './item-settings.component.html',
@@ -34,21 +36,21 @@ export class ItemSettingsComponent implements OnInit {
   isBoolean : boolean = false;;
 
 
+  userDetails: UserDetails = {
+    id: "",
+    tenantId:""
+  }
+
+  tenantId : String;
   saveItem() {
 
-    console.log(JSON.stringify("selected pref = " + JSON.stringify(this.selectedperfs)));
-    console.log(JSON.stringify("selected items = " +  JSON.stringify(this.selecteditems)));
-
-    console.log("type is " + this.selectedtype);
     if (this.selectedtype == "pindicator") {
 
       this.payload = {
         "id": this.item_name,
         "perfIndicators": this.selectedperfs
       }
-      console.log(JSON.stringify(this.payload));
 
-      console.log("went inside pindicator" + this.payload);
       this.itemsService.saveItem(this.payload)
         .subscribe(response => {
           window.location.reload();
@@ -60,15 +62,12 @@ export class ItemSettingsComponent implements OnInit {
 
       this.isBoolean = this.selecteditems[0]["isBoolean"];
       delete this.selecteditems[0].isBoolean;
-      console.log(JSON.stringify(this.selecteditems));
       this.payload2 = {
         "id": this.item_name,
         "perfIndicators": this.selecteditems,
         "isBoolean": this.isBoolean
       }
 
-      console.log(JSON.stringify(this.payload2));
-      console.log(this.isBoolean); 
       this.itemsService.saveItem(this.payload2)
         .subscribe(response => {
      // window.location.reload();
@@ -86,12 +85,17 @@ export class ItemSettingsComponent implements OnInit {
     ];
   }
 
+  
   loadPerfIndicators() {
-    this.perfIndicatorsService.getPerfIndicators()
+
+    if (localStorage.getItem("userDetails")!==null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
+    
+    this.tenantId = this.userDetails.tenantId;
+    this.perfIndicatorsService.getPerfIndicators(this.tenantId)
       .subscribe(res => {
 
-        console.log(res.result)
-        // var perfIndicatorNames: any[] = res;
         this.perfIndicators = [];
 
         for (var i = 0; i < res.result["perf"].length; i++) {

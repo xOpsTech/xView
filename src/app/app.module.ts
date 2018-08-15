@@ -69,6 +69,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-logi
 import { HealthComponent } from './health/health.component';
 import { ToggleButtonModule } from 'primeng/primeng';
 import { TechMapComponent } from './business-insights/tech-map/tech-map.component';
+import { IntroComponent } from './intro/intro.component';
 
 
 let config = new AuthServiceConfig([
@@ -128,6 +129,7 @@ export function provideConfig() {
     UserTypemanagementComponent,
     HealthComponent,
     TechMapComponent,
+    IntroComponent,
   
   ],
 
@@ -166,11 +168,11 @@ export function provideConfig() {
         component: HealthComponent,
 
       },
+     
       {
         path: '',
         component: XviewTemplateComponent,
-
-       ///canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
 
         children: [
           {
@@ -206,14 +208,11 @@ export function provideConfig() {
             path: 'manage',
             component: ManageComponent
           },
-          // {
-          //   path: 'custom/cc',
-          //   component: WidgetHomeComponent
-          // },
+        
           {
             path: 'business',
             component: BusinessComponent,
-           // canActivate: [AuthGuard]
+            //canActivate: [AuthGuard]
           },
           {
             path: 'alertindividual',
@@ -246,6 +245,10 @@ export function provideConfig() {
           {
             path: 'userTypemanagement',
             component: UserTypemanagementComponent,
+          },
+          {
+            path: '',
+            component: IntroComponent,
           },
 
           {

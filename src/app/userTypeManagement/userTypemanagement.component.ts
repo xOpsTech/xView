@@ -54,15 +54,11 @@ export class UserTypemanagementComponent implements OnInit {
 
   ngOnInit() {
     this.userAccountData = this.userService.getUserData().subscribe(res => {
-      console.log(res)
-
+  
       this.tenantId = res.message[0].tenantId;
-
-      console.log("tenant Id  " + this.tenantId);
-
+  
       this.editUserTypes=this.userService.getUserTypeByTenantId(this.tenantId).subscribe(res=>{
         this.useTypes=res.data;
-        console.log(this.useTypes);
       });
 
     });
@@ -75,7 +71,7 @@ export class UserTypemanagementComponent implements OnInit {
     this.userType=createUserTypeForm;
 
     this.userService.saveUserType(this.userType).subscribe(res=>{
-      console.log(res);
+
       this.createUserTypeForm.reset();
       location.reload();
 

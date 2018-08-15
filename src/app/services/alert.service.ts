@@ -18,11 +18,12 @@ export class AlertService {
   headers: Headers;
   options: RequestOptions;
   
-  private alerts_url;  
-  private new_relic_map_data; 
-  private alerts_url_old = config.XOPSAPI + '/alerts';; 
-  private alerts_stats_url = config.XOPSAPI + '/alerts/stats';
-  private my_alerts_url = config.XOPSAPI + '/myalerts';
+  private newRelicMapData =config.XOPSAPI + '/newrelic/map/'; 
+  private alertsUrl = config.XOPSAPI + '/alerts';; 
+  private alertsStatUrl = config.XOPSAPI + '/alerts/stats';
+  private myAlertsUrl = config.XOPSAPI + '/myalerts';
+
+  
   constructor(private http: Http, private userService:UserService) {
     this.headers = new Headers({
       'Content-Type': 'application/json',
@@ -34,34 +35,25 @@ export class AlertService {
 
   }
 
-  updateURLs(tenantId) {
-    //var tenantID = this.userService.getTenantId();
-    this.tenantID = tenantId;
-    this.alerts_url = config.XOPSAPI + '/alerts/' + this.tenantID;
-    this.new_relic_map_data = config.XOPSAPI + '/newrelic/map/' + this.tenantID;
-    this.alerts_stats_url = config.XOPSAPI + '/alerts/stats/';
-  }
 
   getAlerts() {
-    return this.http.get(this.alerts_url)
+    return this.http.get(this.alertsUrl)
       .map((res: Response) => res.json());
   }
 
-  getNewRelicMapData()
-  {
-    return this.http.get(this.new_relic_map_data)
+  getNewRelicMapData() {
+    return this.http.get(this.newRelicMapData)
     .map((res: Response) => res.json());
   }
 
+  getAlertTrends(hours,tenantId){
 
-
-  getAlertTrends(hours): Observable<any[]> {
-    return this.http.get(this.alerts_url_old + `/trend?hours=${hours}`)
+    return this.http.get(this.alertsUrl +"/"+tenantId+`/trend?hours=${hours}`)
       .map((res: Response) => res.json());
   }
 
   getAllalertsByPearson() {
-    return this.http.get(this.my_alerts_url)
+    return this.http.get(this.myAlertsUrl)
       .toPromise()
       .then(res => {
         var responseJson = res.json();
@@ -71,8 +63,9 @@ export class AlertService {
         return data
       });
   }
-  getALertsMapped() {
-    return this.http.get(this.alerts_url)
+
+  getALertsMapped(tenantId) {
+    return this.http.get(this.alertsUrl+"/"+tenantId)
       .toPromise()
       .then(res => {
         var responseJson = res.json();
@@ -85,15 +78,14 @@ export class AlertService {
 
   putService(param: any): Observable<any> {
     let body = JSON.stringify(param);
-    console.log(body);
     return this.http
-      .put(this.alerts_url, body, this.options)
+      .put(this.alertsUrl, body, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  widgetStatus(tenantID) {
-    return this.http.get(this.alerts_stats_url+'/'+tenantID)
+  widgetStatus(tenantId) {
+    return this.http.get(this.alertsStatUrl+"/"+tenantId)
       .map((res: Response) => res.json());
   }
 

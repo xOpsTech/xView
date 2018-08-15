@@ -12,7 +12,9 @@
         <div class="col-md-4 col-xs-6">
           <div class="SNalert-widget" style="background:#ef5350">
             <div class="inner">
-              <h3 [innerHTML]="severity4?.data.count || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <h3 [innerHTML]="severity4?.data.count || 0">
+                <i class="fa fa-spinner fa-pulse fa-fw"></i>
+              </h3>
               <p>Critical</p>
             </div>
             <div class="icon">
@@ -24,7 +26,9 @@
         <div class="col-md-4 col-xs-6">
           <div class="SNalert-widget" style="background:#ffa726">
             <div class="inner">
-              <h3 [innerHTML]="severity3?.data.count || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <h3 [innerHTML]="severity3?.data.count || 0">
+                <i class="fa fa-spinner fa-pulse fa-fw"></i>
+              </h3>
               <p>Warning</p>
             </div>
             <div class="icon">
@@ -36,7 +40,9 @@
         <div class="col-md-4 col-xs-6">
           <div class="SNalert-widget" style="background:#00c0ef">
             <div class="inner">
-              <h3 [innerHTML]="severity1?.data.count || 0"><i class="fa fa-spinner fa-pulse fa-fw"></i></h3>
+              <h3 [innerHTML]="severity1?.data.count || 0">
+                <i class="fa fa-spinner fa-pulse fa-fw"></i>
+              </h3>
               <p>Info</p>
             </div>
             <div class="icon">
@@ -71,7 +77,9 @@
           </p-column>
           <p-column field="_source.raisedTimestamp" header="Time" sortable="true">
             <ng-template let-time="rowData" pTemplate="body">
-              {{time._source.raisedTimestamp | date:'hh:mma'}}<br/><small>{{time._source.raisedTimestamp | date:'MMM dd, yyyy'}}</small>
+              {{time._source.raisedTimestamp | date:'hh:mma'}}
+              <br/>
+              <small>{{time._source.raisedTimestamp | date:'MMM dd, yyyy'}}</small>
             </ng-template>
           </p-column>
           <p-column field="_source.domain" header="Domain" sortable="true"></p-column>
@@ -102,29 +110,24 @@
             <div class="ui-grid-row">
               <div class="ui-grid-col-7">
                 Status :
-                <!--<span *ngIf="isincident;else content"> <select #selectedval>   <option  [value]="incident">Incident</option> </select></span>-->
-                <!--<ng-template #content>-->
-                  <select #selectedval> 
-                    <option *ngFor="let alertselection of alertselections" [value]="alertselection.val">{{alertselection.name}}</option>
-                  </select>
-                <!--</ng-template>-->
+
+                <select #selectedval>
+                  <option *ngFor="let alertselection of alertselections" [value]="alertselection.val">{{alertselection.name}}</option>
+                </select>
+
               </div>
 
               <div class="ui-grid-col-4">
-                Assigned To : <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
-    [minLength]="1" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
-    <ng-template let-brand pTemplate="item">
-        <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
-            <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
-        </div>
-    </ng-template>
-</p-autoComplete>
-                <!--Assigned To : 
-                <select #selectassigne>
-            <option *ngFor="let assigne of assignees" [value]="assigne.val" >{{assigne.name}}</option>
-              </select>
+                Assigned To :
+                <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"
+                  [size]="30" [minLength]="1" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
+                  <ng-template let-brand pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                      <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
 
-                <button pButton type="button" icon="fa-search" iconPos="left"></button>-->
               </div>
             </div>
           </div>

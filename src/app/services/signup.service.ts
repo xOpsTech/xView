@@ -57,7 +57,6 @@ export class SignupService {
   }
 
   updateTenant(tenant,tenantdata) {
-    console.log(tenant);
     return this.http
       .put(config.XOPSAPI+'/tenant/'+tenant, tenantdata, this.options)
       .map(this.extractData)
