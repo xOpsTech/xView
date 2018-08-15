@@ -4,6 +4,8 @@ import { AlertService } from '../services/alert.service';
 import { UserService } from '../services/user.service';
 import { MapService } from '../services/map.service';
 import { Router } from '@angular/router';
+import { UserDetails } from '../models/userDetails';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -18,20 +20,24 @@ export class MapComponent implements OnInit {
   mapcoordinates = [];
   targetSVGgreen: any = 'M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z';
 
-  user = {
-    name: "",
-    picture: "",
-    tenantId: ""
-  };
+
+  userDetails: UserDetails = {
+    id: "",
+    tenantId:""
+  }
+
+  tenantId : String;
 
   constructor(private AmCharts: AmChartsService, private router: Router, private alertsService: AlertService, private userService: UserService, private mapService: MapService) { }
   ngOnInit() {
 
-    this.userService.getUserData().subscribe(res => {
-      this.user = res;
-      var tenantId = res.message[0].tenantId
+    if (localStorage.getItem("userDetails")!==null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
+
+    this.tenantId = this.userDetails.tenantId;
       
-      this.mapService.getNewRelicMapData(tenantId).subscribe(newrelicmapdata => {
+      this.mapService.getNewRelicMapData(this.tenantId).subscribe(newrelicmapdata => {
         for (var dv of newrelicmapdata['newrelicMapData']) {
           var title2 = ""
           var title = "<b>location</b> = " + dv.locationLabel;
@@ -88,7 +94,7 @@ export class MapComponent implements OnInit {
           this.mapgear = true;
         
         });
-    });
+    // });
 
 
   }

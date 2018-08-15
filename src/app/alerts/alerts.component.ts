@@ -28,8 +28,16 @@ export class AlertsComponent implements OnInit, OnChanges {
   public isincident: boolean;
   public colorval: string;
   public alert_trend;
-  public widget_data;
+  public widget_data = {
+    severity_stats :
+    {
+      critical:0,
+      warning:0,
+      info:0
+    }
+  }
   public assignees;
+  
   
   assgneselections = [];
   assgneselectionsids = [];
@@ -61,6 +69,8 @@ export class AlertsComponent implements OnInit, OnChanges {
     }
     
     this.tenantId = this.userDetails.tenantId;
+
+    console.log("test" + this.tenantId)
     this.alertsService.getAlertTrends('12',this.tenantId )
 
       .subscribe((data: any) => {
@@ -69,7 +79,7 @@ export class AlertsComponent implements OnInit, OnChanges {
       });
 
     this.alertsService.widgetStatus(this.tenantId).subscribe(widget_data1 => {
-      this.widget_data = widget_data1;
+       this.widget_data = widget_data1;
 
     });
   }
