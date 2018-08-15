@@ -9,12 +9,14 @@ export class PerfIndicatorService {
 
   constructor(private http: Http) { }
 
-  getPerfIndicators() {
-    return this.http.get(config.XOPSAPI + '/health_configs/configs/xtenant')
+  getPerfIndicators(tenantID) {
+    return this.http.get(config.XOPSAPI + '/health_configs/configs/xtenant'+tenantID)
       .map((res: Response) => res.json())
   
-  }  getHealth() {
-    return this.http.get(config.XOPSAPI + '/health/xtenant_new')
+  } 
+  
+  getHealth(tenantID) {
+    return this.http.get(config.XOPSAPI + '/health/'+tenantID)
       .map((res: Response) => res.json())
   
   }

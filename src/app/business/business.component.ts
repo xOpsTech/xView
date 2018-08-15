@@ -111,7 +111,7 @@ export class BusinessComponent implements OnInit {
           this.alert_trend = data;
         });
         
-    this.perfIndicatorsService.getHealth()
+    this.perfIndicatorsService.getHealth(this.userDetails.tenantId)
       .subscribe(res => {
         for (var array_top3 of this.health_items_top3) {
 
@@ -142,7 +142,7 @@ export class BusinessComponent implements OnInit {
 
     this.tenant_items_all = [];
     this.tenant_items_all.push({ label: "Select Item", value: "Select_Item" });
-    this.perfIndicatorsService.getHealth()
+    this.perfIndicatorsService.getHealth(this.userDetails.tenantId)
       .subscribe(res => {
 
         for (var arr of res["metrics"]) {

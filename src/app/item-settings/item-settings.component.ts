@@ -5,6 +5,8 @@ import { PerfIndicatorService } from '../services/perf-indicator.service';
 import { ItemService } from '../services/item.service';
 import { SelectItem } from 'primeng/primeng';
 import { CheckboxModule } from 'primeng/primeng';
+import { UserDetails } from '../models/userDetails';
+
 @Component({
   selector: 'app-item-settings',
   templateUrl: './item-settings.component.html',
@@ -34,6 +36,12 @@ export class ItemSettingsComponent implements OnInit {
   isBoolean : boolean = false;;
 
 
+  userDetails: UserDetails = {
+    id: "",
+    tenantId:""
+  }
+
+  tenantId : String;
   saveItem() {
 
     if (this.selectedtype == "pindicator") {
@@ -77,8 +85,15 @@ export class ItemSettingsComponent implements OnInit {
     ];
   }
 
+  
   loadPerfIndicators() {
-    this.perfIndicatorsService.getPerfIndicators()
+
+    if (localStorage.getItem("userDetails")!==null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
+    
+    this.tenantId = this.userDetails.tenantId;
+    this.perfIndicatorsService.getPerfIndicators(this.tenantId)
       .subscribe(res => {
 
         this.perfIndicators = [];
