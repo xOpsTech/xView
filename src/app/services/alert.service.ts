@@ -46,8 +46,9 @@ export class AlertService {
     .map((res: Response) => res.json());
   }
 
-  getAlertTrends(hours,tenantId): Observable<any[]> {
-    return this.http.get(this.alertsUrl +"/"+tenantId,`/trend?hours=${hours}`)
+  getAlertTrends(hours,tenantId){
+
+    return this.http.get(this.alertsUrl +"/"+tenantId+`/trend?hours=${hours}`)
       .map((res: Response) => res.json());
   }
 
@@ -83,8 +84,8 @@ export class AlertService {
       .catch(this.handleError);
   }
 
-  widgetStatus(tenantID) {
-    return this.http.get(this.alertsUrl+"/"+tenantID)
+  widgetStatus(tenantId) {
+    return this.http.get(this.alertsStatUrl+"/"+tenantId)
       .map((res: Response) => res.json());
   }
 
