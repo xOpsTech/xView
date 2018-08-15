@@ -79,7 +79,10 @@ export class AlertsComponent implements OnInit, OnChanges {
       });
 
     this.alertsService.widgetStatus(this.tenantId).subscribe(widget_data1 => {
-       this.widget_data = widget_data1;
+      if(widget_data1["severity_stats"]!== undefined)
+      {
+        this.widget_data = widget_data1;
+      }
 
     });
   }
