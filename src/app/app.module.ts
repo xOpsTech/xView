@@ -8,6 +8,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { FileSelectDirective } from 'ng2-file-upload';
+import {InputTextareaModule} from 'primeng/primeng';
 
 import {
   ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule, AutoCompleteModule,
@@ -72,6 +73,7 @@ import { TechMapComponent } from './business-insights/tech-map/tech-map.componen
 import { IntroComponent } from './intro/intro.component';
 
 
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -130,6 +132,7 @@ export function provideConfig() {
     HealthComponent,
     TechMapComponent,
     IntroComponent,
+
   
   ],
 
@@ -152,6 +155,8 @@ export function provideConfig() {
     MessagesModule,
     ConfirmDialogModule,
     ToggleButtonModule,
+    InputTextareaModule,
+
     RouterModule.forRoot([
       {
         path: 'signup',

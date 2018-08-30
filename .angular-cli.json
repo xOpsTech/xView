@@ -25,6 +25,7 @@
       "scripts": [
         "../node_modules/chart.js/dist/Chart.bundle.min.js",
         "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/jqueryui/jquery-ui.min.js",
         "../node_modules/select2/dist/js/select2.full.min.js"
       ],
       "environmentSource": "environments/environment.ts",

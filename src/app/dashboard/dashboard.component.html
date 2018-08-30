@@ -1,31 +1,90 @@
-<h2>Scholastic Dashboard</h2>
+<h2>Custom Dashboard</h2>
 
-<button pButton type="button" 
-    label="Personalize" icon="fa-wrench" iconPos="left" 
-    (click)="showDialog()" class="personalize-button">
-</button>
+<p-dialog header="Custom Dashboard" [(visible)]="display" [modal]="true" [responsive]="true" [width]="550">
+    <form (ngSubmit)="newChartFormSubmit(heroForm)" #heroForm="ngForm">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Dasboard Name
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" [(ngModel)]="dashboardname" name="dname" #dname="ngModel" />
+                </div>
+            </div>
 
-<p-growl class="dsh-success-message" [(value)]="msgs" life="1500"></p-growl>
-<p-dialog [(visible)]="display" [width]="300">
-    <p-header>
-        Personalize
-    </p-header>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Type
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="dashboardTypesDropdown" [autoWidth]="false" [(ngModel)]="dashboardType" name="dashboardtype" #dashboardtype="ngModel"></p-dropdown>
+                </div>
+            </div>
 
-    <span *ngFor="let widget of widgets" >
-        <p-checkbox name="personalizations" 
-            label="{{widget.label}}" value="{{widget.name}}" [(ngModel)]="selectedItems">
-        </p-checkbox> <br>
-    </span>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    DataSource
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="dataSourceDropDown" [autoWidth]="false" [(ngModel)]="dataSource" name="xaxis" (onChange)="onDataSourceSelect($event.value)"
+                        #xaxis="ngModel"></p-dropdown>
+                </div>
+            </div>
 
-    <p-footer>
-        <div>
-            <button pButton type="button" label="Save" (click)="personalize()"></button>
+            <div *ngIf="displayxy">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        Y Axis Name
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText type="text" [(ngModel)]="yAxisName" name="yaxisname" #yaxisname="ngModel" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        Y Axis
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="xAxisDropDown" [autoWidth]="false" [(ngModel)]="yAxis" name="yaxis" #yaxis="ngModel"></p-dropdown>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        X Axis Name
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText type="text" [(ngModel)]="xAxisName" name="xaxisname" #xaxisname="ngModel" />
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        Y Axis
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="yAxisDropDown" [autoWidth]="false" [(ngModel)]="xAxis" name="xaxis" #xaxis="ngModel"></p-dropdown>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <textarea [rows]="5" [cols]="60" pInputTextarea autoResize="autoResize" [(ngModel)]="dataArea" name="dataarea" style=""></textarea>
+                </div>
+            </div>
+
         </div>
-    </p-footer>
+
+
+        <p-footer>
+            <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+        </p-footer>
+    </form>
 </p-dialog>
 
-<app-load-time ></app-load-time>
-<app-ttfb-loadtime></app-ttfb-loadtime>
-<app-dom-elements *ngIf="personalization?.dom_elements"></app-dom-elements>
-<app-incident *ngIf="personalization?.incident"></app-incident>
-<app-rssfeed *ngIf="personalization?.rssfeed"></app-rssfeed>
+<div class="ui-g-4">
+    <button style="font-size: 40px" (click)="showDialog()">+</button>
+</div>
+
+
+
+<div #charts id="test" class="row"></div>

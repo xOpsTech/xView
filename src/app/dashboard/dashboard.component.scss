@@ -22,6 +22,12 @@
     width: 120px;
 }
 
+.showing{
+    
+}
+
+.hiding{}
+
 .dsh-success-message {
     top: 50px;
     z-index: 2000;
@@ -33,3 +39,11 @@
     color: #FEC44F;
     font-size: 32px;
 }
+
+.chartdiv {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 200px;
+}
+
