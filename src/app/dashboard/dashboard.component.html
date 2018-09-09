@@ -26,8 +26,8 @@
                     DataSource
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown [options]="dataSourceDropDown" [autoWidth]="false" [(ngModel)]="dataSource" name="xaxis" (onChange)="onDataSourceSelect($event.value)"
-                        #xaxis="ngModel"></p-dropdown>
+                    <p-dropdown [options]="dataSourceDropDown" [autoWidth]="false" [(ngModel)]="dataSource" name="datasource" (onChange)="onDataSourceSelect($event.value)"
+                        #datasource="ngModel"></p-dropdown>
                 </div>
             </div>
 
@@ -51,16 +51,7 @@
 
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        X Axis Name
-                    </div>
-                    <div class="ui-g-8">
-                        <input pInputText type="text" [(ngModel)]="xAxisName" name="xaxisname" #xaxisname="ngModel" />
-                    </div>
-                </div>
-
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        Y Axis
+                        X Axis
                     </div>
                     <div class="ui-g-8">
                         <p-dropdown [options]="yAxisDropDown" [autoWidth]="false" [(ngModel)]="xAxis" name="xaxis" #xaxis="ngModel"></p-dropdown>
@@ -81,10 +72,107 @@
     </form>
 </p-dialog>
 
+
+<p-dialog header="Update Dashboard" [(visible)]="display2" [modal]="true" [responsive]="true" [width]="550">
+    <form (ngSubmit)="updateChartFormSubmit(heroFormUpdate)" #heroFormUpdate="ngForm">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Dashboard ID
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" [(ngModel)]="dashboardId" name="dboardid" #dashboardid="ngModel" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Dasboard Name
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" [(ngModel)]="upDashboardName" name="updname" #updname="ngModel" />
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Type
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="dashboardTypesDropdown" [autoWidth]="false" [(ngModel)]="upDashboardType" name="updashboardtype" #updashboardtype="ngModel"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    DataSource
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="dataSourceDropDown" [autoWidth]="false" [(ngModel)]="updataSource" name="updatasource" (onChange)="onDataSourceSelect($event.value)"
+                        #updatasource="ngModel"></p-dropdown>
+                </div>
+            </div>
+
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Y Axis Name
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" [(ngModel)]="upyAxisName" name="upyaxisname" #upyaxisname="ngModel" />
+                </div>
+            </div>
+
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Y Axis
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="yAxisDropDown" [autoWidth]="false" [(ngModel)]="upyAxis" name="upyaxis" #upyaxis="ngModel"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    X Axis
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="xAxisDropDown" [autoWidth]="false" [(ngModel)]="upxAxis" name="upxaxis" #upxaxis="ngModel"></p-dropdown>
+                </div>
+            </div>
+
+
+
+            <div class="ui-g-12">
+                <textarea [rows]="5" [cols]="60" pInputTextarea autoResize="autoResize" [(ngModel)]="updataArea" name="updataarea" style=""></textarea>
+            </div>
+
+
+        </div>
+
+
+        <p-footer>
+            <button type="submit" class="btn btn-success" [disabled]="!heroFormUpdate.form.valid">Update</button>
+        </p-footer>
+    </form>
+</p-dialog>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
 <div class="ui-g-4">
-    <button style="font-size: 40px" (click)="showDialog()">+</button>
+    <button style="font-size: 40px" (click)="showDialog()" id="createbuttonid">+</button>
 </div>
 
+<div class="ui-g-4" style="display:none">
+    <button style="font-size: 40px" (click)="showUpdateDialog()" id="updatebuttonid">+</button>
+</div>
+<div class="ui-g-4" style="display:none">
+    <button style="font-size: 40px" (click)="deleteChart()" id="deletebuttonid">+</button>
+</div>
+<div class="row">
 
 
-<div #charts id="test" class="row"></div>
+</div>
+<div #charts id="selectable" class="row"></div>
+
+<!-- <input  type="text"  id="hiddentextarea" /> -->

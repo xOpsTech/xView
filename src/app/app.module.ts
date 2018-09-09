@@ -8,6 +8,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { ChartModule as ChModule } from 'angular-highcharts';
 import {InputTextareaModule} from 'primeng/primeng';
 
 import {
@@ -22,9 +23,6 @@ import { LeftnavComponent } from './leftnav/leftnav.component';
 import { WorldmapComponent } from './worldmap/worldmap.component';
 import { CustomwidgetComponent } from './home/customwidget/customwidget.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { DomElementsComponent } from './dashboard/dom-elements/dom-elements.component';
-import { LoadTimeComponent } from './dashboard/load-time/load-time.component';
-import { TtfbLoadtimeComponent } from './dashboard/ttfb-loadtime/ttfb-loadtime.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { AlertsMapComponent } from './alerts/alerts-map/alerts-map.component';
 import { HomeComponent } from './home/home.component';
@@ -74,6 +72,7 @@ import { IntroComponent } from './intro/intro.component';
 
 
 
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -93,9 +92,6 @@ export function provideConfig() {
     WorldmapComponent,
     CustomwidgetComponent,
     DashboardComponent,
-    DomElementsComponent,
-    LoadTimeComponent,
-    TtfbLoadtimeComponent,
     AlertsComponent,
     AlertsMapComponent,
     HomeComponent,
@@ -132,8 +128,6 @@ export function provideConfig() {
     HealthComponent,
     TechMapComponent,
     IntroComponent,
-
-  
   ],
 
 

@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 import { SelectItem } from 'primeng/primeng';
 import { UserDetails } from '../models/userDetails';
 import { TenantDetails } from '../models/tenantDetails';
+import { ConfirmDialogModule } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/primeng';
 
 import {
   Component,
@@ -24,15 +26,17 @@ import * as Highcharts from 'highcharts';
 import * as $ from 'jquery';
 import 'jqueryui';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  providers: [PersonalizationService, UserService, HighchartService, ChartSourceService]
+  providers: [PersonalizationService, UserService, HighchartService, ChartSourceService, ConfirmationService]
 })
 
 export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   display: boolean = false;
+  display2: boolean = false;
   personalization = <any>{};
   selectedItems: string[] = [];
   msgs: Message[] = [];
@@ -46,8 +50,10 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   dataSourceDropDown: SelectItem[] = [];
   xAxisDropDown: SelectItem[] = [];
   yAxisDropDown: SelectItem[] = [];
-  dashboardTypesDropdown: SelectItem[] = [];
-
+  dashboardTypesDropdown: SelectItem[] =
+    [];
+  updataSourceDropDown: SelectItem[] = [];
+  upashboardTypesDropdown: SelectItem[] = [];
   myCustomOptions: object;
   DataSourceNames = [];
   Datavalues = [];
@@ -58,15 +64,16 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   dname = "";
   dtype = ""
   dataArea = "";
+  datasource = ";"
   yaxisname = "";
   displayxy = false;
-  myHtml=""
+  myHtml = ""
   @ViewChild('charts') public chartEl: ElementRef;
 
   chartsList;
 
   chartPostJson = {
-
+    chid: "",
     tenant: "",
     chartType: "",
     chartTitle: "",
@@ -74,21 +81,34 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     yAxisName: "",
     xAxisName: "",
     series: Object,
+    datasource: ""
   }
 
+  //Update variables
+  dashboardId = ""
+  upDashboardName = ""
+  upDashboardType = ""
+  updataSource = ""
+  upyAxisName = ""
+  upyAxis = ""
+  upxAxisName = ""
+  upxAxis = ""
 
-  constructor(private hcs: HighchartService, private changeDetectionRef: ChangeDetectorRef, private chartSourcesService: ChartSourceService) {
+
+  constructor(private confirmationService: ConfirmationService, private hcs: HighchartService, private changeDetectionRef: ChangeDetectorRef, private chartSourcesService: ChartSourceService, private cdRef: ChangeDetectorRef, private elref: ElementRef) {
+    if (localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
   }
-
-
 
   newChartFormSubmit(settingForm: NgForm) {
-    console.log(settingForm.value)
+
     this.xax = settingForm.value.xaxis;
     this.yax = settingForm.value.yaxis;
     this.dname = settingForm.value.dname;
     this.dtype = settingForm.value.dashboardtype;
     this.yaxisname = settingForm.value.yaxisname;
+    this.datasource = settingForm.value.datasource
 
     console.log("this.xax :" + this.xax)
     console.log("this.xax :" + this.yax)
@@ -119,50 +139,92 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
       },
       series: [],
 
-      exporting: {
-        buttons: {
-          customButton: {
-            text: 'Custom Button',
-            onclick: function () {
-              alert('You pressed the button!');
-            }
-          },
-          anotherButton: {
-            text: 'Another Button',
-            onclick: function () {
-              alert('You pressed another button!');
-            }
-          }
-        }
-      }
-
-
     };
 
     for (var series in settingForm.value.yaxis) {
       this.myCustomOptions["series"].push({ name: series, data: settingForm.value.yaxis[series] })
     }
 
-    this.addCharttoDb(this.myCustomOptions);
-
-
-    this.hcs.createChart(this.chartEl.nativeElement, this.myCustomOptions);
-    this.display = false
-  }
-
-
-  addCharttoDb(myCustomOptions) {
-
+    var timestamp = Math.floor(Date.now() / 1000);
     if (localStorage.getItem("userDetails") !== null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
     }
 
+    var tenantid = this.userDetails.tenantId.toString();
+    var specialid = tenantid + timestamp;
+
+    this.addCharttoDb(this.myCustomOptions, specialid, this.datasource);
+
+    this.hcs.createChart(this.chartEl.nativeElement, specialid, this.myCustomOptions);
+    this.display = false
+
+    console.log(this.hcs.getCharts());
+
+    var elems = document.querySelectorAll(".highcharts-credits");
+    Array.prototype.forEach.call(elems, function (node) {
+      node.parentNode.removeChild(node);
+
+    });
+
+  }
+
+  updateChartFormSubmit(settingForm: NgForm) {
+    if (localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
+
+    var tenant = this.userDetails.tenantId.toString();
+
+    var upchartPostJson = {
+      chid: "",
+      tenant: "",
+      chartType: "",
+      chartTitle: "",
+      xAxis: [],
+      yAxisName: "",
+      xAxisName: "",
+      series: [],
+      datasource: ""
+    }
+
+    var chid = settingForm.value.dboardid;
+
+    upchartPostJson.chid = settingForm.value.dboardid;
+    upchartPostJson.tenant = tenant;
+    upchartPostJson.chartType = settingForm.value.updashboardtype;
+    upchartPostJson.datasource = settingForm.value.updatasource;
+    upchartPostJson.chartTitle = settingForm.value.updname;
+    upchartPostJson.yAxisName = settingForm.value.upyaxisname;
+    upchartPostJson.xAxis = settingForm.value.upxaxis;
+
+    for (var series in settingForm.value.upyaxis) {
+      upchartPostJson["series"].push({ name: series, data: settingForm.value.upyaxis[series] })
+    }
+    console.log(upchartPostJson);
+
+    this.chartSourcesService.updateCharts(upchartPostJson, chid).subscribe(res => {
+      console.log(res)
+    }, err => {
+      console.log(err)
+    })
+
+
+  }
+
+  addCharttoDb(myCustomOptions, specialid, datasource) {
+
+    if (localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
+    this.chartPostJson.chid = specialid;
     this.chartPostJson.tenant = this.userDetails.tenantId.toString();
     this.chartPostJson.chartType = myCustomOptions.chart.type;
     this.chartPostJson.chartTitle = myCustomOptions.title.text;
     this.chartPostJson.xAxis = myCustomOptions.xAxis.categories;
     this.chartPostJson.yAxisName = myCustomOptions.yAxis.title.text;
     this.chartPostJson.series = myCustomOptions.series;
+    this.chartPostJson.datasource = datasource;
+
     console.log(this.chartPostJson);
 
     this.chartSourcesService.postChartDetails(this.chartPostJson).subscribe(res => {
@@ -186,7 +248,51 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     this.display = true;
   }
 
+  showUpdateDialog() {
+    var test = $("[id^='editbut']");
+
+    for (var i = 0; i < test.length; i++) {
+      if (test[i].className.endsWith("active")) {
+        var radioId = test[i].id;
+      }
+    }
+
+    var uniquepart = radioId.substring(7, radioId.length)
+    console.log(uniquepart);
+
+    this.dashboardTypesDropdown =
+      [
+        { label: 'Bar', value: 'bar' },
+        { label: 'Column', value: 'column' },
+        { label: 'Pie', value: 'Pie' }
+      ]
+
+    this.updataSourceDropDown.push({ label: 'Select Value', value: null });
+    this.chartSourcesService.getServerDetails().subscribe(res => {
+      for (var names in res.DataSources) {
+        this.updataSourceDropDown.push({ label: names, value: names })
+      }
+    });
+
+    var chartId = uniquepart;
+    this.chartSourcesService.getChartById(chartId).subscribe(res => {
+      this.dashboardId = res[0].chid;
+    });
+
+    this.display2 = true;
+  }
+
   public ngAfterViewInit() {
+
+    var elems = document.querySelectorAll(".highcharts-credits");
+    Array.prototype.forEach.call(elems, function (node) {
+      node.parentNode.removeChild(node);
+    });
+
+  }
+
+  onClick(event) {
+    console.log(event);
   }
 
   public ngOnDestroy() {
@@ -194,14 +300,10 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
 
-
-    this.myHtml = '<div class="box box-primary">' +
-      '<div class="box-header with-border">' +
-      '<div class="box-tools pull-right">' +
-      '<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>  </button>' +
-      '<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>' +
-      '</div> </div></div>'
-
+    var elems = document.querySelectorAll(".highcharts-credits");
+    Array.prototype.forEach.call(elems, function (node) {
+      node.parentNode.removeChild(node);
+    });
 
     this.stylevalue = true;
 
@@ -241,6 +343,8 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
         { label: 'Pie', value: 'Pie' }
 
       ]
+
+
     this.dataSourceDropDown.push({ label: 'Select Value', value: null });
 
     this.chartSourcesService.getServerDetails().subscribe(res => {
@@ -249,7 +353,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
         this.dataSourceDropDown.push({ label: names, value: names })
 
       }
-
 
     });
 
@@ -261,26 +364,44 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     this.chartSourcesService.getChartDetails(this.userDetails.tenantId).subscribe(chartDetails => {
       console.log(chartDetails);
 
-
-
-
       for (var v in chartDetails) {
-
+        var specialid = chartDetails[v].chid
         barandcolumn.chart.type = chartDetails[v].chartType;
         barandcolumn.title.text = chartDetails[v].chartTitle;
         barandcolumn.xAxis.categories = chartDetails[v].xAxis;
         barandcolumn.yAxis.title.text = chartDetails[v].yAxisName;
         barandcolumn.series = chartDetails[v].series;
 
-        this.hcs.createChart(this.chartEl.nativeElement, barandcolumn);
+        this.hcs.createChart(this.chartEl.nativeElement, specialid, barandcolumn);
       }
-      //this.hcs.createChart(this.chartEl.nativeElement, this.myCustomOptions);
+
     }, err => {
       console.log(err)
     })
+  }
 
 
+  deleteChart() {
 
+    var test = $("[id^='deletebut']");
+
+    for (var i = 0; i < test.length; i++) {
+      if (test[i].className.endsWith("active")) {
+        var radioId = test[i].id;
+      }
+    }
+    var uniquepart = radioId.substring(9, radioId.length)
+    console.log(uniquepart)
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.chartSourcesService.deleteChartById(uniquepart).subscribe(res => {
+        });
+
+        let firstContainer = <HTMLElement>document.getElementById(uniquepart);
+       firstContainer.outerHTML = '';
+      }
+    });
   }
 
   onDataSourceSelect(selectedVal) {
@@ -303,34 +424,18 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
 
-
-  }
-
-
-
-  rmFirst() {
-    this.hcs.removeFirst();
-    this.changeDetectionRef.detectChanges();
-    // if (!!document.getElementById("test").firstChild) document.getElementById("test").firstChild.outerHTML = '';
-    // console.log('rm first', this.hcs.getCharts());
   }
 
   rmLast() {
-    this.hcs.removeLast();
-    this.changeDetectionRef.detectChanges();
-    // if (!!document.getElementById("test").lastChild) document.getElementById("test").lastChild.outerHTML = '';
-    // console.log('rm last', this.hcs.getCharts());
+    var arrCharts = [];
+
+    var test = document.querySelectorAll("[id^='chartcontainer']");
+    for (var i = 0; i < test.length; i++) {
+      arrCharts.push(test[i].id);
+    }
+    console.log(arrCharts)
+    this.hcs.removeAll(arrCharts);
   }
-
-  createChart() {
-    this.hcs.createChart(this.chartEl.nativeElement);
-  }
-
-  createCustomChart() {
-
-  }
-
-
 
 
 
