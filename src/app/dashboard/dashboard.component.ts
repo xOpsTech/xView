@@ -48,10 +48,11 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   dataSourceDropDown: SelectItem[] = [];
+  itemsDropdown: SelectItem[] = [];
+  metricsDropdown: SelectItem[] = [];
   xAxisDropDown: SelectItem[] = [];
   yAxisDropDown: SelectItem[] = [];
-  dashboardTypesDropdown: SelectItem[] =
-    [];
+  dashboardTypesDropdown: SelectItem[] = [];
   updataSourceDropDown: SelectItem[] = [];
   upashboardTypesDropdown: SelectItem[] = [];
   myCustomOptions: object;
@@ -64,10 +65,15 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   dname = "";
   dtype = ""
   dataArea = "";
-  datasource = ";"
   yaxisname = "";
+
+  dataSource = ""
+  itemName = ""
+  metricName = ""
+
   displayxy = false;
   myHtml = ""
+
   @ViewChild('charts') public chartEl: ElementRef;
 
   chartsList;
@@ -75,13 +81,14 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   chartPostJson = {
     chid: "",
     tenant: "",
-    chartType: "",
     chartTitle: "",
-    xAxis: [],
+    chartType: "",
+    datasource: "",
+    item: "",
+    metric: "",
     yAxisName: "",
-    xAxisName: "",
-    series: Object,
-    datasource: ""
+    xAxis: [],
+    series: [],
   }
 
   //Update variables
@@ -108,7 +115,6 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dname = settingForm.value.dname;
     this.dtype = settingForm.value.dashboardtype;
     this.yaxisname = settingForm.value.yaxisname;
-    this.datasource = settingForm.value.datasource
 
     console.log("this.xax :" + this.xax)
     console.log("this.xax :" + this.yax)
@@ -153,7 +159,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     var tenantid = this.userDetails.tenantId.toString();
     var specialid = tenantid + timestamp;
 
-    this.addCharttoDb(this.myCustomOptions, specialid, this.datasource);
+    this.addCharttoDb(this.myCustomOptions, specialid, settingForm.value);
 
     this.hcs.createChart(this.chartEl.nativeElement, specialid, this.myCustomOptions);
     this.display = false
@@ -178,22 +184,26 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     var upchartPostJson = {
       chid: "",
       tenant: "",
-      chartType: "",
       chartTitle: "",
-      xAxis: [],
+      chartType: "",
+      datasource: "",
+      item: "",
+      metric: "",
       yAxisName: "",
-      xAxisName: "",
+      xAxis: [],
       series: [],
-      datasource: ""
+
     }
 
     var chid = settingForm.value.dboardid;
 
     upchartPostJson.chid = settingForm.value.dboardid;
     upchartPostJson.tenant = tenant;
+    upchartPostJson.chartTitle = settingForm.value.updname;
     upchartPostJson.chartType = settingForm.value.updashboardtype;
     upchartPostJson.datasource = settingForm.value.updatasource;
-    upchartPostJson.chartTitle = settingForm.value.updname;
+    upchartPostJson.item = settingForm.value.upitemname;
+    upchartPostJson.metric = settingForm.value.upmetricname;
     upchartPostJson.yAxisName = settingForm.value.upyaxisname;
     upchartPostJson.xAxis = settingForm.value.upxaxis;
 
@@ -203,15 +213,17 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     console.log(upchartPostJson);
 
     this.chartSourcesService.updateCharts(upchartPostJson, chid).subscribe(res => {
-      console.log(res)
+      var selectableId = "selectable" + chid
+      this.removeChart(selectableId);
+      this.ngOnInit();
     }, err => {
       console.log(err)
     })
-
+    // this.removeAllHighcartMarks()
 
   }
 
-  addCharttoDb(myCustomOptions, specialid, datasource) {
+  addCharttoDb(myCustomOptions, specialid, chartformvalue) {
 
     if (localStorage.getItem("userDetails") !== null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -223,7 +235,9 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     this.chartPostJson.xAxis = myCustomOptions.xAxis.categories;
     this.chartPostJson.yAxisName = myCustomOptions.yAxis.title.text;
     this.chartPostJson.series = myCustomOptions.series;
-    this.chartPostJson.datasource = datasource;
+    this.chartPostJson.datasource = chartformvalue.datasource;
+    this.chartPostJson.item = chartformvalue.itemname;
+    this.chartPostJson.metric = chartformvalue.metricname;
 
     console.log(this.chartPostJson);
 
@@ -284,10 +298,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
 
   public ngAfterViewInit() {
 
-    var elems = document.querySelectorAll(".highcharts-credits");
-    Array.prototype.forEach.call(elems, function (node) {
-      node.parentNode.removeChild(node);
-    });
+    // this.removeAllHighcartMarks()
 
   }
 
@@ -300,10 +311,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
 
-    var elems = document.querySelectorAll(".highcharts-credits");
-    Array.prototype.forEach.call(elems, function (node) {
-      node.parentNode.removeChild(node);
-    });
+
 
     this.stylevalue = true;
 
@@ -349,7 +357,8 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.chartSourcesService.getServerDetails().subscribe(res => {
 
-      for (var names in res.DataSources) {
+      for (var names in res.DataSources.Tools) {
+        console.log
         this.dataSourceDropDown.push({ label: names, value: names })
 
       }
@@ -378,6 +387,8 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     }, err => {
       console.log(err)
     })
+
+    // this.removeAllHighcartMarks()
   }
 
 
@@ -390,53 +401,84 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
         var radioId = test[i].id;
       }
     }
+
     var uniquepart = radioId.substring(9, radioId.length)
     console.log(uniquepart)
     this.confirmationService.confirm({
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
         this.chartSourcesService.deleteChartById(uniquepart).subscribe(res => {
+          var selectableId = "selectable" + uniquepart
+          this.removeChart(selectableId);
         });
 
-        let firstContainer = <HTMLElement>document.getElementById(uniquepart);
-       firstContainer.outerHTML = '';
+
+      }
+    });
+    // this.removeAllHighcartMarks()
+  }
+
+  onDataSourceSelect(selectedVal) {
+
+    this.itemsDropdown = [];
+    this.displayxy = true;
+    this.itemsDropdown.push({ label: 'Select Value', value: null });
+
+    this.chartSourcesService.getServerDetails().subscribe(res => {
+      this.dataArea = JSON.stringify(res.DataSources.Tools[selectedVal], undefined, 4)
+
+      for (var names in res.DataSources.Tools[selectedVal].Items) {
+        this.itemsDropdown.push({ label: names, value: names })
+      }
+    });
+
+  }
+
+  onItemSelect(selectedVal) {
+
+    this.metricsDropdown = [];
+    this.metricsDropdown.push({ label: 'Select Value', value: null });
+
+    this.chartSourcesService.getServerDetails().subscribe(res => {
+      for (var names in res.DataSources.Tools[this.dataSource].Items[selectedVal].Metrics) {
+
+        this.metricsDropdown.push({ label: names, value: names })
       }
     });
   }
 
-  onDataSourceSelect(selectedVal) {
-    console.log(selectedVal);
+  onMetricSelect(selectedMetric) {
     this.xAxisDropDown = [];
     this.yAxisDropDown = [];
 
-    this.displayxy = true;
     this.xAxisDropDown.push({ label: 'Select Value', value: null });
     this.yAxisDropDown.push({ label: 'Select Value', value: null });
 
     this.chartSourcesService.getServerDetails().subscribe(res => {
-      this.dataArea = JSON.stringify(res.DataSources[selectedVal], undefined, 4)
-      for (var names in res.DataSources[selectedVal]) {
+      for (var names in res.DataSources.Tools[this.dataSource].Items[this.itemName].Metrics[selectedMetric]) {
+        console.log(res.DataSources.Tools[this.dataSource].Items[this.itemName].Metrics[selectedMetric])
+        console.log(names)
+        this.xAxisDropDown.push({ label: names, value: res.DataSources.Tools[this.dataSource].Items[this.itemName].Metrics[selectedMetric][names] });
+        this.yAxisDropDown.push({ label: names, value: res.DataSources.Tools[this.dataSource].Items[this.itemName].Metrics[selectedMetric][names] });
 
-        console.log(typeof res.DataSources[selectedVal][names])
-        this.xAxisDropDown.push({ label: names, value: res.DataSources[selectedVal][names] })
-        this.yAxisDropDown.push({ label: names, value: res.DataSources[selectedVal][names] })
-        console.log(res.DataSources[selectedVal][names])
       }
     });
-
   }
 
-  rmLast() {
-    var arrCharts = [];
-
-    var test = document.querySelectorAll("[id^='chartcontainer']");
-    for (var i = 0; i < test.length; i++) {
-      arrCharts.push(test[i].id);
-    }
-    console.log(arrCharts)
-    this.hcs.removeAll(arrCharts);
+  removeChart(chartId) {
+    let firstContainer = <HTMLElement>document.getElementById(chartId);
+    firstContainer.outerHTML = '';
+    console.log(firstContainer)
   }
 
+  // removeAllHighcartMarks()
+  // {
+  //   var elems = document.querySelectorAll(".highcharts-credits");
+  //   console.log("sdasd" +elems)
+  //   Array.prototype.forEach.call(elems, function (node) {
+  //     node.parentNode.removeChild(node);
+  //   });
+  // }
 
 
 }

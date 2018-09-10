@@ -26,6 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
     "@types/jqueryui": "^1.12.3",
     "angular-google-signin": "^0.1.5",
+    "angular-highcharts": "^6.2.6",
     "angular-timezone-selector": "^1.2.1",
     "angular4-social-login": "^1.0.13",
     "chart.js": "^2.7.2",

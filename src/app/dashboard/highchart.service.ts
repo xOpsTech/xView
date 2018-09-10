@@ -50,6 +50,7 @@ export class HighchartService {
 
     createChart(container, specialid, options?: Object) {
 
+      
 
         let opts = !!options ? options : this.defaultOptions;
         let eparent = document.createElement("div");
@@ -93,7 +94,7 @@ export class HighchartService {
         eparent.appendChild(e);
 
         container.appendChild(eparent);
-
+      $("[id^='selectable']").draggable();
 
         if (!!opts["chart"]) {
             opts["chart"]['renderTo'] = e;
@@ -104,7 +105,11 @@ export class HighchartService {
             }
         }
         this.charts.push(new Highcharts.Chart(opts));
-
+        var elems = document.querySelectorAll(".highcharts-credits");
+        console.log("sdasd" +elems)
+        Array.prototype.forEach.call(elems, function (node) {
+          node.parentNode.removeChild(node);
+        });
 
         $("#deletebut" + specialid).bind("click",
             function (event) {

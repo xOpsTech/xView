@@ -31,6 +31,26 @@
                 </div>
             </div>
 
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Item
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="itemsDropdown" [autoWidth]="false" [(ngModel)]="itemName" name="itemname" (onChange)="onItemSelect($event.value)"
+                        #itemname="ngModel"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Metric
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="metricsDropdown" [autoWidth]="false" [(ngModel)]="metricName" name="metricname" (onChange)="onMetricSelect($event.value)"
+                        #metricname="ngModel"></p-dropdown>
+                </div>
+            </div>
+
             <div *ngIf="displayxy">
                 <div class="ui-g-12">
                     <div class="ui-g-4">
@@ -107,10 +127,31 @@
                     DataSource
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown [options]="dataSourceDropDown" [autoWidth]="false" [(ngModel)]="updataSource" name="updatasource" (onChange)="onDataSourceSelect($event.value)"
+                    <p-dropdown [options]="dataSourceDropDown" [autoWidth]="false" [(ngModel)]="dataSource" name="updatasource" (onChange)="onDataSourceSelect($event.value)"
                         #updatasource="ngModel"></p-dropdown>
                 </div>
             </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Item
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="itemsDropdown" [autoWidth]="false" [(ngModel)]="itemName" name="upitemname" (onChange)="onItemSelect($event.value)"
+                        #upitemname="ngModel"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    Metric
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="metricsDropdown" [autoWidth]="false" [(ngModel)]="metricName" name="upmetricname" (onChange)="onMetricSelect($event.value)"
+                        #upmetricname="ngModel"></p-dropdown>
+                </div>
+            </div>
+
 
 
             <div class="ui-g-12">
