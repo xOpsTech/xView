@@ -22,6 +22,12 @@
     width: 120px;
 }
 
+.showing{
+    
+}
+
+.hiding{}
+
 .dsh-success-message {
     top: 50px;
     z-index: 2000;
@@ -33,3 +39,13 @@
     color: #FEC44F;
     font-size: 32px;
 }
+
+.chartdiv {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 200px;
+}
+
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
