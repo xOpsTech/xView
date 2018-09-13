@@ -100,7 +100,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   upyAxis = ""
   upxAxisName = ""
   upxAxis = ""
-
+  piechart = {}
 
   constructor(private confirmationService: ConfirmationService, private hcs: HighchartService, private changeDetectionRef: ChangeDetectorRef, private chartSourcesService: ChartSourceService, private cdRef: ChangeDetectorRef, private elref: ElementRef) {
     if (localStorage.getItem("userDetails") !== null) {
@@ -147,9 +147,70 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
 
     };
 
-    for (var series in settingForm.value.yaxis) {
-      this.myCustomOptions["series"].push({ name: series, data: settingForm.value.yaxis[series] })
+    this.piechart = {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'Browser market shares in January, 2018'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            style: {
+              color: 'black'
+            }
+          }
+        }
+      },
+      series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+          name: 'dne03prod1',
+          y: 61.41,
+          sliced: true,
+          selected: true
+        }, {
+          name: 'dne03prod2',
+          y: 11.84
+        }, {
+          name: 'dne03prod3',
+          y: 10.85
+        }, {
+          name: 'dne03prod4',
+          y: 4.67
+        }, {
+          name: 'dne03prod5',
+          y: 4.18
+        }, {
+          name: 'dne03prod6',
+          y: 1.64
+        }
+          , {
+          name: 'Other',
+          y: 2.61
+        }]
+      }]
+    };
+
+
+    if (this.dtype != 'Pie') {
+      for (var series in settingForm.value.yaxis) {
+        this.myCustomOptions["series"].push({ name: series, data: settingForm.value.yaxis[series] })
+      }
     }
+
 
     var timestamp = Math.floor(Date.now() / 1000);
     if (localStorage.getItem("userDetails") !== null) {
@@ -158,11 +219,20 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
 
     var tenantid = this.userDetails.tenantId.toString();
     var specialid = tenantid + timestamp;
+    console.log(this.dtype)
+    if (this.dtype == 'Pie') {
+      this.piechart["title"]['text'] = settingForm.value.dname;
+      this.hcs.createChart(this.chartEl.nativeElement, specialid, this.piechart);
+      this.display = false
+    }
+    else {
 
-    this.addCharttoDb(this.myCustomOptions, specialid, settingForm.value);
 
-    this.hcs.createChart(this.chartEl.nativeElement, specialid, this.myCustomOptions);
-    this.display = false
+      this.addCharttoDb(this.myCustomOptions, specialid, settingForm.value);
+
+      this.hcs.createChart(this.chartEl.nativeElement, specialid, this.myCustomOptions);
+      this.display = false
+    }
 
     console.log(this.hcs.getCharts());
 
@@ -211,15 +281,17 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
       upchartPostJson["series"].push({ name: series, data: settingForm.value.upyaxis[series] })
     }
     console.log(upchartPostJson);
-
+    var selectableId = "selectable" + chid
+    this.removeAllCharts();
     this.chartSourcesService.updateCharts(upchartPostJson, chid).subscribe(res => {
-      var selectableId = "selectable" + chid
-      this.removeChart(selectableId);
-      this.ngOnInit();
+
+      
     }, err => {
       console.log(err)
     })
-    // this.removeAllHighcartMarks()
+
+    this.ngOnInit();
+
 
   }
 
@@ -274,12 +346,13 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     var uniquepart = radioId.substring(7, radioId.length)
     console.log(uniquepart);
 
-    this.dashboardTypesDropdown =
-      [
-        { label: 'Bar', value: 'bar' },
-        { label: 'Column', value: 'column' },
-        { label: 'Pie', value: 'Pie' }
-      ]
+    // this.dashboardTypesDropdown =
+    //   [
+    //     { label: 'Select Value', value: null },
+    //     { label: 'Bar', value: 'bar' },
+    //     { label: 'Column', value: 'column' },
+    //     { label: 'Pie', value: 'pie' }
+    //   ]
 
     this.updataSourceDropDown.push({ label: 'Select Value', value: null });
     this.chartSourcesService.getServerDetails().subscribe(res => {
@@ -343,12 +416,14 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
     }
+    this.dashboardTypesDropdown = [];
+    this.dataSourceDropDown = [];
 
     this.dashboardTypesDropdown =
-      [
-        { label: 'Bar', value: 'bar' },
-        { label: 'Column', value: 'column' },
-        { label: 'Pie', value: 'Pie' }
+      [{ label: 'Select Value', value: null },
+      { label: 'Bar', value: 'bar' },
+      { label: 'Column', value: 'column' },
+      { label: 'Pie', value: 'Pie' }
 
       ]
 
@@ -380,7 +455,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
         barandcolumn.xAxis.categories = chartDetails[v].xAxis;
         barandcolumn.yAxis.title.text = chartDetails[v].yAxisName;
         barandcolumn.series = chartDetails[v].series;
-
+        this.hcs.removeAll();
         this.hcs.createChart(this.chartEl.nativeElement, specialid, barandcolumn);
       }
 
@@ -468,7 +543,16 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   removeChart(chartId) {
     let firstContainer = <HTMLElement>document.getElementById(chartId);
     firstContainer.outerHTML = '';
-    console.log(firstContainer)
+    console.log("-------"+firstContainer)
+  }
+
+  removeAllCharts()
+  {var elements  = document.querySelectorAll('[id^="selectable"');
+  for (var i =0; i<elements.length; i++)
+  {
+    elements[i].outerHTML = '';
+  }
+
   }
 
   // removeAllHighcartMarks()

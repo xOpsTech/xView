@@ -1,6 +1,6 @@
 <h2>Custom Dashboard</h2>
 
-<p-dialog header="Custom Dashboard" [(visible)]="display" [modal]="true" [responsive]="true" [width]="550">
+<p-dialog header="Custom Dashboard" [(visible)]="display" [modal]="true" [responsive]="true" [width]="550" >
     <form (ngSubmit)="newChartFormSubmit(heroForm)" #heroForm="ngForm">
         <div class="ui-g">
             <div class="ui-g-12">
@@ -101,7 +101,7 @@
                     Dashboard ID
                 </div>
                 <div class="ui-g-8">
-                    <input pInputText type="text" [(ngModel)]="dashboardId" name="dboardid" #dashboardid="ngModel" />
+                    <input pInputText type="text" [(ngModel)]="dashboardId" name="dboardid" #dashboardid="ngModel" [readonly]="true" />
                 </div>
             </div>
             <div class="ui-g-12">
@@ -214,6 +214,6 @@
 
 
 </div>
-<div #charts id="selectable" class="row"></div>
+<div #charts id="draggable" class="row"></div>
 
 <!-- <input  type="text"  id="hiddentextarea" /> -->
