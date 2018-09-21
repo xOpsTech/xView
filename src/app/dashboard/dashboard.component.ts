@@ -155,7 +155,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
         type: 'pie'
       },
       title: {
-        text: 'Browser market shares in January, 2018'
+        text: ''
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -320,6 +320,25 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
     })
 
   }
+
+
+  people: any[] = [
+    {
+      "name": "Douglas  Pace"
+    },
+    {
+      "name": "Mcleod  Mueller"
+    },
+    {
+      "name": "Day  Meyers"
+    },
+    {
+      "name": "Aguirre  Ellis"
+    },
+    {
+      "name": "Cook  Tyson"
+    }
+  ];
 
   dissapear(event) {
     if (this.classvalue) {
@@ -496,7 +515,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
   onDataSourceSelect(selectedVal) {
 
     this.itemsDropdown = [];
-    this.displayxy = true;
+
     this.itemsDropdown.push({ label: 'Select Value', value: null });
 
     this.chartSourcesService.getServerDetails().subscribe(res => {
@@ -507,6 +526,17 @@ export class DashboardComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
 
+  }
+
+  onDtype(selectedType)
+  {
+if(selectedType == "Pie"){
+  this.displayxy  = false;
+
+}
+else{
+  this.displayxy  = true;
+}
   }
 
   onItemSelect(selectedVal) {

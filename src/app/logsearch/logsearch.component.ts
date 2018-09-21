@@ -41,6 +41,7 @@ export class LogsearchComponent implements OnInit {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
     }
 
+    
     this.tenant_id = this.userDetails.tenantId;
 
       this.searchq = '';

@@ -2,11 +2,14 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { UserDetails } from '../models/userDetails';
 import { TenantDetails } from '../models/tenantDetails';
+import { DashboardLinks } from '../services/dashboardlinks.service';
+import {SharedService} from '../services/shared.service';
 
 @Component({
   selector: 'app-leftnav',
   templateUrl: './leftnav.component.html',
-  styleUrls: ['./leftnav.component.scss']
+  styleUrls: ['./leftnav.component.scss'],
+  providers: [DashboardLinks,SharedService]
 })
 export class LeftnavComponent implements OnInit {
   public disabled: boolean = false;
@@ -21,7 +24,7 @@ export class LeftnavComponent implements OnInit {
   public userTypeManager: boolean = false;
   public profileManager: boolean = false;
   public inputSourceManager: boolean = false;
-
+  userObservable = [];
   userAccountData: {};
   userDetails: UserDetails = {
     userType: {
@@ -33,7 +36,8 @@ export class LeftnavComponent implements OnInit {
       inputSourceManager: false
     }
   }
-
+  valueis=false;
+  cdashboard: any[] = [];
   tenantDetails: TenantDetails = {
     banner: "",
     logo: "",
@@ -60,14 +64,35 @@ export class LeftnavComponent implements OnInit {
     }
   }
 
-  constructor() {
+  constructor(private dboardlinks: DashboardLinks,private ss: SharedService) {
+    this.onMain = false;
+    this.ss = ss;
   }
 
+  onMain: Boolean;
+
+
+
   ngOnInit() {
+
+    this.ss.getEmittedValue()
+    .subscribe(item => this.onMain=item);
+
+    this.cdashboard=[];
+    this.valueis = true;
     if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
       this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
     }
+
+    this.dboardlinks.getDashboardLinks("j3dv1y0").subscribe(res=>{
+      for (var msg of res.message){
+       
+        this.cdashboard.push({ "topic": msg.topic,"link":msg.link})
+          }
+      });
+
+    this.userObservable == [1, 2, 3, 4]
 
     this.userManager = this.userDetails.userType.userManager;
     this.profileManager = this.userDetails.userType.profileManager;

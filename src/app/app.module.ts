@@ -69,6 +69,7 @@ import { HealthComponent } from './health/health.component';
 import { ToggleButtonModule } from 'primeng/primeng';
 import { TechMapComponent } from './business-insights/tech-map/tech-map.component';
 import { IntroComponent } from './intro/intro.component';
+import { KibanaBoardsComponent } from './kibana-boards/kibana-boards.component';
 
 
 
@@ -128,6 +129,7 @@ export function provideConfig() {
     HealthComponent,
     TechMapComponent,
     IntroComponent,
+    KibanaBoardsComponent,
   ],
 
 
@@ -220,6 +222,10 @@ export function provideConfig() {
           {
             path: 'itemSettings',
             component: ItemSettingsComponent
+          },
+          {
+            path: 'kibana',
+            component: KibanaBoardsComponent
           },
           {
             path: 'logSearch',

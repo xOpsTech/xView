@@ -1,0 +1,106 @@
+<div class="wrapper">
+  <div class="container" style="background-color:white">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1 style="float: left">Dashboard Links</h1>
+        <br>
+      </div>
+    </div>
+    <form (ngSubmit)="submitKibanaDashboards(heroFormUpdate)" #heroFormUpdate="ngForm">
+      <div class="ui-g">
+        <div *ngFor="let round of dashboards; let i = index" class="ui-g-12">
+          <div class="ui-g-3">
+            Dashboard Name
+          </div>
+          <div class="ui-g-9">
+            <input pInputText type="text" [(ngModel)]="qtd[round]" name="dashboardname" #dashboardname{{i}}="ngModel" />
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-3">
+            Active
+          </div>
+          <div class="ui-g-9">
+            <p-checkbox [(ngModel)]="selectedState" name="selectedstate" binary="true"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g">
+        <div *ngFor="let round of links; let i = index" class="ui-g-12">
+          <div class="ui-g-3">
+            Link Name
+          </div>
+          <div class="ui-g-3">
+            <input pInputText type="text" [(ngModel)]="qtd2[round]" name="linkname{{i}}" #linkname{i}}="ngModel" />
+          </div>
+          <div class="ui-g-3">
+            Link Href
+          </div>
+          <div class="ui-g-3">
+            <input pInputText type="text" [(ngModel)]="qtd3[round]" name="linkhref{{i}}" #linkhref{i}}="ngModel" />
+          </div>
+        </div>
+
+        <div class="ui-g-12">
+          <button type="submit" class="btn btn-success" [disabled]="!heroFormUpdate.form.valid">Submit</button>
+          <input type="button" class="btn btn-info" (click)="addLink()" value="AddLink" />
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <br/>
+  <br/>
+  <div class="container" style="background-color:white">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1 style="float: left">Update Dashboard Links</h1>
+        <br>
+      </div>
+    </div>
+    <form (ngSubmit)="updateKibanaDashboards(updateFormUpdate)" #updateFormUpdate="ngForm">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <div class="ui-g-3">
+            Dashboard Name
+          </div>
+          <div class="ui-g-9">
+            <p-dropdown [options]="dNamesDropDown" [autoWidth]="false" [(ngModel)]="upDashboardName" name="updashboardname" #updashboardname="ngModel" (onChange)="onChange($event)"> </p-dropdown>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-3">
+            Active
+          </div>
+          <div class="ui-g-9">
+            <p-checkbox name="upselectedstate" value="val2" [(ngModel)]="upselectedState" ></p-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-g">
+        <div *ngFor="let round of links; let i = index" class="ui-g-12">
+          <div class="ui-g-3">
+            Link Name
+          </div>
+          <div class="ui-g-3">
+            <input pInputText type="text" [(ngModel)]="linkName" name="linkname" #linkname="ngModel" />
+          </div>
+          <div class="ui-g-3">
+            Link Href
+          </div>
+          <div class="ui-g-3">
+            <input pInputText type="text" [(ngModel)]="linkHref" name="linkhref" #linkhref="ngModel" />
+          </div>
+
+
+        </div>
+        <div class="ui-g-12">
+          <button type="submit" class="btn btn-success" [disabled]="!heroFormUpdate.form.valid">Update</button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</div>
