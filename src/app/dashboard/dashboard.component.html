@@ -17,7 +17,7 @@
                     Type
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown [options]="dashboardTypesDropdown" [autoWidth]="false" [(ngModel)]="dashboardType" name="dashboardtype" #dashboardtype="ngModel"></p-dropdown>
+                    <p-dropdown [options]="dashboardTypesDropdown" [autoWidth]="false" [(ngModel)]="dashboardType" name="dashboardtype" #dashboardtype="ngModel" (onChange)="onDtype($event.value)"></p-dropdown>
                 </div>
             </div>
 

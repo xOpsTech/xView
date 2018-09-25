@@ -10,22 +10,27 @@
           <!-- <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/tech/incident']">Incident</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item">s
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/tech/third-party']">Third Party Apps</a>
           </li> -->
         <!-- </ul> -->
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/custom']"><i class="material-icons">dashboard</i> Custom</a>
 
-        <!-- <ul class="nav-dropdown-items"> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active"  [routerLink]="['/custom/cc']">Command Center</a>
+      <li class="nav-item nav-dropdown open">
+
+     
+        <a class="nav-link nav-dropdown-toggle" routerLinkActive="active" [routerLink]="['/custom']" ><i class="material-icons">dashboard</i> Custom</a>
+
+        <ul *ngFor="let touple of cdashboard" class="nav-dropdown-items">
+          <li class="nav-item nav-dropdown open">
+            <a class="nav-link nav-dropdown-toggle" routerLinkActive="active" >{{touple.topic}}</a>
+            <ul class="nav-dropdown-items" *ngFor="let touple2 of touple.link">
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active"  href="{{touple2.href}}">{{touple2.name}}</a>
+                    </li>
+              </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active"  [routerLink]="['/custom/dashboard']">Custom Dashboard</a>
-          </li> -->
-        <!-- </ul> -->
+        </ul>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/alert']"><i class="material-icons">warning</i> Alerts</a>
@@ -62,5 +67,8 @@
       </li> -->
 
     </ul>
+
   </nav>
 </div>
+
+
