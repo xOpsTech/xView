@@ -11,6 +11,7 @@ import { SelectItem } from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
 import { Server, Cloud, Application, Storage, Database } from '../business-insights/Server';
 import { TechInsightsService } from '../services/techinsights.service'
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-business-insights',
@@ -20,7 +21,8 @@ import { TechInsightsService } from '../services/techinsights.service'
 })
 
 export class BusinessInsightsComponent implements OnInit {
-  private serverData: Server[];
+
+  private serverData: Observable<Server[]>
   private cloudData: Cloud[];
   private applicationData: Application[];
   private storageData: Storage[];
@@ -72,10 +74,10 @@ export class BusinessInsightsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.techInsightsService.getServerDetails().subscribe(serverData => {
-      this.serverData = serverData
-    });
-
+    // this.techInsightsService.getServerDetails().subscribe(serverData => {
+    //   this.serverData = this.techInsightsService.getServerDetails()
+    // });
+    this.serverData =this.techInsightsService.getServerDetails();
     this.techInsightsService.getCloudDetails().subscribe(cloudData => {
       this.cloudData = cloudData
     });

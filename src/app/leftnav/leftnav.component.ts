@@ -3,13 +3,14 @@ import { UserService } from '../services/user.service';
 import { UserDetails } from '../models/userDetails';
 import { TenantDetails } from '../models/tenantDetails';
 import { DashboardLinks } from '../services/dashboardlinks.service';
-import {SharedService} from '../services/shared.service';
+import { Observable } from 'rxjs';
+import { DashboardDetails } from '../models/dashboardDetails';
 
 @Component({
   selector: 'app-leftnav',
   templateUrl: './leftnav.component.html',
   styleUrls: ['./leftnav.component.scss'],
-  providers: [DashboardLinks,SharedService]
+  providers: [DashboardLinks]
 })
 export class LeftnavComponent implements OnInit {
   public disabled: boolean = false;
@@ -36,13 +37,16 @@ export class LeftnavComponent implements OnInit {
       inputSourceManager: false
     }
   }
-  valueis=false;
+  valueis = false;
   cdashboard: any[] = [];
   tenantDetails: TenantDetails = {
     banner: "",
     logo: "",
     id: ""
   }
+
+  tenant_id = "";
+  private observableDashboards: Observable<DashboardDetails[]>
 
   public toggled(open: boolean): void {
     console.log('Dropdown is now: ', open);
@@ -64,9 +68,8 @@ export class LeftnavComponent implements OnInit {
     }
   }
 
-  constructor(private dboardlinks: DashboardLinks,private ss: SharedService) {
-    this.onMain = false;
-    this.ss = ss;
+  constructor(private dboardlinks: DashboardLinks) {
+
   }
 
   onMain: Boolean;
@@ -75,22 +78,22 @@ export class LeftnavComponent implements OnInit {
 
   ngOnInit() {
 
-    this.ss.getEmittedValue()
-    .subscribe(item => this.onMain=item);
 
-    this.cdashboard=[];
+    this.cdashboard = [];
     this.valueis = true;
     if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
       this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
+      this.tenant_id = this.userDetails.tenantId.toString();
     }
+    console.log("tenantid leftnavigation "+ this.tenant_id )
+    this.dboardlinks.getDashboardLinks(this.tenant_id).subscribe(res => {
+      for (var msg of res['message']) {
+        if(msg.active ==true)
+        this.cdashboard.push({ "topic": msg.topic, "link": msg.link })
+      }
+    });
 
-    this.dboardlinks.getDashboardLinks("j3dv1y0").subscribe(res=>{
-      for (var msg of res.message){
-       
-        this.cdashboard.push({ "topic": msg.topic,"link":msg.link})
-          }
-      });
 
     this.userObservable == [1, 2, 3, 4]
 

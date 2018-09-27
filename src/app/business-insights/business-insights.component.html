@@ -20,7 +20,7 @@
           <div class="ui-g-11" style="margin-top: -14px; font-weight: bold; padding-left: 16px;">Server
 
             <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
-              <div *ngFor="let server of serverData">
+              <div *ngFor="let server of serverData | async">
                
               <div class="gridy" style="text-align:center">
                         

@@ -16,7 +16,7 @@ import {
   GrowlModule, DataTableModule, SharedModule, OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule, SpinnerModule, FileUploadModule
 } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
-import { AsideToggleDirective } from '../shared/aside.directive';
+import { AsideToggleDirective } from 'shared/aside.directive';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LeftnavComponent } from './leftnav/leftnav.component';
@@ -29,8 +29,8 @@ import { HomeComponent } from './home/home.component';
 import { WidgetHomeComponent } from './widgethome/widgethome.component';
 import { MapComponent } from './map/map.component';
 import { IncidentComponent } from './business-insights/incident/incident.component';
-import { SIDEBAR_TOGGLE_DIRECTIVES } from '../shared/sidebar.directive';
-import { NAV_DROPDOWN_DIRECTIVES } from '../shared/nav-dropdown.directive';
+import { SIDEBAR_TOGGLE_DIRECTIVES } from 'shared/sidebar.directive';
+import { NAV_DROPDOWN_DIRECTIVES } from 'shared/nav-dropdown.directive';
 import { BusinessInsightsComponent } from './business-insights/business-insights.component';
 import { SnowAggsService } from './services/snow-aggs.service';
 import { IncidentService } from './services/incident.service';
@@ -45,9 +45,9 @@ import { StepsModule } from 'primeng/primeng';
 import { TruncatePipe } from './common/pipe.truncate';
 import { LoginComponent } from './login/login.component';
 import { BusinessComponent } from './business/business.component';
-import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
-import { CircleProgressComponent } from '../shared/circle-progress.component';
-import { MatchHeightDirective } from '../shared/match-height.directive';
+import { BreadcrumbsComponent } from 'shared/breadcrumb.component';
+import { CircleProgressComponent } from 'shared/circle-progress.component';
+import { MatchHeightDirective } from 'shared/match-height.directive';
 import { XviewTemplateComponent } from './xview-template/xview-template.component';
 import { AlertIndividualComponent } from './alerts/alert-individual/alert-individual.component';
 import { SignupComponent } from './signup/signup.component';
@@ -70,6 +70,7 @@ import { ToggleButtonModule } from 'primeng/primeng';
 import { TechMapComponent } from './business-insights/tech-map/tech-map.component';
 import { IntroComponent } from './intro/intro.component';
 import { KibanaBoardsComponent } from './kibana-boards/kibana-boards.component';
+import { KibanaAdminComponent } from './kibana-admin/kibana-admin.component';
 
 
 
@@ -130,6 +131,7 @@ export function provideConfig() {
     TechMapComponent,
     IntroComponent,
     KibanaBoardsComponent,
+    KibanaAdminComponent,
   ],
 
 
@@ -226,6 +228,10 @@ export function provideConfig() {
           {
             path: 'kibana',
             component: KibanaBoardsComponent
+          },
+          {
+            path: 'kibanaadmin',
+            component: KibanaAdminComponent
           },
           {
             path: 'logSearch',
