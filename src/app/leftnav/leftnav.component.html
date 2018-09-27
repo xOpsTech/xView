@@ -2,12 +2,14 @@
   <nav class="sidebar-nav" [style.paddingTop.px]="nav_gap">
     <ul class="nav" id="nav">
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/business']"><i class="material-icons">business</i> Business</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/business']">
+          <i class="material-icons">business</i> Business</a>
       </li>
       <li class="nav-item nav-dropdown" routerLinkActive="open">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/tech']"><i class="material-icons">memory</i> Tech</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/tech']">
+          <i class="material-icons">memory</i> Tech</a>
         <!-- <ul class="nav-dropdown-items"> -->
-          <!-- <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"  [routerLink]="['/tech/incident']">Incident</a>
           </li>
           <li class="nav-item">s
@@ -18,43 +20,48 @@
 
       <li class="nav-item nav-dropdown open">
 
-     
-        <a class="nav-link nav-dropdown-toggle" routerLinkActive="active" [routerLink]="['/custom']" ><i class="material-icons">dashboard</i> Custom</a>
+
+        <a class="nav-link nav-dropdown-toggle" routerLinkActive="active" [routerLink]="['/custom']">
+          <i class="material-icons">dashboard</i> Custom</a>
 
         <ul *ngFor="let touple of cdashboard" class="nav-dropdown-items">
           <li class="nav-item nav-dropdown open">
-            <a class="nav-link nav-dropdown-toggle" routerLinkActive="active" >{{touple.topic}}</a>
+            <a class="nav-link nav-dropdown-toggle" routerLinkActive="active">{{touple.topic}}</a>
             <ul class="nav-dropdown-items" *ngFor="let touple2 of touple.link">
-                <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active"  href="{{touple2.href}}">{{touple2.name}}</a>
-                    </li>
-              </ul>
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['/custom']" [queryParams]="{link: touple2.href}">  <i class="material-icons">arrow_right</i>{{touple2.name}}</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/alert']"><i class="material-icons">warning</i> Alerts</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/alert']">
+          <i class="material-icons">warning</i> Alerts</a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/logSearch']"><i class="material-icons">search</i> Analyze</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/logSearch']">
+          <i class="material-icons">search</i> Analyze</a>
       </li>
       <li *ngIf="manager" class="nav-item nav-dropdown" routerLinkActive="open">
-        <a class="nav-link nav-dropdown-toggle" href="#"><i class="material-icons">settings</i> Manage</a>
+        <a class="nav-link nav-dropdown-toggle" href="#">
+          <i class="material-icons">settings</i> Manage</a>
         <ul class="nav-dropdown-items">
-         <li *ngIf="profileManager" class="nav-item">
-            <a class="nav-link" routerLinkActive="active"   [routerLink]="['/profile']">Profile</a>
+          <li *ngIf="profileManager" class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/profile']">Profile</a>
           </li>
           <li *ngIf="inputSourceManager" class="nav-item">
-            <a class="nav-link" routerLinkActive="active"  [routerLink]="['/manage']">Input Source</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/manage']">Input Source</a>
           </li>
           <li *ngIf="userManager" class="nav-item">
 
             <a class="nav-link" routerLinkActive="active" [routerLink]="['/user-manage']">Users</a>
           </li>
-          <li *ngIf="userTypeManager"  class="nav-item">
+          <li *ngIf="userTypeManager" class="nav-item">
             <a class="nav-link" routerLinkActive="active" [routerLink]="['/userTypemanagement']">Users-Types</a>
           </li>
-          <li *ngIf="userTypeManager"  class="nav-item">
+          <li *ngIf="userTypeManager" class="nav-item">
             <a class="nav-link" routerLinkActive="active" [routerLink]="['/itemSettings']">Item Settings</a>
           </li>
           <!-- <li class="nav-item">
@@ -62,13 +69,24 @@
           </li> -->
         </ul>
       </li>
+      <li class="nav-item nav-dropdown">
+        <a class="nav-link nav-dropdown-toggle">
+          <i class="material-icons">memory</i> Kibana</a>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/kibana']">
+              <i class="material-icons">assessment</i> Manage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/kibanaadmin']">
+              <i class="material-icons">create</i> Admin</a>
+          </li>
+        </ul>
+      </li>
       <!--  <li class="nav-item nav-dropdown" routerLinkActive="open">
         <a class="nav-link nav-dropdown-toggle" routerLinkActive="active" [routerLink]="['/manage']"><i class="material-icons">settings</i> Manage</a>
       </li> -->
 
     </ul>
-
   </nav>
 </div>
-
-

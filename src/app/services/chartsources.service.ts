@@ -1,4 +1,4 @@
-import { Injectable } from "../../../node_modules/@angular/core";
+import { Injectable } from "@angular/core";
 import { Http, Response, RequestOptions ,Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { config } from '../config/config';
