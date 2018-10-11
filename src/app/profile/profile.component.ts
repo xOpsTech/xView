@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.getUserData().subscribe(res0 => {
       var email = res0.message[0].id;
-      this.tenantService.getTenantDetails(email).subscribe(res => {
+      this.tenantService.getTenantDetails().subscribe(res => {
         this.tenantid = res.result.tenant.id;
         this.tenantname = res.result.tenant.tenant;
         this.phonenumber = res.result.tenant.phone;

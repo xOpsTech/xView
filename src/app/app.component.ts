@@ -18,10 +18,12 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit(): void {
+
+   
     this.userAccountData = this.userService.getUserData().subscribe(res => {
       console.log(res);
 
-      this.userType=res.message[0].userType;
+      this.userType=res.data[0].userType;
 
       console.log(this.userType)
 

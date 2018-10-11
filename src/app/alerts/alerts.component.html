@@ -1,3 +1,12 @@
+<p-dialog header="Please Configure Input Sources"   [modal]="true" [(visible)]="display2" [baseZIndex]="10000">
+  
+  You have not configured any Input Sources.Click configure to configure.
+    <p-footer>
+        <a type="button" class="btn btn-info btn-lg" (click)="display=false" [routerLink]="['/manage']"><i class="material-icons">settings</i>Configure</a>
+      
+    </p-footer>
+</p-dialog>
+<button type="text" (click)="showDialog2()" pButton icon="pi pi-info-circle" label="Show" hidden></button>
 <h1 class="h2">Alerts</h1>
 <div class="row row-eq-height" mh="card">
   <div class="col-md-6 widget">
@@ -49,6 +58,8 @@
     </div>
   </div>
 </div>
+
+
 
 <div class="row row-eq-height">
   <div class="col-md-12 widget">

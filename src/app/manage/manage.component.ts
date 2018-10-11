@@ -120,13 +120,13 @@ export class ManageComponent implements OnInit {
   hostip = config.elasticsearchurl;
   ngOnInit() {
 
-    this.userService.getUserData().subscribe(res => {
+    this.userService.getUserById().subscribe(res => {
       console.log(res);
       this.tenant_id = res.message[0].tenantId;
       this.email = res.message[0].id;
 
-      this.tenantService.getTenantDetails(this.email).subscribe(res2 => {
-        for (var service of res2["result"].tenant["services"]) {
+      this.tenantService.getTenantDetails().subscribe(res2 => {
+        for (var service of res2["message"][0].services) {
           this.existingtenantData.services.push(service);
         }
       });
