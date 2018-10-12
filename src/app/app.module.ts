@@ -13,7 +13,7 @@ import {InputTextareaModule} from 'primeng/primeng';
 
 import {
   ButtonModule, PanelModule, InputTextModule, CheckboxModule, DialogModule, AutoCompleteModule,
-  GrowlModule, DataTableModule, SharedModule, OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule, SpinnerModule, FileUploadModule
+  GrowlModule, DataTableModule, SharedModule, MultiSelectModule,OverlayPanelModule, GMapModule, SelectButtonModule, DropdownModule, AccordionModule, SliderModule, ChartModule, DataGridModule, SpinnerModule, FileUploadModule
 } from 'primeng/primeng';
 import { ChartsModule } from 'ng2-charts';
 import { AsideToggleDirective } from 'shared/aside.directive';
@@ -154,6 +154,7 @@ export function provideConfig() {
     ConfirmDialogModule,
     ToggleButtonModule,
     InputTextareaModule,
+    MultiSelectModule,
 
     RouterModule.forRoot([
       {
@@ -175,7 +176,7 @@ export function provideConfig() {
       {
         path: '',
         component: XviewTemplateComponent,
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
 
         children: [
           {
@@ -215,7 +216,7 @@ export function provideConfig() {
           {
             path: 'business',
             component: BusinessComponent,
-            //canActivate: [AuthGuard]
+            canActivate: [AuthGuard]
           },
           {
             path: 'alertindividual',

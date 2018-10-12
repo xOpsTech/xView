@@ -49,7 +49,7 @@ export class SignupComponent {
   banners: SelectItem[];
   existingtenant: String = '';
   activeIndex: number = 0;
-  tenantexist = false;
+  tenantnotexist = false;
 
   userAccountData: {};
   tenantData = {
@@ -114,9 +114,6 @@ export class SignupComponent {
     this.setDiv();
     this.authService.authState.subscribe((user) => {
       this.googleuser = user;
-    //  this.uname = this.googleuser.name
-      // this.username= this.googleuser.name
-      // this.email= this.googleuser.email
       console.log( this.googleuser)
     });
   }
@@ -164,8 +161,8 @@ export class SignupComponent {
       this.tenantService.getTenantIDbytenant(this.existingtenant)
         .subscribe(res1 => {
           this.tenantId = res1.tenantId;
-          if (this.tenantId == "") {
-            this.tenantexist = true;
+          if (this.tenantId == "" || this.tenantId== null || this.tenantId == "undefined") {
+            this.tenantnotexist = true;
             return null;
           }
           else {

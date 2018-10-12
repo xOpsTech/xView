@@ -2,17 +2,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs';
+import 'rxjs/add/operator/map'
 import { config } from '../config/config';
+import { UserDetails } from '../models/userDetails';
 
 @Injectable()
 export class UserService {
-  private getUserUrl = config.devUrl+"/user";
-  private getcheckUserUrl = config.XOPSAPI+'/checkuser'
-  private getUserDetailsUrl = config.XOPSAPI+"/user";
-  private  getAllUsers = config.XOPSAPI+"/users";
-  private  getAllUserTypes=config.XOPSAPI+"/userType";
-  private updateuser = config.XOPSAPI+"/updateuser";
+  private getUserUrl = config.devUrl + "/user";
+  private getcheckUserUrl = config.XOPSAPI + '/checkuser'
+  private getUserDetailsUrl = config.XOPSAPI + "/userbyid";
+  private getAllUsers = config.XOPSAPI + "/user";
+  private getAllUserTypes = config.XOPSAPI + "/userType";
+  private updateuser = config.XOPSAPI + "/updateuser";
 
   user = null;
   email_id: string;
@@ -21,27 +22,51 @@ export class UserService {
   tenantId: string;
   options: RequestOptions;
 
-  constructor(private http: Http) {
-
+  userDetails: UserDetails = {
+    userType: {
+      management: false,
+      develop: false,
+      userTypeManager: false,
+      profileManager: false,
+      userManager: false,
+      inputSourceManager: false
+    }
   }
 
-    checkUserStatus(email) {
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      return this.http.get(`${this.getcheckUserUrl}/${email}`, { headers })
-        .map((res: Response) => res.json())
+  tenant_id = "";
+  userid = ""
+  constructor(private http: Http) {
+    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      this.tenant_id = this.userDetails.tenantId.toString();
+      this.userid = this.userDetails.id.toString();
     }
+  }
 
-    getUserData() {
-      var token = localStorage.getItem('token');
-      let headers = new Headers({token});
-      return this.http.get(this.getUserUrl ,{ headers })
-        .map((res: Response) => res.json())
-    }
+  checkUserStatus(email) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.get(`${this.getcheckUserUrl}/${email}`, { headers })
+      .map((res: Response) => res.json())
+  }
 
-  checkUser(userID){
-    let userid =userID;
-    let headers = new Headers({userid});
-    return this.http.get(this.getcheckUserUrl ,{ headers })
+  getUserById() {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({ token });
+    return this.http.get(this.getUserDetailsUrl + "/" + this.userid, { headers })
+      .map((res: Response) => res.json())
+  }
+
+  getUserData() {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({ token });
+    return this.http.get(this.getAllUsers, { headers })
+      .map((res: Response) => res.json())
+  }
+
+  checkUser(userID) {
+    let userid = userID;
+    let headers = new Headers({ userid });
+    return this.http.get(this.getcheckUserUrl, { headers })
       .map((res: Response) => res.json())
   }
 
@@ -65,51 +90,37 @@ export class UserService {
   }
 
   getUserByTenantId(tenantId) {
-      var token = localStorage.getItem('token');
-      let headers = new Headers({token});
-      return this.http.get(this.getAllUsers+'/'+tenantId ,{ headers })
-        .map((res: Response) => res.json())
-    }
+    var token = localStorage.getItem('token');
+    let headers = new Headers({ token });
+    return this.http.get(this.getAllUsers + '/' + tenantId, { headers })
+      .map((res: Response) => res.json())
+  }
 
-    getUserTypeByTenantId(tenantId){
-      var token = localStorage.getItem('token');
-      let headers = new Headers({token});
-      return this.http.get(this.getAllUserTypes+'/'+tenantId ,{ headers })
-        .map((res: Response) => res.json())
+  getUserTypeByTenantId(tenantId) {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({ token });
+    return this.http.get(this.getAllUserTypes + '/' + tenantId, { headers })
+      .map((res: Response) => res.json())
 
-    }
+  }
 
   saveUserType(userType) {
     return this.http
-      .post(config.XOPSAPI +'/userType', {
+      .post(config.XOPSAPI + '/userType', {
         "name": userType.name,
         "management": userType.management,
         "develop": userType.develop,
-        "userTypeManager":userType.userTypeManager,
-        "profileManager":userType.profileManager,
-        "userManager":userType.userManager,
-        "inputSourceManager":userType.userManager,
-        "tenantId":userType.tenantId
+        "userTypeManager": userType.userTypeManager,
+        "profileManager": userType.profileManager,
+        "userManager": userType.userManager,
+        "inputSourceManager": userType.userManager,
+        "tenantId": userType.tenantId
       }, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
 
-  getEmail() {
-    this.getUserData().subscribe(res => {
-      this.user = res.message[0];
-      return this.user.id;
-    });
-  }
-
-  getTenantId() {
-    this.getUserData().subscribe(res => {
-      this.user = res.message[0];
-      return this.user.tenantId;
-    });
-
-  }
   private extractData(res: Response) {
     let body = res.json();
     return body || {};

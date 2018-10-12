@@ -115,7 +115,7 @@ body {
     min-width: 0;
   }
   .sidebar {
-    flex: 0 0 200px;
+    flex: 0 0 240px;
     order: -1;
     font-weight: 600;
   }
@@ -140,13 +140,13 @@ body {
 }
 
 .sidebar-hidden .sidebar {
-  margin-left: -200px;
+  margin-left: -240px;
 }
 
 .sidebar-fixed {
   .sidebar {
     position: fixed;
-    width: 200px;
+    width: 240px;
     height: 100%;
     font-weight: 600;
 
@@ -155,7 +155,7 @@ body {
     }
   }
   .main {
-    margin-left: 200px;
+    margin-left: 240px;
     // margin-top: 90px;
   }
   .app-footer {

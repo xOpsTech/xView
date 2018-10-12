@@ -6,12 +6,13 @@ import { TruncatePipe } from '../common/pipe.truncate';
 import { UserService } from '../services/user.service';
 import { UserDetails } from '../models/userDetails';
 import { TenantDetails } from '../models/tenantDetails';
-
+import {DialogModule} from 'primeng/primeng';
+import { TenantService } from '../services/tenant.service';
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.scss'],
-  providers: [AlertService, IncidentService]
+  providers: [AlertService, IncidentService,]
 
 })
 
@@ -50,7 +51,7 @@ export class AlertsComponent implements OnInit, OnChanges {
   tenantId : String;
 
   visible: boolean = true;
-  constructor(private alertsService: AlertService, private incidentService: IncidentService, private userService: UserService) {
+  constructor(private alertsService: AlertService, private incidentService: IncidentService, private userService: UserService,private tenantService: TenantService) {
     this.incidentService.getAssignees().subscribe(assignees => {
 
       for (var d of assignees.data) {
@@ -74,11 +75,17 @@ export class AlertsComponent implements OnInit, OnChanges {
     this.alertsService.getAlertTrends('12',this.tenantId )
 
       .subscribe((data: any) => {
+        console.log(data)
+        if(data == null || data == [])
+        {
+          this.display2 = true;
+        }
         this.alert_trend = data;
 
       });
 
     this.alertsService.widgetStatus(this.tenantId).subscribe(widget_data1 => {
+
       if(widget_data1["severity_stats"]!== undefined)
       {
         this.widget_data = widget_data1;
@@ -99,10 +106,19 @@ export class AlertsComponent implements OnInit, OnChanges {
 
   }
 
+  display2: boolean = false;
+
   ngOnInit() {
 
     this.loadSortedAlerts(this.tenantId);
-
+   var array = [];
+    this.tenantService.getTenantDetails().subscribe(res => {
+      console.log(res["message"][0].services)
+      array = res["message"][0].services;
+      if (array === undefined || array.length == 0) {
+        this.display2=true
+    }
+    });
   }
 
   brands: string[];

@@ -1,8 +1,8 @@
 <div class="wrapper">
   <div class="container" style="background-color:white">
-    <div class="ui-g">
+    <div class="ui-g" style=" border-bottom: 1px solid rgb(199, 198, 198);">
       <div class="ui-g-12">
-        <h1 style="float: left">Dashboard Links</h1>
+        <h3 style="float: left">Dashboard Links</h3>
         <br>
       </div>
     </div>
@@ -40,11 +40,19 @@
             <textarea pInputTextarea [(ngModel)]="qtd3[round]" name="linkhref{{i}}" #linkhref{i}}="ngModel"></textarea>
           </div>
         </div>
-
         <div class="ui-g-12">
-          <button type="submit" class="btn btn-success" [disabled]="!heroFormUpdate.form.valid">Submit</button>
-          <input type="button" class="btn btn-info" (click)="addLink()" value="AddLink" />
-          <input type="button" class="btn btn-danger" (click)="removeLink()" value="RemoveLink" />
+          <div class="ui-g-12 ui-md-6 ui-lg-3">
+            Permission
+          </div>
+          <div class="ui-g-12 ui-md-6 ui-lg-4">
+            <p-multiSelect [options]="authorizedOpt" [(ngModel)]="authorizedSet" authorizedset="ngModel" name="authorizedset"></p-multiSelect>
+          </div>
+
+        </div>
+        <div class="ui-g-12">
+          <button type="submit" class="btn btn-success btn-sm" [disabled]="!heroFormUpdate.form.valid">Submit</button>
+          <input type="button" class="btn btn-info btn-sm" (click)="addLink()" value="AddLink" />
+          <input type="button" class="btn btn-danger btn-sm" (click)="removeLink()" value="RemoveLink" />
         </div>
       </div>
 
@@ -53,9 +61,9 @@
   <br/>
   <br/>
   <div class="container" style="background-color:white">
-    <div class="ui-g">
+    <div class="ui-g" style=" border-bottom: 1px solid rgb(199, 198, 198);">
       <div class="ui-g-12">
-        <h1 style="float: left">Update Dashboard Links</h1>
+        <h3 style="float: left">Update Dashboard Links</h3>
         <br>
       </div>
     </div>
@@ -63,50 +71,64 @@
       <div class="ui-g">
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-6 ui-lg-3">
-           Existing Dashboards
+            Existing Dashboards
           </div>
           <div class="ui-g-12 ui-md-9 ui-lg-9">
-            <p-dropdown [options]="dNamesDropDown" [autoWidth]="false" [(ngModel)]="upExistingDashboards" name="upextdashboards" #upextdashboards="ngModel" (onChange)="onChange($event)"> </p-dropdown>
+            <p-dropdown [options]="dNamesDropDown" [autoWidth]="false" [(ngModel)]="upExistingDashboards" name="upextdashboards" #upextdashboards="ngModel"
+              (onChange)="onChange($event)"> </p-dropdown>
           </div>
         </div>
         <div class="ui-g-12">
-            <div class="ui-g-12 ui-md-9 ui-lg-3">
-              Change Dashboard Name
-            </div>
-            <div class="ui-g-12 ui-md-9 ui-lg-9">
-                <input pInputText type="text" [(ngModel)]="upDashboardName" name="updashboardname" #updashboardname="ngModel" />
-            </div>
+          <div class="ui-g-12 ui-md-9 ui-lg-3">
+            Change Dashboard Name
           </div>
+          <div class="ui-g-12 ui-md-9 ui-lg-9">
+            <input pInputText type="text" [(ngModel)]="upDashboardName" name="updashboardname" #updashboardname="ngModel" />
+          </div>
+        </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-9 ui-lg-3">
             Active / Inactive
           </div>
           <div class="ui-g-12 ui-md-9 ui-lg-9">
-            <p-checkbox name="upselectedstate" value="val2" [(ngModel)]="upselectedState" binary=true ></p-checkbox>
+            <p-checkbox name="upselectedstate" value="val2" [(ngModel)]="upselectedState" binary=true></p-checkbox>
           </div>
         </div>
       </div>
 
+      <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
       <div class="ui-g">
         <div *ngFor="let dlink of dashboardlinks; let i = index" class="ui-g-12">
           <div class="ui-g-12 ui-md-9 ui-lg-3">
-           Change Link Name 
+            Change Link Name
           </div>
           <div class="ui-g-12 ui-md-9 ui-lg-3">
             <input pInputText type="text" [(ngModel)]="dlink.name" name="uplinkname{{i}}" #linkname="ngModel" />
           </div>
           <div class="ui-g-12 ui-md-9 ui-lg-3">
-          Change Link Href
+            Change Link Href
           </div>
           <div class="ui-g-12 ui-md-9 ui-lg-3">
             <input pInputText type="text" [(ngModel)]="dlink.href" name="uplinkhref{{i}}" #linkhref="ngModel" />
           </div>
         </div>
-        <input type="hidden" [(ngModel)]="linkCount"  name="linkcount" #linkcount="ngModel">
         <div class="ui-g-12">
-          <button type="submit" class="btn btn-success" [disabled]="!heroFormUpdate.form.valid">Update</button>
-          <input type="button" class="btn btn-info" (click)="addLink()" value="AddLink" />
-          <input type="button" class="btn btn-danger" (click)="removeLink()" value="RemoveLink" />
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              Update Permission
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+              <p-multiSelect [options]="upauthorizedOpt" [(ngModel)]="upauthorizedSet" upauthorizedset="ngModel" name="upauthorizedset"></p-multiSelect>
+            </div>
+  
+          </div>
+        <input type="hidden" [(ngModel)]="linkCount" name="linkcount" #linkcount="ngModel">
+        <div class="ui-g-12">
+          <button type="submit" class="btn btn-success btn-sm" [disabled]="!updateFormUpdate.form.valid">Update</button>
+          <input type="button" class="btn btn-info btn-sm" (click)="upaddLink()" value="Add Link" />
+          <input type="button" class="btn btn-warning btn-sm" (click)="upremoveLink()" value="Remove Link" />
+          <input type="button" class="btn btn-danger btn-sm" (click)="deleteDashboard(updateFormUpdate.form)" value="Delete Dashboard"
+          />
         </div>
       </div>
 

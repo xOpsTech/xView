@@ -5,6 +5,7 @@ import 'rxjs';
 import { config } from '../config/config';
 import { UserService, } from '../services/user.service';
 import { OnInit } from '@angular/core';
+import { UserDetails } from '../models/userDetails';
 
 @Injectable()
 export class TenantService {
@@ -15,6 +16,17 @@ export class TenantService {
 
   private getTenantUrl;
 
+  userDetails: UserDetails = {
+    userType: {
+      management: false,
+      develop: false,
+      userTypeManager: false,
+      profileManager: false,
+      userManager: false,
+      inputSourceManager: false
+    }
+  }
+  tenant_id = "";
   constructor(private http: Http, private userService: UserService) {
     this.headers = new Headers({
       'Content-Type': 'application/json',
@@ -24,10 +36,16 @@ export class TenantService {
       headers: this.headers
     });
 
+    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      this.tenant_id = this.userDetails.tenantId.toString();
+      
+    }
+
   }
 
-  getTenantDetails(email) {
-    return this.http.get(config.XOPSAPI + '/tenant/' + email)
+  getTenantDetails() {
+    return this.http.get(config.XOPSAPI + '/tenant/' + this.tenant_id)
       .map((res: Response) => res.json())
   }
 

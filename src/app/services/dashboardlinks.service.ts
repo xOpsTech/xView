@@ -4,24 +4,42 @@ import { Observable } from 'rxjs/Observable';
 import { config } from '../config/config';
 import 'rxjs';
 import {DashboardDetails} from '../models/dashboardDetails';
+import { UserDetails } from '../models/userDetails';
 @Injectable()
 export class DashboardLinks {
-  constructor(private http: Http) { }
+
+  userDetails: UserDetails = {
+    userType: {
+      management: false,
+      develop: false,
+      userTypeManager: false,
+      profileManager: false,
+      userManager: false,
+      inputSourceManager: false
+    }
+  }
+
+  tenant_id = "";
+  constructor(private http: Http) {
+    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      this.tenant_id = this.userDetails.tenantId.toString();
+     
+    }
+   }
 
   getDashboardLinks(tenantId) {
     var token = localStorage.getItem('token');
     let headers = new Headers({token});
-    return this.http.get(config.XOPSAPI + '/dashboard/links/'+tenantId,{ headers })
+    return this.http.get(config.XOPSAPI + '/dashboard/links/'+tenantId)
       .map((res:Response) => res.json())
   }
 
-  getDashboardLinksAsync(tenantId): Observable<DashboardDetails[]> {
-    return this.http.get(config.XOPSAPI + '/dashboard/links/'+tenantId).map(res => {
-        return res.json().message.map(val => {
-
-          return new DashboardDetails(val.id,val.active,val.tenantId,val.topic);
-        });
-      });
+  getDashboardLinksByPermission(perObj) {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({token});
+    return this.http.post(config.XOPSAPI + '/dashboard/linksbyperm/',perObj)
+      .map((res:Response) => res.json())
 }
 
     postDashboardLinks(chartJson)
@@ -43,10 +61,10 @@ export class DashboardLinks {
     .catch(this.handleError);
   }
 
-  deleteDashboardLinks(chid) {
+  deleteDashboard(dashboardid) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.delete(config.XOPSAPI +"/deletechart/"+chid, options)
+    return this.http.delete(config.XOPSAPI +"/dashboard/"+dashboardid, options)
     .map(this.extractData)
     .catch(this.handleError);
   }

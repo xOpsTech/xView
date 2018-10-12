@@ -89,7 +89,7 @@
                     <b>To join an existing organization add organization ID.</b>
                   </div>
                   <div class="form-group">
-                      <div class="alert" *ngIf="tenantexist">
+                      <div class="alert" *ngIf="tenantnotexist">
                           Oops,That Tenant id doesnt exist
                       </div>
                     <input pInputText type="text" placeholder="Organization ID" class="form-control" [ngModel]="orgaddress" (ngModelChange)="onchangeorgid($event)"
@@ -226,9 +226,9 @@
                       </tr>
                     </table>
                   </div>
-                  <div class="ui-g-6 ">
-                    <button pButton type="submit" class="form-control" label="Skip this step " (click)="skipSerivceConfigurations()"></button>
-                  </div>
+                  <!-- <div class="ui-g-6 ">
+                    <button pButton  class="form-control" label="Skip this step " (click)="skipSerivceConfigurations()"></button>
+                  </div> -->
                   <div class="ui-g-6 ">
                     <button pButton type="submit" class="form-control" label="Finish Setup! "></button>
                   </div>
@@ -237,6 +237,9 @@
                 </div>
               </div>
             </form>
+            <div class="ui-g-6 ">
+                <button pButton  class="form-control" label="Skip this step " (click)="skipSerivceConfigurations()"></button>
+              </div>
           </div>
 
           <div *ngIf="stage5">

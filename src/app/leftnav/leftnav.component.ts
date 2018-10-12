@@ -10,7 +10,7 @@ import { DashboardDetails } from '../models/dashboardDetails';
   selector: 'app-leftnav',
   templateUrl: './leftnav.component.html',
   styleUrls: ['./leftnav.component.scss'],
-  providers: [DashboardLinks]
+  providers: [DashboardLinks, UserService]
 })
 export class LeftnavComponent implements OnInit {
   public disabled: boolean = false;
@@ -26,6 +26,9 @@ export class LeftnavComponent implements OnInit {
   public profileManager: boolean = false;
   public inputSourceManager: boolean = false;
   userObservable = [];
+  userTypes = [];
+  loguserTypes = [];
+  perobj = [];
   userAccountData: {};
   userDetails: UserDetails = {
     userType: {
@@ -68,7 +71,7 @@ export class LeftnavComponent implements OnInit {
     }
   }
 
-  constructor(private dboardlinks: DashboardLinks) {
+  constructor(private dboardlinks: DashboardLinks, private userService: UserService) {
 
   }
 
@@ -78,21 +81,26 @@ export class LeftnavComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.cdashboard = [];
     this.valueis = true;
-    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
-      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
-      this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
-      this.tenant_id = this.userDetails.tenantId.toString();
-    }
-    console.log("tenantid leftnavigation "+ this.tenant_id )
-    this.dboardlinks.getDashboardLinks(this.tenant_id).subscribe(res => {
-      for (var msg of res['message']) {
-        if(msg.active ==true)
-        this.cdashboard.push({ "topic": msg.topic, "link": msg.link })
-      }
-    });
+
+      this.userService.getUserById().subscribe(res => { 
+        console.log(res.message[0].userType)
+        this.userDetails.userType = res.message[0].userType;
+        this.perobj = Object.keys(this.userDetails.userType)
+
+        for (var i = 0; i < this.perobj.length; i++) {
+          console.log(this.userDetails.userType[this.perobj[i]])
+          if (this.userDetails.userType[this.perobj[i]] == true) {
+            this.loguserTypes.push(this.perobj[i])
+          }
+        }
+
+        this.dboardlinks.getDashboardLinksByPermission(this.loguserTypes).subscribe(res => {
+          for (var msg of res['message']) {
+            this.cdashboard.push({ "topic": msg.topic, "link": msg.link })
+          }
+        });
 
 
     this.userObservable == [1, 2, 3, 4]
@@ -109,6 +117,7 @@ export class LeftnavComponent implements OnInit {
       this.manager = true;
 
     }
+  });
 
 
   }

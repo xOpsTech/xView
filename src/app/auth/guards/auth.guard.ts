@@ -9,21 +9,23 @@ export class AuthGuard implements CanActivate {
   constructor(
     private auth: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
     // redirect and return false
-      if (localStorage.getItem('token')) {
-            // logged in so return true
-            return true;
-        }
-       
-        // not logged in so redirect to login page with the return url
-       this.router.navigate(['/login']);
+    if (localStorage.getItem('token')) {
+      // logged in so return true
+      return true;
+    }
+    else if (localStorage.getItem('userDetails') != null || localStorage.getItem('userDetails') != "undefined") {
+      return true;
+    }
+    // not logged in so redirect to login page with the return url
+    this.router.navigate(['/login']);
 
-        return false;
+    return false;
   }
 }
