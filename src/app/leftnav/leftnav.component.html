@@ -21,7 +21,7 @@
       <li class="nav-item nav-dropdown open">
 
 
-        <a class="nav-link nav-dropdown-toggle" routerLinkActive="active" [routerLink]="['/kibanaadmin']">
+        <a class="nav-link nav-dropdown-toggle" routerLinkActive="active" [routerLink]="['/custom']" [queryParams]="{link: customlink}">
           <i class="material-icons">dashboard</i> Custom</a>
 
         <ul *ngFor="let touple of cdashboard" class="nav-dropdown-items">
@@ -67,6 +67,19 @@
           <li class="nav-item">
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/kibana']"><i class="material-icons">dashboard</i>Dashboard</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/alertsources']"><i class="material-icons">dashboard</i>Alert Sources</a>
+            </li>
+          
+                <li class="nav-item nav-dropdown open">
+                  <a class="nav-link nav-dropdown-toggle" routerLinkActive="active"> <i class="material-icons">donut_small</i>Kibana</a>
+                  <ul class="nav-dropdown-items" >
+                    <li class="nav-item">
+                      <a class="nav-link" routerLinkActive="active" [routerLink]="['/kibanaadmin']">  <i class="material-icons">link</i>Custom Dashboard</a>
+                    </li>
+                  </ul>
+                </li>
+             
         </ul>
       </li>
       <!-- <li class="nav-item nav-dropdown">
