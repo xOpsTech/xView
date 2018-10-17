@@ -77,10 +77,10 @@ export class LeftnavComponent implements OnInit {
 
   onMain: Boolean;
 
-
+  customlink = ""
 
   ngOnInit() {
-
+    this.customlink= "http://elastic.xops.it:5601/app/kibana#/dashboard/6300a4b0-bc8c-11e8-a9b2-0772b75a29a0?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(description:'',filters:!(),fullScreenMode:!t,options:(darkTheme:!f,hidePanelTitles:!f,useMargins:!t),panels:!((gridData:(h:3,i:'1',w:6,x:0,y:0),id:e4e662e0-bc8b-11e8-a9b2-0772b75a29a0,panelIndex:'1',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'2',w:6,x:6,y:0),id:'3ae15790-bc8c-11e8-a9b2-0772b75a29a0',panelIndex:'2',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'3',w:6,x:0,y:3),id:b46a6590-bc99-11e8-a9b2-0772b75a29a0,panelIndex:'3',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'4',w:6,x:6,y:3),id:c0fd5980-bc98-11e8-a9b2-0772b75a29a0,panelIndex:'4',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'5',w:6,x:0,y:6),id:a28857f0-bc9a-11e8-a9b2-0772b75a29a0,panelIndex:'5',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'7',w:6,x:6,y:6),id:'23725100-bc9a-11e8-a9b2-0772b75a29a0',panelIndex:'7',type:visualization,version:'6.2.3')),query:(language:lucene,query:''),timeRestore:!f,title:Custom_dashboard,viewMode:view)"
     this.cdashboard = [];
     this.valueis = true;
 
