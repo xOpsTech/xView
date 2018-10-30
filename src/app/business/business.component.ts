@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../services/alert.service';
 import { UserService } from '../services/user.service';
 import { PerfIndicatorService } from '../services/perf-indicator.service';
-import { CircleProgressComponent } from '../../shared/circle-progress.component';
+import { CircleProgressComponent } from 'shared/circle-progress.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TenantService, } from '../services/tenant.service';

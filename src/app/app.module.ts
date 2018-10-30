@@ -71,6 +71,8 @@ import { TechMapComponent } from './business-insights/tech-map/tech-map.componen
 import { IntroComponent } from './intro/intro.component';
 import { KibanaBoardsComponent } from './kibana-boards/kibana-boards.component';
 import { KibanaAdminComponent } from './kibana-admin/kibana-admin.component';
+import { AlertingtoolsComponent } from './alertingtools/alertingtools.component';
+
 
 
 
@@ -132,6 +134,7 @@ export function provideConfig() {
     IntroComponent,
     KibanaBoardsComponent,
     KibanaAdminComponent,
+    AlertingtoolsComponent,
   ],
 
 
@@ -191,6 +194,10 @@ export function provideConfig() {
           {
             path: 'dashboard',
             component: DashboardComponent
+          },
+          {
+            path: 'alertsources',
+            component: AlertingtoolsComponent
           },
           {
             path: 'map',

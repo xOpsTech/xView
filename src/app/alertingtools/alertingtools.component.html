@@ -1,0 +1,127 @@
+<div class="wrapper">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-messages [(value)]="msgs"></p-messages>
+
+      <p-growl [value]="msgs2"></p-growl>
+
+      <p-confirmDialog></p-confirmDialog>
+      <h3>Add Alerting Tools</h3>
+    </div>
+
+    <div class="ui-g-9">
+      <p-dropdown [options]="services" id="servicename" (onChange)="onAlertSourceSelect($event.value)" [autoWidth]="true" [(ngModel)]="selectedAlertSource">
+      </p-dropdown>
+    </div>
+    <p-messages [(value)]="alert_tool_exists_msg"></p-messages>
+    <div *ngIf="selectedAlertSource=='Select'">
+    </div>
+    <div class="ui-g-6">
+      <!-- Twitter -->
+      <form #emailConfigForm="ngForm" (ngSubmit)="addAlertingToolEmail(emailConfigForm.value)">
+        <div *ngIf="selectedAlertSource=='email'">
+
+
+          <div class="ui-g-3">
+            <label>Email Address</label>
+          </div>
+          <div class="ui-g-9">
+            <input type="text" pInputText [(ngModel)]="emailAddress" placeholder="Email Address" name="emailaddress" class="form-control"
+            />
+          </div>
+          <div class="ui-g-3">
+            <label>SMTP Server</label>
+          </div>
+          <div class="ui-g-9">
+            <input type="text" pInputText [(ngModel)]="smtpServer" placeholder="SMTP" name="smtpserver" class="form-control" />
+          </div>
+          <div *ngIf="submitbutton">
+            <div class="ui-g-12 ">
+              <button pButton type="submit" class="form-control" label="Submit"></button>
+            </div>
+          </div>
+          <div *ngIf="editbuttons">
+            <div class="ui-g-6 ">
+              <input type="button" class="btn btn-info" (click)="editTool(emailConfigForm.value)" value="Edit" />
+            </div>
+            <div class="ui-g-6">
+              <input type="button" class="btn btn-danger" (click)="deleteTool('email')" value="Delete" />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="ui-g-6"></div>
+
+    <div class="ui-g-6">
+      <!-- ServiceNow -->
+      <form #pagerDutyConfigForm="ngForm" (ngSubmit)="addAlertingToolPagerduty(pagerDutyConfigForm.value)">
+        <div *ngIf="selectedAlertSource=='pagerduty'">
+        
+          <div class="ui-g-3">
+            <label>Service Key</label>
+          </div>
+          <div class="ui-g-9">
+            <input type="text" pInputText [(ngModel)]="pagerDutyServiceKey" placeholder="Service Key" name="pagerdutyservicekey" class="form-control"
+            />
+          </div>
+          <div class="ui-g-3">
+            <label>Client name</label>
+          </div>
+          <div class="ui-g-9">
+            <input type="text " pInputText [(ngModel)]="pagerDutyClientName" placeholder="Pager Duty Client Name" name="pagerdutyclientname"
+              class="form-control" />
+          </div>
+          <div class="ui-g-3">
+            <label>Incident Key</label>
+          </div>
+          <div class="ui-g-9">
+            <input type="text " pInputText [(ngModel)]="pagerDutyIncidentKey" placeholder="Pager Duty Incident Key" name="pagerdutyincidentkey"
+              class="form-control" />
+          </div>
+          <div class="ui-g-3">
+            <label>Key Argument 1</label>
+          </div>
+          <div class="ui-g-9">
+            <input type="text " pInputText [(ngModel)]="incKeyArgs1" placeholder="Key Argument 1" name="inckeyargs1" class="form-control"
+            />
+          </div>
+          <div class="ui-g-3">
+            <label>Key Argument 2</label>
+          </div>
+          <div class="ui-g-9">
+            <input type="password " pInputText [(ngModel)]="incKeyArgs2" placeholder="Key Argument 2" name="inckeyargs2" class="form-control"
+            />
+          </div>
+          <div *ngIf="submitbutton">
+          <div class="ui-g-12 ">
+            <button pButton type="submit" class="form-control" label="Submit"></button>
+          </div>
+        </div>
+        <div *ngIf="editbuttons">
+            <div class="ui-g-6 ">
+              <input type="button" class="btn btn-info" (click)="editTool(pagerDutyConfigForm.value)" value="Edit" />
+            </div>
+       
+        
+            <div class="ui-g-6">
+              <input type="button" class="btn btn-danger" (click)="deleteTool('pagerduty')" value="Delete" />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<p-dialog [(visible)]="display_logs" modal="modal" width="600" [responsive]="true">
+  <p-header closable="true">
+
+  </p-header>
+
+</p-dialog>
