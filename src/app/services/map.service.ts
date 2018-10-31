@@ -3,7 +3,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import { config } from '../config/config';
-import { UserService, } from '../services/user.service';
+import { UserService, } from './user.service';
 import { OnInit } from '@angular/core';
 
 @Injectable()

@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../services/alert.service';
 import { UserService } from '../services/user.service';
 import { PerfIndicatorService } from '../services/perf-indicator.service';
-import { CircleProgressComponent } from '../../shared/circle-progress.component';
+import { CircleProgressComponent } from 'shared/circle-progress.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TenantService, } from '../services/tenant.service';
 import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { SelectItem } from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
-import { Server, Cloud, Application, Storage, Database } from '../business-insights/Server';
+import { Server, Cloud, Application, Storage, Database } from './Server';
 import { TechInsightsService } from '../services/techinsights.service'
 import {Observable} from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { indicaters } from '../health/indicaters';
+import { indicaters } from './indicaters';
 import { DataGridModule } from 'primeng/primeng';
-import { items } from '../health/items';
+import { items } from './items';
 
 @Component({
   selector: 'app-health',
