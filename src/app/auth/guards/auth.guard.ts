@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
     // redirect and return false
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token')!=null) {
       // logged in so return true
       return true;
     }

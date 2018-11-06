@@ -30,6 +30,7 @@ export class XviewTemplateComponent implements OnInit {
 
   }
   ngOnInit() {
+    
     if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !==null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
       this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
