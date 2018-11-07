@@ -35,12 +35,12 @@
           <div class="ui-g-9">
             <input type="text" pInputText [(ngModel)]="smtpServer" placeholder="SMTP" name="smtpserver" class="form-control" />
           </div>
-          <div *ngIf="submitbutton">
+          <div *ngIf="submitbuttonem">
             <div class="ui-g-12 ">
               <button pButton type="submit" class="form-control" label="Submit"></button>
             </div>
           </div>
-          <div *ngIf="editbuttons">
+          <div *ngIf="editbuttonsem">
             <div class="ui-g-6 ">
               <input type="button" class="btn btn-info" (click)="editTool(emailConfigForm.value)" value="Edit" />
             </div>
@@ -73,33 +73,13 @@
             <input type="text " pInputText [(ngModel)]="pagerDutyClientName" placeholder="Pager Duty Client Name" name="pagerdutyclientname"
               class="form-control" />
           </div>
-          <div class="ui-g-3">
-            <label>Incident Key</label>
-          </div>
-          <div class="ui-g-9">
-            <input type="text " pInputText [(ngModel)]="pagerDutyIncidentKey" placeholder="Pager Duty Incident Key" name="pagerdutyincidentkey"
-              class="form-control" />
-          </div>
-          <div class="ui-g-3">
-            <label>Key Argument 1</label>
-          </div>
-          <div class="ui-g-9">
-            <input type="text " pInputText [(ngModel)]="incKeyArgs1" placeholder="Key Argument 1" name="inckeyargs1" class="form-control"
-            />
-          </div>
-          <div class="ui-g-3">
-            <label>Key Argument 2</label>
-          </div>
-          <div class="ui-g-9">
-            <input type="password " pInputText [(ngModel)]="incKeyArgs2" placeholder="Key Argument 2" name="inckeyargs2" class="form-control"
-            />
-          </div>
-          <div *ngIf="submitbutton">
+         
+          <div *ngIf="submitbuttonpd">
           <div class="ui-g-12 ">
             <button pButton type="submit" class="form-control" label="Submit"></button>
           </div>
         </div>
-        <div *ngIf="editbuttons">
+        <div *ngIf="editbuttonspd">
             <div class="ui-g-6 ">
               <input type="button" class="btn btn-info" (click)="editTool(pagerDutyConfigForm.value)" value="Edit" />
             </div>

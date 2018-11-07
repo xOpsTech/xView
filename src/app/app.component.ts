@@ -20,17 +20,17 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
 
    
-    this.userAccountData = this.userService.getUserData().subscribe(res => {
-      console.log(res);
+    // this.userAccountData = this.userService.getUserData().subscribe(res => {
+    //   console.log(res);
 
-      this.userType=res.data[0].userType;
+    //   this.userType=res.data[0].userType;
 
-      console.log(this.userType)
+    //   console.log(this.userType)
 
-      this.userManager=this.userType.userManager;
+    //   this.userManager=this.userType.userManager;
 
 
-    });
+    // });
   }
 }
 

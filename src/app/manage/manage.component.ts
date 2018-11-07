@@ -1,20 +1,17 @@
-import { StepsModule, MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
-import { EmailValidator } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
-import { PasswordValidation } from '../signup/passwordvalidation';
-import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+
 import { SignupService } from '../services/signup.service';
 import { UserService } from '../services/user.service';
 import { TenantService } from '../services/tenant.service';
-import { DialogModule } from 'primeng/primeng';
+
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations'
 import { config } from '../config/config';
-import { ToggleButtonModule } from 'primeng/primeng';
+
 
 @Component({
   selector: 'app-manage',
@@ -120,10 +117,22 @@ export class ManageComponent implements OnInit {
   hostip = config.elasticsearchurl;
   ngOnInit() {
 
+    this.services = [];
+    this.services.push({ label: 'Select Services--', value: 'Select' });
+    this.services.push({ label: 'Twitter', value: 'twitter' });
+    this.services.push({ label: 'ServiceNow', value: 'servicenow' });
+    this.services.push({ label: 'New relic', value: 'newrelic' });
+    this.services.push({ label: 'Log Configs', value: 'logconfs' });
+
+
     this.userService.getUserById().subscribe(res => {
-      console.log(res);
       this.tenant_id = res.message[0].tenantId;
       this.email = res.message[0].id;
+      this.log_path1 = "/opt/elasticsearch-5.5.0/logs/*.log";
+      this.log_path2 = "/var/log/*.log";
+      this.logindex = this.tenant_id + "%{" + this.getTodaysDate() + "}";
+      this.hosts = "['" + this.hostip + "']";
+    });
 
       this.tenantService.getTenantDetails().subscribe(res2 => {
         for (var service of res2["message"][0].services) {
@@ -131,19 +140,7 @@ export class ManageComponent implements OnInit {
         }
       });
 
-      this.services = [];
-      this.services.push({ label: 'Select Services--', value: 'Select' });
-      this.services.push({ label: 'Twitter', value: 'twitter' });
-      this.services.push({ label: 'ServiceNow', value: 'servicenow' });
-      this.services.push({ label: 'New relic', value: 'newrelic' });
-      this.services.push({ label: 'Log Configs', value: 'logconfs' });
-
-
-      this.log_path1 = "/opt/elasticsearch-5.5.0/logs/*.log";
-      this.log_path2 = "/var/log/*.log";
-      this.logindex = this.tenant_id + "%{" + this.getTodaysDate() + "}";
-      this.hosts = "['" + this.hostip + "']";
-    });
+  
   }
 
   showDialog(selectedServiceObj) {

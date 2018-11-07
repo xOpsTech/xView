@@ -47,11 +47,12 @@ export class AlertingtoolsComponent implements OnInit {
   incKeyArgs1 = "";
   incKeyArgs2 = "";
 
-  existingtenantData = {
+  existingtenantDataEmail = {
     email: [],
+  };
+  existingtenantDataPagerduty = {
     pagerduty: []
   };
-
   updatingTenantData = {
 
   };
@@ -82,8 +83,10 @@ export class AlertingtoolsComponent implements OnInit {
   log_path1 = ""
   log_path2 = ""
   hosts = "";
-  submitbutton = true;
-  editbuttons = false;
+  submitbuttonpd = true;
+  editbuttonspd = false;
+  submitbuttonem = true;
+  editbuttonsem = false;
   alertkessonexistornot = ""
   day: any;
   month: any;
@@ -124,13 +127,13 @@ export class AlertingtoolsComponent implements OnInit {
       this.selectedAlertSource = 'email';
       this.tenantService.getTenantDetails().subscribe(res => {
         console.log(res.message[0]["email"])
-        if (res.message[0]["email"] != undefined || res.message[0]["email"] != null) {
+        if (res.message[0]["email"] != undefined) {
           this.msgs = [];
           this.msgs.push({ severity: 'warn', summary: 'Warn Message', detail: 'Email Already Configured' });
           this.emailAddress = res.message[0]["email"].emailaddress;
           this.smtpServer = res.message[0]["email"].smtpserver;
-          this.submitbutton = false;
-          this.editbuttons = true;
+          this.submitbuttonem = false;
+          this.editbuttonsem = true;
         }
 
 
@@ -143,16 +146,13 @@ export class AlertingtoolsComponent implements OnInit {
       this.selectedAlertSource = 'pagerduty';
       this.tenantService.getTenantDetails().subscribe(res => {
         console.log(res.message[0]["pagerduty"])
-        if (res.message[0]["pagerduty"] != undefined || res.message[0]["pagerduty"] != null) {
+        if (res.message[0]["pagerduty"] != undefined) {
           this.msgs = [];
           this.msgs.push({ severity: 'warn', summary: 'Warn Message', detail: 'PagerDuty Already Configured' });
           this.pagerDutyServiceKey = res.message[0]["pagerduty"].pagerdutyservicekey;
           this.pagerDutyClientName = res.message[0]["pagerduty"].pagerdutyclientname;
-          this.pagerDutyIncidentKey = res.message[0]["pagerduty"].pagerdutyincidentkey;
-          this.incKeyArgs1 = res.message[0]["pagerduty"].inckeyargs1;
-          this.incKeyArgs2 = res.message[0]["pagerduty"].inckeyargs2;
-          this.submitbutton = false;
-          this.editbuttons = true;
+          this.submitbuttonpd = false;
+          this.editbuttonspd = true;
         }
       });
 
@@ -214,13 +214,13 @@ export class AlertingtoolsComponent implements OnInit {
 
   addAlertingToolEmail(service) {
     service.alerttool = "email"
-    this.existingtenantData.email = [];
-    this.existingtenantData.email = service;
-    console.log(this.existingtenantData.email)
+    this.existingtenantDataEmail.email = [];
+    this.existingtenantDataEmail.email = service;
+    console.log(this.existingtenantDataEmail.email)
 
-    this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
+    this.signupService.updateTenant(this.tenant_id, this.existingtenantDataEmail)
       .subscribe(res2 => {
-        this.tenantService.createElastAlertEmail(this.tenant_id, this.existingtenantData).subscribe(res3 => {
+        this.tenantService.createElastAlertEmail(this.tenant_id, this.existingtenantDataEmail).subscribe(res3 => {
 
           this.showSuccess();
           window.location.reload();
@@ -230,12 +230,12 @@ export class AlertingtoolsComponent implements OnInit {
   }
   addAlertingToolPagerduty(service) {
     service.alerttool = "pagerduty"
-    this.existingtenantData.pagerduty = [];
-    this.existingtenantData.pagerduty = service;
+    this.existingtenantDataPagerduty.pagerduty = [];
+    this.existingtenantDataPagerduty.pagerduty = service;
 
-    this.signupService.updateTenant(this.tenant_id, this.existingtenantData)
+    this.signupService.updateTenant(this.tenant_id, this.existingtenantDataPagerduty)
       .subscribe(res2 => {
-        this.tenantService.createElastAlertPagerduty(this.tenant_id, this.existingtenantData).subscribe(res3 => {
+        this.tenantService.createElastAlertPagerduty(this.tenant_id, this.existingtenantDataPagerduty).subscribe(res3 => {
 
           this.showSuccess();
           window.location.reload();

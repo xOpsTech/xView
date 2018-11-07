@@ -6,13 +6,13 @@
     </div>
     <div class="head-alerts pullright">
       <ul>
-        <li style="background-color: darkgreen">
-          <div class="count">0</div>
-          <div class="label">Business<br/>Alerts</div>
+        <li style="background-color: rgb(235, 171, 35)">
+          <div class="count">{{alert_counts.severity_stats.warning}}</div>
+          <div class="label">Warning<br/>Alerts</div>
         </li>
         <li>
-          <div class="count">2</div>
-          <div class="label">Technical<br/>Alerts</div>
+          <div class="count">{{alert_counts.severity_stats.critical}}</div>
+          <div class="label">Critical<br/>Alerts</div>
         </li>
       </ul>
     </div>
