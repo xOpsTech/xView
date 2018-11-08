@@ -43,7 +43,7 @@ export class TechInsightsService {
   }
 
   getApplicationDetails(): Observable<Application[]> {
-    return this.http.get(config.XOPSAPI + '/tech/applications/')
+    return this.http.get(config.XOPSAPI + '/tech/applications')
       .map(res => {
         console.log(res.json())
         return res.json().Applications.map(ApplicationD => {
@@ -59,7 +59,7 @@ export class TechInsightsService {
 
   getStorageDetails(): Observable<Storage[]> {
 
-    return this.http.get(config.XOPSAPI + '/tech/storage/')
+    return this.http.get(config.XOPSAPI + '/tech/storage')
       .map(res => {
         console.log(res.json())
         return res.json().Storages.map(StorageD => {
@@ -75,7 +75,7 @@ export class TechInsightsService {
 
   getDatabaseDetails(): Observable<Database[]> {
 
-    return this.http.get(config.XOPSAPI + '/tech/databases/')
+    return this.http.get(config.XOPSAPI + '/tech/databases')
       .map(res => {
         console.log(res.json())
         return res.json().Databases.map(DatabaseD => {

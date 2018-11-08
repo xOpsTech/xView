@@ -11,7 +11,7 @@ import { SelectItem } from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
 import { Server, Cloud, Application, Storage, Database } from './Server';
 import { TechInsightsService } from '../services/techinsights.service'
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-business-insights',
@@ -22,53 +22,53 @@ import {Observable} from 'rxjs';
 
 export class BusinessInsightsComponent implements OnInit {
 
-  private serverData: Observable<Server[]>
+  private serverData: Server[];
   private cloudData: Cloud[];
   private applicationData: Application[];
   private storageData: Storage[];
   private databaseData: Database[];
   constructor(private techInsightsService: TechInsightsService) {
   }
-  fireEvent(server){
+  fireEvent(server) {
     console.log(server);
     var popup = document.getElementById(server.name);
     popup.classList.toggle("show");
     popup.innerHTML = server.name + " " + server.strength + " " + server.color;
   }
 
-  Applications = [new Application('Application 01', 1, 'amber'),
-  new Application('Application 02', 2, 'green'),
-  new Application('Application 03', 3, 'green'),
-  new Application('Application 03', 3, 'green'),
-  new Application('Application 04', 4, 'red')];
+  // Applications = [new Application('Application 01', 1, 'amber'),
+  // new Application('Application 02', 2, 'green'),
+  // new Application('Application 03', 3, 'green'),
+  // new Application('Application 03', 3, 'green'),
+  // new Application('Application 04', 4, 'red')];
 
-  Storages = [new Storage('Storage 01', 1, 'green'),
-  new Storage('Storage 02', 2, 'amber'),
-  new Storage('Storage 03', 3, 'green'),
-  new Storage('Storage 03', 3, 'green'),
-  new Storage('Storage 04', 4, 'green'),
-  new Storage('Storage 03', 3, 'green'),
-  new Storage('Storage 03', 3, 'red'),
-  new Storage('Storage 04', 4, 'green')];
+  // Storages = [new Storage('Storage 01', 1, 'green'),
+  // new Storage('Storage 02', 2, 'amber'),
+  // new Storage('Storage 03', 3, 'green'),
+  // new Storage('Storage 03', 3, 'green'),
+  // new Storage('Storage 04', 4, 'green'),
+  // new Storage('Storage 03', 3, 'green'),
+  // new Storage('Storage 03', 3, 'red'),
+  // new Storage('Storage 04', 4, 'green')];
 
-  Databases = [new Database('Database 01', 1, 'green'),
-  new Database('Database 02', 2, 'amber'),
-  new Database('Database 03', 3, 'green'),
-  new Database('Database 03', 3, 'green'),
-  new Database('Database 04', 4, 'green'),
-  new Database('Database 03', 3, 'green'),
-  new Database('Database 03', 3, 'green'),
-  new Database('Database 01', 1, 'green'),
-  new Database('Database 02', 2, 'green'),
-  new Database('Database 03', 3, 'green'),
-  new Database('Database 03', 3, 'green'),
-  new Database('Database 04', 4, 'green'),
-  new Database('Database 03', 3, 'green'),
-  new Database('Database 03', 3, 'red'),
-  new Database('Database 04', 4, 'green'),
-  new Database('Database 03', 3, 'green'),
-  new Database('Database 03', 3, 'amber'),
-  new Database('Database 04', 4, 'green')];
+  // Databases = [new Database('Database 01', 1, 'green'),
+  // new Database('Database 02', 2, 'amber'),
+  // new Database('Database 03', 3, 'green'),
+  // new Database('Database 03', 3, 'green'),
+  // new Database('Database 04', 4, 'green'),
+  // new Database('Database 03', 3, 'green'),
+  // new Database('Database 03', 3, 'green'),
+  // new Database('Database 01', 1, 'green'),
+  // new Database('Database 02', 2, 'green'),
+  // new Database('Database 03', 3, 'green'),
+  // new Database('Database 03', 3, 'green'),
+  // new Database('Database 04', 4, 'green'),
+  // new Database('Database 03', 3, 'green'),
+  // new Database('Database 03', 3, 'red'),
+  // new Database('Database 04', 4, 'green'),
+  // new Database('Database 03', 3, 'green'),
+  // new Database('Database 03', 3, 'amber'),
+  // new Database('Database 04', 4, 'green')];
 
 
 
@@ -77,21 +77,30 @@ export class BusinessInsightsComponent implements OnInit {
     // this.techInsightsService.getServerDetails().subscribe(serverData => {
     //   this.serverData = this.techInsightsService.getServerDetails()
     // });
-    this.serverData =this.techInsightsService.getServerDetails();
+
+    this.techInsightsService.getCloudDetails().subscribe(serverData => {
+      this.serverData = serverData;
+      err => console.error('serverData got an error: ' + err)
+    });
+
     this.techInsightsService.getCloudDetails().subscribe(cloudData => {
-      this.cloudData = cloudData
+      this.cloudData = cloudData,
+        err => console.error('cloudData got an error: ' + err)
     });
 
     this.techInsightsService.getApplicationDetails().subscribe(applicationData => {
-      this.applicationData = applicationData
+      this.applicationData = applicationData,
+        err => console.error('applicationData got an error: ' + err)
     });
 
     this.techInsightsService.getStorageDetails().subscribe(storageData => {
-      this.storageData = storageData
+      this.storageData = storageData,
+        err => console.error('storageData got an error: ' + err)
     });
 
     this.techInsightsService.getDatabaseDetails().subscribe(databaseData => {
-      this.databaseData = databaseData
+      this.databaseData = databaseData,
+        err => console.error('databaseData got an error: ' + err)
     });
   }
 

@@ -10,7 +10,7 @@ export class PerfIndicatorService {
   constructor(private http: Http) { }
 
   getPerfIndicators(tenantID) {
-    return this.http.get(config.XOPSAPI + '/health_configs/configs/xtenant'+tenantID)
+    return this.http.get(config.XOPSAPI + '/health_configs/configs/'+tenantID)
       .map((res: Response) => res.json())
   
   } 
