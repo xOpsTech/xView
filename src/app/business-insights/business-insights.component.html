@@ -1,244 +1,116 @@
 <div class="row row-eq-height">
   <div class="col-md-12 widget">
     <div class="widget-wrapper map">
-   <app-map></app-map>
+      <app-map></app-map>
     </div>
   </div>
 </div>
 
-
-<!--------------------row 1-------------------------->
 <div class="row row-eq-height">
   <div class="ui-g-12 widget">
-  
-   
-  <!--------------------server-------------------------->
-  <div class="ui-g-6">
-    <div class="widget-wrapper">
-      <div class="row">
-       
+    <div class="ui-g-6">
+      <div class="widget-wrapper">
+        <div class="row">
+
           <div class="ui-g-11" style="margin-top: -14px; font-weight: bold; padding-left: 16px;">Server
 
             <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
-              <div *ngFor="let server of serverData | async">
-               
-              <div class="gridy" style="text-align:center">
-                        
-                    <div>
-                      <div class = "popup" > <span class="popuptext" [id]="server.name"></span> </div>
-                      <div (mouseenter) = "fireEvent(server)" (mouseleave) = "fireEvent(server)"[ngClass]="server.color == 'green' ? 'g-circle'  :server.color == 'red' ? 'r-circle' : 'o-circle' ">
-                        
-                      </div>
-                      </div> 
+              <div *ngFor="let server of serverData">
+
+                <div class="gridy" style="text-align:center">
+
+                  <div>
+                    <div class="popup">
+                      <span class="popuptext" [id]="server.name"></span>
                     </div>
-                </div>
-          </div>
-          </div>
-        <div class="ui-g-1" style="padding: 0; margin-top: -8px">
-        <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px; margin-top: 2px" (click)="confirm()"></i>
-     </div>
-        
-      </div>
-      
-    </div>
-  </div>
+                    <div (mouseenter)="fireEvent(server)" (mouseleave)="fireEvent(server)" [ngClass]="server.color == 'green' ? 'g-circle'  :server.color == 'red' ? 'r-circle' : 'o-circle' ">
 
-
-  <!--------------------Cloud-------------------------->
-  <div class="ui-g-6">
-    <div class="widget-wrapper">
-      <div class="row">
-       
-          <div class="ui-g-11" style="margin-top: -14px; padding-left: 16px;"><Strong>Cloud</Strong>
-
-            <div class="servers" style="margin-top:10px; overflow:auto; height: 150px;">
-              <div *ngFor="let cloud of cloudData">
-               
-                <div class="ui-g-8" style="margin-top: 3px; padding-left: 46px">
-                  <p style="margin-bottom: 0;">{{cloud.name}}</p>
-                </div>  
-                <div class="ui-g-4">
-                   
-                  <div [ngClass]="cloud.color == 'green' ? 'g-circle'  :cloud.color == 'red' ? 'r-circle' : 'o-circle' ">
-                  </div>   
-            
+                    </div>
                   </div>
                 </div>
-          </div>
-          </div>
-        <div class="ui-g-1" style="padding: 0; margin-top: -8px">
-        <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px;margin-top: 2px" (click)="confirm()"></i>
-     </div>
-        
-      </div>
-      
-    </div>
-  </div>
-
-
-  
-
-  </div>
-</div>
-
-
-<!--------------------row 2-------------------------->
-<div class="row row-eq-height">
-  <div class="ui-g-12 widget">
-  
-   
-  <!--------------------Network-------------------------->
-  <div class="ui-g-6">
-    <div class="widget-wrapper">
-      <div class="row">
-       
-          <div class="ui-g-11" style="margin-top: -9px; font-weight: bold; padding-left: 16px;">Network
-
-            <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
-
-                <app-tech-map></app-tech-map>
-               
-            <!--<div *ngFor="let server of servers">
-                 
-               
-                 <!-- <div class="gridy" style="text-align:center">
-                         
-                    <div *ngIf="server.strenth > 0 && server.strenth <= 35; else second">
-                      <div class="r-circle">
-                      </div>
-                      </div> 
-                      <ng-template #second>
-                        <div *ngIf="server.strenth > 35 && server.strenth <= 65; else third">
-                          <div class="o-circle">
-                          </div>
-                       </div>   
-                     </ng-template> 
-                     <ng-template #third>
-                        <div *ngIf="server.strenth > 66; else forth">
-                          <div class="g-circle">
-                          </div>
-                      </div>
-                     </ng-template> 
-                    </div> 
-
-                </div>-->
-          </div>
-          </div>
-        <div class="ui-g-1" style="padding: 0; margin-top: -8px">
-        <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px;margin-top: 2px" (click)="confirm()"></i>
-     </div>
-        
-      </div>
-      
-    </div>
-  </div>
-
-
-  <!--------------------Application-------------------------->
-  <div class="ui-g-6">
-    <div class="widget-wrapper">
-      <div class="row">
-       
-          <div class="ui-g-11" style="margin-top: -9px; padding-left: 16px;"><Strong>Application</Strong>
-
-            <div class="servers" style="margin-top:10px; overflow:auto; height: 150px;">
-              <div *ngFor="let application of applicationData">
-               
-                <div class="ui-g-8" style="margin-top: 3px; padding-left: 46px">
-                  <p style="margin-bottom: 0;">{{application.name}}</p>
-                </div>  
-                <div class="ui-g-4">
-                         
-                  <div [ngClass]="application.color == 'green' ? 'g-circle'  :application.color == 'red' ? 'r-circle' : 'o-circle' ">
-                  </div>       
-            
-                  </div>
-                </div>
-          </div>
-          </div>
-        <div class="ui-g-1" style="padding: 0; margin-top: -8px">
-        <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px;margin-top: 2px" (click)="confirm()"></i>
-     </div>
-        
-      </div>
-      
-    </div>
-  </div>
-
-
-  
-
-  </div>
-</div>
-
-<!--------------------row 3-------------------------->
-<div class="row row-eq-height">
-  <div class="ui-g-12 widget">
-  
-   
-  <!--------------------Storage-------------------------->
-  <div class="ui-g-6">
-    <div class="widget-wrapper">
-      <div class="row">
-       
-          <div class="ui-g-11" style="margin-top: -14px; font-weight: bold; padding-left: 16px;">Storage
-           
-            <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
-            <div *ngFor="let storage of storageData">
-             
-            <div class="ui-g-3" style="text-align:center">
-                       
-                  
-                    <i class="fa fa-list" style="font-size:48px;" [ngStyle]="storage.color == 'red' ? {'color' : 'red'} : storage.color == 'green' ? {'color' : 'green'} : {'color' : 'orange'}">
-                    </i>
-                   
-                  </div>
               </div>
-        </div>
-
+            </div>
           </div>
-        <div class="ui-g-1" style="padding: 0; margin-top: -8px">
-        <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px; margin-top: 2px" (click)="confirm()"></i>
-     </div>
-        
+          <div class="ui-g-1" style="padding: 0; margin-top: -8px">
+            <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px; margin-top: 2px" (click)="confirm()"></i>
+          </div>
+        </div>
       </div>
-      
     </div>
-  </div>
 
 
-   <!--------------------Database-------------------------->
-   <div class="ui-g-6">
+    <div class="ui-g-6">
       <div class="widget-wrapper">
         <div class="row">
-         
-            <div class="ui-g-11" style="margin-top: -14px; font-weight: bold; padding-left: 16px;">Database
-             
-              <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
-              <div *ngFor="let database of databaseData">
-               
-              <div class="ui-g-2" style="text-align:center">
-                         
-                    
-                      <i class="fa fa-database" style="font-size:35px;" [ngStyle]="database.color == 'red' ? {'color' : 'red'} : database.color == 'green' ? {'color' : 'green'} : {'color' : 'orange'}">
-                      </i>
-                      
-                    </div>
+          <div class="ui-g-11" style="margin-top: -14px; padding-left: 16px;">
+            <Strong>Cloud</Strong>
+            <div class="servers" style="margin-top:10px; overflow:auto; height: 150px;">
+              <div *ngFor="let cloud of cloudData">
+
+                <div class="ui-g-8" style="margin-top: 3px; padding-left: 46px">
+                  <p style="margin-bottom: 0;">{{cloud.name}}</p>
                 </div>
-          </div>
-  
+                <div class="ui-g-4">
+                  <div [ngClass]="cloud.color == 'green' ? 'g-circle'  :cloud.color == 'red' ? 'r-circle' : 'o-circle' ">
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
           <div class="ui-g-1" style="padding: 0; margin-top: -8px">
-          <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px; margin-top: 2px" (click)="confirm()"></i>
-       </div>
-          
+            <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px;margin-top: 2px" (click)="confirm()"></i>
+          </div>
         </div>
-        
       </div>
     </div>
-
-
-  
-
   </div>
 </div>
+
+
+
+
+<div class="row row-eq-height">
+    <div class="ui-g-12 widget">
+  
+      <div class="ui-g-6">
+        <div class="widget-wrapper">
+          <div class="row">
+            <div class="ui-g-11" style="margin-top: -14px; font-weight: bold; padding-left: 16px;">Storage
+              <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
+                <div *ngFor="let storage of storageData">
+                  <div class="ui-g-3" style="text-align:center">
+                    <i class="fa fa-list" style="font-size:48px;" [ngStyle]="storage.color == 'red' ? {'color' : 'red'} : storage.color == 'green' ? {'color' : 'green'} : {'color' : 'orange'}">
+                    </i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-1" style="padding: 0; margin-top: -8px">
+              <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px; margin-top: 2px" (click)="confirm()"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="ui-g-6">
+        <div class="widget-wrapper">
+          <div class="row">
+            <div class="ui-g-11" style="margin-top: -14px; font-weight: bold; padding-left: 16px;">Database
+              <div class="servers" style="margin-top:10px; overflow:auto; height:150px;">
+                <div *ngFor="let database of databaseData">
+                  <div class="ui-g-2" style="text-align:center">
+                    <i class="fa fa-database" style="font-size:35px;" [ngStyle]="database.color == 'red' ? {'color' : 'red'} : database.color == 'green' ? {'color' : 'green'} : {'color' : 'orange'}">
+                    </i>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+            <div class="ui-g-1" style="padding: 0; margin-top: -8px">
+              <i class="fa fa-gear" style="font-size:24px;float:right;margin-right: 10px; margin-top: 2px" (click)="confirm()"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
