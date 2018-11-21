@@ -14,7 +14,14 @@
                   <b style="font-family: Courier New;font-size:15px">Name</b>
                 </td>
                 <td colspan="2" style="height:60px;">
-                  <input style="font-size: 15px" pInputText [value]="name" required="true" type="text" placeholder="User Type Name" formControlName="name">
+       <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"   (onSelect) = "onSelectUserName($event)" [size]="30" formControlName="name" 
+                    [minLength]="1"  [dropdown]="true">
+                    <ng-template let-brand pTemplate="item">
+                        <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                            <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
+                        </div>
+                    </ng-template>
+                </p-autoComplete>
                 </td>
               </tr>
               <tr style="text-align:center;width:300px;height: 60px">
@@ -22,13 +29,13 @@
                   <b style="font-family: Courier New;font-size:15px">Management</b>
                 </td>
                 <td style="align-self: center;width: 150px;" >
-                  <input type="checkbox" style="transform: scale(2)" [value]="management" [ngModel]="management" formControlName="management">
+                    <p-checkbox name="group1" value="management" binary="true" [ngModel]="selectedCategories" formControlName="management"></p-checkbox>
                 </td>
                 <td style="text-align:left;width:300px;height: 60px">
                   <b style="font-family: Courier New;font-size:15px">Develop</b>
                 </td>
                 <td style="align-self: center">
-                  <input type="checkbox" style="transform: scale(2)" [value]="develop" [ngModel]="develop" formControlName="develop">
+                    <p-checkbox name="group1" value="develop" binary="true" [ngModel]="selectedCategories" formControlName="develop"></p-checkbox>
                 </td>
               </tr>
               <tr style="text-align:center;">
@@ -36,13 +43,13 @@
                   <b style="font-family: Courier New;font-size:15px">User Types Manager</b>
                 </td>
                 <td style="align-self: center">
-                  <input type="checkbox" style="transform: scale(2)" [value]="userTypeManager" [ngModel]="userTypeManager" formControlName="userTypeManager">
+                    <p-checkbox name="group1" value="userTypeManager" binary="true" [ngModel]="selectedCategories" formControlName="userTypeManager"></p-checkbox>
                 </td>
                 <td style="text-align:left;width:300px;height: 60px">
                   <b style="font-family: Courier New;font-size:15px">User Manager</b>
                 </td>
                 <td style="align-self: center">
-                  <input type="checkbox" style="transform: scale(2)" [value]="userManager" [ngModel]="userManager" formControlName="userManager">
+                    <p-checkbox name="group1" value="userManager" binary="true" [ngModel]="selectedCategories" formControlName="userManager"></p-checkbox>
                 </td>
               </tr>
               <tr style="text-align:center;">
@@ -50,31 +57,28 @@
                   <b style="font-family: Courier New;font-size:15px">Profile Manager</b>
                 </td>
                 <td style="align-self: center">
-                  <input type="checkbox" style="transform: scale(2)" [value]="profileManager" [ngModel]="profileManager" formControlName="profileManager">
+                    <p-checkbox name="group1" value="profileManager" binary="true" [ngModel]="selectedCategories" formControlName="profileManager"></p-checkbox>
                 </td>
                 <td style="text-align:left;width:300px;height: 60px">
                   <b style="font-family: Courier New;font-size:15px">Input Source Manager</b>
                 </td>
                 <td style="align-self: center">
-                  <input type="checkbox" style="transform: scale(2)" [value]="inputSourceManager" [ngModel]="inputSourceManager" formControlName="inputSourceManager">
+                    <p-checkbox name="group1" value="inputSourceManager" binary="true" [ngModel]="selectedCategories" formControlName="inputSourceManager"></p-checkbox>
                 </td>
               </tr>
-              <tr style="text-align:center;">
-                <td colspan="4" style="text-align:center;">
-                  <b style="font-family: Courier New;font-size:15px">Tenant Id</b>
-                </td>
-              </tr>
+           
               <tr>
                 <td colspan="4" style="align-self: center;text-align:center;height: 50px;">
-                  <input style="font-size: 15px" disabled pInputText [(ngModel)]="tenantId" readonly="true" formControlName="tenantId">
+               
                 </td>
               </tr>
               <br>
               <tr style="align-content: center">
                 <td colspan="4" style="text-align: center">
                   <div style="align-items: center">
-                  <button pButton type="submit" label="Submit" style="font-size: 18px"></button>
-                  <button pButton type="reset" label="Reset" style="font-size: 18px"></button>
+            
+                      <button pButton type="submit" label="Submit" style="font-size: 18px" class="ui-button-raised ui-button-info"></button>
+                      <button pButton type="button"   (click)="updateUserTypes(createUserTypeForm.value)"label="Update" style="font-size: 18px" class="ui-button-raised ui-button-warning"></button>
                   </div>
                 </td>
               </tr>
@@ -91,54 +95,5 @@
   </div>
    <br>
    <br>
-   <div class="container" style="background-color: white">
-      <table>
-        <tr>
-          <td style="text-align: left">
-            Name
-          </td>
-          <td >
-            <p style="text-align: left">Management</p>
-          </td>
-          <td>
-            <p style="text-align: left">Develop</p>
-          </td>
-          <td>
-            <p style="text-align: left">User Type Management</p>
-          </td>
-          <td>
-            <p style="text-align: left">User Management</p>
-          </td>
-          <td>
-            <p style="text-align: left">Profile Management</p>
-          </td>
-          <td>
-            <p style="text-align: left">Input Source Management</p>
-          </td>
-        </tr>
-        <tr *ngFor="let UserType of useTypes let i=index">
-          <td>
-            <input style="width: 100px;" pInputText [value]="UserType.name">
-          </td>
-          <td>
-            <input style="width: 75px;" pInputText [value]="UserType.management" checked="UserType.management">
-          </td>
-          <td>
-            <input style="width: 75px;" pInputText [value]="UserType.develop" checked="UserType.develop">
-          </td>
-          <td>
-            <input style="width: 75px;" pInputText [value]="UserType.userTypeManager" checked="UserType.userTypeManager">
-          </td>
-          <td>
-            <input style="width: 75px;" pInputText [value]="UserType.profileManager" checked="UserType.profileManager">
-          </td>
-          <td>
-            <input style="width: 75px;" pInputText [value]="UserType.userManager" checked="UserType.userManager">
-          </td>
-          <td>
-            <input style="width: 75px;" pInputText [value]="UserType.inputSourceManager" checked="UserType.inputSourceManager">
-          </td>
-        </tr>
-      </table>
-   </div>
+   
 </div>

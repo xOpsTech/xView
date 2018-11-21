@@ -43,17 +43,15 @@ export class ItemSettingsComponent implements OnInit {
 
   tenantId : String;
   saveItem() {
-
+    this.tenantId = this.userDetails.tenantId;
     if (this.selectedtype == "pindicator") {
 
       this.payload = {
         "id": this.item_name,
         "perfIndicators": this.selectedperfs
       }
-
-      this.itemsService.saveItem(this.payload)
+      this.itemsService.saveItem(this.tenantId,this.payload)
         .subscribe(response => {
-          window.location.reload();
         })
     }
 
@@ -67,10 +65,9 @@ export class ItemSettingsComponent implements OnInit {
         "perfIndicators": this.selecteditems,
         "isBoolean": this.isBoolean
       }
-
-      this.itemsService.saveItem(this.payload2)
+    console.log(this.payload2)
+      this.itemsService.saveItem( this.tenantId,this.payload2)
         .subscribe(response => {
-     // window.location.reload();
         })
     }
 
@@ -78,6 +75,11 @@ export class ItemSettingsComponent implements OnInit {
 
 
   constructor(private perfIndicatorsService: PerfIndicatorService, private itemsService: ItemService) {
+
+    if (localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    }
+
     this.typevalue = [
       { label: '--Select Type--', value: null },
       { label: 'Item', value: 'item' },
@@ -88,20 +90,16 @@ export class ItemSettingsComponent implements OnInit {
   
   loadPerfIndicators() {
 
-    if (localStorage.getItem("userDetails")!==null) {
-      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    }
     
     this.tenantId = this.userDetails.tenantId;
+    this.perfIndicators = [];
     this.perfIndicatorsService.getPerfIndicators(this.tenantId)
       .subscribe(res => {
 
-        this.perfIndicators = [];
-
-        for (var i = 0; i < res.result["perf"].length; i++) {
+        for (var i = 0; i < res.result["perfs"].length; i++) {
           this.perfIndicators.push(
             {
-              "id": res.result["perf"][i],
+              "id": res.result["perfs"][i],
 
               "thresholdGreen": 0,
               "thresholdBlue": 0,
@@ -112,10 +110,30 @@ export class ItemSettingsComponent implements OnInit {
             }
           );
         }
+        console.log("1"+ this.perfIndicators)
+      });
+      console.log("2"+ this.perfIndicators)
+        this.perfIndicatorsService.getItems(this.tenantId)
+        .subscribe(res => {
+          for (var i = 0; i < res.result["items"].length; i++) {
+            this.perfIndicators.push(
+              {
+                "id": res.result["items"][i],
+  
+                "thresholdGreen": 0,
+                "thresholdBlue": 0,
+                "thresholdYellow": 0,
+                "thresholdOrange": 0,
+                "thresholdRed": 0,
+                "importance": 0
+              }
+            );
+          }
         this.perfIndicators = [...this.perfIndicators];
-
-
-
+        console.log("3"+ this.perfIndicators)
+      });
+      this.perfIndicatorsService.getItems(this.tenantId)
+      .subscribe(res => {
         for (var i = 0; i < res.result["items"].length; i++) {
           this.items.push(
             {
