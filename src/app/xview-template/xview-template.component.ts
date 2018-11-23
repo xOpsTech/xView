@@ -9,7 +9,7 @@ import { AlertService } from '../services/alert.service';
   selector: 'app-xview-template',
   templateUrl: './xview-template.component.html',
   styleUrls: ['./xview-template.component.scss'],
-  providers: [TenantService,AlertService]
+  providers: [TenantService, AlertService]
 })
 export class XviewTemplateComponent implements OnInit {
 
@@ -19,61 +19,61 @@ export class XviewTemplateComponent implements OnInit {
 
   userDetails: UserDetails = {
     id: "",
-    tenantId:""
+    tenantId: ""
   }
   tenantDetails: TenantDetails = {
     banner: "",
-    logo:"",
-    id :""
+    logo: "",
+    id: ""
   }
 
   public alert_counts = {
-    severity_stats :
+    severity_stats:
     {
-      critical:0,
-      warning:0,
-      info:0
+      critical: 0,
+      warning: 0,
+      info: 0
     }
   }
   tenantId = ""
-  constructor(private userService: UserService, private tenantService: TenantService,private alertsService: AlertService) {
+  banner = ""
+  logo = ""
+
+  constructor(private userService: UserService, private tenantService: TenantService, private alertsService: AlertService) {
 
   }
   ngOnInit() {
-    
-    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !==null) {
-      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
-      this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
-    }
-    this.tenantId =  this.userDetails.tenantId.toString();
-    let email = this.userDetails.id.toString();
 
-    this.alertsService.widgetStatus(this.tenantId).subscribe(alerts => {
+    this.tenantService.getTenantDetails().subscribe(res => {
+      this.tenantId = res.message[0].id;
+      this.banner = res.message[0].banner;
+      this.logo = res.message[0].logo;
+      this.alertsService.widgetStatus(this.tenantId).subscribe(alerts => {
 
-      if(alerts["severity_stats"]!== undefined)
-      {
-        this.alert_counts = alerts;
-        console.log(this.alert_counts)
-      }
+        if (alerts["severity_stats"] !== undefined) {
+          this.alert_counts = alerts;
+          console.log(this.alert_counts)
+        }
 
-    });
+      });
 
-      if (this.tenantDetails.banner != '') {
-        this.banner_image = globals.DEFAULT_BANNER + this.tenantDetails.banner;
+      if ( this.banner != undefined && this.banner  != '') {
+        this.banner_image = "assets/img/banners/" + this.tenantId + "_banner.png";
       }
       else {
-        this.banner_image = '/assets/partner/xops.jpg'
+        this.banner_image = globals.DEFAULT_BANNER
       }
 
 
-      if (typeof this.tenantDetails.logo != "undefined") {
-        this.logo_image = "/assets/img/logo/" + this.tenantDetails.logo;
+      if (this.logo != undefined && this.logo != '') {
+        this.logo_image = "/assets/img/logo/" + this.tenantId + "_logo.png";
       }
 
       else {
         this.logo_image = globals.DEFAULT_LOGO;
       }
 
-  }
+    }
+  )}
 
 }
