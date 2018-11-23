@@ -84,7 +84,7 @@ export class LeftnavComponent implements OnInit {
     this.cdashboard = [];
     this.valueis = true;
 
-      this.userService.getUserById().subscribe(res => { 
+      this.userService.getUserByLoggedInId().subscribe(res => { 
         console.log(res.message[0].userType)
         this.userDetails.userType = res.message[0].userType;
         this.perobj = Object.keys(this.userDetails.userType)

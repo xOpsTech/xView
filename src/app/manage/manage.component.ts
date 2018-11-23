@@ -125,7 +125,7 @@ export class ManageComponent implements OnInit {
     this.services.push({ label: 'Log Configs', value: 'logconfs' });
 
 
-    this.userService.getUserById().subscribe(res => {
+    this.userService.getUserByLoggedInId().subscribe(res => {
       this.tenant_id = res.message[0].tenantId;
       this.email = res.message[0].id;
       this.log_path1 = "/opt/elasticsearch-5.5.0/logs/*.log";

@@ -17,8 +17,8 @@ export class ItemService {
     this.options = new RequestOptions({ headers: this.headers });
   }
 
-  saveItem(item: any) {
-    return this.http.post(config.XOPSAPI + '/health_configs/item_indicators/qxvpydc', item)
+  saveItem(tenantId,item) {
+    return this.http.post(config.XOPSAPI + '/health_configs/item_indicators/'+tenantId, item)
       .map(this.extractData)
   }
 

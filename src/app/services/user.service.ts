@@ -12,7 +12,9 @@ export class UserService {
   private getcheckUserUrl = config.XOPSAPI + '/checkuser'
   private getUserDetailsUrl = config.XOPSAPI + "/userbyid";
   private getAllUsers = config.XOPSAPI + "/user";
+  private getUserListUrl = config.XOPSAPI + "/user/_list";
   private getAllUserTypes = config.XOPSAPI + "/userType";
+  private UserTypes = config.XOPSAPI + "/userType";
   private updateuser = config.XOPSAPI + "/updateuser";
 
   user = null;
@@ -49,10 +51,17 @@ export class UserService {
       .map((res: Response) => res.json())
   }
 
-  getUserById() {
+  getUserByLoggedInId() {
     var token = localStorage.getItem('token');
     let headers = new Headers({ token });
     return this.http.get(this.getUserDetailsUrl + "/" + this.userid, { headers })
+      .map((res: Response) => res.json())
+  }
+
+  getUserById(idvalue) {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({ token });
+    return this.http.get(this.getUserDetailsUrl + "/" + idvalue, { headers })
       .map((res: Response) => res.json())
   }
 
@@ -63,6 +72,12 @@ export class UserService {
       .map((res: Response) => res.json())
   }
 
+  getUserList(tenantId) {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({ token });
+    return this.http.get(this.getUserListUrl+"/"+tenantId, { headers })
+      .map((res: Response) => res.json())
+  }
   checkUser(userID) {
     let userid = userID;
     let headers = new Headers({ userid });
@@ -74,6 +89,16 @@ export class UserService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.put(`${this.updateuser}/${body['email']}`, body, options)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error));
+  }
+
+
+  updateUsertype(id,usertypessobj) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    console.log(usertypessobj)
+    return this.http.put(`${this.UserTypes}/${id}`, usertypessobj, options)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error));
   }
