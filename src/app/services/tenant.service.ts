@@ -39,7 +39,7 @@ export class TenantService {
     if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
       this.tenant_id = this.userDetails.tenantId.toString();
-
+    console.log( "asdsdasd" +this.tenant_id)
     }
 
   }

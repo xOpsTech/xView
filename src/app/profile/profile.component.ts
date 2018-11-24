@@ -40,16 +40,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserData().subscribe(res0 => {
-      var email = res0.message[0].id;
-      this.tenantService.getTenantDetails().subscribe(res => {
-        this.tenantid = res.result.tenant.id;
-        this.tenantname = res.result.tenant.tenant;
-        this.phonenumber = res.result.tenant.phone;
-        this.address = res.result.tenant.address;
 
-      });
-    });
+      this.tenantService.getTenantDetails().subscribe(res => {
+        this.tenantid = res.message[0].id;
+        this.tenantname = res.message[0].tenant;
+        this.phonenumber = res.message[0].phone;
+        this.address=res.message[0].address;
     //-----------profile picture uploader-------------------
     this.uploader_logo.onBuildItemForm = (fileItem: any, form: any) => {
       form.append('type', "profile");
@@ -85,7 +81,7 @@ export class ProfileComponent implements OnInit {
     this.uploader_logo.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       this.logoimage = response;
     };
-
+  });
 
   }
 
@@ -96,16 +92,15 @@ export class ProfileComponent implements OnInit {
   onSubmit(settingForm: NgForm) {
 
     this.clicked = true;
-    console.log(settingForm.value);
 
     this.putTenantSetting = {
-      "address": this.address,
-      "phone": this.phonenumber,
-      "banner": this.bannerimage,
-      "tenant": this.tenantname,
-      "logo": this.logoimage
+      "address": settingForm.value.address_box,
+      "phone": settingForm.value.phone,
+      "banner": (this.bannerimage !=undefined? this.bannerimage :'' )  ,
+      "tenant": settingForm.value.tenant,
+      "logo": (this.logoimage !=undefined? this.logoimage :'' ) 
     }
-
+console.log(this.putTenantSetting)
     this.tenantService.updateTenant(this.tenantid, this.putTenantSetting).subscribe(res => { },
       err => { console.log(err); });
     this.submitted = true;

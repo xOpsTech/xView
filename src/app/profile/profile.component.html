@@ -1,68 +1,58 @@
-<div class="row">
-  <div class="col-sm-4">
-      <div class="card">
-          <div class="card-header">
-              Change Company Profile Picture
+
+<div class="wrapper">
+<div class="container" style="background-color:white">
+  <div class="ui-g" style=" border-bottom: 1px solid rgb(199, 198, 198);">
+    <div class="ui-g-12">
+      <h3 style="float: left">Update Profile</h3>
+      <br>
+    </div>
+  </div>
+  <form #settingForm="ngForm" *ngIf="active" (ngSubmit)="onSubmit(settingForm)">
+    <div class="ui-g">
+ 
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          Change Company Profile Picture
+        </div>
+        <div class="ui-g-12 ui-md-9 ui-lg-9">
+          <div class="form-group">
+            
+            <input type="file" name="photo" ng2FileSelect [uploader]="uploader_profile" />
+            <button type="button" class="btn btn-primary" (click)="uploader_profile.uploadAll()" [disabled]="!uploader_profile.getNotUploadedItems().length">
+                  Upload
+              </button>
           </div>
-          <div class="card-block">
-            <div class="container">
-              <div class="form-group">
-                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_profile" />
-                <button type="button" class="btn btn-primary" (click)="uploader_profile.uploadAll()" [disabled]="!uploader_profile.getNotUploadedItems().length">
+        </div>
+
+  
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          Change Company Banner
+        </div>
+        <div class="ui-g-12 ui-md-9 ui-lg-9">
+            <div class="form-group">
+                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_banner" />
+                <button type="button" class="btn btn-primary" (click)="uploader_banner.uploadAll()" [disabled]="!uploader_banner.getNotUploadedItems().length">
                       Upload
                   </button>
               </div>
-            </div>
-          </div>
         </div>
-      </div>
 
-          <div class="col-sm-4">
-              <div class="card">
-                  <div class="card-header">
-                      Change Company Banner
-                  </div>
-                  <div class="card-block">
-                    <div class="container">
-                      <div class="form-group">
-                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader_banner" />
-                        <button type="button" class="btn btn-primary" (click)="uploader_banner.uploadAll()" [disabled]="!uploader_banner.getNotUploadedItems().length">
-                              Upload
-                          </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+ 
+   
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+            Change Company Logo
+        </div>
+        <div class="ui-g-12 ui-md-9 ui-lg-9">
+            <div class="form-group">
+                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_logo" />
+                <button type="button" class="btn btn-primary" (click)="uploader_logo.uploadAll()" [disabled]="!uploader_logo.getNotUploadedItems().length">
+                      Upload
+                  </button>
               </div>
-                  <div class="col-sm-4">
-                      <div class="card">
-                          <div class="card-header">
-                              Change Company Logo
-                          </div>
-                          <div class="card-block">
-                            <div class="container">
-                              <div class="form-group">
-                                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_logo" />
-                                <button type="button" class="btn btn-primary" (click)="uploader_logo.uploadAll()" [disabled]="!uploader_logo.getNotUploadedItems().length">
-                                      Upload
-                                  </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-  
-  <div class="col-sm-8">
-
-    <div class="card">
-      <div class="card-header">
-        Settings
+        </div>
+   
       </div>
-      <div class="card-block">
-        <div class="container">
-          <div>
 
-            <form #settingForm="ngForm" *ngIf="active" (ngSubmit)="onSubmit(settingForm)">
+
               <div class="form-group">
                 <label for="name">Tenant name</label>
 
@@ -132,16 +122,4 @@
               </div>
 
             </form>
-
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6">
-
-      </div>
-    </div>
-
-  </div>
-</div>
+          </div>  </div>
