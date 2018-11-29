@@ -21,10 +21,31 @@ export class ItemService {
     return this.http.post(config.XOPSAPI + '/health_configs/item_indicators/'+tenantId, item)
       .map(this.extractData)
   }
+  updateItem(tenantId,item) {
+    return this.http.put(config.XOPSAPI + '/health_configs/item/update/'+tenantId, item)
+      .map(this.extractData)
+  }
+
+  getItem(tenantId,perfind) {
+    return this.http.post(config.XOPSAPI + '/health_configs/item/get/'+tenantId, perfind)
+      .map(this.extractData).catch(this.handleError);
+  }
+  
+  getItems(tenantID) {
+    return this.http.get(config.XOPSAPI +'/health_configs/configs/items/'+tenantID)
+      .map((res: Response) => res.json())
+  
+  } 
 
   private extractData(res: Response) {
     let body = res.json();
     return body || {};
   }
+
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    return Observable.throw(errMsg);
+  } 
 
 }

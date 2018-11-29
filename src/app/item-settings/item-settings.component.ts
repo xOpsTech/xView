@@ -26,22 +26,49 @@ export class ItemSettingsComponent implements OnInit {
   perfIndicators: PerfIndicator[] = [];
   selectedperfs: PerfIndicator[];
   selecteditems: Items[];
-  items: Items[] = [];
+  items1: Items[] = [];
+  items2: Items[] = [];
   typevalue: SelectItem[];
   selected_item = [];
   selectedtype = 'item';
   payload: any;
-  val1:any;
+  val1: any;
   payload2: any;
-  isBoolean : boolean = false;;
-
+  isBoolean: boolean = false;;
+  showSubmit = false;
 
   userDetails: UserDetails = {
     id: "",
-    tenantId:""
+    tenantId: ""
   }
 
-  tenantId : String;
+  tenantId: String;
+
+  postItem(perfind) {
+
+    this.tenantId = this.userDetails.tenantId;
+
+    this.itemsService.getItem(this.tenantId,perfind)
+    .subscribe(res => {
+  
+
+      var itemJson = {
+        "id": perfind.id,
+        "importance":perfind.impt,
+        "isBoolean":perfind.isBoolean,
+        "perfIndicators":res.perfIndicators
+      }
+      console.log(itemJson)
+      this.itemsService.updateItem(this.tenantId,itemJson)
+      .subscribe(response => {
+
+        console.log(response)
+      })
+  })
+      
+    }
+
+
   saveItem() {
     this.tenantId = this.userDetails.tenantId;
     if (this.selectedtype == "pindicator") {
@@ -50,23 +77,19 @@ export class ItemSettingsComponent implements OnInit {
         "id": this.item_name,
         "perfIndicators": this.selectedperfs
       }
-      this.itemsService.saveItem(this.tenantId,this.payload)
+      this.itemsService.saveItem(this.tenantId, this.payload)
         .subscribe(response => {
         })
     }
 
 
     if (this.selectedtype == "item") {
-
-      this.isBoolean = this.selecteditems[0]["isBoolean"];
-      delete this.selecteditems[0].isBoolean;
       this.payload2 = {
         "id": this.item_name,
         "perfIndicators": this.selecteditems,
-        "isBoolean": this.isBoolean
       }
-    console.log(this.payload2)
-      this.itemsService.saveItem( this.tenantId,this.payload2)
+  
+      this.itemsService.saveItem(this.tenantId, this.payload2)
         .subscribe(response => {
         })
     }
@@ -87,10 +110,10 @@ export class ItemSettingsComponent implements OnInit {
     ];
   }
 
-  
+
   loadPerfIndicators() {
 
-    
+
     this.tenantId = this.userDetails.tenantId;
     this.perfIndicators = [];
     this.perfIndicatorsService.getPerfIndicators(this.tenantId)
@@ -110,42 +133,51 @@ export class ItemSettingsComponent implements OnInit {
             }
           );
         }
-        console.log("1"+ this.perfIndicators)
+    
       });
-      console.log("2"+ this.perfIndicators)
-        this.perfIndicatorsService.getItems(this.tenantId)
-        .subscribe(res => {
-          for (var i = 0; i < res.result["items"].length; i++) {
-            this.perfIndicators.push(
-              {
-                "id": res.result["items"][i],
-  
-                "thresholdGreen": 0,
-                "thresholdBlue": 0,
-                "thresholdYellow": 0,
-                "thresholdOrange": 0,
-                "thresholdRed": 0,
-                "importance": 0
-              }
-            );
-          }
-        this.perfIndicators = [...this.perfIndicators];
-        console.log("3"+ this.perfIndicators)
-      });
-      this.perfIndicatorsService.getItems(this.tenantId)
+    console.log("2" + this.perfIndicators)
+    this.itemsService.getItems(this.tenantId)
       .subscribe(res => {
         for (var i = 0; i < res.result["items"].length; i++) {
-          this.items.push(
+          this.perfIndicators.push(
             {
-              "id": res.result["items"][i],
+              "id": res.result["items"][i].id,
 
-              "isBoolean":false,
-
+              "thresholdGreen": 0,
+              "thresholdBlue": 0,
+              "thresholdYellow": 0,
+              "thresholdOrange": 0,
+              "thresholdRed": 0,
               "importance": 0
             }
           );
         }
-        this.items = [...this.items];
+        this.perfIndicators = [...this.perfIndicators];
+      
+      });
+    this.itemsService.getItems(this.tenantId)
+      .subscribe(res => {
+        for (var i = 0; i < res.result["items"].length; i++) {
+
+          this.items1.push(
+            {
+              "id": res.result["items"][i].id,
+              "importance": 0
+            }
+          );
+          this.items1 = [...this.items1];
+
+          this.items2.push(
+            {
+              "id": res.result["items"][i].id,
+              "importance": res.result["items"][i].importance
+            }
+          );
+
+
+        }
+        this.items2 = [...this.items2];
+        console.log(" this.items2"+ this.items2)
       })
   }
 

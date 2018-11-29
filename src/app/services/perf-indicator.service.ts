@@ -14,11 +14,7 @@ export class PerfIndicatorService {
       .map((res: Response) => res.json())
   
   } 
-  getItems(tenantID) {
-    return this.http.get(config.XOPSAPI + '/health_configs/configs/items/'+tenantID)
-      .map((res: Response) => res.json())
-  
-  } 
+ 
   getHealth(tenantID) {
     return this.http.get(config.XOPSAPI + '/health/'+tenantID)
       .map((res: Response) => res.json())
