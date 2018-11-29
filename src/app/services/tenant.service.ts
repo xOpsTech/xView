@@ -54,10 +54,10 @@ export class TenantService {
       .map((res: Response) => res.json())
   }
 
-  updateTenant(tenant, tenantdata) {
-    console.log(tenant);
+  updateTenant(tenantdata) {
+
     return this.http
-      .put(config.XOPSAPI + '/tenant/' + tenant, tenantdata, this.options)
+      .put(config.XOPSAPI + '/tenant/' + this.tenant_id, tenantdata, this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }

@@ -1,14 +1,14 @@
-<div class="container">
+<div class="wrapper">
+    <div class="container" style="background-color:white">
 
   <h1>
     Item Definitions
   </h1>
 
-  <div class="input-block">
-    <span>Item Name:</span> <br>
-    <input size="30" type="text" [(ngModel)]="item_name" pInputText />
-  </div>
-
+    <div class="input-block">
+        <span>Item Name:</span> <br>
+        <input size="30" type="text" [(ngModel)]="item_name" pInputText />
+      </div>
   <div class="input-block">
     <span>Type:</span> <br>
     <p-dropdown [options]="typevalue" [autoWidth]="true" [(ngModel)]="selectedtype"></p-dropdown>
@@ -58,7 +58,7 @@
 
   <div *ngIf="selectedtype =='item'">
 
-    <p-dataTable [value]="items" [(selection)]="selecteditems" dataKey="id">
+    <p-dataTable [value]="items1" [(selection)]="selecteditems" dataKey="id">
       <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
       <p-column field="id" header="Items" [filter]="true"></p-column>
       <p-column field="importance" header="Importance" [editable]="true" [filter]="true">
@@ -67,27 +67,42 @@
           <p-slider [style]="{'width':'100%','margin-top':'8px', 'border-radius': '0px','height': '13px'}"  [(ngModel)]="perfind.importance" [min]="0" [max]="10" [step]="1"></p-slider>
         </ng-template>
       </p-column>
-      <p-column field="brand" header="Flag" [filter]="true" filterMatchMode="equals"  [style]="{'text-align':'center'}">
-        <ng-template let-col let-perfind="rowData"  pTemplate="body">
-          <p-checkbox name="groupname"  [(ngModel)]="perfind.isBoolean" binary="true"></p-checkbox>
-        </ng-template>
-    </p-column>
+
+
     </p-dataTable>
+    
   </div>
 
   <button class="top-margin" pButton type="button" label="Save Item" (click)="saveItem()"></button>
 
 </div>
+</div>
+<div class="wrapper">
+<div *ngIf="selectedtype =='item'">
 
+    <div class="container" style="background-color:white">
+<p-dataTable [value]="items2"  dataKey="id">
+   
+    <p-column field="id" header="Items" [filter]="true"></p-column>
+    <p-column field="importance" header="Importance" [editable]="true" [filter]="true">
+      <ng-template let-col let-perfind1="rowData" let-ri="rowIndex" pTemplate="body">
+        <span>{{ perfind1.impt }}</span>
+        <p-slider [style]="{'width':'100%','margin-top':'8px', 'border-radius': '0px','height': '13px'}"  [(ngModel)]="perfind1.impt" [min]="0" [max]="10" [step]="1"></p-slider>
+      </ng-template>
+    </p-column>
+    <p-column field="brand" header="Flag" [filter]="true" filterMatchMode="equals"  [style]="{'text-align':'center'}">
+        <ng-template let-col let-perfind1="rowData"  pTemplate="body">
+          <p-checkbox name="groupname"  [(ngModel)]="perfind1.isBoolean" binary="true" ></p-checkbox>
+        </ng-template>
+    </p-column>
+  <p-column field="submit" header="Save" [filter]="true" filterMatchMode="equals" [style]="{'text-align':'center'}">
+      <ng-template let-col let-perfind1="rowData"  pTemplate="body">
+          <button pButton type="button" label="Apply" class="ui-button-rounded ui-button-success" (click)="postItem(perfind1)"></button>
+      </ng-template>
+  </p-column>
 
-<!-- <table>
-  <tr>
-    <th>Performance Indicator</th>
-    <th>Importance</th> 
-    <th>Threshold red</th>
-    <th>Threshold amber</th>
-  </tr>
-  <tr>
-  
-  </tr>
-</table> -->
+  </p-dataTable>
+</div>
+
+</div>
+</div>

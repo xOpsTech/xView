@@ -90,9 +90,11 @@ export class BusinessComponent implements OnInit {
     }
 
     this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    console.log(this.userDetails)
+    this.tenantId = this.userDetails.tenantId.toString();
 
-    this.tenantService.updateTenant(this.tenantid, this.putTenantSetting).subscribe(res => { },
+    this.tenantService.updateTenant(this.putTenantSetting).subscribe(res => { 
+      
+    },
       err => { console.log(err); });
 
   }
@@ -101,7 +103,6 @@ export class BusinessComponent implements OnInit {
 
     if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
-      this.tenantDetails = JSON.parse(localStorage.getItem("tenantDetails"));
     }
 
     this.tenantId = this.userDetails.tenantId;
@@ -114,14 +115,20 @@ export class BusinessComponent implements OnInit {
         this.alert_trend = data;
       });
 
-    for (var item in this.tenantDetails.healthitems) {
-      this.health_items_top3.push(this.tenantDetails.healthitems[item]);
-    }
+      this.tenantService.getTenantDetails().subscribe(res => {
+        this.health_items_top3= res.message[0].healthitems;
+        console.log(this.health_items_top3)
+      })
+
+    // for (var item in this.tenantDetails.healthitems) {
+    //   this.health_items_top3.push(this.tenantDetails.healthitems[item]);
+    // }
 
 
-
+    console.log(this.health_items_top3)
     this.perfIndicatorsService.getHealth(this.tenantId)
       .subscribe(res => {
+
         for (var array_top3 of this.health_items_top3) {
 
 
@@ -162,26 +169,7 @@ export class BusinessComponent implements OnInit {
         }
       }
       );
-    this.WidgetStats.push({
-      "name": "xView",
-      "class_name": "c100 p100 green",
-      "color": "green",
-      "health_value": 0
-    });
 
-    this.WidgetStats.push({
-      "name": "xOps.it",
-      "class_name": "c100 p100 green",
-      "color": "green",
-      "health_value": 0
-    });
-
-    this.WidgetStats.push({
-      "name": "xOps Army",
-      "class_name": "c100 p100 green",
-      "color": "green",
-      "health_value": 0
-    });
 
 
   }
