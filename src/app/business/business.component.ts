@@ -92,8 +92,8 @@ export class BusinessComponent implements OnInit {
     this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
     this.tenantId = this.userDetails.tenantId.toString();
 
-    this.tenantService.updateTenant(this.putTenantSetting).subscribe(res => { 
-      
+    this.tenantService.updateTenant(this.putTenantSetting).subscribe(res => {
+
     },
       err => { console.log(err); });
 
@@ -115,52 +115,70 @@ export class BusinessComponent implements OnInit {
         this.alert_trend = data;
       });
 
-      this.tenantService.getTenantDetails().subscribe(res => {
-        this.health_items_top3= res.message[0].healthitems;
-        console.log(this.health_items_top3)
-      })
+    this.tenantService.getTenantDetails().subscribe(res => {
+      this.health_items_top3 = res.message[0].healthitems;
+      console.log(this.health_items_top3)
+      if (this.health_items_top3.length == 0) {
+        this.WidgetStats.push({
+          "name": "xView",
+          "class_name": "c100 p100 dark",
+          "color": "dark",
+          "health_value": 0
+        });
+    
+        this.WidgetStats.push({
+          "name": "xOps.it",
+          "class_name": "c100 p100 dark",
+          "color": "dark",
+          "health_value": 0
+        });
+    
+        this.WidgetStats.push({
+          "name": "xOps Army",
+          "class_name": "c100 p100 dark",
+          "color": "dark",
+          "health_value": 0
+        });
+      }
 
-    // for (var item in this.tenantDetails.healthitems) {
-    //   this.health_items_top3.push(this.tenantDetails.healthitems[item]);
-    // }
+      this.perfIndicatorsService.getHealth(this.tenantId)
+        .subscribe(res2 => {
+
+          for (var array_top3 of this.health_items_top3) {
 
 
-    console.log(this.health_items_top3)
-    this.perfIndicatorsService.getHealth(this.tenantId)
-      .subscribe(res => {
+            for (var array of res2["metrics"]) {
 
-        for (var array_top3 of this.health_items_top3) {
+              if (array.id == array_top3) {
+                this.svcWidgets.push(array);
 
-
-          for (var array of res["metrics"]) {
-
-            if (array.id == array_top3) {
-              this.svcWidgets.push(array);
-
+              }
             }
           }
-        }
 
-        for (var title of this.svcWidgets) {
-          var classv = "c100 p100 " + title.status;
+          for (var title of this.svcWidgets) {
+            var classv = "c100 p100 " + title.status;
 
-          this.WidgetStats.push({
-            "name": title.id,
-            "class_name": classv,
-            "color": title.status,
-            "health_value": title.health_value
-          });
+            this.WidgetStats.push({
+              "name": title.id,
+              "class_name": classv,
+              "color": title.status,
+              "health_value": title.health_value
+            });
 
-        }
-      });
+          }
 
+
+          console.log(this.WidgetStats)
+        });
+    })
     this.classname = "c100 p95 green big";
 
     this.tenant_items_all = [];
     this.tenant_items_all.push({ label: "Select Item", value: "Select_Item" });
 
 
-    this.perfIndicatorsService.getHealth( this.tenantId )
+    this.perfIndicatorsService.getHealth(this.tenantId)
       .subscribe(res => {
 
         for (var arr of res["metrics"]) {
