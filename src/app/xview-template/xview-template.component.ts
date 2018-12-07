@@ -14,7 +14,7 @@ import { AlertService } from '../services/alert.service';
 export class XviewTemplateComponent implements OnInit {
 
   imgURL = "/assets/img/logo.png";
-  banner_image = globals.DEFAULT_BANNER;
+  bannerimage = globals.DEFAULT_BANNER;
   logo_image = globals.DEFAULT_LOGO;
 
   userDetails: UserDetails = {
@@ -42,7 +42,15 @@ export class XviewTemplateComponent implements OnInit {
   constructor(private userService: UserService, private tenantService: TenantService, private alertsService: AlertService) {
 
   }
+
+  message:string;
+
   ngOnInit() {
+    this.userService.currentMessage.subscribe(bmig => {
+
+      this.bannerimage = "assets/img/banners/"+bmig;
+      console.log("sdffffffffffffffffffffffffffffffff")
+    })
 
     this.tenantService.getTenantDetails().subscribe(res => {
       this.tenantId = res.message[0].id;
@@ -58,10 +66,10 @@ export class XviewTemplateComponent implements OnInit {
       });
 
       if ( this.banner != undefined && this.banner  != '') {
-        this.banner_image = "assets/img/banners/" + this.tenantId + "_banner.png";
+        this.bannerimage = "assets/img/banners/" + this.tenantId + "_banner.png";
       }
       else {
-        this.banner_image = globals.DEFAULT_BANNER
+        this.bannerimage = globals.DEFAULT_BANNER
       }
 
 

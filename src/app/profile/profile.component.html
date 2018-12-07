@@ -1,128 +1,262 @@
-
 <div class="wrapper">
-<div class="container" style="background-color:white">
-  <div class="ui-g" style=" border-bottom: 1px solid rgb(199, 198, 198);">
-    <div class="ui-g-12">
-      <h3 style="float: left">Update Profile</h3>
-      <br>
-    </div>
-  </div>
-  <form #settingForm="ngForm" *ngIf="active" (ngSubmit)="onSubmit(settingForm)">
-    <div class="ui-g">
- 
-        <div class="ui-g-12 ui-md-6 ui-lg-3">
-          Change Company Profile Picture
-        </div>
-        <div class="ui-g-12 ui-md-9 ui-lg-9">
-          <div class="form-group">
-            
-            <input type="file" name="photo" ng2FileSelect [uploader]="uploader_profile" />
-            <button type="button" class="btn btn-primary" (click)="uploader_profile.uploadAll()" [disabled]="!uploader_profile.getNotUploadedItems().length">
-                  Upload
-              </button>
-            
-              
+
+
+  <h3 class="first">Profile Update</h3>
+  <p-accordion>
+    <p-accordionTab header="Tenant Profile">
+      <div class="container" style="background-color:white">
+        <div class="ui-g" style=" border-bottom: 1px solid rgb(199, 198, 198);">
+          <div class="ui-g-12">
+            <h3 style="float: left">Update Profile</h3>
+            <br>
           </div>
         </div>
+        <form #settingForm="ngForm" *ngIf="active" (ngSubmit)="onSubmit(settingForm)">
+          <div class="ui-g">
 
-  
-        <div class="ui-g-12 ui-md-6 ui-lg-3">
-          Change Company Banner
-        </div>
-        <div class="ui-g-12 ui-md-9 ui-lg-9">
-            <div class="form-group">
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              Change Company Profile Picture
+            </div>
+            <div class="ui-g-12 ui-md-9 ui-lg-9">
+              <div class="form-group">
+
+                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_profile" />
+                <button type="button" class="btn btn-primary" (click)="uploader_profile.uploadAll()" [disabled]="!uploader_profile.getNotUploadedItems().length">
+                  Upload
+                </button>
+                {{bannerimage}}
+
+              </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              Change Company Banner
+            </div>
+            <div class="ui-g-12 ui-md-9 ui-lg-9">
+              <div class="form-group">
                 <input type="file" name="photo" ng2FileSelect [uploader]="uploader_banner" />
                 <button type="button" class="btn btn-primary" (click)="uploader_banner.uploadAll()" [disabled]="!uploader_banner.getNotUploadedItems().length">
-                      Upload
-                  </button>
+                  Upload
+                </button>
               </div>
-                <img [src]="bannerimage" style="height:100px;width:100px">
-        </div>
+              <img [src]="bannerimage" style="height:100px;width:100px">
+            </div>
 
- 
-   
-        <div class="ui-g-12 ui-md-6 ui-lg-3">
-            Change Company Logo
-        </div>
-        <div class="ui-g-12 ui-md-9 ui-lg-9">
-            <div class="form-group">
+
+
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              Change Company Logo
+            </div>
+            <div class="ui-g-12 ui-md-9 ui-lg-9">
+              <div class="form-group">
                 <input type="file" name="photo" ng2FileSelect [uploader]="uploader_logo" />
                 <button type="button" class="btn btn-primary" (click)="uploader_logo.uploadAll()" [disabled]="!uploader_logo.getNotUploadedItems().length">
-                      Upload
-                  </button>
+                  Upload
+                </button>
               </div>
-        </div>
-   
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+            <label for="name">Tenant name</label>
+
+            <input type="text" id="tenant" class="form-control" required minlength="4" maxlength="100" name="tenant" [(ngModel)]="tenantname"
+              #tenant="ngModel">
+
+            <div *ngIf="tenant.errors && (tenant.dirty || tenant.touched)" class="alert alert-danger">
+              <div [hidden]="!tenant.errors.required">
+                Tenant is required
+              </div>
+              <div [hidden]="!tenant.errors.minlength">
+                Tenant must be at least 4 characters long.
+              </div>
+              <div [hidden]="!tenant.errors.maxlength">
+                Tenant cannot be more than 100 characters long.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone</label>
+
+            <input type="text" id="phone" class="form-control" required minlength="4" maxlength="100" name="phone" [(ngModel)]="phonenumber"
+              #phone="ngModel">
+
+            <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger">
+              <div [hidden]="!phone.errors.required">
+                Phone Number is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fullname">Address</label>
+
+            <textarea id="address" class="form-control" required minlength="4" maxlength="24" name="address_box" [(ngModel)]="address"
+              #address_box="ngModel"></textarea>
+
+            <div *ngIf="address_box.errors && (address_box.dirty || address_box.touched)" class="alert alert-danger">
+              <div [hidden]="!address_box.errors.required">
+                Address Name is required
+              </div>
+              <div [hidden]="!address_box.errors.minlength">
+                Name must be at least 10 characters long.
+              </div>
+
+            </div>
+          </div>
+
+
+
+          <button type="submit" class="btn btn-primary" (click)="uploader.uploadAll()" [disabled]="!settingForm.form.valid">Submit</button>
+
+          <div class="form-group">
+            <div *ngIf="clicked">
+              <div *ngIf="settingForm.form.valid &&  submitted" class="alert alert-success">
+                <div>
+                  Form is Successfully Submitted
+                </div>
+              </div>
+              <div *ngIf="settingForm.form.valid &&  !submitted" class="alert alert-danger">
+                <div>
+                  Form Not Submitted
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
       </div>
+    </p-accordionTab>
+    <p-accordionTab header="User Profile">
+      <div class="container">
+        <h3 class="first">Update Profile</h3>
+        <form #userProfile="ngForm" *ngIf="active" (ngSubmit)="onSubmit(userProfile)">
+          <div class="ui-g">
 
-
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              Change Profile Picture
+            </div>
+            <div class="ui-g-12 ui-md-9 ui-lg-9">
               <div class="form-group">
-                <label for="name">Tenant name</label>
 
-                <input type="text" id="tenant" class="form-control" required minlength="4" maxlength="100" name="tenant" [(ngModel)]="tenantname"
-                  #tenant="ngModel">
+                <input type="file" name="photo" ng2FileSelect [uploader]="uploader_profile" />
+                <button type="button" class="btn btn-primary" (click)="uploader_profile.uploadAll()" [disabled]="!uploader_profile.getNotUploadedItems().length">
+                  Upload
+                </button>
 
-                <div *ngIf="tenant.errors && (tenant.dirty || tenant.touched)" class="alert alert-danger">
-                  <div [hidden]="!tenant.errors.required">
-                    Tenant is required
-                  </div>
-                  <div [hidden]="!tenant.errors.minlength">
-                    Tenant must be at least 4 characters long.
-                  </div>
-                  <div [hidden]="!tenant.errors.maxlength">
-                    Tenant cannot be more than 100 characters long.
-                  </div>
-                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+            <label for="name">User name</label>
+
+            <input type="text" id="username" class="form-control" required minlength="4" maxlength="100" name="username" [(ngModel)]="userName"
+              #username="ngModel">
+
+            <div *ngIf="username.errors && (username.dirty || username.touched)" class="alert alert-danger">
+              <div [hidden]="!username.errors.required">
+                Username is required
+              </div>
+              <div [hidden]="!username.errors.minlength">
+                Username must be at least 4 characters long.
+              </div>
+              <div [hidden]="!username.errors.maxlength">
+                Username cannot be more than 20 characters long.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Email</label>
+
+            <input type="text" id="email" class="form-control" required minlength="4" maxlength="100" name="email" [(ngModel)]="emailValue"
+              #email="ngModel">
+
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+              <div [hidden]="!email.errors.required">
+                Email is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+
+            <input type="text" id="phone" class="form-control" required minlength="4" maxlength="100" name="phone" [(ngModel)]="phonenumber"
+              #phone="ngModel">
+
+            <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger">
+              <div [hidden]="!phone.errors.required">
+                Phone Number is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fullname">Address</label>
+
+            <textarea id="address" class="form-control" required minlength="4" maxlength="24" name="address_box" [(ngModel)]="address"
+              #address_box="ngModel"></textarea>
+
+            <div *ngIf="address_box.errors && (address_box.dirty || address_box.touched)" class="alert alert-danger">
+              <div [hidden]="!address_box.errors.required">
+                Address Name is required
+              </div>
+              <div [hidden]="!address_box.errors.minlength">
+                Name must be at least 10 characters long.
               </div>
 
-              <div class="form-group">
-                <label for="phone">Phone</label>
+            </div>
+          </div>
 
-                <input type="text" id="phone" class="form-control" required minlength="4" maxlength="100" name="phone" [(ngModel)]="phonenumber"
-                  #phone="ngModel">
 
-                <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger">
-                  <div [hidden]="!phone.errors.required">
-                    Phone Number is required
-                  </div>
+
+          <button type="submit" class="btn btn-primary" (click)="uploader.uploadAll()" [disabled]="!userProfile.form.valid">Submit</button>
+
+          <div class="form-group">
+            <div *ngIf="clicked">
+              <div *ngIf="userProfile.form.valid &&  submitted" class="alert alert-success">
+                <div>
+                  Form is Successfully Submitted
                 </div>
               </div>
-
-              <div class="form-group">
-                <label for="fullname">Address</label>
-
-                <textarea id="address" class="form-control" required minlength="4" maxlength="24" name="address_box" [(ngModel)]="address"
-                  #address_box="ngModel"></textarea>
-
-                <div *ngIf="address_box.errors && (address_box.dirty || address_box.touched)" class="alert alert-danger">
-                  <div [hidden]="!address_box.errors.required">
-                    Address Name is required
-                  </div>
-                  <div [hidden]="!address_box.errors.minlength">
-                    Name must be at least 10 characters long.
-                  </div>
-
+              <div *ngIf="userProfile.form.valid &&  !submitted" class="alert alert-danger">
+                <div>
+                  Form Not Submitted
                 </div>
               </div>
+            </div>
+          </div>
 
+        </form>
+        <form #updatePassword="ngForm" (ngSubmit)="renewPassword(updatePassword)">
+        <h3 class="first">Change Password</h3>
+        <div class="form-group">
 
+          <label for="currentpassword">Current Password</label>
+          <input pPassword class="form-control" type="password"  #curpassword="ngModel" name="curpassword"  [(ngModel)]="curPassword" />
 
-              <button type="submit" class="btn btn-primary" (click)="uploader.uploadAll()" [disabled]="!settingForm.form.valid">Submit</button>
+        </div>
+        <div class="form-group">
+          <label for="newpassword">New Password</label>
+          <input pPassword type="password" class="form-control"  #newpassword="ngModel" name="newpassword" [(ngModel)]="newPassword" />
+        </div>
+        <div class="form-group">
+          <label for="newpasswordconfirm">Confirm New Password</label>
+          <input pPassword type="password" class="form-control"  #newconfirmpassword="ngModel" name="newconfirmpassword"  [(ngModel)]="newConfirmPassword"/>
+        </div>
+        <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
 
-              <div class="form-group">
-                <div *ngIf="clicked">
-                  <div *ngIf="settingForm.form.valid &&  submitted" class="alert alert-success">
-                    <div>
-                      Form is Successfully Submitted
-                    </div>
-                  </div>
-                  <div *ngIf="settingForm.form.valid &&  !submitted" class="alert alert-danger">
-                    <div>
-                      Form Not Submitted
-                    </div>
-                  </div>
-                </div>
-              </div>
+        
+      </div>
+      
+    </p-accordionTab>
 
-            </form>
-          </div>  </div>
+  </p-accordion>
+</div>

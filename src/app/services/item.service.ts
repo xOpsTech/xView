@@ -26,6 +26,10 @@ export class ItemService {
       .map(this.extractData)
   }
 
+  deleteItem(tenantId,perfid) {
+    return this.http.delete(config.XOPSAPI + '/health_configs/item/delete/'+tenantId+'/'+perfid)
+      .map(this.extractData)
+  }
   getItem(tenantId,perfind) {
     return this.http.post(config.XOPSAPI + '/health_configs/item/get/'+tenantId, perfind)
       .map(this.extractData).catch(this.handleError);

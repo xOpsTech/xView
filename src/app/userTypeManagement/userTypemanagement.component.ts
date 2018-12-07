@@ -90,7 +90,7 @@ export class UserTypemanagementComponent implements OnInit {
         {
           if(usertypesvalues[i].toString()=="true")
           {
-            console.log("giya")
+           
             this.selectedCategories.push(usertyps[i])
            
           }
@@ -119,10 +119,7 @@ export class UserTypemanagementComponent implements OnInit {
 
     var id = createUserTypeForm.name;
     delete createUserTypeForm.name
-    this.userAccountData['userType'] = createUserTypeForm
-    if (localStorage.getItem("userDetails") !== null) {
-      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    }
+    console.log(id)
     this.userService.updateUsertype(id, this.userAccountData).subscribe(res => {
 
     });

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 import { config } from '../config/config';
 import { UserDetails } from '../models/userDetails';
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class UserService {
   private getUserUrl = config.devUrl + "/user";
@@ -34,6 +34,16 @@ export class UserService {
       inputSourceManager: false
     }
   }
+
+  private messageSource = new BehaviorSubject('default message');
+  currentMessage = this.messageSource.asObservable();
+
+
+
+  changeMessage(message: string) {
+    this.messageSource.next(message)
+  }
+
 
   tenant_id = "";
   userid = ""
@@ -75,7 +85,7 @@ export class UserService {
   getUserList(tenantId) {
     var token = localStorage.getItem('token');
     let headers = new Headers({ token });
-    return this.http.get(this.getUserListUrl+"/"+tenantId, { headers })
+    return this.http.get(this.getUserListUrl + "/" + tenantId, { headers })
       .map((res: Response) => res.json())
   }
   checkUser(userID) {
@@ -94,7 +104,7 @@ export class UserService {
   }
 
 
-  updateUsertype(id,usertypessobj) {
+  updateUsertype(id, usertypessobj) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log(usertypessobj)
@@ -128,6 +138,24 @@ export class UserService {
       .map((res: Response) => res.json())
 
   }
+
+  updatePassword(userDetails) {
+    var token = localStorage.getItem('token');
+    let headers = new Headers({ token });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(config.XOPSAPI + '/user/pw/' + userDetails.id, userDetails, options)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error));
+
+  }
+  checkPassword(userDetails) {
+    return this.http.post(config.XOPSHOST + '/logincheck', { "id": userDetails.id, "password": userDetails.password }, this.options)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error));
+
+  }
+
+
 
   saveUserType(userType) {
     return this.http

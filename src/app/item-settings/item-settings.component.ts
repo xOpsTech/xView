@@ -7,11 +7,14 @@ import { SelectItem } from 'primeng/primeng';
 import { CheckboxModule } from 'primeng/primeng';
 import { UserDetails } from '../models/userDetails';
 
+import {ConfirmDialogModule} from 'primeng/primeng';
+import {ConfirmationService} from 'primeng/primeng';
+
 @Component({
   selector: 'app-item-settings',
   templateUrl: './item-settings.component.html',
   styleUrls: ['./item-settings.component.scss'],
-  providers: [PerfIndicatorService, ItemService]
+  providers: [PerfIndicatorService, ItemService,ConfirmationService]
 })
 export class ItemSettingsComponent implements OnInit {
 
@@ -21,7 +24,7 @@ export class ItemSettingsComponent implements OnInit {
   threshold_orange: number = 0;
   threshold_red: number = 0;
   importance: number = 0;
-
+  display: boolean = false;
   item_name: string;
   perfIndicators: PerfIndicator[] = [];
   selectedperfs: PerfIndicator[];
@@ -41,7 +44,7 @@ export class ItemSettingsComponent implements OnInit {
     id: "",
     tenantId: ""
   }
-
+  deletedialog: boolean = false;
   tenantId: String;
 
   postItem(perfind) {
@@ -68,6 +71,17 @@ export class ItemSettingsComponent implements OnInit {
       
     }
 
+    deleteItem(perfind)
+    {
+      var itemJson = {
+        "id": perfind.id
+      }
+      this.itemsService.deleteItem(this.tenantId,perfind.id)
+      .subscribe(response => {
+
+        console.log(response)
+      })
+    }
 
   saveItem() {
     this.tenantId = this.userDetails.tenantId;
@@ -79,6 +93,8 @@ export class ItemSettingsComponent implements OnInit {
       }
       this.itemsService.saveItem(this.tenantId, this.payload)
         .subscribe(response => {
+          this.display = true;
+          this.loadPerfIndicators();
         })
     }
 
@@ -91,13 +107,15 @@ export class ItemSettingsComponent implements OnInit {
   
       this.itemsService.saveItem(this.tenantId, this.payload2)
         .subscribe(response => {
+        this.display = true;
+          this.loadPerfIndicators();
         })
     }
 
   }
 
 
-  constructor(private perfIndicatorsService: PerfIndicatorService, private itemsService: ItemService) {
+  constructor(private perfIndicatorsService: PerfIndicatorService, private itemsService: ItemService,private confirmationService: ConfirmationService) {
 
     if (localStorage.getItem("userDetails") !== null) {
       this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -112,10 +130,12 @@ export class ItemSettingsComponent implements OnInit {
 
 
   loadPerfIndicators() {
-
+    this.perfIndicators = [];
+    this.items1 = [];
+    this.items2 = [];
 
     this.tenantId = this.userDetails.tenantId;
-    this.perfIndicators = [];
+
     this.perfIndicatorsService.getPerfIndicators(this.tenantId)
       .subscribe(res => {
 
@@ -135,7 +155,7 @@ export class ItemSettingsComponent implements OnInit {
         }
     
       });
-    console.log("2" + this.perfIndicators)
+
     this.itemsService.getItems(this.tenantId)
       .subscribe(res => {
         for (var i = 0; i < res.result["items"].length; i++) {
@@ -181,7 +201,24 @@ export class ItemSettingsComponent implements OnInit {
       })
   }
 
+  confirmDelete(confitem) {
+    this.confirmationService.confirm({
+        message: 'Are you sure that you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
 
+          this.deleteItem(confitem);
+          this.loadPerfIndicators();
+            // this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
+        },
+        reject: () => {
+            // this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+        }
+    });
+   
+}
+ 
   ngOnInit() {
     this.loadPerfIndicators();
   }

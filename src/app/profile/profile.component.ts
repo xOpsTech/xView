@@ -5,8 +5,11 @@ import { TenantService, } from '../services/tenant.service';
 import { NgForm } from '@angular/forms';
 import { Select2OptionData } from 'ng2-select2';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
-import {InplaceModule} from 'primeng/primeng';
+import { InplaceModule } from 'primeng/primeng';
 const URL = 'http://localhost:4200/api/upload';
+import { UserDetails } from '../models/userDetails';
+import { AccordionModule } from 'primeng/primeng';
+import { PasswordModule } from 'primeng/primeng';
 
 @Component({
   selector: 'app-profile',
@@ -24,7 +27,10 @@ export class ProfileComponent implements OnInit {
   public profileimage: any;
   public bannerimage: any;
   public logoimage: any;
-
+  userDetails: UserDetails = {
+    id: "",
+    tenantId: ""
+  }
   user = [];
   //declare a property called fileuploader and assign it to an instance of a new fileUploader.
   //pass in the Url to be uploaded to, and pass the itemAlais, which would be the name of the //file input when sending the post request.
@@ -37,17 +43,23 @@ export class ProfileComponent implements OnInit {
 
 
   constructor(private userService: UserService, private tenantService: TenantService) {
+    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      console.log(this.userDetails)
+    }
   }
+  message: string;
 
   ngOnInit() {
+    this.userService.currentMessage.subscribe(bannerimage => this.bannerimage ="assets/img/banners/"+ bannerimage);
 
     this.tenantService.getTenantDetails().subscribe(res => {
       this.tenantid = res.message[0].id;
       this.tenantname = res.message[0].tenant;
       this.phonenumber = res.message[0].phone;
       this.address = res.message[0].address;
-      if(res.message[0].banner!=undefined && res.message[0].banner!="")
-      this.bannerimage = "assets/img/banners/" + this.tenantid + "_banner.png";
+      if (res.message[0].banner != undefined && res.message[0].banner != "")
+        this.bannerimage = "assets/img/banners/" + this.tenantid + "_banner.png";
       console.log(this.bannerimage)
 
       //-----------profile picture uploader-------------------
@@ -68,10 +80,15 @@ export class ProfileComponent implements OnInit {
         form.append('id', this.tenantid);
       };
       //override the onAfterAddingfile property
-      this.uploader_banner.onAfterAddingFile = (file) => { file.withCredentials = false; };
+      this.uploader_banner.onAfterAddingFile = (file) => { file.withCredentials = false; 
+      
+        console.log(file)};
       //overide the onCompleteItem property of the uploader to deal with the server response.
       this.uploader_banner.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
         this.bannerimage = response;
+        console.log(item)
+   
+        this.userService.changeMessage(response)
       };
 
       //-----------logo uploader-------------------
@@ -84,6 +101,7 @@ export class ProfileComponent implements OnInit {
       //overide the onCompleteItem property of the uploader to deal with the server response.
       this.uploader_logo.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
         this.logoimage = response;
+      
       };
     });
 
@@ -109,6 +127,26 @@ export class ProfileComponent implements OnInit {
       err => { console.log(err); });
     this.submitted = true;
 
+  }
+
+
+  renewPassword(updatePassword: NgForm) {
+    console.log(updatePassword)
+    var userJson = {
+      "id": this.userDetails.id,
+      "password": updatePassword.value.curpassword,
+      "newpassword": updatePassword.value.newpassword,
+    }
+    console.log(userJson);
+
+    this.userService.checkPassword(userJson).subscribe(res => {
+      if (res.success == true) {
+        this.userService.updatePassword(userJson).subscribe(res2 => {
+          console.log(res2)
+        })
+      }
+
+    });
   }
   active = true;
 

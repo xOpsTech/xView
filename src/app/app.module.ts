@@ -179,7 +179,7 @@ export function provideConfig() {
       {
         path: '',
         component: XviewTemplateComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
 
         children: [
           {
@@ -223,7 +223,7 @@ export function provideConfig() {
           {
             path: 'business',
             component: BusinessComponent,
-            canActivate: [AuthGuard]
+            // canActivate: [AuthGuard]
           },
           {
             path: 'alertindividual',
