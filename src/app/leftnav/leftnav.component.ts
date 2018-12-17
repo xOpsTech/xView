@@ -10,7 +10,7 @@ import { DashboardDetails } from '../models/dashboardDetails';
   selector: 'app-leftnav',
   templateUrl: './leftnav.component.html',
   styleUrls: ['./leftnav.component.scss'],
-  providers: [DashboardLinks, UserService]
+  providers: [ UserService]
 })
 export class LeftnavComponent implements OnInit {
   public disabled: boolean = false;
@@ -70,8 +70,9 @@ export class LeftnavComponent implements OnInit {
       this.nav_gap = 35;
     }
   }
-
-  constructor(private dboardlinks: DashboardLinks, private userService: UserService) {
+  keminda:string;
+  user:string;
+  constructor(private kibanadboardlinks: DashboardLinks, private userService: UserService) {
 
   }
 
@@ -80,8 +81,39 @@ export class LeftnavComponent implements OnInit {
   customlink = ""
 
   ngOnInit() {
-    this.customlink= "http://elastic.xops.it:5601/app/kibana#/dashboard/6300a4b0-bc8c-11e8-a9b2-0772b75a29a0?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(description:'',filters:!(),fullScreenMode:!t,options:(darkTheme:!f,hidePanelTitles:!f,useMargins:!t),panels:!((gridData:(h:3,i:'1',w:6,x:0,y:0),id:e4e662e0-bc8b-11e8-a9b2-0772b75a29a0,panelIndex:'1',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'2',w:6,x:6,y:0),id:'3ae15790-bc8c-11e8-a9b2-0772b75a29a0',panelIndex:'2',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'3',w:6,x:0,y:3),id:b46a6590-bc99-11e8-a9b2-0772b75a29a0,panelIndex:'3',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'4',w:6,x:6,y:3),id:c0fd5980-bc98-11e8-a9b2-0772b75a29a0,panelIndex:'4',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'5',w:6,x:0,y:6),id:a28857f0-bc9a-11e8-a9b2-0772b75a29a0,panelIndex:'5',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'7',w:6,x:6,y:6),id:'23725100-bc9a-11e8-a9b2-0772b75a29a0',panelIndex:'7',type:visualization,version:'6.2.3')),query:(language:lucene,query:''),timeRestore:!f,title:Custom_dashboard,viewMode:view)"
     this.cdashboard = [];
+
+    this.kibanadboardlinks.cast.subscribe(mdg =>
+      {
+        this.cdashboard = [];
+        if(mdg!=undefined){
+          this.cdashboard = mdg
+        }
+
+
+        else{
+          
+          this.userService.getUserByLoggedInId().subscribe(res => { 
+            console.log(res.message[0].userType)
+            this.userDetails.userType = res.message[0].userType;
+            this.perobj = Object.keys(this.userDetails.userType)
+    
+            for (var i = 0; i < this.perobj.length; i++) {
+              console.log(this.userDetails.userType[this.perobj[i]])
+              if (this.userDetails.userType[this.perobj[i]] == true) {
+                this.loguserTypes.push(this.perobj[i])
+              }
+            }
+            this.cdashboard = [];
+            this.kibanadboardlinks.getDashboardLinksByPermission(this.loguserTypes).subscribe(res => {
+              for (var msg of res['message']) {
+                this.cdashboard.push({ "topic": msg.topic, "link": msg.link })
+              }
+            });     });
+        }
+      })
+    this.customlink= "http://elastic.xops.it:5601/app/kibana#/dashboard/6300a4b0-bc8c-11e8-a9b2-0772b75a29a0?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(description:'',filters:!(),fullScreenMode:!t,options:(darkTheme:!f,hidePanelTitles:!f,useMargins:!t),panels:!((gridData:(h:3,i:'1',w:6,x:0,y:0),id:e4e662e0-bc8b-11e8-a9b2-0772b75a29a0,panelIndex:'1',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'2',w:6,x:6,y:0),id:'3ae15790-bc8c-11e8-a9b2-0772b75a29a0',panelIndex:'2',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'3',w:6,x:0,y:3),id:b46a6590-bc99-11e8-a9b2-0772b75a29a0,panelIndex:'3',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'4',w:6,x:6,y:3),id:c0fd5980-bc98-11e8-a9b2-0772b75a29a0,panelIndex:'4',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'5',w:6,x:0,y:6),id:a28857f0-bc9a-11e8-a9b2-0772b75a29a0,panelIndex:'5',type:visualization,version:'6.2.3'),(gridData:(h:3,i:'7',w:6,x:6,y:6),id:'23725100-bc9a-11e8-a9b2-0772b75a29a0',panelIndex:'7',type:visualization,version:'6.2.3')),query:(language:lucene,query:''),timeRestore:!f,title:Custom_dashboard,viewMode:view)"
+
     this.valueis = true;
 
       this.userService.getUserByLoggedInId().subscribe(res => { 
@@ -96,7 +128,7 @@ export class LeftnavComponent implements OnInit {
           }
         }
 
-        this.dboardlinks.getDashboardLinksByPermission(this.loguserTypes).subscribe(res => {
+        this.kibanadboardlinks.getDashboardLinksByPermission(this.loguserTypes).subscribe(res => {
           for (var msg of res['message']) {
             this.cdashboard.push({ "topic": msg.topic, "link": msg.link })
           }

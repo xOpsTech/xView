@@ -72,6 +72,7 @@ import { IntroComponent } from './intro/intro.component';
 import { KibanaBoardsComponent } from './kibana-boards/kibana-boards.component';
 import { KibanaAdminComponent } from './kibana-admin/kibana-admin.component';
 import { AlertingtoolsComponent } from './alertingtools/alertingtools.component';
+import { DashboardLinks } from './services/dashboardlinks.service';
 
 
 
@@ -300,7 +301,7 @@ export function provideConfig() {
     DataGridModule,
     FileUploadModule
   ],
-  providers: [AuthService,PerfIndicatorService, AuthGuard, SnowAggsService, UserService, RssfeedService, IncidentService, {
+  providers: [AuthService,PerfIndicatorService, AuthGuard, SnowAggsService, UserService, RssfeedService, IncidentService,DashboardLinks, {
     provide: AuthServiceConfig,
     useFactory: provideConfig
   }],

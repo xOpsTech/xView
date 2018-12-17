@@ -62,6 +62,12 @@ export class UserService {
   }
 
   getUserByLoggedInId() {
+    if (localStorage.getItem("userDetails") && localStorage.getItem("userDetails") !== null) {
+      this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      this.tenant_id = this.userDetails.tenantId.toString();
+      this.userid = this.userDetails.id.toString();
+    }
+    console.log(this.userid)
     var token = localStorage.getItem('token');
     let headers = new Headers({ token });
     return this.http.get(this.getUserDetailsUrl + "/" + this.userid, { headers })

@@ -3,10 +3,19 @@ import { Http, Response, RequestOptions ,Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { config } from '../config/config';
 import 'rxjs';
-import {DashboardDetails} from '../models/dashboardDetails';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UserDetails } from '../models/userDetails';
 @Injectable()
 export class DashboardLinks {
+  
+  private obg = new BehaviorSubject<Array<any>>([]); 
+  cast = this.obg.asObservable();
+
+
+  loadDboardLinks(newObj){
+    console.log(newObj)
+    this.obg.next(newObj);
+  }
 
   userDetails: UserDetails = {
     userType: {
@@ -27,6 +36,7 @@ export class DashboardLinks {
      
     }
    }
+
 
   getDashboardLinks(tenantId) {
     var token = localStorage.getItem('token');

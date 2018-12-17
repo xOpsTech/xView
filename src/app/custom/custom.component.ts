@@ -30,9 +30,7 @@ export class CustomComponent implements OnInit {
     this.route.queryParams
     .filter(params => params.link)
     .subscribe(params => {
-      console.log("daasdasdasdasdads");
      var url = params;
-     console.log("daasdasdasdasdads" +url.link);
       if (localStorage.getItem("userDetails") !== null) {
         this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
       }
